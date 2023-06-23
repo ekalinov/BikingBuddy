@@ -4,18 +4,16 @@ using BikingBuddy.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
 namespace BikingBuddy.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230622124840_InitialCreate")]
-    partial class InitialCreate
+    [DbContext(typeof(BikingBuddyDbContext))]
+    partial class BikingBuddyDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,10 +22,41 @@ namespace BikingBuddy.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("BikingBuddy.Data.Models.Activity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("RideTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("TotalAscent")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TotalDistance")
+                        .HasMaxLength(50)
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RideTypeId");
+
+                    b.ToTable("Activity", (string)null);
+                });
+
             modelBuilder.Entity("BikingBuddy.Data.Models.AppUser", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
@@ -77,11 +106,18 @@ namespace BikingBuddy.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("ProfileImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Shoes")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TeamId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
@@ -101,6 +137,8 @@ namespace BikingBuddy.Data.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("TeamId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -140,7 +178,7 @@ namespace BikingBuddy.Data.Migrations
 
                     b.HasIndex("BikeTypeId");
 
-                    b.ToTable("Bike");
+                    b.ToTable("Bike", (string)null);
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.BikeType", b =>
@@ -158,7 +196,7 @@ namespace BikingBuddy.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BikeType");
+                    b.ToTable("BikeType", (string)null);
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.Comment", b =>
@@ -177,9 +215,8 @@ namespace BikingBuddy.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -187,7 +224,7 @@ namespace BikingBuddy.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comment");
+                    b.ToTable("Comment", (string)null);
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.Country", b =>
@@ -203,13 +240,16 @@ namespace BikingBuddy.Data.Migrations
 
                     b.HasKey("Code");
 
-                    b.ToTable("Country");
+                    b.ToTable("Country", (string)null);
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.Event", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ActivityId")
+                        .HasColumnType("int");
 
                     b.Property<string>("CountryId")
                         .IsRequired()
@@ -223,16 +263,14 @@ namespace BikingBuddy.Data.Migrations
                         .HasMaxLength(1500)
                         .HasColumnType("nvarchar(1500)");
 
+                    b.Property<string>("EventImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("MunicipalityId")
-                        .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<string>("OrganizerId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("RideTypeId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("OrganizerId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -244,17 +282,17 @@ namespace BikingBuddy.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ActivityId");
+
                     b.HasIndex("CountryId");
 
                     b.HasIndex("MunicipalityId");
 
                     b.HasIndex("OrganizerId");
 
-                    b.HasIndex("RideTypeId");
-
                     b.HasIndex("TownId");
 
-                    b.ToTable("Event");
+                    b.ToTable("Event", (string)null);
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.EventParticipants", b =>
@@ -262,14 +300,17 @@ namespace BikingBuddy.Data.Migrations
                     b.Property<string>("EventId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ParticipantId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("ParticipantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
 
                     b.HasKey("EventId", "ParticipantId");
 
                     b.HasIndex("ParticipantId");
 
-                    b.ToTable("EventsParticipants");
+                    b.ToTable("EventsParticipants", (string)null);
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.Municipality", b =>
@@ -287,7 +328,7 @@ namespace BikingBuddy.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Municipality");
+                    b.ToTable("Municipality", (string)null);
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.RideType", b =>
@@ -298,26 +339,35 @@ namespace BikingBuddy.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<double>("TotalAscent")
-                        .HasColumnType("float");
-
-                    b.Property<double>("TotalDistance")
-                        .HasMaxLength(20)
-                        .HasColumnType("float");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppUserId");
+                    b.ToTable("RideTypes", (string)null);
+                });
 
-                    b.ToTable("RideType");
+            modelBuilder.Entity("BikingBuddy.Data.Models.Team", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("EstablishedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("TeamImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Team", (string)null);
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.Town", b =>
@@ -335,28 +385,29 @@ namespace BikingBuddy.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Town");
+                    b.ToTable("Town", (string)null);
                 });
 
-            modelBuilder.Entity("BikingBuddy.Data.Models.TownEvent", b =>
+            modelBuilder.Entity("BikingBuddy.Data.Models.UserActivity", b =>
                 {
-                    b.Property<string>("EventId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("TownId")
+                    b.Property<int>("ActivityId")
                         .HasColumnType("int");
 
-                    b.HasKey("EventId", "TownId");
+                    b.Property<Guid>("AppUserId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("TownId");
+                    b.HasKey("ActivityId", "AppUserId");
 
-                    b.ToTable("TownEvent");
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("UsersActivities", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -380,7 +431,7 @@ namespace BikingBuddy.Data.Migrations
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -394,9 +445,8 @@ namespace BikingBuddy.Data.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -405,7 +455,7 @@ namespace BikingBuddy.Data.Migrations
                     b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -419,9 +469,8 @@ namespace BikingBuddy.Data.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -430,7 +479,7 @@ namespace BikingBuddy.Data.Migrations
                     b.ToTable("AspNetUserClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
@@ -443,9 +492,8 @@ namespace BikingBuddy.Data.Migrations
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -454,13 +502,13 @@ namespace BikingBuddy.Data.Migrations
                     b.ToTable("AspNetUserLogins", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -469,10 +517,10 @@ namespace BikingBuddy.Data.Migrations
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
@@ -490,13 +538,32 @@ namespace BikingBuddy.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("BikingBuddy.Data.Models.Activity", b =>
+                {
+                    b.HasOne("BikingBuddy.Data.Models.RideType", "RideType")
+                        .WithMany()
+                        .HasForeignKey("RideTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RideType");
+                });
+
             modelBuilder.Entity("BikingBuddy.Data.Models.AppUser", b =>
                 {
                     b.HasOne("BikingBuddy.Data.Models.Bike", "Bike")
                         .WithMany()
                         .HasForeignKey("BikeId");
 
+                    b.HasOne("BikingBuddy.Data.Models.Team", "Team")
+                        .WithMany("TeamBikers")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Bike");
+
+                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.Bike", b =>
@@ -515,7 +582,7 @@ namespace BikingBuddy.Data.Migrations
                     b.HasOne("BikingBuddy.Data.Models.Event", "Event")
                         .WithMany("EventComments")
                         .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("BikingBuddy.Data.Models.AppUser", "User")
@@ -531,6 +598,12 @@ namespace BikingBuddy.Data.Migrations
 
             modelBuilder.Entity("BikingBuddy.Data.Models.Event", b =>
                 {
+                    b.HasOne("BikingBuddy.Data.Models.Activity", "Activity")
+                        .WithMany()
+                        .HasForeignKey("ActivityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("BikingBuddy.Data.Models.Country", "Country")
                         .WithMany("CountryEvents")
                         .HasForeignKey("CountryId")
@@ -539,9 +612,7 @@ namespace BikingBuddy.Data.Migrations
 
                     b.HasOne("BikingBuddy.Data.Models.Municipality", "Municipality")
                         .WithMany()
-                        .HasForeignKey("MunicipalityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MunicipalityId");
 
                     b.HasOne("BikingBuddy.Data.Models.AppUser", "Organizer")
                         .WithMany()
@@ -549,25 +620,19 @@ namespace BikingBuddy.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BikingBuddy.Data.Models.RideType", "RideType")
-                        .WithMany()
-                        .HasForeignKey("RideTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("BikingBuddy.Data.Models.Town", "Town")
-                        .WithMany()
+                        .WithMany("TownEvents")
                         .HasForeignKey("TownId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Activity");
 
                     b.Navigation("Country");
 
                     b.Navigation("Municipality");
 
                     b.Navigation("Organizer");
-
-                    b.Navigation("RideType");
 
                     b.Navigation("Town");
                 });
@@ -577,13 +642,13 @@ namespace BikingBuddy.Data.Migrations
                     b.HasOne("BikingBuddy.Data.Models.Event", "Event")
                         .WithMany("EventsParticipants")
                         .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("BikingBuddy.Data.Models.AppUser", "Participant")
                         .WithMany("EventsParticipants")
                         .HasForeignKey("ParticipantId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Event");
@@ -591,42 +656,35 @@ namespace BikingBuddy.Data.Migrations
                     b.Navigation("Participant");
                 });
 
-            modelBuilder.Entity("BikingBuddy.Data.Models.RideType", b =>
+            modelBuilder.Entity("BikingBuddy.Data.Models.UserActivity", b =>
                 {
-                    b.HasOne("BikingBuddy.Data.Models.AppUser", null)
-                        .WithMany("RideTypes")
-                        .HasForeignKey("AppUserId");
-                });
-
-            modelBuilder.Entity("BikingBuddy.Data.Models.TownEvent", b =>
-                {
-                    b.HasOne("BikingBuddy.Data.Models.Event", "Event")
-                        .WithMany()
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BikingBuddy.Data.Models.Town", "Town")
-                        .WithMany("TownEvents")
-                        .HasForeignKey("TownId")
+                    b.HasOne("BikingBuddy.Data.Models.Activity", "Activity")
+                        .WithMany("UserActivities")
+                        .HasForeignKey("ActivityId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Event");
+                    b.HasOne("BikingBuddy.Data.Models.AppUser", "AppUser")
+                        .WithMany("UserActivities")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.Navigation("Town");
+                    b.Navigation("Activity");
+
+                    b.Navigation("AppUser");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
                     b.HasOne("BikingBuddy.Data.Models.AppUser", null)
                         .WithMany()
@@ -635,7 +693,7 @@ namespace BikingBuddy.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
                     b.HasOne("BikingBuddy.Data.Models.AppUser", null)
                         .WithMany()
@@ -644,9 +702,9 @@ namespace BikingBuddy.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -659,20 +717,25 @@ namespace BikingBuddy.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
                     b.HasOne("BikingBuddy.Data.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("BikingBuddy.Data.Models.Activity", b =>
+                {
+                    b.Navigation("UserActivities");
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.AppUser", b =>
                 {
                     b.Navigation("EventsParticipants");
 
-                    b.Navigation("RideTypes");
+                    b.Navigation("UserActivities");
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.Country", b =>
@@ -685,6 +748,11 @@ namespace BikingBuddy.Data.Migrations
                     b.Navigation("EventComments");
 
                     b.Navigation("EventsParticipants");
+                });
+
+            modelBuilder.Entity("BikingBuddy.Data.Models.Team", b =>
+                {
+                    b.Navigation("TeamBikers");
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.Town", b =>

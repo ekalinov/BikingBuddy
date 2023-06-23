@@ -30,15 +30,18 @@
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; } = null!;
 
-        [Required]
-        public int RideTypeId { get; set; }
-
-        [ForeignKey(nameof(RideTypeId))]
-        public RideType RideType { get; set; } = null!;
-
+        [Url]
+        public string? EventImageUrl { get; set; }
 
         [Required]
-        public string OrganizerId { get; set; } = null!;
+        public int ActivityId { get; set; }
+
+        [ForeignKey(nameof(ActivityId))]
+        public Activity Activity { get; set; } = null!;
+
+
+        [Required]
+        public Guid OrganizerId { get; set; } 
 
         [ForeignKey(nameof(OrganizerId))]
         public AppUser Organizer { get; set; } = null!;
@@ -51,8 +54,9 @@
         public string CountryId { get; set; } = null!;
 
 
+
         [ForeignKey(nameof(MunicipalityId))]
-        public Municipality Municipality { get; set; } = null!;
+        public Municipality? Municipality { get; set; } = null!;
 
         public int? MunicipalityId { get; set; }
 

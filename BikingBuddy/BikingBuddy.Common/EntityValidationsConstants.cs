@@ -14,6 +14,12 @@ namespace BikingBuddy.Common
             public const int NameMinLength = 5;
         }
 
+        public class RideType
+        {
+            public const int NameMaxLength = 15;
+            public const int NameMinLength = 3;
+        }
+
         public class Bike
         {
             public const int FrameBrandMaxLength = 20;
@@ -35,9 +41,9 @@ namespace BikingBuddy.Common
             public const int NameMinLength = 2;
         }
 
-        public class RideType
+        public class Ride
         {
-            public const int NameMaxLength = 20;
+            public const int NameMaxLength = 50;
             public const int NameMinLength = 3;
         }
 
@@ -62,6 +68,12 @@ namespace BikingBuddy.Common
         {
             public const int NameMaxLength = 20;
             public const int NameMinLength = 3;
+        }
+
+        public class Team
+        {
+            public const int NameMaxLength = 30;
+            public const int NameMinLength = 2;
         }
 
         public class Town

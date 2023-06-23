@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BikingBuddy.Data.Models
+﻿namespace BikingBuddy.Data.Models
 {
+
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class Comment
     {
         public int Id { get; set; }
 
         public string EventId { get; set; } = null!;
 
-        [ForeignKey(nameof(EventId))] 
+        [ForeignKey(nameof(EventId))]
         public Event Event { get; set; } = null!;
-        
 
-        public string UserId { get; set; } = null!;
+
+        public Guid UserId { get; set; }
 
         [ForeignKey(nameof(UserId))]
         public AppUser User { get; set; } = null!;

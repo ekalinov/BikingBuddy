@@ -1,17 +1,31 @@
-using BikingBuddy.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
+using BikingBuddy.Data;
+using BikingBuddy.Data.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddDbContext<BikingBuddyDbContext>(options =>
+    options.UseSqlServer(connectionString));
+
+
+builder.Services.AddDefaultIdentity<AppUser>(options =>
+    {
+        options.SignIn.RequireConfirmedAccount = builder.Configuration.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
+
+
+        options.Password.RequireDigit = builder.Configuration.GetValue<bool>("Identity:Password:RequireDigit");
+        options.Password.RequireNonAlphanumeric= builder.Configuration.GetValue<bool>("Identity:Password:RequireNonAlphanumeric");
+        options.Password.RequireLowercase= builder.Configuration.GetValue<bool>("Identity:Password:");
+        options.Password.RequireUppercase= builder.Configuration.GetValue<bool>("Identity:Password:RequireUppercase");
+        options.Password.RequireNonAlphanumeric= builder.Configuration.GetValue<bool>("Identity:Password:RequireNonAlphanumeric");
+        options.Password.RequiredLength = builder.Configuration.GetValue<int>("Identity:Password:RequiredLength");
+    })
+    .AddEntityFrameworkStores<BikingBuddyDbContext>();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -20,6 +34,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+    app.UseDeveloperExceptionPage();
 }
 else
 {

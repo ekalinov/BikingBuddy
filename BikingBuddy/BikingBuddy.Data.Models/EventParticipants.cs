@@ -6,7 +6,8 @@
     public class EventParticipants
     {
         [Required]
-        public string ParticipantId { get; set; } = null!;
+        public Guid ParticipantId { get; set; } 
+
 
         [ForeignKey(nameof(ParticipantId))]
         public AppUser Participant { get; set; } = null!;
@@ -16,5 +17,8 @@
 
         [ForeignKey(nameof(EventId))]
         public Event Event { get; set; } = null!;
+
+        public bool IsCompleted { get; set; } = false;
+
     }
 }

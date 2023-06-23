@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Web\\BikingBuddy.Web.csproj": {}
+    "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Web\\BikingBuddy.Web.csproj": {}
   },
   "projects": {
-    "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Common\\BikingBuddy.Common.csproj": {
+    "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Common\\BikingBuddy.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Common\\BikingBuddy.Common.csproj",
+        "projectUniqueName": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Common\\BikingBuddy.Common.csproj",
         "projectName": "BikingBuddy.Common",
-        "projectPath": "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Common\\BikingBuddy.Common.csproj",
+        "projectPath": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Common\\BikingBuddy.Common.csproj",
         "packagesPath": "C:\\Users\\OMEN\\.nuget\\packages\\",
-        "outputPath": "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Common\\obj\\",
+        "outputPath": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Common\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\OMEN\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -59,14 +59,14 @@
         }
       }
     },
-    "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data.Models\\BikingBuddy.Data.Models.csproj": {
+    "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data.Models\\BikingBuddy.Data.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data.Models\\BikingBuddy.Data.Models.csproj",
+        "projectUniqueName": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data.Models\\BikingBuddy.Data.Models.csproj",
         "projectName": "BikingBuddy.Data.Models",
-        "projectPath": "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data.Models\\BikingBuddy.Data.Models.csproj",
+        "projectPath": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data.Models\\BikingBuddy.Data.Models.csproj",
         "packagesPath": "C:\\Users\\OMEN\\.nuget\\packages\\",
-        "outputPath": "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data.Models\\obj\\",
+        "outputPath": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data.Models\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\OMEN\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -83,8 +83,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Common\\BikingBuddy.Common.csproj": {
-                "projectPath": "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Common\\BikingBuddy.Common.csproj"
+              "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Common\\BikingBuddy.Common.csproj": {
+                "projectPath": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Common\\BikingBuddy.Common.csproj"
               }
             }
           }
@@ -128,14 +128,14 @@
         }
       }
     },
-    "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data\\BikingBuddy.Data.csproj": {
+    "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data\\BikingBuddy.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data\\BikingBuddy.Data.csproj",
+        "projectUniqueName": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data\\BikingBuddy.Data.csproj",
         "projectName": "BikingBuddy.Data",
-        "projectPath": "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data\\BikingBuddy.Data.csproj",
+        "projectPath": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data\\BikingBuddy.Data.csproj",
         "packagesPath": "C:\\Users\\OMEN\\.nuget\\packages\\",
-        "outputPath": "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data\\obj\\",
+        "outputPath": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\OMEN\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -152,11 +152,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Common\\BikingBuddy.Common.csproj": {
-                "projectPath": "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Common\\BikingBuddy.Common.csproj"
+              "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Common\\BikingBuddy.Common.csproj": {
+                "projectPath": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Common\\BikingBuddy.Common.csproj"
               },
-              "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data.Models\\BikingBuddy.Data.Models.csproj": {
-                "projectPath": "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data.Models\\BikingBuddy.Data.Models.csproj"
+              "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data.Models\\BikingBuddy.Data.Models.csproj": {
+                "projectPath": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data.Models\\BikingBuddy.Data.Models.csproj"
               }
             }
           }
@@ -206,14 +206,14 @@
         }
       }
     },
-    "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Services\\BikingBuddy.Services.csproj": {
+    "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Services\\BikingBuddy.Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Services\\BikingBuddy.Services.csproj",
+        "projectUniqueName": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Services\\BikingBuddy.Services.csproj",
         "projectName": "BikingBuddy.Services",
-        "projectPath": "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Services\\BikingBuddy.Services.csproj",
+        "projectPath": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Services\\BikingBuddy.Services.csproj",
         "packagesPath": "C:\\Users\\OMEN\\.nuget\\packages\\",
-        "outputPath": "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Services\\obj\\",
+        "outputPath": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Services\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\OMEN\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -230,8 +230,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data\\BikingBuddy.Data.csproj": {
-                "projectPath": "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data\\BikingBuddy.Data.csproj"
+              "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data\\BikingBuddy.Data.csproj": {
+                "projectPath": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data\\BikingBuddy.Data.csproj"
               }
             }
           }
@@ -265,14 +265,14 @@
         }
       }
     },
-    "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Web\\BikingBuddy.Web.csproj": {
+    "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Web\\BikingBuddy.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Web\\BikingBuddy.Web.csproj",
+        "projectUniqueName": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Web\\BikingBuddy.Web.csproj",
         "projectName": "BikingBuddy.Web",
-        "projectPath": "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Web\\BikingBuddy.Web.csproj",
+        "projectPath": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Web\\BikingBuddy.Web.csproj",
         "packagesPath": "C:\\Users\\OMEN\\.nuget\\packages\\",
-        "outputPath": "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Web\\obj\\",
+        "outputPath": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Web\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\OMEN\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -289,11 +289,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data\\BikingBuddy.Data.csproj": {
-                "projectPath": "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data\\BikingBuddy.Data.csproj"
+              "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data\\BikingBuddy.Data.csproj": {
+                "projectPath": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data\\BikingBuddy.Data.csproj"
               },
-              "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Services\\BikingBuddy.Services.csproj": {
-                "projectPath": "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Services\\BikingBuddy.Services.csproj"
+              "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Services\\BikingBuddy.Services.csproj": {
+                "projectPath": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Services\\BikingBuddy.Services.csproj"
               }
             }
           }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BikingBuddy.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class UserActivityAdded : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,7 @@ namespace BikingBuddy.Data.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -62,6 +62,33 @@ namespace BikingBuddy.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RideTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RideTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Team",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    EstablishedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    TeamImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Team", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Town",
                 columns: table => new
                 {
@@ -80,7 +107,7 @@ namespace BikingBuddy.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -120,14 +147,38 @@ namespace BikingBuddy.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Activity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    TotalDistance = table.Column<double>(type: "float", maxLength: 50, nullable: false),
+                    TotalAscent = table.Column<double>(type: "float", nullable: false),
+                    RideTypeId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Activity", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Activity_RideTypes_RideTypeId",
+                        column: x => x.RideTypeId,
+                        principalTable: "RideTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     BikeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Helmet = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Shoes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TeamId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProfileImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -151,6 +202,12 @@ namespace BikingBuddy.Data.Migrations
                         column: x => x.BikeId,
                         principalTable: "Bike",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Team_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Team",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -159,7 +216,7 @@ namespace BikingBuddy.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -181,7 +238,7 @@ namespace BikingBuddy.Data.Migrations
                     LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -198,8 +255,8 @@ namespace BikingBuddy.Data.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -222,7 +279,7 @@ namespace BikingBuddy.Data.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -239,27 +296,6 @@ namespace BikingBuddy.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RideType",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    TotalDistance = table.Column<double>(type: "float", maxLength: 20, nullable: false),
-                    TotalAscent = table.Column<double>(type: "float", nullable: false),
-                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RideType", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RideType_AspNetUsers_AppUserId",
-                        column: x => x.AppUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Event",
                 columns: table => new
                 {
@@ -267,8 +303,9 @@ namespace BikingBuddy.Data.Migrations
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(1500)", maxLength: 1500, nullable: false),
+                    EventImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RideTypeId = table.Column<int>(type: "int", nullable: false),
-                    OrganizerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    OrganizerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CountryId = table.Column<string>(type: "nvarchar(2)", nullable: false),
                     MunicipalityId = table.Column<int>(type: "int", nullable: false),
                     TownId = table.Column<int>(type: "int", nullable: false)
@@ -276,6 +313,12 @@ namespace BikingBuddy.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Event", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Event_Activity_RideTypeId",
+                        column: x => x.RideTypeId,
+                        principalTable: "Activity",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Event_AspNetUsers_OrganizerId",
                         column: x => x.OrganizerId,
@@ -295,17 +338,35 @@ namespace BikingBuddy.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Event_RideType_RideTypeId",
-                        column: x => x.RideTypeId,
-                        principalTable: "RideType",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Event_Town_TownId",
                         column: x => x.TownId,
                         principalTable: "Town",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UsersActivities",
+                columns: table => new
+                {
+                    AppUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ActivityId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UsersActivities", x => new { x.ActivityId, x.AppUserId });
+                    table.ForeignKey(
+                        name: "FK_UsersActivities_Activity_ActivityId",
+                        column: x => x.ActivityId,
+                        principalTable: "Activity",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UsersActivities_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -315,7 +376,7 @@ namespace BikingBuddy.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EventId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CommentBody = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -331,15 +392,17 @@ namespace BikingBuddy.Data.Migrations
                         name: "FK_Comment_Event_EventId",
                         column: x => x.EventId,
                         principalTable: "Event",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "EventsParticipants",
                 columns: table => new
                 {
-                    ParticipantId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    EventId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    ParticipantId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EventId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IsCompleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -348,12 +411,14 @@ namespace BikingBuddy.Data.Migrations
                         name: "FK_EventsParticipants_AspNetUsers_ParticipantId",
                         column: x => x.ParticipantId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_EventsParticipants_Event_EventId",
                         column: x => x.EventId,
                         principalTable: "Event",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -379,6 +444,11 @@ namespace BikingBuddy.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Activity_RideTypeId",
+                table: "Activity",
+                column: "RideTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -416,6 +486,11 @@ namespace BikingBuddy.Data.Migrations
                 name: "IX_AspNetUsers_BikeId",
                 table: "AspNetUsers",
                 column: "BikeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_TeamId",
+                table: "AspNetUsers",
+                column: "TeamId");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
@@ -470,14 +545,14 @@ namespace BikingBuddy.Data.Migrations
                 column: "ParticipantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RideType_AppUserId",
-                table: "RideType",
-                column: "AppUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_TownEvent_TownId",
                 table: "TownEvent",
                 column: "TownId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UsersActivities_AppUserId",
+                table: "UsersActivities",
+                column: "AppUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -507,10 +582,19 @@ namespace BikingBuddy.Data.Migrations
                 name: "TownEvent");
 
             migrationBuilder.DropTable(
+                name: "UsersActivities");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Event");
+
+            migrationBuilder.DropTable(
+                name: "Activity");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Country");
@@ -519,16 +603,16 @@ namespace BikingBuddy.Data.Migrations
                 name: "Municipality");
 
             migrationBuilder.DropTable(
-                name: "RideType");
-
-            migrationBuilder.DropTable(
                 name: "Town");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "RideTypes");
 
             migrationBuilder.DropTable(
                 name: "Bike");
+
+            migrationBuilder.DropTable(
+                name: "Team");
 
             migrationBuilder.DropTable(
                 name: "BikeType");

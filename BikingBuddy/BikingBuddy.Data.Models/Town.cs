@@ -10,7 +10,7 @@
 
         public Town()
         {
-            this.TownEvents = new HashSet<TownEvent>();
+            this.TownEvents = new HashSet<Event>();
         }
         
 
@@ -23,6 +23,6 @@
         public string Name { get; set; } = null!;
 
 
-        public ICollection<TownEvent> TownEvents { get; set; } 
+        public ICollection<Event> TownEvents { get; set; } 
     }
 }

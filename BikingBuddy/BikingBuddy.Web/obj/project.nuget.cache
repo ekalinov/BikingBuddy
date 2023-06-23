@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lt3qScJetI+Yg8uytxmr0GqYFRfo8zjmbWogSegfaOXWPjBHV75N/VhchMJQJ/D/lw58pyEkkodxlngZOQvrRg==",
+  "dgSpecHash": "whx/nIG3XFZ3jdG9BX6rpLHkDEFJvmmC2XCk3gSFooIlVenDob5/ZZS+5PHVPlvYV2GUt3wsVt2nrC7IqcMiFg==",
   "success": true,
-  "projectFilePath": "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Web\\BikingBuddy.Web.csproj",
+  "projectFilePath": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Web\\BikingBuddy.Web.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\OMEN\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\OMEN\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.10\\microsoft.aspnetcore.cryptography.internal.6.0.10.nupkg.sha512",

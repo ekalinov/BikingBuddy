@@ -1,5 +1,4 @@
-﻿
-namespace BikingBuddy.Data.Models
+﻿namespace BikingBuddy.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
 
@@ -14,4 +13,5 @@ namespace BikingBuddy.Data.Models
         [MaxLength(NameMaxLength)]
         public string Name { get; set; } = null!;
     }
+    
 }

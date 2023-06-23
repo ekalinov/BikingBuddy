@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MXfd9wRI4qjktbPw/oTnaiMv3RnLCaXM4b4AjNMr15b2Qiv9kpA4+87mbJEUnqukkGdKkmGr/F+cEzGBo4slNQ==",
+  "dgSpecHash": "7hzJtzco8nTk0qWlNh5CxoinJTeey9kEDpngbL88GxMU8f6f7cvqhyETstR590iSlgvTAoARQOa2CZtEwV80Jw==",
   "success": true,
-  "projectFilePath": "D:\\Emo\\SU_repos\\CSharp_WebModule_ASP.NET_Fundamentals_May2023\\BikingBuddy\\BikingBuddy\\BikingBuddy.Services\\BikingBuddy.Services.csproj",
+  "projectFilePath": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Services\\BikingBuddy.Services.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\OMEN\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.10\\microsoft.aspnetcore.cryptography.internal.6.0.10.nupkg.sha512",
     "C:\\Users\\OMEN\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.10\\microsoft.aspnetcore.cryptography.keyderivation.6.0.10.nupkg.sha512",

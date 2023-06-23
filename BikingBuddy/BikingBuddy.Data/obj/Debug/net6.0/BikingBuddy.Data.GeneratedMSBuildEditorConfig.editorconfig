@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = BikingBuddy.Data
-build_property.ProjectDir = D:\Emo\SU_repos\CSharp_WebModule_ASP.NET_Fundamentals_May2023\BikingBuddy\BikingBuddy\BikingBuddy.Data\
+build_property.ProjectDir = D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Data\

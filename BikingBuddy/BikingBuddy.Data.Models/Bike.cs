@@ -2,9 +2,8 @@
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-
     using static BikingBuddy.Common.EntityValidationsConstants.Bike;
-    
+
     public class Bike
     {
         public Bike()

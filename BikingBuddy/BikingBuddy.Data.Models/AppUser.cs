@@ -7,12 +7,12 @@
     using static Common.EntityValidationsConstants.User;
 
 
-    public class AppUser : IdentityUser
+    public class AppUser : IdentityUser<Guid>
     {
         public AppUser()
         {
             this.EventsParticipants = new HashSet<EventParticipants>();
-            this.RideTypes = new HashSet<RideType>();
+            this.UserActivities = new HashSet<UserActivity>();
         }
 
         [Required]
@@ -28,8 +28,17 @@
 
         public string? Shoes { get; set; } = null!;
 
+        public string TeamId { get; set; } = null!;
 
-        public ICollection<RideType> RideTypes { get; set; } 
+        [ForeignKey(nameof(TeamId))]
+        public Team? Team { get; set; } = null!;
+
+        [Url]
+        public string? ProfileImageUrl { get; set; }
+
+
+
+        public ICollection<UserActivity> UserActivities { get; set; }
 
         public ICollection<EventParticipants> EventsParticipants { get; set; } 
 
