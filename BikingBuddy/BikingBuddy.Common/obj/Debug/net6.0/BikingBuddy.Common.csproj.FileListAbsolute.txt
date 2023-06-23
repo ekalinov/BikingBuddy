@@ -1,0 +1,12 @@
+D:\Emo\SU_repos\CSharp_WebModule_ASP.NET_Fundamentals_May2023\BikingBuddy\BikingBuddy\BikingBuddy.Common\bin\Debug\net6.0\BikingBuddy.Common.deps.json
+D:\Emo\SU_repos\CSharp_WebModule_ASP.NET_Fundamentals_May2023\BikingBuddy\BikingBuddy\BikingBuddy.Common\bin\Debug\net6.0\BikingBuddy.Common.dll
+D:\Emo\SU_repos\CSharp_WebModule_ASP.NET_Fundamentals_May2023\BikingBuddy\BikingBuddy\BikingBuddy.Common\bin\Debug\net6.0\BikingBuddy.Common.pdb
+D:\Emo\SU_repos\CSharp_WebModule_ASP.NET_Fundamentals_May2023\BikingBuddy\BikingBuddy\BikingBuddy.Common\obj\Debug\net6.0\BikingBuddy.Common.csproj.AssemblyReference.cache
+D:\Emo\SU_repos\CSharp_WebModule_ASP.NET_Fundamentals_May2023\BikingBuddy\BikingBuddy\BikingBuddy.Common\obj\Debug\net6.0\BikingBuddy.Common.GeneratedMSBuildEditorConfig.editorconfig
+D:\Emo\SU_repos\CSharp_WebModule_ASP.NET_Fundamentals_May2023\BikingBuddy\BikingBuddy\BikingBuddy.Common\obj\Debug\net6.0\BikingBuddy.Common.AssemblyInfoInputs.cache
+D:\Emo\SU_repos\CSharp_WebModule_ASP.NET_Fundamentals_May2023\BikingBuddy\BikingBuddy\BikingBuddy.Common\obj\Debug\net6.0\BikingBuddy.Common.AssemblyInfo.cs
+D:\Emo\SU_repos\CSharp_WebModule_ASP.NET_Fundamentals_May2023\BikingBuddy\BikingBuddy\BikingBuddy.Common\obj\Debug\net6.0\BikingBuddy.Common.csproj.CoreCompileInputs.cache
+D:\Emo\SU_repos\CSharp_WebModule_ASP.NET_Fundamentals_May2023\BikingBuddy\BikingBuddy\BikingBuddy.Common\obj\Debug\net6.0\BikingBuddy.Common.dll
+D:\Emo\SU_repos\CSharp_WebModule_ASP.NET_Fundamentals_May2023\BikingBuddy\BikingBuddy\BikingBuddy.Common\obj\Debug\net6.0\refint\BikingBuddy.Common.dll
+D:\Emo\SU_repos\CSharp_WebModule_ASP.NET_Fundamentals_May2023\BikingBuddy\BikingBuddy\BikingBuddy.Common\obj\Debug\net6.0\BikingBuddy.Common.pdb
+D:\Emo\SU_repos\CSharp_WebModule_ASP.NET_Fundamentals_May2023\BikingBuddy\BikingBuddy\BikingBuddy.Common\obj\Debug\net6.0\ref\BikingBuddy.Common.dll
