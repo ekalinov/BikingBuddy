@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v6.0": {
       "BikingBuddy.Services/1.0.0": {
         "dependencies": {
-          "BikingBuddy.Data": "1.0.0"
+          "BikingBuddy.Data": "1.0.0",
+          "BikingBuddy.Web.Models": "1.0.0"
         },
         "runtime": {
           "BikingBuddy.Services.dll": {}
@@ -538,6 +539,15 @@
         "runtime": {
           "BikingBuddy.Data.Models.dll": {}
         }
+      },
+      "BikingBuddy.Web.Models/1.0.0": {
+        "dependencies": {
+          "BikingBuddy.Common": "1.0.0",
+          "BikingBuddy.Data.Models": "1.0.0"
+        },
+        "runtime": {
+          "BikingBuddy.Web.Models.dll": {}
+        }
       }
     }
   },
@@ -873,6 +883,11 @@
       "sha512": ""
     },
     "BikingBuddy.Data.Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BikingBuddy.Web.Models/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

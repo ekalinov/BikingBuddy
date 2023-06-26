@@ -1,6 +1,5 @@
 ﻿namespace BikingBuddy.Data.Models
 {
-
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,17 +7,19 @@
     {
         public int Id { get; set; }
 
-        public string EventId { get; set; } = null!;
+        public Guid EventId { get; set; } 
 
         [ForeignKey(nameof(EventId))]
         public Event Event { get; set; } = null!;
 
-
         public Guid UserId { get; set; }
-
+        
         [ForeignKey(nameof(UserId))]
         public AppUser User { get; set; } = null!;
 
+        [Required]
+        public DateTime CommentedOn { get; set; }
+        
         [Required]
         public string CommentBody { get; set; } = null!;
     }

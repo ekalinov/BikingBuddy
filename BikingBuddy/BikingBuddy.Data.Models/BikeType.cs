@@ -10,7 +10,7 @@
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(NameMaxLength)]
+        [MaxLength(BikeTypeNameMaxLength)]
         public string Name { get; set; } = null!;
     }
     

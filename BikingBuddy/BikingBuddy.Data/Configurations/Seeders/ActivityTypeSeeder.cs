@@ -16,7 +16,8 @@
                 new ActivityType(){Id = 5, Name = "Downhill Track"},
                 new ActivityType(){Id = 6, Name = "Trail"},
                 new ActivityType(){Id = 7, Name = "Bikepacking"},
-                new ActivityType(){Id = 8,Name="Other"}
+                new ActivityType(){Id = 8, Name = "Race"},
+                new ActivityType(){Id = 9,Name="Other"}
             };
 
             return rideTypes.ToArray();

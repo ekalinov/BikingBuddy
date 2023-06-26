@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static BikingBuddy.Common.EntityValidationsConstants.Region;
+    using static BikingBuddy.Common.EntityValidationsConstants.Municipality;
 
 
     public class Municipality
@@ -12,7 +12,7 @@
 
 
         [Required]
-        [MaxLength(NameMaxLength)]
+        [MaxLength(MunicipalityNameMaxLength)]
         public string Name { get; set; } = null!;
     }
 }

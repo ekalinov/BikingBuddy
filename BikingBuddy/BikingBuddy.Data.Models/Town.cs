@@ -19,7 +19,7 @@
 
 
         [Required]
-        [MaxLength(NameMaxLength)]
+        [MaxLength(TownNameMaxLength)]
         public string Name { get; set; } = null!;
 
 

@@ -860,6 +860,20 @@
         "runtime": {
           "bin/placeholder/BikingBuddy.Data.Models.dll": {}
         }
+      },
+      "BikingBuddy.Web.Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "BikingBuddy.Common": "1.0.0",
+          "BikingBuddy.Data.Models": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BikingBuddy.Web.Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BikingBuddy.Web.Models.dll": {}
+        }
       }
     }
   },
@@ -2131,11 +2145,17 @@
       "type": "project",
       "path": "../BikingBuddy.Data.Models/BikingBuddy.Data.Models.csproj",
       "msbuildProject": "../BikingBuddy.Data.Models/BikingBuddy.Data.Models.csproj"
+    },
+    "BikingBuddy.Web.Models/1.0.0": {
+      "type": "project",
+      "path": "../BikingBuddy.Web.Models/BikingBuddy.Web.Models.csproj",
+      "msbuildProject": "../BikingBuddy.Web.Models/BikingBuddy.Web.Models.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "BikingBuddy.Data >= 1.0.0"
+      "BikingBuddy.Data >= 1.0.0",
+      "BikingBuddy.Web.Models >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -2167,6 +2187,9 @@
           "projectReferences": {
             "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data\\BikingBuddy.Data.csproj": {
               "projectPath": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Data\\BikingBuddy.Data.csproj"
+            },
+            "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Web.Models\\BikingBuddy.Web.Models.csproj": {
+              "projectPath": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Web.Models\\BikingBuddy.Web.Models.csproj"
             }
           }
         }

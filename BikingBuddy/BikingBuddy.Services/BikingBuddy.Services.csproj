@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BikingBuddy.Data\BikingBuddy.Data.csproj" />
+    <ProjectReference Include="..\BikingBuddy.Web.Models\BikingBuddy.Web.Models.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,83 @@
+﻿@model EventViewModel
+@{
+    ViewBag.Title = "Create a New Event";
+}
+
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-action="Edit" method="post">
+            <div class="mb-3">
+                <label asp-for="@Model.Title" class="form-label-add-edit">Name</label>
+                <input asp-for="@Model.Title" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.Title" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Date" class="form-label-add-edit">Start</label>
+                <input type="datetime" asp-for="@Model.Date" class="form-control" aria-required="true" value="@DateTime.Now.ToString("yyyy-MM-dd H:mm")" />
+                <span asp-validation-for="@Model.Date" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Description" class="form-label-add-edit">Description</label>
+                <textarea asp-for="@Model.Description" class="form-control" aria-required="true" rows="5"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Distance" class="form-label">Distance</label>
+                <input type="number" asp-for="@Model.Distance" class="form-control" />
+                <span asp-validation-for="@Model.Distance" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Ascent" class="form-label">Ascent</label>
+                <input type="number" asp-for="@Model.Ascent" class="form-control" />
+                <span asp-validation-for="@Model.Ascent" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.ActivityTypeId" class="form-label-add-edit">Type of event</label>
+                <select asp-for="@Model.ActivityTypeId" class="form-control" aria-required="true">
+                    @foreach (var type in Model.ActivityTypes)
+                    {
+                        <option value="@type.Id">@type.ActivityTypeName</option>
+                    }
+                </select>
+                <span asp-validation-for="@Model.ActivityTypes" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.CountriesCollection" class="form-label-add-edit">Country</label>
+                <select asp-for="@Model.CountryId" class="form-control" aria-required="true">
+                    @foreach (var type in Model.CountriesCollection)
+                    {
+                        <option value="@type.Id">@type.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="@Model.CountryId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.TownName" class="form-label-add-edit">Town</label>
+                <input asp-for="@Model.TownName" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.TownName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Municipality" class="form-label-add-edit">Municipality</label>
+                <input asp-for="@Model.Municipality" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.Municipality" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.EventImageUrl" class="form-label-add-edit">Image URL</label>
+                <input asp-for="@Model.EventImageUrl" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.EventImageUrl" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" value="Add" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

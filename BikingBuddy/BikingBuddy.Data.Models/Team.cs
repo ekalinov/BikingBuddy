@@ -11,7 +11,7 @@
         {
             this.Id = Guid.NewGuid().ToString();
 
-            this.TeamBikers = new HashSet<AppUser>();
+            this.TeamMembers = new HashSet<AppUser>();
         }
 
 
@@ -19,7 +19,7 @@
         public string Id { get; set; }
 
         [Required]
-        [MaxLength(NameMaxLength)] 
+        [MaxLength(TeamNameMaxLength)] 
         
         public string Name { get; set; } = null!;
         
@@ -28,7 +28,7 @@
         [Url]
         public string? TeamImageUrl { get; set; }
 
-        public ICollection<AppUser> TeamBikers { get; set; }
+        public ICollection<AppUser> TeamMembers { get; set; }
 
 
     }

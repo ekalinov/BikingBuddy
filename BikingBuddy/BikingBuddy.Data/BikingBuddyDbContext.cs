@@ -17,32 +17,26 @@ namespace BikingBuddy.Data
 
         }
         
-        public DbSet<AppUser> AppUser { get; set; } = null!;
+        public DbSet<AppUser> AppUsers { get; set; } = null!;
+        
+        public DbSet<ActivityType> ActivityTypes { get; set; } = null!;
 
-        public DbSet<Activity> Activities { get; set; } = null!;
+        public DbSet<Event> Events { get; set; } = null!;
 
-        public DbSet<ActivityType> RideTypes { get; set; } = null!;
+        public DbSet<Bike> Bikes { get; set; } = null!;
 
-        public DbSet<Event> Event { get; set; } = null!;
+        public DbSet<BikeType> BikeTypes { get; set; } = null!;
 
-        public DbSet<Bike> Bike { get; set; } = null!;
+        public DbSet<Comment> Comments { get; set; } = null!;
 
-        public DbSet<BikeType> BikeType { get; set; } = null!;
+        public DbSet<Country> Countries { get; set; } = null!;
 
-        public DbSet<Comment> Comment { get; set; } = null!;
+        public DbSet<Municipality> Municipalities { get; set; } = null!;
 
-        public DbSet<Country> Country { get; set; } = null!;
-
-        public DbSet<Municipality> Municipality { get; set; } = null!;
-
-        public DbSet<Town> Town { get; set; } = null!;
-
-        public DbSet<Activity> RideType { get; set; } = null!;
-
+        public DbSet<Town> Towns { get; set; } = null!;
+        
         public DbSet<EventParticipants> EventsParticipants { get; set; } = null!;
-
-        public DbSet<UserActivity> UsersActivities { get; set; } = null!; 
-
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

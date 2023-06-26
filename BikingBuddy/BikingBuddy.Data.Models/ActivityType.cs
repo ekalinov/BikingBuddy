@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static BikingBuddy.Common.EntityValidationsConstants.RideType;
+    using static BikingBuddy.Common.EntityValidationsConstants.ActivityType;
 
     public class ActivityType
     {
@@ -11,7 +11,7 @@
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(NameMaxLength)]
+        [MaxLength(ActivityTypeNameMaxLength)]
         public string Name { get; set; } = null!;
     }
 }

@@ -11,12 +11,12 @@
     {
         public AppUser()
         {
+            this.Id = Guid.NewGuid();
             this.EventsParticipants = new HashSet<EventParticipants>();
-            this.UserActivities = new HashSet<UserActivity>();
         }
 
         [Required]
-        [MaxLength(NameMaxLength)]
+        [MaxLength(UsernameMaxLength)]
         public string Name { get; set; } = null!;
 
         [ForeignKey(nameof(BikeId))]
@@ -28,17 +28,14 @@
 
         public string? Shoes { get; set; } = null!;
 
-        public string TeamId { get; set; } = null!;
+        public string? TeamId { get; set; } = null!;
 
         [ForeignKey(nameof(TeamId))]
         public Team? Team { get; set; } = null!;
 
         [Url]
         public string? ProfileImageUrl { get; set; }
-
-
-
-        public ICollection<UserActivity> UserActivities { get; set; }
+        
 
         public ICollection<EventParticipants> EventsParticipants { get; set; } 
 

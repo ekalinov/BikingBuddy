@@ -13,7 +13,7 @@
         public AppUser Participant { get; set; } = null!;
 
         [Required]
-        public string EventId { get; set; } = null!;
+        public Guid EventId { get; set; } 
 
         [ForeignKey(nameof(EventId))]
         public Event Event { get; set; } = null!;

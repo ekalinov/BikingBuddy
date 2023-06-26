@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BikingBuddy.Common
+﻿namespace BikingBuddy.Common
 {
     public class EntityValidationsConstants
     {
         public class User
         {
-            public const int NameMaxLength = 30;
-            public const int NameMinLength = 5;
+            public const int UserNameMaxLength = 30;
+            public const int UserNameMinLength = 5;
+
+            public const int UsernameMaxLength = 10;
+            public const int UsernameMinLength = 4;
         }
 
-        public class RideType
+        public class ActivityType
         {
-            public const int NameMaxLength = 15;
-            public const int NameMinLength = 3;
+            public const int ActivityTypeNameMaxLength = 15;
+            public const int ActivityTypeNameMinLength = 3;
         }
 
         public class Bike
@@ -37,14 +34,14 @@ namespace BikingBuddy.Common
 
         public class BikeType
         {
-            public const int NameMaxLength = 20;
-            public const int NameMinLength = 2;
+            public const int BikeTypeNameMaxLength = 20;
+            public const int BikeTypeNameMinLength = 2;
         }
 
         public class Ride
         {
-            public const int NameMaxLength = 50;
-            public const int NameMinLength = 3;
+            public const int RideNameMaxLength = 50;
+            public const int RideNameMinLength = 3;
         }
 
         public class Event
@@ -64,22 +61,22 @@ namespace BikingBuddy.Common
             public const int CodeLength = 2;
         }
 
-        public class Region
+        public class Municipality
         {
-            public const int NameMaxLength = 20;
-            public const int NameMinLength = 3;
+            public const int MunicipalityNameMaxLength = 20;
+            public const int MunicipalityNameMinLength = 3;
         }
 
         public class Team
         {
-            public const int NameMaxLength = 30;
-            public const int NameMinLength = 2;
+            public const int TeamNameMaxLength = 30;
+            public const int TeamNameMinLength = 2;
         }
 
         public class Town
         {
-            public const int NameMaxLength = 20;
-            public const int NameMinLength = 3;
+            public const int TownNameMaxLength = 20;
+            public const int TownNameMinLength = 3;
         }
     }
 }

@@ -10,7 +10,7 @@
 
         public Event()
         {
-            this.Id = Guid.NewGuid().ToString();
+            this.Id = Guid.NewGuid();
 
             this.EventComments = new HashSet<Comment>();
             this.EventsParticipants = new HashSet<EventParticipants>();
@@ -18,13 +18,20 @@
 
 
         [Key]
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         [MaxLength(TitleMaxLength)]
         public string Title { get; set; } = null!;
 
+        [Required]
         public DateTime Date { get; set; }
+
+        [Required]
+        public double Distance { get; set; }
+
+        [Required]
+        public double Ascent { get; set; }
 
         [Required]
         [MaxLength(DescriptionMaxLength)]
@@ -34,10 +41,10 @@
         public string? EventImageUrl { get; set; }
 
         [Required]
-        public int ActivityId { get; set; }
+        public int ActivityTypeId { get; set; }
 
-        [ForeignKey(nameof(ActivityId))]
-        public Activity Activity { get; set; } = null!;
+        [ForeignKey(nameof(ActivityTypeId))]
+        public ActivityType ActivityType { get; set; } = null!;
 
 
         [Required]

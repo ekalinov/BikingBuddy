@@ -17,12 +17,12 @@ namespace BikingBuddy.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.10")
+                .HasAnnotation("ProductVersion", "6.0.18")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("BikingBuddy.Data.Models.Activity", b =>
+            modelBuilder.Entity("BikingBuddy.Data.Models.ActivityType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,24 +32,59 @@ namespace BikingBuddy.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("RideTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("TotalAscent")
-                        .HasColumnType("float");
-
-                    b.Property<double>("TotalDistance")
-                        .HasMaxLength(50)
-                        .HasColumnType("float");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RideTypeId");
+                    b.ToTable("ActivityTypes");
 
-                    b.ToTable("Activity", (string)null);
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Mountain Biking"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Road Cycling"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Gravel Biking"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Urban Cycling"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Downhill Track"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Trail"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Bikepacking"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Race"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Other"
+                        });
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.AppUser", b =>
@@ -86,8 +121,8 @@ namespace BikingBuddy.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -116,7 +151,6 @@ namespace BikingBuddy.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TeamId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -178,7 +212,7 @@ namespace BikingBuddy.Data.Migrations
 
                     b.HasIndex("BikeTypeId");
 
-                    b.ToTable("Bike", (string)null);
+                    b.ToTable("Bikes");
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.BikeType", b =>
@@ -196,7 +230,54 @@ namespace BikingBuddy.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BikeType", (string)null);
+                    b.ToTable("BikeTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Mountain Bike"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Road Bike"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Gravel Bike"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Urban Bike"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Downhill Bike"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Trail Bike"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Fat Bike"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "BMX"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Other"
+                        });
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.Comment", b =>
@@ -211,9 +292,11 @@ namespace BikingBuddy.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("EventId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<DateTime>("CommentedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("EventId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -224,7 +307,7 @@ namespace BikingBuddy.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comment", (string)null);
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.Country", b =>
@@ -240,16 +323,1222 @@ namespace BikingBuddy.Data.Migrations
 
                     b.HasKey("Code");
 
-                    b.ToTable("Country", (string)null);
+                    b.ToTable("Countries");
+
+                    b.HasData(
+                        new
+                        {
+                            Code = "AF",
+                            Name = "Afghanistan"
+                        },
+                        new
+                        {
+                            Code = "AX",
+                            Name = "Åland Islands"
+                        },
+                        new
+                        {
+                            Code = "AL",
+                            Name = "Albania"
+                        },
+                        new
+                        {
+                            Code = "DZ",
+                            Name = "Algeria"
+                        },
+                        new
+                        {
+                            Code = "AS",
+                            Name = "American Samoa"
+                        },
+                        new
+                        {
+                            Code = "AD",
+                            Name = "Andorra"
+                        },
+                        new
+                        {
+                            Code = "AO",
+                            Name = "Angola"
+                        },
+                        new
+                        {
+                            Code = "AI",
+                            Name = "Anguilla"
+                        },
+                        new
+                        {
+                            Code = "AQ",
+                            Name = "Antarctica"
+                        },
+                        new
+                        {
+                            Code = "AG",
+                            Name = "Antigua and Barbuda"
+                        },
+                        new
+                        {
+                            Code = "AR",
+                            Name = "Argentina"
+                        },
+                        new
+                        {
+                            Code = "AM",
+                            Name = "Armenia"
+                        },
+                        new
+                        {
+                            Code = "AW",
+                            Name = "Aruba"
+                        },
+                        new
+                        {
+                            Code = "AU",
+                            Name = "Australia"
+                        },
+                        new
+                        {
+                            Code = "AT",
+                            Name = "Austria"
+                        },
+                        new
+                        {
+                            Code = "AZ",
+                            Name = "Azerbaijan"
+                        },
+                        new
+                        {
+                            Code = "BS",
+                            Name = "Bahamas"
+                        },
+                        new
+                        {
+                            Code = "BH",
+                            Name = "Bahrain"
+                        },
+                        new
+                        {
+                            Code = "BD",
+                            Name = "Bangladesh"
+                        },
+                        new
+                        {
+                            Code = "BB",
+                            Name = "Barbados"
+                        },
+                        new
+                        {
+                            Code = "BY",
+                            Name = "Belarus"
+                        },
+                        new
+                        {
+                            Code = "BE",
+                            Name = "Belgium"
+                        },
+                        new
+                        {
+                            Code = "BZ",
+                            Name = "Belize"
+                        },
+                        new
+                        {
+                            Code = "BJ",
+                            Name = "Benin"
+                        },
+                        new
+                        {
+                            Code = "BM",
+                            Name = "Bermuda"
+                        },
+                        new
+                        {
+                            Code = "BT",
+                            Name = "Bhutan"
+                        },
+                        new
+                        {
+                            Code = "BO",
+                            Name = "Bolivia"
+                        },
+                        new
+                        {
+                            Code = "BA",
+                            Name = "Bosnia and Herzegovina"
+                        },
+                        new
+                        {
+                            Code = "BW",
+                            Name = "Botswana"
+                        },
+                        new
+                        {
+                            Code = "BV",
+                            Name = "Bouvet Island"
+                        },
+                        new
+                        {
+                            Code = "BR",
+                            Name = "Brazil"
+                        },
+                        new
+                        {
+                            Code = "IO",
+                            Name = "British Indian Ocean Territory"
+                        },
+                        new
+                        {
+                            Code = "BN",
+                            Name = "Brunei Darussalam"
+                        },
+                        new
+                        {
+                            Code = "BG",
+                            Name = "Bulgaria"
+                        },
+                        new
+                        {
+                            Code = "BF",
+                            Name = "Burkina Faso"
+                        },
+                        new
+                        {
+                            Code = "BI",
+                            Name = "Burundi"
+                        },
+                        new
+                        {
+                            Code = "KH",
+                            Name = "Cambodia"
+                        },
+                        new
+                        {
+                            Code = "CM",
+                            Name = "Cameroon"
+                        },
+                        new
+                        {
+                            Code = "CA",
+                            Name = "Canada"
+                        },
+                        new
+                        {
+                            Code = "CV",
+                            Name = "Cape Verde"
+                        },
+                        new
+                        {
+                            Code = "KY",
+                            Name = "Cayman Islands"
+                        },
+                        new
+                        {
+                            Code = "CF",
+                            Name = "Central African Republic"
+                        },
+                        new
+                        {
+                            Code = "TD",
+                            Name = "Chad"
+                        },
+                        new
+                        {
+                            Code = "CL",
+                            Name = "Chile"
+                        },
+                        new
+                        {
+                            Code = "CN",
+                            Name = "China"
+                        },
+                        new
+                        {
+                            Code = "CX",
+                            Name = "Christmas Island"
+                        },
+                        new
+                        {
+                            Code = "CC",
+                            Name = "Cocos (Keeling) Islands"
+                        },
+                        new
+                        {
+                            Code = "CO",
+                            Name = "Colombia"
+                        },
+                        new
+                        {
+                            Code = "KM",
+                            Name = "Comoros"
+                        },
+                        new
+                        {
+                            Code = "CG",
+                            Name = "Congo"
+                        },
+                        new
+                        {
+                            Code = "CD",
+                            Name = "Congo, The Democratic Republic of the"
+                        },
+                        new
+                        {
+                            Code = "CK",
+                            Name = "Cook Islands"
+                        },
+                        new
+                        {
+                            Code = "CR",
+                            Name = "Costa Rica"
+                        },
+                        new
+                        {
+                            Code = "HR",
+                            Name = "Croatia"
+                        },
+                        new
+                        {
+                            Code = "CU",
+                            Name = "Cuba"
+                        },
+                        new
+                        {
+                            Code = "CY",
+                            Name = "Cyprus"
+                        },
+                        new
+                        {
+                            Code = "CZ",
+                            Name = "Czech Republic"
+                        },
+                        new
+                        {
+                            Code = "DK",
+                            Name = "Denmark"
+                        },
+                        new
+                        {
+                            Code = "DJ",
+                            Name = "Djibouti"
+                        },
+                        new
+                        {
+                            Code = "DM",
+                            Name = "Dominica"
+                        },
+                        new
+                        {
+                            Code = "DO",
+                            Name = "Dominican Republic"
+                        },
+                        new
+                        {
+                            Code = "EC",
+                            Name = "Ecuador"
+                        },
+                        new
+                        {
+                            Code = "EG",
+                            Name = "Egypt"
+                        },
+                        new
+                        {
+                            Code = "SV",
+                            Name = "El Salvador"
+                        },
+                        new
+                        {
+                            Code = "GQ",
+                            Name = "Equatorial Guinea"
+                        },
+                        new
+                        {
+                            Code = "ER",
+                            Name = "Eritrea"
+                        },
+                        new
+                        {
+                            Code = "EE",
+                            Name = "Estonia"
+                        },
+                        new
+                        {
+                            Code = "ET",
+                            Name = "Ethiopia"
+                        },
+                        new
+                        {
+                            Code = "FK",
+                            Name = "Falkland Islands (Malvinas)"
+                        },
+                        new
+                        {
+                            Code = "FO",
+                            Name = "Faroe Islands"
+                        },
+                        new
+                        {
+                            Code = "FJ",
+                            Name = "Fiji"
+                        },
+                        new
+                        {
+                            Code = "FI",
+                            Name = "Finland"
+                        },
+                        new
+                        {
+                            Code = "FR",
+                            Name = "France"
+                        },
+                        new
+                        {
+                            Code = "GF",
+                            Name = "French Guiana"
+                        },
+                        new
+                        {
+                            Code = "PF",
+                            Name = "French Polynesia"
+                        },
+                        new
+                        {
+                            Code = "TF",
+                            Name = "French Southern Territories"
+                        },
+                        new
+                        {
+                            Code = "GA",
+                            Name = "Gabon"
+                        },
+                        new
+                        {
+                            Code = "GM",
+                            Name = "Gambia"
+                        },
+                        new
+                        {
+                            Code = "GE",
+                            Name = "Georgia"
+                        },
+                        new
+                        {
+                            Code = "DE",
+                            Name = "Germany"
+                        },
+                        new
+                        {
+                            Code = "GH",
+                            Name = "Ghana"
+                        },
+                        new
+                        {
+                            Code = "GI",
+                            Name = "Gibraltar"
+                        },
+                        new
+                        {
+                            Code = "GR",
+                            Name = "Greece"
+                        },
+                        new
+                        {
+                            Code = "GL",
+                            Name = "Greenland"
+                        },
+                        new
+                        {
+                            Code = "GD",
+                            Name = "Grenada"
+                        },
+                        new
+                        {
+                            Code = "GP",
+                            Name = "Guadeloupe"
+                        },
+                        new
+                        {
+                            Code = "GU",
+                            Name = "Guam"
+                        },
+                        new
+                        {
+                            Code = "GT",
+                            Name = "Guatemala"
+                        },
+                        new
+                        {
+                            Code = "GG",
+                            Name = "Guernsey"
+                        },
+                        new
+                        {
+                            Code = "GN",
+                            Name = "Guinea"
+                        },
+                        new
+                        {
+                            Code = "GW",
+                            Name = "Guinea-Bissau"
+                        },
+                        new
+                        {
+                            Code = "GY",
+                            Name = "Guyana"
+                        },
+                        new
+                        {
+                            Code = "HT",
+                            Name = "Haiti"
+                        },
+                        new
+                        {
+                            Code = "HM",
+                            Name = "Heard Island and Mcdonald Islands"
+                        },
+                        new
+                        {
+                            Code = "VA",
+                            Name = "Holy See (Vatican City State)"
+                        },
+                        new
+                        {
+                            Code = "HN",
+                            Name = "Honduras"
+                        },
+                        new
+                        {
+                            Code = "HK",
+                            Name = "Hong Kong"
+                        },
+                        new
+                        {
+                            Code = "HU",
+                            Name = "Hungary"
+                        },
+                        new
+                        {
+                            Code = "IS",
+                            Name = "Iceland"
+                        },
+                        new
+                        {
+                            Code = "IN",
+                            Name = "India"
+                        },
+                        new
+                        {
+                            Code = "ID",
+                            Name = "Indonesia"
+                        },
+                        new
+                        {
+                            Code = "IR",
+                            Name = "Iran, Islamic Republic Of"
+                        },
+                        new
+                        {
+                            Code = "IQ",
+                            Name = "Iraq"
+                        },
+                        new
+                        {
+                            Code = "IE",
+                            Name = "Ireland"
+                        },
+                        new
+                        {
+                            Code = "IM",
+                            Name = "Isle of Man"
+                        },
+                        new
+                        {
+                            Code = "IL",
+                            Name = "Israel"
+                        },
+                        new
+                        {
+                            Code = "IT",
+                            Name = "Italy"
+                        },
+                        new
+                        {
+                            Code = "JM",
+                            Name = "Jamaica"
+                        },
+                        new
+                        {
+                            Code = "JP",
+                            Name = "Japan"
+                        },
+                        new
+                        {
+                            Code = "JE",
+                            Name = "Jersey"
+                        },
+                        new
+                        {
+                            Code = "JO",
+                            Name = "Jordan"
+                        },
+                        new
+                        {
+                            Code = "KZ",
+                            Name = "Kazakhstan"
+                        },
+                        new
+                        {
+                            Code = "KE",
+                            Name = "Kenya"
+                        },
+                        new
+                        {
+                            Code = "KI",
+                            Name = "Kiribati"
+                        },
+                        new
+                        {
+                            Code = "KR",
+                            Name = "Korea, Republic of"
+                        },
+                        new
+                        {
+                            Code = "KW",
+                            Name = "Kuwait"
+                        },
+                        new
+                        {
+                            Code = "KG",
+                            Name = "Kyrgyzstan"
+                        },
+                        new
+                        {
+                            Code = "LV",
+                            Name = "Latvia"
+                        },
+                        new
+                        {
+                            Code = "LB",
+                            Name = "Lebanon"
+                        },
+                        new
+                        {
+                            Code = "LS",
+                            Name = "Lesotho"
+                        },
+                        new
+                        {
+                            Code = "LR",
+                            Name = "Liberia"
+                        },
+                        new
+                        {
+                            Code = "LY",
+                            Name = "Libyan Arab Jamahiriya"
+                        },
+                        new
+                        {
+                            Code = "LI",
+                            Name = "Liechtenstein"
+                        },
+                        new
+                        {
+                            Code = "LT",
+                            Name = "Lithuania"
+                        },
+                        new
+                        {
+                            Code = "LU",
+                            Name = "Luxembourg"
+                        },
+                        new
+                        {
+                            Code = "MO",
+                            Name = "Macao"
+                        },
+                        new
+                        {
+                            Code = "MK",
+                            Name = "Macedonia, The Former Yugoslav Republic of"
+                        },
+                        new
+                        {
+                            Code = "MG",
+                            Name = "Madagascar"
+                        },
+                        new
+                        {
+                            Code = "MW",
+                            Name = "Malawi"
+                        },
+                        new
+                        {
+                            Code = "MY",
+                            Name = "Malaysia"
+                        },
+                        new
+                        {
+                            Code = "MV",
+                            Name = "Maldives"
+                        },
+                        new
+                        {
+                            Code = "ML",
+                            Name = "Mali"
+                        },
+                        new
+                        {
+                            Code = "MT",
+                            Name = "Malta"
+                        },
+                        new
+                        {
+                            Code = "MH",
+                            Name = "Marshall Islands"
+                        },
+                        new
+                        {
+                            Code = "MQ",
+                            Name = "Martinique"
+                        },
+                        new
+                        {
+                            Code = "MR",
+                            Name = "Mauritania"
+                        },
+                        new
+                        {
+                            Code = "MU",
+                            Name = "Mauritius"
+                        },
+                        new
+                        {
+                            Code = "YT",
+                            Name = "Mayotte"
+                        },
+                        new
+                        {
+                            Code = "MX",
+                            Name = "Mexico"
+                        },
+                        new
+                        {
+                            Code = "FM",
+                            Name = "Micronesia, Federated States of"
+                        },
+                        new
+                        {
+                            Code = "MD",
+                            Name = "Moldova, Republic of"
+                        },
+                        new
+                        {
+                            Code = "MC",
+                            Name = "Monaco"
+                        },
+                        new
+                        {
+                            Code = "MN",
+                            Name = "Mongolia"
+                        },
+                        new
+                        {
+                            Code = "MS",
+                            Name = "Montserrat"
+                        },
+                        new
+                        {
+                            Code = "MA",
+                            Name = "Morocco"
+                        },
+                        new
+                        {
+                            Code = "MZ",
+                            Name = "Mozambique"
+                        },
+                        new
+                        {
+                            Code = "MM",
+                            Name = "Myanmar"
+                        },
+                        new
+                        {
+                            Code = "NA",
+                            Name = "Namibia"
+                        },
+                        new
+                        {
+                            Code = "NR",
+                            Name = "Nauru"
+                        },
+                        new
+                        {
+                            Code = "NP",
+                            Name = "Nepal"
+                        },
+                        new
+                        {
+                            Code = "NL",
+                            Name = "Netherlands"
+                        },
+                        new
+                        {
+                            Code = "AN",
+                            Name = "Netherlands Antilles"
+                        },
+                        new
+                        {
+                            Code = "NC",
+                            Name = "New Caledonia"
+                        },
+                        new
+                        {
+                            Code = "NZ",
+                            Name = "New Zealand"
+                        },
+                        new
+                        {
+                            Code = "NI",
+                            Name = "Nicaragua"
+                        },
+                        new
+                        {
+                            Code = "NE",
+                            Name = "Niger"
+                        },
+                        new
+                        {
+                            Code = "NG",
+                            Name = "Nigeria"
+                        },
+                        new
+                        {
+                            Code = "NU",
+                            Name = "Niue"
+                        },
+                        new
+                        {
+                            Code = "NF",
+                            Name = "Norfolk Island"
+                        },
+                        new
+                        {
+                            Code = "MP",
+                            Name = "Northern Mariana Islands"
+                        },
+                        new
+                        {
+                            Code = "NO",
+                            Name = "Norway"
+                        },
+                        new
+                        {
+                            Code = "OM",
+                            Name = "Oman"
+                        },
+                        new
+                        {
+                            Code = "PK",
+                            Name = "Pakistan"
+                        },
+                        new
+                        {
+                            Code = "PW",
+                            Name = "Palau"
+                        },
+                        new
+                        {
+                            Code = "PS",
+                            Name = "Palestinian Territory, Occupied"
+                        },
+                        new
+                        {
+                            Code = "PA",
+                            Name = "Panama"
+                        },
+                        new
+                        {
+                            Code = "PG",
+                            Name = "Papua New Guinea"
+                        },
+                        new
+                        {
+                            Code = "PY",
+                            Name = "Paraguay"
+                        },
+                        new
+                        {
+                            Code = "PE",
+                            Name = "Peru"
+                        },
+                        new
+                        {
+                            Code = "PH",
+                            Name = "Philippines"
+                        },
+                        new
+                        {
+                            Code = "PN",
+                            Name = "Pitcairn"
+                        },
+                        new
+                        {
+                            Code = "PL",
+                            Name = "Poland"
+                        },
+                        new
+                        {
+                            Code = "PT",
+                            Name = "Portugal"
+                        },
+                        new
+                        {
+                            Code = "PR",
+                            Name = "Puerto Rico"
+                        },
+                        new
+                        {
+                            Code = "QA",
+                            Name = "Qatar"
+                        },
+                        new
+                        {
+                            Code = "RE",
+                            Name = "Reunion"
+                        },
+                        new
+                        {
+                            Code = "RO",
+                            Name = "Romania"
+                        },
+                        new
+                        {
+                            Code = "RU",
+                            Name = "Russian Federation"
+                        },
+                        new
+                        {
+                            Code = "RW",
+                            Name = "RWANDA"
+                        },
+                        new
+                        {
+                            Code = "SH",
+                            Name = "Saint Helena"
+                        },
+                        new
+                        {
+                            Code = "KN",
+                            Name = "Saint Kitts and Nevis"
+                        },
+                        new
+                        {
+                            Code = "LC",
+                            Name = "Saint Lucia"
+                        },
+                        new
+                        {
+                            Code = "PM",
+                            Name = "Saint Pierre and Miquelon"
+                        },
+                        new
+                        {
+                            Code = "VC",
+                            Name = "Saint Vincent and the Grenadines"
+                        },
+                        new
+                        {
+                            Code = "WS",
+                            Name = "Samoa"
+                        },
+                        new
+                        {
+                            Code = "SM",
+                            Name = "San Marino"
+                        },
+                        new
+                        {
+                            Code = "ST",
+                            Name = "Sao Tome and Principe"
+                        },
+                        new
+                        {
+                            Code = "SA",
+                            Name = "Saudi Arabia"
+                        },
+                        new
+                        {
+                            Code = "SN",
+                            Name = "Senegal"
+                        },
+                        new
+                        {
+                            Code = "CS",
+                            Name = "Serbia and Montenegro"
+                        },
+                        new
+                        {
+                            Code = "SC",
+                            Name = "Seychelles"
+                        },
+                        new
+                        {
+                            Code = "SL",
+                            Name = "Sierra Leone"
+                        },
+                        new
+                        {
+                            Code = "SG",
+                            Name = "Singapore"
+                        },
+                        new
+                        {
+                            Code = "SK",
+                            Name = "Slovakia"
+                        },
+                        new
+                        {
+                            Code = "SI",
+                            Name = "Slovenia"
+                        },
+                        new
+                        {
+                            Code = "SB",
+                            Name = "Solomon Islands"
+                        },
+                        new
+                        {
+                            Code = "SO",
+                            Name = "Somalia"
+                        },
+                        new
+                        {
+                            Code = "ZA",
+                            Name = "South Africa"
+                        },
+                        new
+                        {
+                            Code = "GS",
+                            Name = "South Georgia and the South Sandwich Islands"
+                        },
+                        new
+                        {
+                            Code = "ES",
+                            Name = "Spain"
+                        },
+                        new
+                        {
+                            Code = "LK",
+                            Name = "Sri Lanka"
+                        },
+                        new
+                        {
+                            Code = "SD",
+                            Name = "Sudan"
+                        },
+                        new
+                        {
+                            Code = "SR",
+                            Name = "Suriname"
+                        },
+                        new
+                        {
+                            Code = "SJ",
+                            Name = "Svalbard and Jan Mayen"
+                        },
+                        new
+                        {
+                            Code = "SZ",
+                            Name = "Swaziland"
+                        },
+                        new
+                        {
+                            Code = "SE",
+                            Name = "Sweden"
+                        },
+                        new
+                        {
+                            Code = "CH",
+                            Name = "Switzerland"
+                        },
+                        new
+                        {
+                            Code = "SY",
+                            Name = "Syrian Arab Republic"
+                        },
+                        new
+                        {
+                            Code = "TW",
+                            Name = "Taiwan, Province of China"
+                        },
+                        new
+                        {
+                            Code = "TJ",
+                            Name = "Tajikistan"
+                        },
+                        new
+                        {
+                            Code = "TZ",
+                            Name = "Tanzania, United Republic of"
+                        },
+                        new
+                        {
+                            Code = "TH",
+                            Name = "Thailand"
+                        },
+                        new
+                        {
+                            Code = "TL",
+                            Name = "Timor-Leste"
+                        },
+                        new
+                        {
+                            Code = "TG",
+                            Name = "Togo"
+                        },
+                        new
+                        {
+                            Code = "TK",
+                            Name = "Tokelau"
+                        },
+                        new
+                        {
+                            Code = "TO",
+                            Name = "Tonga"
+                        },
+                        new
+                        {
+                            Code = "TT",
+                            Name = "Trinidad and Tobago"
+                        },
+                        new
+                        {
+                            Code = "TN",
+                            Name = "Tunisia"
+                        },
+                        new
+                        {
+                            Code = "TR",
+                            Name = "Turkey"
+                        },
+                        new
+                        {
+                            Code = "TM",
+                            Name = "Turkmenistan"
+                        },
+                        new
+                        {
+                            Code = "TC",
+                            Name = "Turks and Caicos Islands"
+                        },
+                        new
+                        {
+                            Code = "TV",
+                            Name = "Tuvalu"
+                        },
+                        new
+                        {
+                            Code = "UG",
+                            Name = "Uganda"
+                        },
+                        new
+                        {
+                            Code = "UA",
+                            Name = "Ukraine"
+                        },
+                        new
+                        {
+                            Code = "AE",
+                            Name = "United Arab Emirates"
+                        },
+                        new
+                        {
+                            Code = "GB",
+                            Name = "United Kingdom"
+                        },
+                        new
+                        {
+                            Code = "US",
+                            Name = "United States"
+                        },
+                        new
+                        {
+                            Code = "UM",
+                            Name = "United States Minor Outlying Islands"
+                        },
+                        new
+                        {
+                            Code = "UY",
+                            Name = "Uruguay"
+                        },
+                        new
+                        {
+                            Code = "UZ",
+                            Name = "Uzbekistan"
+                        },
+                        new
+                        {
+                            Code = "VU",
+                            Name = "Vanuatu"
+                        },
+                        new
+                        {
+                            Code = "VE",
+                            Name = "Venezuela"
+                        },
+                        new
+                        {
+                            Code = "VN",
+                            Name = "Vietnam"
+                        },
+                        new
+                        {
+                            Code = "VG",
+                            Name = "Virgin Islands, British"
+                        },
+                        new
+                        {
+                            Code = "VI",
+                            Name = "Virgin Islands, U.S."
+                        },
+                        new
+                        {
+                            Code = "WF",
+                            Name = "Wallis and Futuna"
+                        },
+                        new
+                        {
+                            Code = "EH",
+                            Name = "Western Sahara"
+                        },
+                        new
+                        {
+                            Code = "YE",
+                            Name = "Yemen"
+                        },
+                        new
+                        {
+                            Code = "ZM",
+                            Name = "Zambia"
+                        },
+                        new
+                        {
+                            Code = "ZN",
+                            Name = "Zimbabwe"
+                        });
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.Event", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("ActivityId")
+                    b.Property<int>("ActivityTypeId")
                         .HasColumnType("int");
+
+                    b.Property<double>("Ascent")
+                        .HasColumnType("float");
 
                     b.Property<string>("CountryId")
                         .IsRequired()
@@ -262,6 +1551,9 @@ namespace BikingBuddy.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(1500)
                         .HasColumnType("nvarchar(1500)");
+
+                    b.Property<double>("Distance")
+                        .HasColumnType("float");
 
                     b.Property<string>("EventImageUrl")
                         .HasColumnType("nvarchar(max)");
@@ -282,7 +1574,7 @@ namespace BikingBuddy.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ActivityId");
+                    b.HasIndex("ActivityTypeId");
 
                     b.HasIndex("CountryId");
 
@@ -292,13 +1584,13 @@ namespace BikingBuddy.Data.Migrations
 
                     b.HasIndex("TownId");
 
-                    b.ToTable("Event", (string)null);
+                    b.ToTable("Events");
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.EventParticipants", b =>
                 {
-                    b.Property<string>("EventId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("EventId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ParticipantId")
                         .HasColumnType("uniqueidentifier");
@@ -310,7 +1602,7 @@ namespace BikingBuddy.Data.Migrations
 
                     b.HasIndex("ParticipantId");
 
-                    b.ToTable("EventsParticipants", (string)null);
+                    b.ToTable("EventsParticipants");
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.Municipality", b =>
@@ -328,25 +1620,29 @@ namespace BikingBuddy.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Municipality", (string)null);
-                });
+                    b.ToTable("Municipalities");
 
-            modelBuilder.Entity("BikingBuddy.Data.Models.RideType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RideTypes", (string)null);
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Sofia-city"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Plovdiv"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Madan"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Smolyan"
+                        });
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.Team", b =>
@@ -367,7 +1663,7 @@ namespace BikingBuddy.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Team", (string)null);
+                    b.ToTable("Team");
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.Town", b =>
@@ -385,22 +1681,49 @@ namespace BikingBuddy.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Town", (string)null);
-                });
+                    b.ToTable("Towns");
 
-            modelBuilder.Entity("BikingBuddy.Data.Models.UserActivity", b =>
-                {
-                    b.Property<int>("ActivityId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("AppUserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ActivityId", "AppUserId");
-
-                    b.HasIndex("AppUserId");
-
-                    b.ToTable("UsersActivities", (string)null);
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Sofia"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Plovdiv"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Madan"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Smolyan"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Bourgas"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Varna"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Yambol"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Devin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -538,17 +1861,6 @@ namespace BikingBuddy.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("BikingBuddy.Data.Models.Activity", b =>
-                {
-                    b.HasOne("BikingBuddy.Data.Models.RideType", "RideType")
-                        .WithMany()
-                        .HasForeignKey("RideTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("RideType");
-                });
-
             modelBuilder.Entity("BikingBuddy.Data.Models.AppUser", b =>
                 {
                     b.HasOne("BikingBuddy.Data.Models.Bike", "Bike")
@@ -556,10 +1868,8 @@ namespace BikingBuddy.Data.Migrations
                         .HasForeignKey("BikeId");
 
                     b.HasOne("BikingBuddy.Data.Models.Team", "Team")
-                        .WithMany("TeamBikers")
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("TeamMembers")
+                        .HasForeignKey("TeamId");
 
                     b.Navigation("Bike");
 
@@ -598,9 +1908,9 @@ namespace BikingBuddy.Data.Migrations
 
             modelBuilder.Entity("BikingBuddy.Data.Models.Event", b =>
                 {
-                    b.HasOne("BikingBuddy.Data.Models.Activity", "Activity")
+                    b.HasOne("BikingBuddy.Data.Models.ActivityType", "ActivityType")
                         .WithMany()
-                        .HasForeignKey("ActivityId")
+                        .HasForeignKey("ActivityTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -626,7 +1936,7 @@ namespace BikingBuddy.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Activity");
+                    b.Navigation("ActivityType");
 
                     b.Navigation("Country");
 
@@ -654,25 +1964,6 @@ namespace BikingBuddy.Data.Migrations
                     b.Navigation("Event");
 
                     b.Navigation("Participant");
-                });
-
-            modelBuilder.Entity("BikingBuddy.Data.Models.UserActivity", b =>
-                {
-                    b.HasOne("BikingBuddy.Data.Models.Activity", "Activity")
-                        .WithMany("UserActivities")
-                        .HasForeignKey("ActivityId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("BikingBuddy.Data.Models.AppUser", "AppUser")
-                        .WithMany("UserActivities")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Activity");
-
-                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -726,16 +2017,9 @@ namespace BikingBuddy.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BikingBuddy.Data.Models.Activity", b =>
-                {
-                    b.Navigation("UserActivities");
-                });
-
             modelBuilder.Entity("BikingBuddy.Data.Models.AppUser", b =>
                 {
                     b.Navigation("EventsParticipants");
-
-                    b.Navigation("UserActivities");
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.Country", b =>
@@ -752,7 +2036,7 @@ namespace BikingBuddy.Data.Migrations
 
             modelBuilder.Entity("BikingBuddy.Data.Models.Team", b =>
                 {
-                    b.Navigation("TeamBikers");
+                    b.Navigation("TeamMembers");
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.Town", b =>

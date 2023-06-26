@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 using BikingBuddy.Data;
 using BikingBuddy.Data.Models;
+using BikingBuddy.Services;
+using BikingBuddy.Services.Contracts;
+using BikingBuddy.Web.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +30,8 @@ builder.Services.AddDefaultIdentity<AppUser>(options =>
     .AddEntityFrameworkStores<BikingBuddyDbContext>();
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddApplicationServices(typeof(IEventService));
 
 var app = builder.Build();
 

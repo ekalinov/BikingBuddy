@@ -3,15 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikingBuddy.Web", "BikingBuddy.Web\BikingBuddy.Web.csproj", "{15BDAF2C-3255-446A-BEE1-7E31166A2BF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BikingBuddy.Web", "BikingBuddy.Web\BikingBuddy.Web.csproj", "{15BDAF2C-3255-446A-BEE1-7E31166A2BF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikingBuddy.Data", "BikingBuddy.Data\BikingBuddy.Data.csproj", "{3AEF4622-AC5C-464C-A29D-8671DEEDDD67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BikingBuddy.Data", "BikingBuddy.Data\BikingBuddy.Data.csproj", "{3AEF4622-AC5C-464C-A29D-8671DEEDDD67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikingBuddy.Data.Models", "BikingBuddy.Data.Models\BikingBuddy.Data.Models.csproj", "{C66B6663-FF46-4593-A1E7-871CE701E126}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BikingBuddy.Data.Models", "BikingBuddy.Data.Models\BikingBuddy.Data.Models.csproj", "{C66B6663-FF46-4593-A1E7-871CE701E126}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikingBuddy.Services", "BikingBuddy.Services\BikingBuddy.Services.csproj", "{02ED3F67-5A05-4527-A981-E5017EE02051}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BikingBuddy.Services", "BikingBuddy.Services\BikingBuddy.Services.csproj", "{02ED3F67-5A05-4527-A981-E5017EE02051}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikingBuddy.Common", "BikingBuddy.Common\BikingBuddy.Common.csproj", "{081DDAED-F386-4288-B0F8-E906527FDB10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BikingBuddy.Common", "BikingBuddy.Common\BikingBuddy.Common.csproj", "{081DDAED-F386-4288-B0F8-E906527FDB10}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BikingBuddy.Web.Models", "BikingBuddy.Web.Models\BikingBuddy.Web.Models.csproj", "{9385430C-E635-4D93-A168-D3AC79939E03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikingBuddy.Web.Infrastructure", "BikingBuddy.Web.Infrastructure\BikingBuddy.Web.Infrastructure.csproj", "{5EC6BCBA-2906-4AC8-BDEC-29767CF88813}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{081DDAED-F386-4288-B0F8-E906527FDB10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{081DDAED-F386-4288-B0F8-E906527FDB10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{081DDAED-F386-4288-B0F8-E906527FDB10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9385430C-E635-4D93-A168-D3AC79939E03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9385430C-E635-4D93-A168-D3AC79939E03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9385430C-E635-4D93-A168-D3AC79939E03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9385430C-E635-4D93-A168-D3AC79939E03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EC6BCBA-2906-4AC8-BDEC-29767CF88813}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EC6BCBA-2906-4AC8-BDEC-29767CF88813}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EC6BCBA-2906-4AC8-BDEC-29767CF88813}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EC6BCBA-2906-4AC8-BDEC-29767CF88813}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
