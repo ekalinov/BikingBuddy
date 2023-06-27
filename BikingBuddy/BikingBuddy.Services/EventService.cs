@@ -113,49 +113,102 @@ namespace BikingBuddy.Services
 
         }
 
-        public Task<EventViewModel> GetEventAsync(string id)
+        public async Task<EventViewModel> GetEventViewModelByIdAsync(string id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task EditEventAsync(EventViewModel model, int eventId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<EventDetailsViewModel> GetEventDetailsByIdAsync(string id)
-        {
-            var eventById = await dbContext.Events
-                .Where(e=>e.Id.ToString() == id )
-                .Select(e => new EventDetailsViewModel()
+            var eventViewModelById = await dbContext.Events
+                .Where(e => e.Id.ToString() == id)
+                .Select(e => new EventViewModel()
                 {
                     Id = e.Id.ToString(),
                     Title = e.Title,
                     Date = e.Date.ToString(DateTimeFormats.DateTimeFormat),
                     Description = e.Description,
+                    Distance = e.Distance,
+                    Ascent = e.Ascent,
+                    EventImageUrl = e.EventImageUrl!,
+                    TownName = e.Town.Name,
+                    Municipality = e.Municipality.Name,
+                })
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
+            return eventViewModelById!;
+        }
+
+        public async Task<Event> GetEventByIdAsync(string id)
+        {
+            Event? eventById = await dbContext.Events
+                .Where(e => e.Id == Guid.Parse(id))
+                .FirstOrDefaultAsync();
+
+            if (eventById is null)
+                  throw new NullReferenceException("There is no event with this Id!");
+
+            return eventById;
+        }
+
+
+        public async Task EditEventAsync(EventViewModel model, string eventId)
+        {
+            var eventToEdit = await GetEventByIdAsync(model.Id);
+
+            Town town = await GetTownByName(model.TownName);
+
+            Municipality municipality;
+
+            if (!string.IsNullOrEmpty(model.Municipality))
+            {
+                municipality = await GetMunicipalityByName(model.Municipality);
+
+            }
+            else
+            {
+                municipality = null!;
+            }
+
+
+            eventToEdit.Title=model.Title;
+            eventToEdit.Date = DateTime.Parse(model.Date);
+            eventToEdit.Description = model.Description;
+            eventToEdit.Distance = model.Distance;
+            eventToEdit.Ascent = model.Ascent;
+            eventToEdit.EventImageUrl = model.EventImageUrl;
+            eventToEdit.ActivityTypeId = model.ActivityTypeId;
+            eventToEdit.CountryId = model.CountryId;
+            eventToEdit.Municipality = municipality;
+            
+            
+            await dbContext.SaveChangesAsync();
+
+
+
+        }
+
+        public async Task<EventDetailsViewModel> GetEventDetailsByIdAsync(string id)
+        {
+            var eventById = await dbContext.Events
+                .Where(e => e.Id.ToString() == id)
+                .Select(e => new  EventDetailsViewModel()
+                {
+                    Id = e.Id.ToString(),
+                    Title = e.Title,
+                    Date = e.Date,
+                    Description = e.Description,
                     Distance = e.Distance.ToString(),
                     Ascent = e.Ascent.ToString(),
-                    Organizer = e.Organizer.Name,
+                    OrganizerName = e.Organizer.Name,
+                    OrganizerUsername = e.Organizer.UserName,
                     EventImageUrl = e.EventImageUrl!,
                     ActivityType = e.ActivityType.Name,
                     Country = string.Format("{0}, {1}",e.Country.Name,e.CountryId),
                     Town = e.Town.Name,
                     Municipality = e.Municipality!.Name,
-                    EventComments =  e.EventComments
-                        .Select(c=> new CommentViewModel()
-                        { 
-                            CommentedOn = c.CommentedOn,
-                            CommentBody = c.CommentBody,
-                            UserName  = c.User.Name
-                        })
-                        .OrderByDescending(c=>c.CommentedOn).ToArray()
-                    ,                   
+                    
                 })
                 .OrderByDescending(e=>e.Date)
-                .AsNoTracking()
                 .FirstOrDefaultAsync();
 
-            return eventById;
+            return eventById!;
         }
 
         public Task DeleteEventAsync(int id)

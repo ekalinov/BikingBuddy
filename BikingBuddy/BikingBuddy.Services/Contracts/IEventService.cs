@@ -1,4 +1,6 @@
-﻿namespace BikingBuddy.Services.Contracts
+﻿using BikingBuddy.Data.Models;
+
+namespace BikingBuddy.Services.Contracts
 {
     using BikingBuddy.Web.Models.Activity;
     using BikingBuddy.Web.Models.Event;
@@ -12,9 +14,12 @@
 
         Task AddEventAsync(EventViewModel model, string userId);
 
-        Task<EventViewModel> GetEventAsync(string id);
 
-        Task EditEventAsync(EventViewModel model, int eventId);
+        Task<EventViewModel> GetEventViewModelByIdAsync(string id);
+
+        Task<Event> GetEventByIdAsync(string id);
+
+        Task EditEventAsync(EventViewModel model, string eventId);
 
         Task<EventDetailsViewModel> GetEventDetailsByIdAsync(string id);
 
@@ -24,6 +29,9 @@
 
 
         Task<List<CountryViewModel>> GetCountriesAsync();
+
+
+
 
         //Task<List<DetailsViewModel>> GetDetailsUserModels(string userId);
 

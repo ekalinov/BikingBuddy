@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BikingBuddy.Common;
 using BikingBuddy.Web.Models.Comment;
+using Microsoft.VisualBasic;
 
 namespace BikingBuddy.Web.Models.Event
 {
@@ -22,7 +23,7 @@ namespace BikingBuddy.Web.Models.Event
 
         public string Title { get; set; } = null!;
 
-        public string Date { get; set; } = null!;
+        public DateTime Date { get; set; } 
 
         public string Description { get; set; } = null!;
 
@@ -34,8 +35,10 @@ namespace BikingBuddy.Web.Models.Event
 
         public string Ascent { get; set; } = null!;
 
-        public string Organizer { get; set; } = null!;
+        public string OrganizerName { get; set; } = null!;
 
+        public string OrganizerUsername { get; set; } = null!;
+        
         public string Country { get; set; } = null!;
 
         public string? Municipality { get; set; }

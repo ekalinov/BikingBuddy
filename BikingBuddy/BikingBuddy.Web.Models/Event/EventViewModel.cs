@@ -17,6 +17,8 @@ namespace BikingBuddy.Web.Models.Event
             CountriesCollection = new HashSet<CountryViewModel>();
         }
 
+        public string Id { get; set; } = null!;
+        
         [Required]
         [StringLength(TitleMaxLength,
             ErrorMessage = "Title must be between {2} and {1}", MinimumLength = TitleMinLength)]

@@ -1,16 +1,15 @@
-﻿@model EventDetailsViewModel
-@{
-    ViewBag.Title = "Event Details";
-}
+﻿@using BikingBuddy.Common
+@model EventDetailsViewModel
 
-<h2 class="text-center">@ViewBag.Title</h2>
+
+<h2 class="text-center">Details</h2>
 <hr />
 
 <div class="row">
     <div class="card w-100">
         <div class="card-body">
-            <img class="img-fluid"  style="width: 18rem;"
-                 src="@Model.EventImageUrl" alt="Book Image">
+            <img class="img-fluid" style="width: 18rem;"
+                 src="@Model!.EventImageUrl" alt="Book Image">
             <h3 class="card-title text-center">@Model.Title</h3>
             <p class="mb-0">
                 <span class="fw-bold">Location: </span>@Model.Town , @Model.Country
@@ -22,8 +21,8 @@
 
             <p class="mb-0"><span class="fw-bold">Type: </span>@Model.ActivityType</p>
             <p class="mb-0"><span class="fw-bold">Description: </span>@Model.Description</p>
-            <p class="mb-0"><span class="fw-bold">Starting time: </span>@Model.Date</p>
-            <p class="mb-0"><span class="fw-bold">Organiser: </span>@Model.Organizer</p>
+            <p class="mb-0"><span class="fw-bold">Starting time: </span>@Model.Date.ToString(DateTimeFormats.DateTimeFormat)</p>
+            <p class="mb-0"><span class="fw-bold">Organiser: </span>@Model.OrganizerName</p>
             <p class="mb-0"><span class="fw-bold">Total Distance: </span>@Model.Distance</p>
             <p class="mb-0"><span class="fw-bold">Total Ascent: </span>@Model.Ascent</p>
 
@@ -31,9 +30,32 @@
         </div>
 
         <a asp-controller="Event" asp-action="All" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Back to All Events</a>
-        @if (User.Identity?.Name == Model.Organizer)
+        <a asp-controller="Comment" asp-action="Add" class="btn btn-warning mb-2 w-100 p-3 fw-bold" asp-route-eventId="@Model.Id">Comment</a>
+        
+        
+        
+        <div>
+            <h5>Participants:</h5>
+            @foreach (var ep in Model.EventsParticipants)
+            {
+                
+                <p class="mb-0"><span class="fw-bold"> </span>@ep.ParticipantName</p>
+            }
+        </div>
+        @if (User.Identity?.Name == Model.OrganizerUsername)
         {
-            <a asp-controller="Event" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
+            <a asp-controller="Event" asp-action="Edit" asp-route-eventId="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
+        }
+        else
+        {
+            if (!Model.EventsParticipants.Any(ep => ep.ParticipantId == User.Identity?.Name))
+            {
+                <a asp-controller="Event" asp-action="Join" class="btn btn-warning mb-2 w-100 p-3 fw-bold">join Event</a>
+            }
+            else
+            {
+                <a asp-controller="Event" asp-action="Leave" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Leave Event</a>
+            }
         }
 
     </div>

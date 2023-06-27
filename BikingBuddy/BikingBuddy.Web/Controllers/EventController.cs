@@ -74,7 +74,7 @@ namespace BikingBuddy.Web.Controllers
 
         public async Task<IActionResult> Edit(string eventId)
         {
-            EventViewModel editEvent = await service.GetEventAsync(eventId);
+            EventViewModel editEvent = await service.GetEventViewModelByIdAsync(eventId);
 
 
 
@@ -93,6 +93,10 @@ namespace BikingBuddy.Web.Controllers
 
             if (!ModelState.IsValid)
             {
+
+                model.ActivityTypes = await service.GetTypesAsync();
+                model.CountriesCollection = await service.GetCountriesAsync();
+
                 return View(model);
 
             }
@@ -100,9 +104,9 @@ namespace BikingBuddy.Web.Controllers
 
             string userId = this.User.GetId();
 
-            await service.AddEventAsync(model, userId);
+            await service.EditEventAsync(model, userId);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("All", "Event");
         }
 
 
