@@ -4,55 +4,144 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Homies</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Homies.styles.css" asp-append-version="true" />
+    <link href="~/css/basictable.css" rel="stylesheet" />
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/css/simplelightbox.min.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/css/table-style.css" rel="stylesheet" />
+    <a href="~/fonts/fontawesome.otf"></a>
+    <a href="~/fonts/fontawesome-webfont.eot"></a>
+    <a href="~/fonts/fontawesome-webfont.ttf"></a>
+    <a href="~/fonts/fontawesome-webfont.woff"></a>
+    <a href="~/fonts/fontawesome-webfont.woff2"></a>
+    <script src="~/js/jquery-1.11.1.min.js"></script>
+    <script src="~/js/jquery.basictable.min.js"></script>
+    <script src="~/js/jarallax.js"></script>
+
+    <a href="~/images/"></a>
+    <script src="~/js/bootstrap.js"></script>
+    <script src="~/js/responsiveslides.min.js"></script>
+    <script src="~/js/simple-lightbox.js"></script>
+    <script src="~/js/smoothscroll.min.js"></script>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Homies</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        @if (User.Identity!.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Event" asp-action="All">Events around me</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Event" asp-action="Add">Create a new event</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Event" asp-action="Joined">My Joined Events</a>
-                            </li>
-                        }
-                    </ul>
-                    <partial name="_LoginPartial" />
+    <!-- banner -->
+    <div class="banner bg-about">
+        <div class="header-top about-header-top">
+            <div class="container banner-drop">
+                <div class="agile-logo">
+                    <h1><a asp-action="Index" asp-controller="Home">Bike<span>World</span></a></h1>
                 </div>
+                <div class="header-right">
+                    <nav>
+                        <ul>
+                            <li>
+                                <a asp-action="Index" asp-controller="Home"><span>Home</span></a>
+                            </li>
+                            <li class="active">
+                                <a asp-action="About" asp-controller="Home"><span>About</span></a>
+                            </li>
+                            <li>
+                                <a asp-action="Short" asp-controller="Home"><span>Short Codes</span></a>
+                            </li>
+                            <li>
+                                <a asp-action="Gallery" asp-controller="Home"><span>Gallery</span></a>
+                            </li>
+                            <li>
+                                <a asp-action="Training" asp-controller="Home"><span>Training</span></a>
+                            </li>
+                            <li>
+                                <a asp-action="Mail" asp-controller="Home"><span>Mail Us</span></a>
+                            </li>
+                            <li>
+                                <a asp-action="Single" asp-controller="Home"><span>Gallery</span></a>
+
+                            </li>
+                            <li>
+                                 <a class="fa-solid fa-person-biking" asp-action="About" asp-controller="Home">asdada</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="menu-icon"><span></span></div>
+                    <i class="fa-solid fa-person-biking"></i>
+                </div>
+                <div class="clearfix"> </div>
+                <script>
+                    (function ($) {
+                        $(".menu-icon").on("click", function () {
+                            $(this).toggleClass("open");
+                            $(".container").toggleClass("nav-open");
+                            $("nav ul li").toggleClass("animate");
+                        });
+
+                    })(jQuery);
+                </script>
             </div>
-        </nav>
-    </header>
+        </div>
+        <div class="w3ls-heading">
+            <h2>About Us</h2>
+        </div>
+    </div>
+    <!-- //banner -->
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <!-- footer -->
+    <div class="footer">
         <div class="container">
-            &copy; @DateTime.Now.Year - Homies
+            <div class="agile-footer-grids">
+                <div class="col-md-3 w3-agile-footer-grid">
+                    <h3>About</h3>
+                    <p>Aenean cursus dignissim porta. Quisque mattis dolor sem, nec ultrices arcu consequat vel. Phasellus sollicitudin dui diam, et scelerisque nunc venenatis non. Cras dapibus, urna et pellentesque egestas</p>
+                </div>
+                <div class="col-md-3 w3-agile-footer-grid">
+                    <h3>Events</h3>
+                    <ul>
+                        <li>12th Aug <a asp-action="Single" asp-controller="Home">Curabitur</a></li>
+                        <li>10th Sept <a href="single.html">Fusce urna</a></li>
+                        <li>24th Sept <a href="single.html">Praesent</a></li>
+                        <li>17th Oct <a href="single.html">Malesuada </a></li>
+                        <li>09th Dec <a href="single.html">Cum sociis</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 w3-agile-footer-grid">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li class="text"><a asp-action="Index" asp-controller="Home">Home</a></li>
+                        <li class="text"><a asp-action="About" asp-controller="Home">About</a></li>
+                        <li class="text"><a asp-action="Short" asp-controller="Home">Short Codes</a></li>
+                        <li class="text"><a asp-action="Gallery" asp-controller="Home">Gallery</a></li>
+                        <li class="text"><a asp-action="Training" asp-controller="Home">Training</a></li>
+                        <li class="text"><a asp-action="Mail" asp-controller="Home">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 w3-agile-footer-grid">
+                    <h3>Newsletter</h3>
+                    <form action="#" method="post">
+                        <input type="email" id="mc4wp_email" name="EMAIL" placeholder="Enter your email here" required="">
+                        <input type="submit" value="Subscribe">
+                    </form>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
         </div>
-    </footer>
+    </div>
+    <!-- //footer -->
+    <!-- copyright -->
+    <div class="copyright">
+        <div class="container">
+            <p>© 2017 Bike World . All Rights Reserved | Design by <a href="http://w3layouts.com/"> W3layouts</a> </p>
+        </div>
+    </div>
+    <!-- //copyright -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

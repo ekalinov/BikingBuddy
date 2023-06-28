@@ -1,0 +1,121 @@
+﻿<!-- gallery -->
+<div class="gallery-top">
+	<div class="container">
+		<div class="gallery">
+			<div class="gallery-bg">
+				<div class="agileits-gallery gallery-bg-text effect-2">
+					<a href="images/g1.jpg" class="big"><img src="images/g1.jpg" alt="" title="Maecenas aliquam nec arcu at efficitur. Praesent cursus aliquam erat a commodo." /></a>
+				</div>
+			</div>
+			<div class="gallery-small gallery-middle">
+				<div class="agileits-gallery gallery-small-text effect-3">
+					<a href="images/g2.jpg"><img src="images/g2.jpg" alt="" title="Donec dictum nisi sit amet ex volutpat interdum." /></a>
+				</div>
+			</div>
+			<div class="gallery-small gallery-middle">
+				<div class="agileits-gallery gallery-small-text effect-3">
+					<a href="images/g3.jpg"><img src="images/g3.jpg" alt="" title="Ut dignissim ipsum dolor, in scelerisque neque commodo sit amet." /></a>
+				</div>
+			</div>
+			<div class="gallery-small gallery-middle">
+				<div class="agileits-gallery gallery-small-text effect-3">
+					<a href="images/g4.jpg"><img src="images/g4.jpg" alt="" title="Nulla molestie nulla et dolor commodo pharetra." /></a>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+
+			<div class="gallery-small gallery-middle">
+				<div class="agileits-gallery gallery-small-text effect-3">
+					<a href="images/g5.jpg"><img src="images/g5.jpg" alt="" title="Maecenas aliquam nec arcu at efficitur. Praesent cursus aliquam erat a commodo." /></a>
+				</div>
+			</div>
+			<div class="gallery-bg">
+				<div class="agileits-gallery gallery-bg-text effect-2">
+					<a href="images/g7.jpg" class="big"><img src="images/g7.jpg" alt="" title="Maecenas aliquam nec arcu at efficitur. Praesent cursus aliquam erat a commodo." /></a>
+				</div>
+			</div>
+			<div class="gallery-small gallery-middle">
+				<div class="agileits-gallery gallery-small-text effect-3">
+					<a href="images/g6.jpg"><img src="images/g6.jpg" alt="" title="Maecenas aliquam nec arcu at efficitur." /></a>
+				</div>
+			</div>
+			<div class="gallery-small gallery-middle">
+				<div class="agileits-gallery gallery-small-text effect-3">
+					<a href="images/g8.jpg"><img src="images/g8.jpg" alt="" title="Nulla molestie nulla et dolor commodo pharetra." /></a>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+
+			<div class="gallery-bg">
+				<div class="agileits-gallery gallery-bg-text effect-2">
+					<a href="images/g9.jpg" class="big"><img src="images/g9.jpg" alt="" title="Maecenas aliquam nec arcu at efficitur. Praesent cursus aliquam erat a commodo." /></a>
+				</div>
+			</div>
+			<div class="gallery-small gallery-middle">
+				<div class="agileits-gallery gallery-small-text effect-3">
+					<a href="images/g2.jpg"><img src="images/g2.jpg" alt="" title="Maecenas aliquam nec arcu at efficitur. Praesent cursus aliquam erat a commodo." /></a>
+				</div>
+			</div>
+			<div class="gallery-small gallery-middle">
+				<div class="agileits-gallery gallery-small-text effect-3">
+					<a href="images/g5.jpg"><img src="images/g5.jpg" alt="" title="Maecenas aliquam nec arcu at efficitur." /></a>
+				</div>
+			</div>
+			<div class="gallery-small gallery-middle">
+				<div class="agileits-gallery gallery-small-text effect-3">
+					<a href="images/g6.jpg"><img src="images/g6.jpg" alt="" title="Nulla molestie nulla et dolor commodo pharetra." /></a>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+
+		</div>
+		<script type="text/javascript" src="js/simple-lightbox.js"></script>
+		<script>
+			$(function () {
+				var $gallery = $('.gallery a').simpleLightbox();
+
+				$gallery.on('show.simplelightbox', function () {
+					console.log('Requested for showing');
+				})
+					.on('shown.simplelightbox', function () {
+						console.log('Shown');
+					})
+					.on('close.simplelightbox', function () {
+						console.log('Requested for closing');
+					})
+					.on('closed.simplelightbox', function () {
+						console.log('Closed');
+					})
+					.on('change.simplelightbox', function () {
+						console.log('Requested for change');
+					})
+					.on('next.simplelightbox', function () {
+						console.log('Requested for next');
+					})
+					.on('prev.simplelightbox', function () {
+						console.log('Requested for prev');
+					})
+					.on('nextImageLoaded.simplelightbox', function () {
+						console.log('Next image loaded');
+					})
+					.on('prevImageLoaded.simplelightbox', function () {
+						console.log('Prev image loaded');
+					})
+					.on('changed.simplelightbox', function () {
+						console.log('Image changed');
+					})
+					.on('nextDone.simplelightbox', function () {
+						console.log('Image changed to next');
+					})
+					.on('prevDone.simplelightbox', function () {
+						console.log('Image changed to prev');
+					})
+					.on('error.simplelightbox', function (e) {
+						console.log('No image found, go to the next/prev');
+						console.log(e);
+					});
+			});
+		</script>
+	</div>
+</div>
+<!-- //gallery -->

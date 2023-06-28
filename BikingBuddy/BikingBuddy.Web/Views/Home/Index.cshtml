@@ -1,8 +1,194 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+﻿<!--banner Slider starts Here-->
+		
+<div class="social-grids">
+	<div class="container">
+		<div class="agileinfo-social-grids">
+			<ul>
+				<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+				<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+				<li><a href="#"><i class="fa fa-rss"></i></a></li>
+                <li><a href="#"><i class="fa fa-vk"></i></a></li>
+			</ul>
+		</div>
+	</div>
 </div>
+	</
+<!-- //banner -->
+<!-- services -->
+<div class="services">
+	<div class="container">
+		<div class="w3layouts-services-heading">
+			<h2>Our Services</h2>
+		</div>
+		<div class="w3-services-grids">
+			<div class="col-md-3 w3l-services-grid">
+				<div class="w3ls-services-img">
+					<i class="fa fa-male" aria-hidden="true"></i>
+				</div>
+				<div class="agileits-services-info">
+					<h4>Praesent tempor purus</h4>
+					<p>Donec non nibh in dui sagittis finibus. Duis suscipit, arcu vel rhoncus molestie, ipsum velit mattis nibh, id congue lacus lorem a elit. </p>
+				</div>
+			</div>
+			<div class="col-md-3 w3l-services-grid">
+				<div class="w3ls-services-img">
+					<i class="fa fa-bicycle" aria-hidden="true"></i>
+				</div>
+				<div class="agileits-services-info">
+					<h4>Praesent tempor purus</h4>
+					<p>Donec non nibh in dui sagittis finibus. Duis suscipit, arcu vel rhoncus molestie, ipsum velit mattis nibh, id congue lacus lorem a elit. </p>
+				</div>
+			</div>
+			<div class="col-md-3 w3l-services-grid">
+				<div class="w3ls-services-img">
+					<i class="fa fa-cog" aria-hidden="true"></i>
+				</div>
+				<div class="agileits-services-info">
+					<h4>Praesent tempor purus</h4>
+					<p>Donec non nibh in dui sagittis finibus. Duis suscipit, arcu vel rhoncus molestie, ipsum velit mattis nibh, id congue lacus lorem a elit. </p>
+				</div>
+			</div>
+			<div class="col-md-3 w3l-services-grid">
+				<div class="w3ls-services-img">
+					<i class="fa fa-female" aria-hidden="true"></i>
+				</div>
+				<div class="agileits-services-info">
+					<h4>Praesent tempor purus</h4>
+					<p>Donec non nibh in dui sagittis finibus. Duis suscipit, arcu vel rhoncus molestie, ipsum velit mattis nibh, id congue lacus lorem a elit. </p>
+				</div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+</div>
+<!-- //services -->
+<!-- history -->
+<div class="jarallax history">
+	<div class="container">
+		<div class="agileinfo-history-grids">
+			<div class="slider">
+				<div class="callbacks_container">
+					<ul class="rslides" id="slider3">
+						<li>
+							<div class="wthree-history-info">
+								<h4>Extreme mountain bike enthusiasts</h4>
+								<p>Mauris mollis, libero id ornare condimentum, erat mi iaculis libero, bibendum dictum leo tortor a magna. Aenean porta non nunc in semper. Fusce eget tempus metus, sit amet posuere lectus. Morbi cursus ante a felis ultrices scelerisque. Nullam cursus odio est, in pellentesque neque elementum nec. Pellentesque a egestas erat.</p>
+								<a href="about.html">Read More</a>
+							</div>
+						</li>
+						<li>
+							<div class="wthree-history-info">
+								<h4>Enjoy every moment of triathlon training</h4>
+								<p>Nullam tristique faucibus pharetra. Ut ultricies, dui a tincidunt placerat, urna augue pellentesque leo, et posuere velit neque quis justo. Vivamus vel nulla vel tellus pretium maximus. Pellentesque auctor euismod lectus a pretium. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+								<a href="about.html">Read More</a>
+							</div>
+						</li>
+						<li>
+							<div class="wthree-history-info">
+								<h4>We are committed to develop the sport of triathlon</h4>
+								<p>Donec viverra enim nunc, sit amet ultricies dolor placerat vestibulum. Donec id dapibus dolor. Praesent elementum ipsum fringilla ullamcorper facilisis. Morbi blandit tortor molestie ex dignissim, vitae blandit metus ullamcorper. Praesent eleifend risus quam, et aliquet eros tristique a. Duis rhoncus auctor urna, id tristique quam gravida in. </p>
+								<a href="about.html">Read More</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<script>
+				// You can also use "$(window).load(function() {"
+				$(function () {
+					// Slideshow 4
+					$("#slider3").responsiveSlides({
+						auto: true,
+						pager: false,
+						nav: false,
+						speed: 500,
+						namespace: "callbacks",
+						before: function () {
+							$('.events').append("<li>before event fired.</li>");
+						},
+						after: function () {
+							$('.events').append("<li>after event fired.</li>");
+						}
+					});
+
+				});
+			</script>
+			<!--banner Slider starts Here-->
+		</div>
+	</div>
+	<script type="text/javascript">
+		/* init Jarallax */
+		$('.jarallax').jarallax({
+			speed: 0.5,
+			imgWidth: 1366,
+			imgHeight: 768
+		})
+	</script>
+</div>
+<!-- //history -->
+<!-- rides -->
+<div class="rides">
+	<div class="container">
+		<div class="w3-agileits-rides-heading">
+			<h3>Recent Rides</h3>
+		</div>
+		<div class="agileits-w3layouts-rides-grids">
+			<div class="col-sm-4 rides-grid">
+				<div class="rides-grid-info">
+					<img src="images/r1.jpg" alt="" />
+					<h4>Nullam tristique faucibus</h4>
+					<p>Pellentesque auctor euismod lectus a pretium. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur ut elit at est tempus volutpat.</p>
+				</div>
+			</div>
+			<div class="col-sm-4 rides-grid">
+				<div class="rides-grid-info">
+					<img src="images/r2.jpg" alt="" />
+					<h4> Ut ultricies, dui a tincidunt</h4>
+					<p>Pellentesque auctor euismod lectus a pretium. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur ut elit at est tempus volutpat.</p>
+				</div>
+			</div>
+			<div class="col-sm-4 rides-grid">
+				<div class="rides-grid-info">
+					<img src="images/r3.jpg" alt="" />
+					<h4>Curabitur non blandit justo</h4>
+					<p>Pellentesque auctor euismod lectus a pretium. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur ut elit at est tempus volutpat.</p>
+				</div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+		<div class="agileits-w3layouts-rides-grids">
+			<div class="col-sm-4 rides-grid">
+				<div class="rides-grid-info">
+					<img src="images/r4.jpg" alt="" />
+					<h4>Nullam tristique faucibus</h4>
+					<p>Pellentesque auctor euismod lectus a pretium. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur ut elit at est tempus volutpat.</p>
+					<ul>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i> <a href="single.html">Nullam tristique faucibus pharetra.</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i> <a href="single.html">Pellentesque auctor</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-sm-4 rides-grid">
+				<div class="rides-grid-info">
+					<img src="images/r5.jpg" alt="" />
+					<h4> Ut ultricies, dui a tincidunt</h4>
+					<p>Pellentesque auctor euismod lectus a pretium. Cum sociis natoque</p>
+					<ul>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i> <a href="single.html">Nullam tristique faucibus pharetra.</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i> <a href="single.html">Ut ultricies, dui a tincidunt placerat</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i> <a href="single.html">Pellentesque auctor</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-sm-4 rides-grid">
+				<div class="rides-grid-info">
+					<img src="images/r6.jpg" alt="" />
+					<h4>Curabitur non blandit justo</h4>
+					<p>Pellentesque auctor euismod lectus a pretium. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur ut elit at est tempus volutpat.nascetur ridiculus mus. Curabitur ut elit at est tempus volutpat.</p>
+				</div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+</div>
+<!-- //rides -->

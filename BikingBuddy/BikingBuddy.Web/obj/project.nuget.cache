@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Sq97kHcS/G71cTt7nPE7GkdvVzMW/ymAlO+IgZisF5E4hn8gpZuW0AeSxap+kv6CRxJ/vqfzAhXaysvBqrtBcA==",
+  "dgSpecHash": "cym0gu1UhIKqu6rP4skRzJIjMNEsdCwYU+OYJAEu6DJJuBBXUKf1CAtCB3l707wTOcRH7YQ079G2vcWBvW5wcg==",
   "success": true,
   "projectFilePath": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Web\\BikingBuddy.Web.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\OMEN\\.nuget\\packages\\font.awesome\\5.15.4\\font.awesome.5.15.4.nupkg.sha512",
     "C:\\Users\\OMEN\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\OMEN\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\OMEN\\.nuget\\packages\\humanizer.core.af\\2.14.1\\humanizer.core.af.2.14.1.nupkg.sha512",

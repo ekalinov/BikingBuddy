@@ -11,6 +11,7 @@
           "BikingBuddy.Data": "1.0.0",
           "BikingBuddy.Services": "1.0.0",
           "BikingBuddy.Web.Infrastructure": "1.0.0",
+          "Font.Awesome": "5.15.4",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "6.0.10",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.18",
           "Microsoft.AspNetCore.Identity.UI": "6.0.18",
@@ -22,6 +23,7 @@
           "BikingBuddy.Web.dll": {}
         }
       },
+      "Font.Awesome/5.15.4": {},
       "Humanizer/2.14.1": {
         "dependencies": {
           "Humanizer.Core.af": "2.14.1",
@@ -2634,6 +2636,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Font.Awesome/5.15.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Okg91rA7RWbd+eKyBNNnvlvzFee7A4yIi0WdTrJMVPos1ntONAVn/m96Ex9qvVXKKiroBZ1vtCXtpFMnHNof1g==",
+      "path": "font.awesome/5.15.4",
+      "hashPath": "font.awesome.5.15.4.nupkg.sha512"
     },
     "Humanizer/2.14.1": {
       "type": "package",

@@ -56,8 +56,32 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Emo/SU_repos/BikingBuddy/BikingBuddy/BikingBuddy.Web/Views/Home/About.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBYm91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Emo/SU_repos/BikingBuddy/BikingBuddy/BikingBuddy.Web/Views/Home/Gallery.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxHYWxsZXJ5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Emo/SU_repos/BikingBuddy/BikingBuddy/BikingBuddy.Web/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Emo/SU_repos/BikingBuddy/BikingBuddy/BikingBuddy.Web/Views/Home/Mail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxNYWlsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Emo/SU_repos/BikingBuddy/BikingBuddy/BikingBuddy.Web/Views/Home/Short.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTaG9ydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Emo/SU_repos/BikingBuddy/BikingBuddy/BikingBuddy.Web/Views/Home/Single.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTaW5nbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Emo/SU_repos/BikingBuddy/BikingBuddy/BikingBuddy.Web/Views/Home/Training.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxUcmFpbmluZy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Emo/SU_repos/BikingBuddy/BikingBuddy/BikingBuddy.Web/Views/Shared/Error.cshtml]
