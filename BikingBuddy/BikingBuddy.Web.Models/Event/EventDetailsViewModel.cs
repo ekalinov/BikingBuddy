@@ -15,7 +15,6 @@ namespace BikingBuddy.Web.Models.Event
     {
         public EventDetailsViewModel()
         {
-            this.EventComments = new HashSet<CommentViewModel>();
             this.EventsParticipants = new HashSet<EventParticipantsViewModel>();
         }
 
@@ -46,7 +45,7 @@ namespace BikingBuddy.Web.Models.Event
         public string Town { get; set; } = null!;
 
 
-        public ICollection<CommentViewModel> EventComments { get; set; }
+        public ICollection<CommentViewModel> EventComments { get; set; } = null!;
 
         public ICollection<EventParticipantsViewModel> EventsParticipants { get; set; }
 

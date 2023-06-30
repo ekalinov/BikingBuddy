@@ -22,5 +22,10 @@
         
         [Required]
         public string CommentBody { get; set; } = null!;
+
+        [Required]
+        public bool IsEdited { get; set; } = false;
+
+        public DateTime? EditedOn { get; set; }
     }
 }

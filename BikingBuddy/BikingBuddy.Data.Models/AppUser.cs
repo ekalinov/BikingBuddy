@@ -30,6 +30,9 @@
 
         public string? TeamId { get; set; } = null!;
 
+        [Url]
+        public string ImageURL { get; set; } = null!;
+
         [ForeignKey(nameof(TeamId))]
         public Team? Team { get; set; } = null!;
 

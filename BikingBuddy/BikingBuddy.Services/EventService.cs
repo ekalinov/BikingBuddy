@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BikingBuddy.Common;
+﻿using BikingBuddy.Common;
 using BikingBuddy.Data;
 using BikingBuddy.Data.Models;
 using BikingBuddy.Services.Contracts;
@@ -12,13 +7,15 @@ using BikingBuddy.Web.Models.Activity;
 using BikingBuddy.Web.Models.Comment;
 using BikingBuddy.Web.Models.Event;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Scaffolding;
+
+using static BikingBuddy.Common.ErrorMessages.EventErrorMessages;
 
 namespace BikingBuddy.Services
 {
     public class EventService : IEventService
     {
         private readonly BikingBuddyDbContext dbContext;
+        
 
         public EventService(BikingBuddyDbContext _dbContext)
         {
@@ -26,10 +23,10 @@ namespace BikingBuddy.Services
         }
 
 
-
+        //All
         public async Task<ICollection<AllEventsViewModel>> GetAllEventsAsync()
         {
-            var events = await dbContext.Events
+            var allEvents = await dbContext.Events
                 .Select(e => new AllEventsViewModel()
                 {
                     Id = e.Id.ToString(),
@@ -37,18 +34,215 @@ namespace BikingBuddy.Services
                     Date = e.Date.ToString(DateTimeFormats.DateTimeFormat),
                     Description = e.Description,
                     Distance = e.Distance.ToString(),
+                    OrganizerUsername = e.Organizer.UserName,
                     EventImageUrl = e.EventImageUrl!,
                     ActivityType = e.ActivityType.Name,
                     Town = e.Town.Name,
                 })
                 .AsNoTracking()
                 .ToArrayAsync();
-            
-            return events;
+
+
+            return allEvents;
 
         }
 
-        public async Task<List<ActivityTypeViewModel>> GetTypesAsync()
+        //Create
+        public async Task AddEventAsync(EventViewModel model, string userId)
+        {
+           
+            Event newEvent = new()
+            {
+                Title = model.Title,
+                Date = DateTime.Parse(model.Date),
+                Description = model.Description,
+                EventImageUrl = model.EventImageUrl,
+                ActivityTypeId = model.ActivityTypeId,
+                OrganizerId = Guid.Parse(userId),
+                CountryId = model.CountryId,
+                Town = await GetTownByName(model.TownName),
+                Municipality = await GetMunicipalityByName(model.Municipality),
+                Ascent = model.Ascent,
+                Distance = model.Distance,
+
+            };
+
+            await dbContext.Events.AddAsync(newEvent);
+            await dbContext.SaveChangesAsync();
+
+        }
+
+        //Read
+        public async Task<EventDetailsViewModel> GetEventDetailsByIdAsync(string id)
+        {
+            var eventById = await dbContext.Events
+                .Where(e => e.Id.ToString() == id)
+                .Select(e => new EventDetailsViewModel()
+                {
+                    Id = e.Id.ToString(),
+                    Title = e.Title,
+                    Date = e.Date,
+                    Description = e.Description,
+                    Distance = e.Distance.ToString(),
+                    Ascent = e.Ascent.ToString(),
+                    OrganizerName = e.Organizer.Name,
+                    OrganizerUsername = e.Organizer.UserName,
+                    EventImageUrl = e.EventImageUrl!,
+                    ActivityType = e.ActivityType.Name,
+                    Country = string.Format("{0}, {1}", e.Country.Name, e.CountryId),
+                    Town = e.Town.Name,
+                    Municipality = e.Municipality!.Name,
+                })
+                .OrderByDescending(e => e.Date)
+                .FirstOrDefaultAsync();
+
+            if (eventById is null)
+            {
+                throw new NullReferenceException(EventNotExistsMessage);
+            }
+
+            return eventById!;
+        }
+
+        //Update
+        public async Task EditEventAsync(EventViewModel model, string eventId)
+        {
+            var eventToEdit = await GetEventByIdAsync(model.Id);
+
+
+            eventToEdit.Title = model.Title;
+            eventToEdit.Date = DateTime.Parse(model.Date);
+            eventToEdit.Description = model.Description;
+            eventToEdit.Distance = model.Distance;
+            eventToEdit.Ascent = model.Ascent;
+            eventToEdit.EventImageUrl = model.EventImageUrl;
+            eventToEdit.ActivityTypeId = model.ActivityTypeId;
+            eventToEdit.CountryId = model.CountryId;
+            eventToEdit.Town = await GetTownByName(model.TownName);
+            eventToEdit.Municipality = await GetMunicipalityByName(model.Municipality);
+
+            await dbContext.SaveChangesAsync();
+        }
+
+        //Delete
+        public Task DeleteEventAsync(int id)
+        {
+            //Todo: SoftDelete 
+            throw new NotImplementedException();
+        }
+
+        //Join Event
+        public async Task JoinEvent(string userId, string eventId)
+        {
+            var currentEvent = await GetEventByIdAsync(eventId);
+
+            EventParticipants newEventParticipant = new()
+            {
+                ParticipantId = Guid.Parse(userId),
+                Event = currentEvent
+            };
+
+            try
+            {
+                currentEvent.EventsParticipants.Add(newEventParticipant);
+                await dbContext.SaveChangesAsync();
+
+            }
+            catch (DbUpdateException)
+            {
+                throw new DbUpdateException(UserAlreadyParticipatingErrorMessage);
+            }
+        }
+
+        //Leave Event  
+        public async Task LeaveEvent(string userId, string eventId)
+        {
+            var currentEventParticipant = await dbContext.EventsParticipants
+                .Where(ep => ep.ParticipantId.ToString() == userId
+                             && ep.EventId.ToString() == eventId)
+                .FirstOrDefaultAsync();
+
+            if (currentEventParticipant is null)
+            {
+                throw new NullReferenceException(UserNotParticipatingErrorMessage);
+            }
+
+            dbContext.Remove(currentEventParticipant);
+            await dbContext.SaveChangesAsync();
+        }
+
+
+        //Get Event
+        public async Task<EventViewModel> GetEventViewModelByIdAsync(string id)
+        {
+            var eventViewModelById = await dbContext.Events
+                .Where(e => e.Id.ToString() == id)
+                .Select(e => new EventViewModel()
+                {
+                    Id = e.Id.ToString(),
+                    Title = e.Title,
+                    Date = e.Date.ToString(DateTimeFormats.DateTimeFormat),
+                    Description = e.Description,
+                    Distance = e.Distance,
+                    Ascent = e.Ascent,
+                    EventImageUrl = e.EventImageUrl!,
+                    TownName = e.Town.Name,
+                    Municipality = e.Municipality.Name,
+                })
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
+
+            if (eventViewModelById is null)
+            {
+                throw new Exception(EventNotExistsMessage);
+            }
+            return eventViewModelById!;
+        }
+
+        public async Task<Event> GetEventByIdAsync(string id)
+        {
+            Event? eventById = await dbContext.Events
+                .Where(e => e.Id == Guid.Parse(id))
+                .FirstOrDefaultAsync();
+
+            if (eventById is null)
+                throw new NullReferenceException(EventNotExistsMessage);
+
+            return eventById;
+        }
+
+        public async Task<ICollection<AllEventsViewModel>> GetEventsByUserId(string userId)
+        {
+            var allUserEvents = await dbContext.Events
+                .Where(e => e.EventsParticipants
+                            .Any(ep => ep.ParticipantId.ToString() == userId)
+                          || e.OrganizerId.ToString() == userId)
+                .Select(e => new AllEventsViewModel()
+                {
+                    Id = e.Id.ToString(),
+                    Title = e.Title,
+                    Date = e.Date.ToString(DateTimeFormats.DateTimeFormat),
+                    Description = e.Description,
+                    OrganizerUsername = e.Organizer.UserName,
+                    Distance = e.Distance.ToString(),
+                    EventImageUrl = e.EventImageUrl!,
+                    ActivityType = e.ActivityType.Name,
+                    Town = e.Town.Name,
+                })
+                .AsNoTracking()
+                .ToArrayAsync();
+
+            if (!allUserEvents.Any())
+            {
+                throw new Exception(UserDoesNotHaveEvents);
+            }
+
+            return allUserEvents;
+        }
+
+        //Additional collections getter
+        public async Task<List<ActivityTypeViewModel>> GetActivityTypesAsync()
         {
             var activityTypes = await dbContext.ActivityTypes
                 .Select(a => new ActivityTypeViewModel()
@@ -76,158 +270,20 @@ namespace BikingBuddy.Services
             return countries;
         }
 
-        public async Task AddEventAsync(EventViewModel model, string userId)
-        {
-            Town town = await GetTownByName(model.TownName);
 
-            Municipality municipality;
-
-            if (!string.IsNullOrEmpty(model.Municipality))
-            {
-                municipality = await GetMunicipalityByName(model.Municipality);
-
-            }
-            else
-            {
-                municipality = null!;
-            }
-
-            Event newEvent = new()
-            {
-                Title = model.Title,
-                Date = DateTime.Parse(model.Date),
-                Description = model.Description,
-                EventImageUrl = model.EventImageUrl,
-                ActivityTypeId = model.ActivityTypeId,
-                OrganizerId = Guid.Parse(userId),
-                CountryId = model.CountryId,
-                Town = town,
-                Municipality = municipality,
-                Ascent = model.Ascent,
-                Distance = model.Distance,
-
-            };
-
-            await dbContext.Events.AddAsync(newEvent);
-            await dbContext.SaveChangesAsync();
-
-        }
-
-        public async Task<EventViewModel> GetEventViewModelByIdAsync(string id)
-        {
-            var eventViewModelById = await dbContext.Events
-                .Where(e => e.Id.ToString() == id)
-                .Select(e => new EventViewModel()
-                {
-                    Id = e.Id.ToString(),
-                    Title = e.Title,
-                    Date = e.Date.ToString(DateTimeFormats.DateTimeFormat),
-                    Description = e.Description,
-                    Distance = e.Distance,
-                    Ascent = e.Ascent,
-                    EventImageUrl = e.EventImageUrl!,
-                    TownName = e.Town.Name,
-                    Municipality = e.Municipality.Name,
-                })
-                .AsNoTracking()
-                .FirstOrDefaultAsync();
-
-            return eventViewModelById!;
-        }
-
-        public async Task<Event> GetEventByIdAsync(string id)
-        {
-            Event? eventById = await dbContext.Events
-                .Where(e => e.Id == Guid.Parse(id))
-                .FirstOrDefaultAsync();
-
-            if (eventById is null)
-                  throw new NullReferenceException("There is no event with this Id!");
-
-            return eventById;
-        }
-
-
-        public async Task EditEventAsync(EventViewModel model, string eventId)
-        {
-            var eventToEdit = await GetEventByIdAsync(model.Id);
-
-            Town town = await GetTownByName(model.TownName);
-
-            Municipality municipality;
-
-            if (!string.IsNullOrEmpty(model.Municipality))
-            {
-                municipality = await GetMunicipalityByName(model.Municipality);
-
-            }
-            else
-            {
-                municipality = null!;
-            }
-
-
-            eventToEdit.Title=model.Title;
-            eventToEdit.Date = DateTime.Parse(model.Date);
-            eventToEdit.Description = model.Description;
-            eventToEdit.Distance = model.Distance;
-            eventToEdit.Ascent = model.Ascent;
-            eventToEdit.EventImageUrl = model.EventImageUrl;
-            eventToEdit.ActivityTypeId = model.ActivityTypeId;
-            eventToEdit.CountryId = model.CountryId;
-            eventToEdit.Municipality = municipality;
-            
-            
-            await dbContext.SaveChangesAsync();
-
-
-
-        }
-
-        public async Task<EventDetailsViewModel> GetEventDetailsByIdAsync(string id)
-        {
-            var eventById = await dbContext.Events
-                .Where(e => e.Id.ToString() == id)
-                .Select(e => new  EventDetailsViewModel()
-                {
-                    Id = e.Id.ToString(),
-                    Title = e.Title,
-                    Date = e.Date,
-                    Description = e.Description,
-                    Distance = e.Distance.ToString(),
-                    Ascent = e.Ascent.ToString(),
-                    OrganizerName = e.Organizer.Name,
-                    OrganizerUsername = e.Organizer.UserName,
-                    EventImageUrl = e.EventImageUrl!,
-                    ActivityType = e.ActivityType.Name,
-                    Country = string.Format("{0}, {1}",e.Country.Name,e.CountryId),
-                    Town = e.Town.Name,
-                    Municipality = e.Municipality!.Name,
-                    
-                })
-                .OrderByDescending(e=>e.Date)
-                .FirstOrDefaultAsync();
-
-            return eventById!;
-        }
-
-        public Task DeleteEventAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task JoinEvent(string userId, int id)
-        {
-            throw new NotImplementedException();
-        }
 
         //----------------------------------------------
 
-
-        public async Task<Town> GetTownByName(string name)
+        /// <summary>
+        /// Method returns Town if there is such by given string,
+        /// if the town doesn't exists in the Db the method creates new one 
+        /// </summary>
+        /// <param name="name"> string name of town </param>
+        /// <returns>Returns Town</returns>
+        private async Task<Town> GetTownByName(string name)
         {
             Town? town = await dbContext.Towns
-                .Where(t => t.Name == name)
+                .Where(t => t.Name.ToLower() == name.ToLower())
                 .FirstOrDefaultAsync();
 
             if (town is null)
@@ -244,10 +300,22 @@ namespace BikingBuddy.Services
             return town;
         }
 
-        public async Task<Municipality> GetMunicipalityByName(string name)
+
+        /// <summary>
+        ///  Method returns Municipality if there is such by given string,
+        /// /// if the town doesn't exists in the Db the method creates new one 
+        /// </summary>
+        /// <param name="name">string name of municipality</param>
+        /// <returns> Returns Municipality</returns>
+        private async Task<Municipality?> GetMunicipalityByName(string? name)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                return null;
+            }
+
             Municipality? municipality = await dbContext.Municipalities
-                .Where(t => t.Name == name)
+                .Where(t => t.Name.ToLower() == name.ToLower())
                 .FirstOrDefaultAsync();
 
             if (municipality is null)

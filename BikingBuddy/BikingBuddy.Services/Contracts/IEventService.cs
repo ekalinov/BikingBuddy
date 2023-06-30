@@ -8,25 +8,36 @@ namespace BikingBuddy.Services.Contracts
 
     public interface IEventService
     {
+        //All
         Task<ICollection<AllEventsViewModel>> GetAllEventsAsync();
 
-        Task<List<ActivityTypeViewModel>> GetTypesAsync();
-
+        //Create
         Task AddEventAsync(EventViewModel model, string userId);
 
+        //Read
+        Task<EventDetailsViewModel> GetEventDetailsByIdAsync(string id);
+
+        //Update
+        Task EditEventAsync(EventViewModel model, string eventId);
+
+        //Delete
+        Task DeleteEventAsync(int id);
+
+        //Join Event
+        Task JoinEvent(string userId, string eventId);
+
+        //Leave Event
+        Task LeaveEvent(string userId, string eventId);
+
+        //Get Events
+        Task<ICollection<AllEventsViewModel>> GetEventsByUserId(string userId);
 
         Task<EventViewModel> GetEventViewModelByIdAsync(string id);
 
         Task<Event> GetEventByIdAsync(string id);
 
-        Task EditEventAsync(EventViewModel model, string eventId);
 
-        Task<EventDetailsViewModel> GetEventDetailsByIdAsync(string id);
-
-        Task DeleteEventAsync(int id);
-        
-        Task JoinEvent(string userId, int id);
-
+        Task<List<ActivityTypeViewModel>> GetActivityTypesAsync();
 
         Task<List<CountryViewModel>> GetCountriesAsync();
 

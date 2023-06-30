@@ -38,6 +38,14 @@
             public const int BikeTypeNameMinLength = 2;
         }
 
+
+
+        public class Comment
+        {
+            public const int CommentMaxLength = 255;
+            public const int CommentMinLength = 1;
+        }
+
         public class Ride
         {
             public const int RideNameMaxLength = 50;

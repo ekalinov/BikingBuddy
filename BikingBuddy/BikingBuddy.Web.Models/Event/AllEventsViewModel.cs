@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BikingBuddy.Web.Models.Comment;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,6 +10,12 @@ namespace BikingBuddy.Web.Models.Event
 {
     public class AllEventsViewModel
     {
+
+        public AllEventsViewModel()
+        {
+            this.Comments = new HashSet<CommentViewModel>();
+        }
+
         public string Id { get; set; } = null!;
 
         public string Title { get; set; } = null!;
@@ -21,12 +28,16 @@ namespace BikingBuddy.Web.Models.Event
 
         public string OrganizerId { get; set; } = null!;
 
+        public string OrganizerUsername { get; set; } = null!;
+            
+
         public string EventImageUrl { get; set; } = null!;
 
         public string ActivityType { get; set; } = null!;
 
         public string Town { get; set; } = null!;
 
+        public ICollection<CommentViewModel> Comments { get; set; } 
 
     }
 }

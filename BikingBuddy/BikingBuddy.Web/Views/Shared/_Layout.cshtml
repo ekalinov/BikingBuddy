@@ -27,13 +27,13 @@
                         @if (User.Identity!.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Event" asp-action="All">Events around me</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Event" asp-action="All">Events</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Event" asp-action="Add">Create a new event</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Event" asp-action="Joined">My Joined Events</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Event" asp-action="Mine">My Events</a>
                             </li>
                         }
                     </ul>

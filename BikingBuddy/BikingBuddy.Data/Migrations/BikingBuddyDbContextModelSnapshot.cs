@@ -113,6 +113,10 @@ namespace BikingBuddy.Data.Migrations
                     b.Property<string>("Helmet")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageURL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -295,8 +299,14 @@ namespace BikingBuddy.Data.Migrations
                     b.Property<DateTime>("CommentedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("EditedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("EventId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsEdited")
+                        .HasColumnType("bit");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");

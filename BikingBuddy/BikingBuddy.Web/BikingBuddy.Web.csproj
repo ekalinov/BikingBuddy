@@ -25,4 +25,8 @@
     <ProjectReference Include="..\BikingBuddy.Web.Infrastructure\BikingBuddy.Web.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Comment\" />
+  </ItemGroup>
+
 </Project>
