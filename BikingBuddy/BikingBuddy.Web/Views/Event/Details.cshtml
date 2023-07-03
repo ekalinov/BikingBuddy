@@ -37,19 +37,21 @@
 
         <div>
             <div>
-                ☺@await Html.PartialAsync("_AllCommentsPartial",modelComments)
+                @await Html.PartialAsync("_AllCommentsPartial",modelComments)
             </div>
+            
             <div>
                 <form method="post" asp-controller="Comment" asp-action="Add">
                     <input hidden="hidden" name="eventId" value="@Model.Id"/>
                     <div class="mb-3">
                         <label for="commentBody" class="form-label">Example textarea</label>
-                        <textarea class="form-control" id="commentBody" rows="3"></textarea>
+                        <textarea class="form-control" name="commentBody" value="@Model.ActivityType" rows="3"></textarea>
                     </div>
                     <div class="form_grp">
                         <button type="submit" class="btn btn-primary" id="submit">Добави</button>
                     </div>
                 </form>
+                
             </div>
 
         </div>

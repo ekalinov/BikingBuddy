@@ -28,7 +28,7 @@
 
         public string? Shoes { get; set; } = null!;
 
-        public string? TeamId { get; set; } = null!;
+        public Guid? TeamId { get; set; } = null!;
 
         [Url]
         public string ImageURL { get; set; } = null!;

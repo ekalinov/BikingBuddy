@@ -23,6 +23,8 @@ namespace BikingBuddy.Data
 
         public DbSet<Event> Events { get; set; } = null!;
 
+        public DbSet<Team> Teams { get; set; } = null!;
+
         public DbSet<Bike> Bikes { get; set; } = null!;
 
         public DbSet<BikeType> BikeTypes { get; set; } = null!;

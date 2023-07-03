@@ -23,12 +23,10 @@ namespace BikingBuddy.Web.Controllers
         {
             var userId = User.GetId();
 
-
-
             await commentService.AddComment(commentBody, userId,eventId);
 
 
-            return RedirectToAction("Details", "Event", new { eventId });
+            return RedirectToAction("Details", "Event", new {eventId});
         }
 
 
@@ -43,5 +41,16 @@ namespace BikingBuddy.Web.Controllers
 
             return RedirectToAction("Details", "Event", new { eventId });
         }
+
+        //[HttpGet]
+        //public async Task<IActionResult> Edit(CommentViewModel model)
+        //{
+        //    var userId = User.GetId();
+
+        //  // await commentService.AddComment(body, userId, eventId);
+
+
+        //   // return RedirectToAction("Details", "Event", new { eventId });
+        //}
     }
 }

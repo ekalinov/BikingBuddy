@@ -1,20 +1,16 @@
-﻿using BikingBuddy.Web.Models.Comment;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BikingBuddy.Web.Models.Team;
 
 namespace BikingBuddy.Services.Contracts
 {
     public interface ITeamService
     {
+        Task<TeamViewModel> TeamDetails(string teamId);
 
-        Task<ICollection<CommentViewModel>> GetAllTeams(string eventId);
+        Task< ICollection<TeamViewModel>> GetAllTeams();
 
-        Task AddTeam(string comment, string userId, string eventId);
+        Task AddTeam(TeamViewModel model, string teamManagerId);
 
-        Task EditTeam(CommentViewModel commentModel);
+        Task EditTeam(TeamViewModel model, string teamId);
 
         Task DeleteTeam(int commentId);
 

@@ -15,7 +15,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BikingBuddy.Common", "Bikin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BikingBuddy.Web.Models", "BikingBuddy.Web.Models\BikingBuddy.Web.Models.csproj", "{9385430C-E635-4D93-A168-D3AC79939E03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikingBuddy.Web.Infrastructure", "BikingBuddy.Web.Infrastructure\BikingBuddy.Web.Infrastructure.csproj", "{5EC6BCBA-2906-4AC8-BDEC-29767CF88813}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BikingBuddy.Web.Infrastructure", "BikingBuddy.Web.Infrastructure\BikingBuddy.Web.Infrastructure.csproj", "{5EC6BCBA-2906-4AC8-BDEC-29767CF88813}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{2C449089-2F10-4832-A55B-5986FAC77D05}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{D526EBBE-297B-485A-93AE-6BBF0B5DFCC2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{B05B11E9-0765-4559-8E4C-D5AB2AECB224}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{81160D35-8F5B-41BC-BD93-65525989D2DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +62,15 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{15BDAF2C-3255-446A-BEE1-7E31166A2BF3} = {D526EBBE-297B-485A-93AE-6BBF0B5DFCC2}
+		{3AEF4622-AC5C-464C-A29D-8671DEEDDD67} = {2C449089-2F10-4832-A55B-5986FAC77D05}
+		{C66B6663-FF46-4593-A1E7-871CE701E126} = {2C449089-2F10-4832-A55B-5986FAC77D05}
+		{02ED3F67-5A05-4527-A981-E5017EE02051} = {B05B11E9-0765-4559-8E4C-D5AB2AECB224}
+		{081DDAED-F386-4288-B0F8-E906527FDB10} = {81160D35-8F5B-41BC-BD93-65525989D2DD}
+		{9385430C-E635-4D93-A168-D3AC79939E03} = {D526EBBE-297B-485A-93AE-6BBF0B5DFCC2}
+		{5EC6BCBA-2906-4AC8-BDEC-29767CF88813} = {D526EBBE-297B-485A-93AE-6BBF0B5DFCC2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F868F88D-51BD-42EF-ADE2-26383065EAAA}

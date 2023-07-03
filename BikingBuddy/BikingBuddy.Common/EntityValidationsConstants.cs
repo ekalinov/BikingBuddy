@@ -79,6 +79,10 @@
         {
             public const int TeamNameMaxLength = 30;
             public const int TeamNameMinLength = 2;
+
+
+            public const int TeamDescriptionMaxLength = 300;
+            public const int TeamDescriptionMinLength = 15;
         }
 
         public class Town

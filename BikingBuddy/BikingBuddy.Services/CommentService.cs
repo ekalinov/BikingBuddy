@@ -63,7 +63,7 @@ namespace BikingBuddy.Services
 
         }
 
-
+        
         public async Task EditComment(CommentViewModel commentModel)
         {
             Comment? commentToEdit = await dbContext.Comments

@@ -30,6 +30,19 @@ namespace BikingBuddy.Common
 
         }
 
+        public static class TeamErrorMessages
+        {
+            public const string TeamDoesNotExist = "Team does not exist!";
+
+            public const string UserDoesNotExist = "Invalid User!";
+
+            public const string UserAlreadyAMember = "The user is already a member!";
+
+            public const string UserIsNotAMember = "The user is not a member of this team!";
+
+
+
+        }
 
     }
 }

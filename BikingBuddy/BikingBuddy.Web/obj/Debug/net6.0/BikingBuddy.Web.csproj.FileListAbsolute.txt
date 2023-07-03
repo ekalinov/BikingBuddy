@@ -353,3 +353,8 @@ D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Web\bin\Debug\net6.0\BikingB
 D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Web\bin\Debug\net6.0\BikingBuddy.Web.Models.pdb
 D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Web\bin\Debug\net6.0\BikingBuddy.Web.Infrastructure.dll
 D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Web\bin\Debug\net6.0\BikingBuddy.Web.Infrastructure.pdb
+D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Web\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Web\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Web\bin\Debug\net6.0\Microsoft.DotNet.PlatformAbstractions.dll
+D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Web\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Web\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

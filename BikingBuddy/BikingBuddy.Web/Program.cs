@@ -6,6 +6,7 @@ using BikingBuddy.Data.Models;
 using BikingBuddy.Services;
 using BikingBuddy.Services.Contracts;
 using BikingBuddy.Web.Infrastructure.Extensions;
+using BikingBuddy.Web.Infrastructure.ModelBinders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +30,11 @@ builder.Services.AddDefaultIdentity<AppUser>(options =>
     })
     .AddEntityFrameworkStores<BikingBuddyDbContext>();
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddMvcOptions(options =>
+    {
+        options.ModelBinderProviders.Insert(0, new DoubleModelBinderProvider ());
+    });
 
 builder.Services.AddApplicationServices(typeof(IEventService));
 
