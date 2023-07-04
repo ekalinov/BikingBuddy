@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using BikingBuddy.Common;
 using BikingBuddy.Web.Models.Comment;
 using Microsoft.VisualBasic;
+using BikingBuddy.Web.Models.Team;
 
 namespace BikingBuddy.Web.Models.Event
 {
@@ -15,7 +16,7 @@ namespace BikingBuddy.Web.Models.Event
     {
         public EventDetailsViewModel()
         {
-            this.EventsParticipants = new HashSet<EventParticipantsViewModel>();
+            this.EventsParticipants = new HashSet<EventParticipantViewModel>();
         }
 
         public string Id { get; set; } = null!;
@@ -47,7 +48,7 @@ namespace BikingBuddy.Web.Models.Event
 
         public ICollection<CommentViewModel> EventComments { get; set; } = null!;
 
-        public ICollection<EventParticipantsViewModel> EventsParticipants { get; set; }
+        public ICollection<EventParticipantViewModel> EventsParticipants { get; set; }
 
     }
 }

@@ -5,6 +5,8 @@ using BikingBuddy.Web.Models.Team;
 using Microsoft.EntityFrameworkCore;
 
 using static BikingBuddy.Common.ErrorMessages.TeamErrorMessages;
+using static BikingBuddy.Common.DateTimeFormats;
+using BikingBuddy.Common;
 
 namespace BikingBuddy.Services
 {
@@ -20,17 +22,17 @@ namespace BikingBuddy.Services
             this.dbContext = _dbContext;
         }
 
-
-        public async Task<TeamViewModel> TeamDetails(string teamId)
+        //Details
+        public async Task<TeamDetailsViewModel> TeamDetails(string teamId)
         {
             var teamDetails = await dbContext.Teams
                 .Where(t => t.Id == Guid.Parse(teamId))
-                .Select(t => new TeamViewModel()
+                .Select(t => new TeamDetailsViewModel()
                 {
                     Id = t.Id.ToString(),
                     Name = t.Name,
                     TeamImageUrl = t.TeamImageUrl,
-                    EstablishedOn = t.EstablishedOn,
+                    EstablishedOn = t.EstablishedOn.ToString(),
                     TeamMembers = t.TeamMembers
                         .Select(tm => new TeamMemberViewModel()
                         {
@@ -48,25 +50,17 @@ namespace BikingBuddy.Services
             return teamDetails;
         }
 
-        public async Task<ICollection<TeamViewModel>> GetAllTeams()
+        public async Task<ICollection<AllTeamsViewModel>> GetAllTeams()
         {
             var allTeams = await dbContext.Teams
-                .Select(t => new TeamViewModel()
+                .Select(t => new AllTeamsViewModel()
                 {
                     Id = t.Id.ToString(),
                     Name = t.Name,
                     TeamImageUrl = t.TeamImageUrl,
-                    EstablishedOn = t.EstablishedOn,
-                    TeamManager = t.TeamManager.Name,
-                    TeamMembers = t.TeamMembers
-                        .Select(tm => new TeamMemberViewModel()
-                        {
-                            Id = tm.Id.ToString(),
-                            Name = tm.Name,
-                            TeamMemberImageUrl = tm.ImageURL,
-
-                        }).ToList()
-
+                    Country=t.Country.Name,
+                    TeamMembersCount = t.TeamMembers.Count
+                       
                 }).ToListAsync();
 
 
@@ -74,27 +68,36 @@ namespace BikingBuddy.Services
             return allTeams;
         }
 
-        public async Task AddTeam(TeamViewModel model,string teamManagerId)
+
+        //Create
+        public async Task AddTeam(AddTeamViewModel model,string teamManagerId)
         {
             var teamToAdd = new Team()
             {
                 Name = model.Name,
                 TeamImageUrl = model.TeamImageUrl,
                 EstablishedOn = model.EstablishedOn,
-                TeamManagerId = Guid.Parse(teamManagerId)
+                TeamManagerId = Guid.Parse(teamManagerId),
+                CountryId= model.CountryId,
+                Town =  await eventService.GetTownByName(model.TownName),
+                Description = model.Description  
+
             };
 
             await dbContext.Teams.AddAsync(teamToAdd);
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task EditTeam(TeamViewModel model, string teamId)
+        public async Task EditTeam(TeamDetailsViewModel model, string teamId)
         {
-            var teamToAdd = await GetTeamById(teamId);
+            var teamToEdit = await GetTeamById(teamId);
 
-            teamToAdd.Name = model.Name;
-            teamToAdd.TeamImageUrl = model.TeamImageUrl;
-            teamToAdd.EstablishedOn = model.EstablishedOn;
+            teamToEdit.Name = model.Name;
+            teamToEdit.TeamImageUrl = model.TeamImageUrl;
+            teamToEdit.EstablishedOn = DateTime.Parse(model.EstablishedOn);
+            teamToEdit.CountryId = model.Country;
+            teamToEdit.Town = await eventService.GetTownByName(model.Town);
+            teamToEdit.Description = model.Description;
 
 
             await dbContext.SaveChangesAsync();

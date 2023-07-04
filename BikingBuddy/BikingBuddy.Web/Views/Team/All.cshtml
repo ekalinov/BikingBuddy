@@ -1,4 +1,4 @@
-﻿@model ICollection<TeamViewModel>
+﻿@model ICollection<AllTeamsViewModel>
 @{
     ViewBag.Title = "All Teams";
 }
@@ -15,28 +15,15 @@
     }
     else
     {
-        @foreach (var e in Model)
-        {
-            <div class="card col-4" style="width: 20rem;">
-                <img class="card-img-top" style="width: 18rem;"
-             src="@e.TeamImageUrl" alt="Book Image">
-                <div class="card-body">
-
-                    <h5 class="card-title mt-1">@e.Name</h5>
-                    <p class="mb-0">Established on: @e.EstablishedOn</p>
-                    <p class="mb-0">Members Count: @e.TeamMembers.Count()</p>
-                    <p class="mb-0">Team Manager: @e.TeamManager</p>
-                    \
-                 
-                </div>
-
+        
                 
                 <table class="table align-middle mb-0 bg-white">
                     <thead class="bg-light">
                     <tr>
                         <th>Team Name</th>
-                        <th>Established on</th>
+                        <th>Country</th>
                         <th>Members Count</th>
+                        <th>Options</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -57,15 +44,15 @@
                                 </div>
                             </td>
                             <td>
-                                <p class="fw-normal mb-1">@team.EstablishedOn</p>
-                                <p class="text-muted mb-0">@team.TeamMembers.Count</p>
+                                <p class="fw-normal mb-1">@team.Country</p>
                             </td>
 
                             <td>
-                                <button type="submit" class="btn btn-warning btn-rounded" name="commentBodyToEdit" value=@team.Id>
-                                    Team details
-                                </button>
-                                <a asp-controller="Team" asp-action="Details" asp-route-teamId="@e.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Details</a>
+                                <p class="text-muted mb-0">@team.TeamMembersCount</p>
+                            </td>
+
+                            <td>
+                                <a asp-controller="Team" asp-action="Details" asp-route-teamId="@team.Id" class="btn btn-warning btn-rounded">Details</a>
                             </td>
                         </tr>
                     }
@@ -87,8 +74,8 @@
                         <input type="submit" value="Join the Event" class="fs-6 btn btn-warning mb-3 w-100 p-3 fw-bold" />
                     </form>
                 }*@
-            </div>
-        }
+            
+        
 
     }
     

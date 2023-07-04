@@ -12,13 +12,13 @@ namespace BikingBuddy.Services.Contracts
         Task<ICollection<AllEventsViewModel>> GetAllEventsAsync();
 
         //Create
-        Task AddEventAsync(EventViewModel model, string userId);
+        Task AddEventAsync(AddEventViewModel model, string userId);
 
         //Read
         Task<EventDetailsViewModel> GetEventDetailsByIdAsync(string id);
 
         //Update
-        Task EditEventAsync(EventViewModel model, string eventId);
+        Task EditEventAsync(EditEventViewModel model, string eventId);
 
         //Delete
         Task DeleteEventAsync(int id);
@@ -32,7 +32,7 @@ namespace BikingBuddy.Services.Contracts
         //Get Events
         Task<ICollection<AllEventsViewModel>> GetEventsByUserId(string userId);
 
-        Task<EventViewModel> GetEventViewModelByIdAsync(string id);
+        Task<EditEventViewModel> GetEventViewModelByIdAsync(string id);
 
         Task<Event> GetEventByIdAsync(string id);
 
@@ -43,6 +43,8 @@ namespace BikingBuddy.Services.Contracts
 
 
 
+
+        Task<Town> GetTownByName(string name);
 
         //Task<List<DetailsViewModel>> GetDetailsUserModels(string userId);
 

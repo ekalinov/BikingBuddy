@@ -65,23 +65,29 @@
             <h5>Participants:</h5>
             @foreach (var ep in Model.EventsParticipants)
             {
+                <div class="row">
 
-                <p class="mb-0"><span class="fw-bold"> </span>@ep.ParticipantName</p>
+                    <p class="mb-0"><span class="fw-bold"> </span>@ep.ParticipantImageUrl</p>
+                    <p class="mb-0"><span class="fw-bold"> </span>@ep.Name</p>
+                    <p class="mb-0"><span class="fw-bold"> </span>@ep.Id</p>
+                </div>
+               
             }
         </div>
+
         @if (User.Identity?.Name == Model.OrganizerUsername)
         {
             <a asp-controller="Event" asp-action="Edit" asp-route-eventId="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
         }
         else
         {
-            if (!Model.EventsParticipants.Any(ep => ep.ParticipantId == User.Identity?.Name))
+            if (Model.EventsParticipants.All(ep => ep.Name != User.Identity?.Name))
             {
-                <a asp-controller="Event" asp-action="Join" class="btn btn-warning mb-2 w-100 p-3 fw-bold">join Event</a>
+                <a asp-route-eventId="@Model.Id" asp-controller="Event" asp-action="Join" class="btn btn-warning mb-2 w-100 p-3 fw-bold">join Event</a>
             }
             else
             {
-                <a asp-controller="Event" asp-action="Leave" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Leave Event</a>
+                <a asp-route-eventId="@Model.Id" asp-controller="Event" asp-action="Leave" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Leave Event</a>
             }
         }
 

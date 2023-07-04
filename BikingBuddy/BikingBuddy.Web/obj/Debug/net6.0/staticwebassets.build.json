@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Lus3fjS2kZ4QoR6noawD8cmYLBOu1hdlHqZbR18O2AY=",
+  "Hash": "MJ7JkiRcRSWUhBKp+vLbEg1CM2Irv3vH512HBxQN1yQ=",
   "Source": "BikingBuddy.Web",
   "BasePath": "_content/BikingBuddy.Web",
   "Mode": "Default",
@@ -1105,6 +1105,23 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
+      "Identity": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Web\\wwwroot\\js\\jquery-override.js",
+      "SourceId": "BikingBuddy.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Web\\wwwroot\\",
+      "BasePath": "_content/BikingBuddy.Web",
+      "RelativePath": "js/jquery-override.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\jquery-override.js"
+    },
+    {
       "Identity": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Web\\wwwroot\\js\\site.js",
       "SourceId": "BikingBuddy.Web",
       "SourceType": "Discovered",
@@ -2089,6 +2106,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Web\\wwwroot\\userDefaultIcon.png",
+      "SourceId": "BikingBuddy.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Emo\\SU_repos\\BikingBuddy\\BikingBuddy\\BikingBuddy.Web\\wwwroot\\",
+      "BasePath": "_content/BikingBuddy.Web",
+      "RelativePath": "userDefaultIcon.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\userDefaultIcon.png"
     }
   ]
 }

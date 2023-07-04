@@ -6,6 +6,7 @@ using BikingBuddy.Web.Models;
 using BikingBuddy.Web.Models.Activity;
 using BikingBuddy.Web.Models.Comment;
 using BikingBuddy.Web.Models.Event;
+using BikingBuddy.Web.Models.Team;
 using Microsoft.EntityFrameworkCore;
 
 using static BikingBuddy.Common.ErrorMessages.EventErrorMessages;
@@ -48,7 +49,7 @@ namespace BikingBuddy.Services
         }
 
         //Create
-        public async Task AddEventAsync(EventViewModel model, string userId)
+        public async Task AddEventAsync(AddEventViewModel model, string userId)
         {
            
             Event newEvent = new()
@@ -92,6 +93,14 @@ namespace BikingBuddy.Services
                     Country = string.Format("{0}, {1}", e.Country.Name, e.CountryId),
                     Town = e.Town.Name,
                     Municipality = e.Municipality!.Name,
+                    EventsParticipants = e.EventsParticipants
+                        .Select(ep=> new EventParticipantViewModel
+                        {
+                            Id = ep.ParticipantId.ToString(),
+                            Name = ep.Participant.Name,
+                           ParticipantImageUrl = ep.Participant.ImageURL
+                        })
+                        .ToList()
                 })
                 .OrderByDescending(e => e.Date)
                 .FirstOrDefaultAsync();
@@ -105,9 +114,9 @@ namespace BikingBuddy.Services
         }
 
         //Update
-        public async Task EditEventAsync(EventViewModel model, string eventId)
+        public async Task EditEventAsync(EditEventViewModel model, string eventId)
         {
-            var eventToEdit = await GetEventByIdAsync(model.Id);
+            var eventToEdit = await GetEventByIdAsync(model.EventId);
 
 
             eventToEdit.Title = model.Title;
@@ -173,13 +182,13 @@ namespace BikingBuddy.Services
 
 
         //Get Event
-        public async Task<EventViewModel> GetEventViewModelByIdAsync(string id)
+        public async Task<EditEventViewModel> GetEventViewModelByIdAsync(string id)
         {
             var eventViewModelById = await dbContext.Events
                 .Where(e => e.Id.ToString() == id)
-                .Select(e => new EventViewModel()
+                .Select(e => new EditEventViewModel()
                 {
-                    Id = e.Id.ToString(),
+                    EventId = e.Id.ToString(),
                     Title = e.Title,
                     Date = e.Date.ToString(DateTimeFormats.DateTimeFormat),
                     Description = e.Description,
@@ -280,7 +289,7 @@ namespace BikingBuddy.Services
         /// </summary>
         /// <param name="name"> string name of town </param>
         /// <returns>Returns Town</returns>
-        private async Task<Town> GetTownByName(string name)
+        public async Task<Town> GetTownByName(string name)
         {
             Town? town = await dbContext.Towns
                 .Where(t => t.Name.ToLower() == name.ToLower())

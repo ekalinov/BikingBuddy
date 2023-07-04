@@ -4,13 +4,13 @@ namespace BikingBuddy.Services.Contracts
 {
     public interface ITeamService
     {
-        Task<TeamViewModel> TeamDetails(string teamId);
+        Task<TeamDetailsViewModel> TeamDetails(string teamId);
 
-        Task< ICollection<TeamViewModel>> GetAllTeams();
+        Task< ICollection<AllTeamsViewModel>> GetAllTeams();
 
-        Task AddTeam(TeamViewModel model, string teamManagerId);
+        Task AddTeam(AddTeamViewModel model, string teamManagerId);
 
-        Task EditTeam(TeamViewModel model, string teamId);
+        Task EditTeam(TeamDetailsViewModel model, string teamId);
 
         Task DeleteTeam(int commentId);
 

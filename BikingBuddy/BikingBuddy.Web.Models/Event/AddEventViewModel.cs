@@ -9,15 +9,14 @@ using static BikingBuddy.Common.EntityValidationsConstants.Town;
 
 namespace BikingBuddy.Web.Models.Event
 {
-    public class EventViewModel
+    public class AddEventViewModel
     {
-        public EventViewModel()
+        public AddEventViewModel()
         {
             ActivityTypes = new HashSet<ActivityTypeViewModel>();
             CountriesCollection = new HashSet<CountryViewModel>();
         }
 
-        public string Id { get; set; } = null!;
         
         [Required]
         [StringLength(TitleMaxLength,

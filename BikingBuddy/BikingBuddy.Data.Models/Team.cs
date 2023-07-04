@@ -24,12 +24,25 @@
         public string Name { get; set; } = null!;
 
         [MaxLength(TeamDescriptionMaxLength)]
-        public string Descriptions { get; set; } = null!;
+        public string Description { get; set; } = null!;
 
         public DateTime? EstablishedOn { get; set; }
 
         [Url]
         public string? TeamImageUrl { get; set; }
+
+
+        [ForeignKey(nameof(CountryId))]
+        public Country Country { get; set; } = null!;
+
+        public string CountryId { get; set; } = null!;
+
+
+        [ForeignKey(nameof(TownId))]
+        public Town Town { get; set; } = null!;
+
+        [Required]
+        public int TownId { get; set; }
 
 
         public ICollection<AppUser> TeamMembers { get; set; }

@@ -40,7 +40,7 @@ namespace BikingBuddy.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            var addEventModel = new EventViewModel()
+            var addEventModel = new AddEventViewModel()
             {
                 ActivityTypes = await service.GetActivityTypesAsync(),
                 CountriesCollection = await service.GetCountriesAsync()
@@ -52,11 +52,14 @@ namespace BikingBuddy.Web.Controllers
 
         [HttpPost]
 
-        public async Task<IActionResult> Add(EventViewModel model)
+        public async Task<IActionResult> Add(AddEventViewModel model)
         {
 
             if (!ModelState.IsValid)
             {
+                model.ActivityTypes = await service.GetActivityTypesAsync();
+                model.CountriesCollection = await service.GetCountriesAsync();
+
                 return View(model);
 
             }
@@ -94,17 +97,17 @@ namespace BikingBuddy.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(string eventId)
         {
-            EventViewModel editEvent = await service.GetEventViewModelByIdAsync(eventId);
+           EditEventViewModel editAddEvent = await service.GetEventViewModelByIdAsync(eventId);
 
-            editEvent.ActivityTypes = await service.GetActivityTypesAsync();
-            editEvent.CountriesCollection = await service.GetCountriesAsync();
+            editAddEvent.ActivityTypes = await service.GetActivityTypesAsync();
+            editAddEvent.CountriesCollection = await service.GetCountriesAsync();
 
-            return View(editEvent);
+            return View(editAddEvent);
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> Edit(EventViewModel model)
+        public async Task<IActionResult> Edit(EditEventViewModel model)
         {
             if (!ModelState.IsValid)
             {

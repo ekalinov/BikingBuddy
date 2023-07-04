@@ -38,8 +38,7 @@ namespace BikingBuddy.Services
                 .OrderByDescending(c => c.CreatedOn)
                 .ToListAsync();
 
-            if (!eventComments.Any())
-                throw new NullReferenceException(NoCommentsForThisEventErrorMessage);
+            
 
 
             return eventComments;

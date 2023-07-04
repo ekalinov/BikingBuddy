@@ -1,0 +1,65 @@
+﻿@model TeamDetailsViewModel
+
+
+<h2 class="text-center">Team Details</h2>
+<hr />
+
+<div class="row">
+    <div class="card">
+        <div class="card-body">
+            <img class="img-fluid" style="width: 18rem;"
+                 src="@Model.TeamImageUrl" alt="Book Image">
+            <h3 class="card-title text-center">@Model.Name</h3>
+            <p class="mb-0">
+                <span class="fw-bold">Location: </span>@Model.Town , @Model.Country
+            </p>
+
+            <p class="mb-0"><span class="fw-bold">Type: </span>@Model.TeamManager</p>
+            <p class="mb-0"><span class="fw-bold">Description: </span>@Model.Description</p>
+
+        </div>
+
+
+       
+
+        <a asp-controller="Team" asp-action="RequestJoin"  asp-route-eventId="@Model.Id">Request to join </a>
+        <a asp-controller="Team" asp-action="All" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Back to All Teams</a>
+
+
+
+        <div>
+            <h5>Team Members:</h5>
+            @foreach (var member in Model.TeamMembers)
+            {
+                <div class="row">
+
+                    <p class="mb-0"><span class="fw-bold"> </span>@member.TeamMemberImageUrl</p>
+                    <p class="mb-0"><span class="fw-bold"> </span>@member.Name</p>
+                    <p class="mb-0"><span class="fw-bold"> </span>@member.Id</p>
+                </div>
+
+            }
+        </div>
+
+        @if (User.Identity?.Name == Model.TeamManager)
+        {
+            <a asp-controller="Team" asp-action="Edit" asp-route-teamId="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
+        }
+        else
+        {
+            if (Model.TeamMembers.All(ep => ep.Name != User.Identity?.Name))
+            {
+                <a asp-route-teamId="@Model.Id" asp-controller="Team" asp-action="RequestJoin" class="btn btn-warning mb-2 w-100 p-3 fw-bold">REquest to join</a>
+            }
+            else
+            {
+                <a asp-route-teamId="@Model.Id" asp-controller="Event" asp-action="LeaveTeam" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Leave Team</a>
+            }
+        }
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
