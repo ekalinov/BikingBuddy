@@ -34,7 +34,7 @@
                 <a asp-controller="Event" asp-action="Details" asp-route-eventId="@e.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">View Details</a>
                 @if (User.Identity?.Name == e.OrganizerUsername)
                 {
-                    <a asp-controller="Event" asp-action="Edit" asp-route-id="@e.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
+                    <a asp-controller="Event" asp-action="Edit" asp-route-eventId="@e.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
                 }
                 else
                 {

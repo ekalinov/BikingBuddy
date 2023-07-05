@@ -36,7 +36,7 @@
         [ForeignKey(nameof(BikeType))]
         public int BikeTypeId { get; set; }
 
-        public BikeType BikeType { get; set; } = null!;
+        public virtual BikeType BikeType { get; set; } = null!;
     }
 
 

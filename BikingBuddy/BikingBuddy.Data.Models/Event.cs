@@ -44,40 +44,40 @@
         public int ActivityTypeId { get; set; }
 
         [ForeignKey(nameof(ActivityTypeId))]
-        public ActivityType ActivityType { get; set; } = null!;
+        public virtual ActivityType ActivityType { get; set; } = null!;
 
 
         [Required]
         public Guid OrganizerId { get; set; } 
 
         [ForeignKey(nameof(OrganizerId))]
-        public AppUser Organizer { get; set; } = null!;
+        public virtual AppUser Organizer { get; set; } = null!;
         
 
 
         [ForeignKey(nameof(CountryId))]
-        public Country Country { get; set; } = null!;
+        public virtual Country Country { get; set; } = null!;
 
         public string CountryId { get; set; } = null!;
 
 
 
         [ForeignKey(nameof(MunicipalityId))]
-        public Municipality? Municipality { get; set; } = null!;
+        public virtual Municipality? Municipality { get; set; } = null!;
 
         public int? MunicipalityId { get; set; }
 
 
         [ForeignKey(nameof(TownId))]
-        public Town Town { get; set; } = null!;
+        public virtual Town Town { get; set; } = null!;
 
         [Required]
         public int TownId { get; set; }
         
 
-        public ICollection<Comment> EventComments { get; set; }
+        public virtual ICollection<Comment> EventComments { get; set; }
 
-        public ICollection<EventParticipants> EventsParticipants { get; set; }
+        public virtual ICollection<EventParticipants> EventsParticipants { get; set; }
 
     }
 

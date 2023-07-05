@@ -13,16 +13,16 @@
             <p class="mb-0">
                 <span class="fw-bold">Location: </span>@Model.Town , @Model.Country
             </p>
-
-            <p class="mb-0"><span class="fw-bold">Type: </span>@Model.TeamManager</p>
             <p class="mb-0"><span class="fw-bold">Description: </span>@Model.Description</p>
+
+            <p class="mb-0"><span class="fw-bold">Team Manager: </span>@Model.TeamManager</p>
 
         </div>
 
+        <hr/>
 
-       
 
-        <a asp-controller="Team" asp-action="RequestJoin"  asp-route-eventId="@Model.Id">Request to join </a>
+        <a asp-controller="Team" asp-action="RequestToJoin" class="btn btn-warning mb-2 w-100 p-3 fw-bold" asp-route-teamId="@Model.Id">Request to join </a>
         <a asp-controller="Team" asp-action="All" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Back to All Teams</a>
 
 
@@ -30,6 +30,20 @@
         <div>
             <h5>Team Members:</h5>
             @foreach (var member in Model.TeamMembers)
+            {
+                <div class="row">
+
+                    <p class="mb-0"><span class="fw-bold"> </span>@member.TeamMemberImageUrl</p>
+                    <p class="mb-0"><span class="fw-bold"> </span>@member.Name</p>
+                    <p class="mb-0"><span class="fw-bold"> </span>@member.Id</p>
+                </div>
+
+            }
+        </div>
+        
+        <div>
+            <h5>Team Members:</h5>
+            @foreach (var member in Model.MembersRequests)
             {
                 <div class="row">
 

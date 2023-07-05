@@ -196,7 +196,7 @@ namespace BikingBuddy.Services
                     Ascent = e.Ascent,
                     EventImageUrl = e.EventImageUrl!,
                     TownName = e.Town.Name,
-                    Municipality = e.Municipality.Name,
+                    Municipality = e.Municipality!.Name,
                 })
                 .AsNoTracking()
                 .FirstOrDefaultAsync();

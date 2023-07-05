@@ -25,8 +25,10 @@ namespace BikingBuddy.Data
 
         public DbSet<Team> Teams { get; set; } = null!;
 
-        public DbSet<Bike> Bikes { get; set; } = null!;
+        public DbSet<TeamRequest> TeamsRequests { get; set; } = null!;
 
+        public DbSet<Bike> Bikes { get; set; } = null!;
+        
         public DbSet<BikeType> BikeTypes { get; set; } = null!;
 
         public DbSet<Comment> Comments { get; set; } = null!;

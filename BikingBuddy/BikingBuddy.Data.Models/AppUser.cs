@@ -11,18 +11,19 @@
     {
         public AppUser()
         {
-            this.ImageURL = "~/userDefaultIcon.png";
             this.Id = Guid.NewGuid();
             this.EventsParticipants = new HashSet<EventParticipants>();
-            this.ManagingTeams = new HashSet<Team>();
+            this.TeamRequests = new HashSet<TeamRequest>();
         }
+
+
 
         [Required]
         [MaxLength(UsernameMaxLength)]
         public string Name { get; set; } = null!;
 
         [ForeignKey(nameof(BikeId))]
-        public Bike? Bike { get; set; } = null!;
+        public virtual Bike? Bike { get; set; } = null!;
 
         public string? BikeId { get; set; } = null!;
 
@@ -34,10 +35,11 @@
         [Url]
         public string ImageURL { get; set; } = null!;
 
+
         public Guid? TeamId { get; set; } = null!;
         
         [ForeignKey(nameof(TeamId))]
-        public Team? Team { get; set; } = null!;
+        public virtual Team? Team { get; set; } = null!;
 
 
       
@@ -45,10 +47,12 @@
         public string? ProfileImageUrl { get; set; }
         
 
-        public ICollection<EventParticipants> EventsParticipants { get; set; }
+        public virtual ICollection<EventParticipants> EventsParticipants { get; set; }
 
 
-        public ICollection<Team> ManagingTeams { get; set; }
+        public virtual ICollection<TeamRequest> TeamRequests { get; set; }
+
+
 
 
     }

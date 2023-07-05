@@ -1698,6 +1698,24 @@ namespace BikingBuddy.Data.Migrations
                     b.ToTable("Teams");
                 });
 
+            modelBuilder.Entity("BikingBuddy.Data.Models.TeamRequest", b =>
+                {
+                    b.Property<Guid>("RequestFromId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TeamId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsAccepted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("RequestFromId", "TeamId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("TeamsRequests");
+                });
+
             modelBuilder.Entity("BikingBuddy.Data.Models.Town", b =>
                 {
                     b.Property<int>("Id")
@@ -2008,9 +2026,9 @@ namespace BikingBuddy.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("BikingBuddy.Data.Models.AppUser", "TeamManager")
-                        .WithMany("ManagingTeams")
+                        .WithMany()
                         .HasForeignKey("TeamManagerId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("BikingBuddy.Data.Models.Town", "Town")
@@ -2024,6 +2042,25 @@ namespace BikingBuddy.Data.Migrations
                     b.Navigation("TeamManager");
 
                     b.Navigation("Town");
+                });
+
+            modelBuilder.Entity("BikingBuddy.Data.Models.TeamRequest", b =>
+                {
+                    b.HasOne("BikingBuddy.Data.Models.AppUser", "RequestFrom")
+                        .WithMany("TeamRequests")
+                        .HasForeignKey("RequestFromId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BikingBuddy.Data.Models.Team", "Team")
+                        .WithMany("TeamRequests")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("RequestFrom");
+
+                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -2081,7 +2118,7 @@ namespace BikingBuddy.Data.Migrations
                 {
                     b.Navigation("EventsParticipants");
 
-                    b.Navigation("ManagingTeams");
+                    b.Navigation("TeamRequests");
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.Country", b =>
@@ -2099,6 +2136,8 @@ namespace BikingBuddy.Data.Migrations
             modelBuilder.Entity("BikingBuddy.Data.Models.Team", b =>
                 {
                     b.Navigation("TeamMembers");
+
+                    b.Navigation("TeamRequests");
                 });
 
             modelBuilder.Entity("BikingBuddy.Data.Models.Town", b =>

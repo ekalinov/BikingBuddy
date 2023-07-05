@@ -5,8 +5,6 @@ using BikingBuddy.Web.Models.Team;
 using Microsoft.EntityFrameworkCore;
 
 using static BikingBuddy.Common.ErrorMessages.TeamErrorMessages;
-using static BikingBuddy.Common.DateTimeFormats;
-using BikingBuddy.Common;
 
 namespace BikingBuddy.Services
 {
@@ -23,7 +21,7 @@ namespace BikingBuddy.Services
         }
 
         //Details
-        public async Task<TeamDetailsViewModel> TeamDetails(string teamId)
+        public async Task<TeamDetailsViewModel> GetTeamDetailsAsync(string teamId)
         {
             var teamDetails = await dbContext.Teams
                 .Where(t => t.Id == Guid.Parse(teamId))
@@ -31,8 +29,12 @@ namespace BikingBuddy.Services
                 {
                     Id = t.Id.ToString(),
                     Name = t.Name,
-                    TeamImageUrl = t.TeamImageUrl,
+                    TeamImageUrl = t.TeamImageUrl!,
                     EstablishedOn = t.EstablishedOn.ToString(),
+                    Description = t.Description,
+                    Country = t.Country.Name,
+                    Town = t.Town.Name,
+                    TeamManager = t.TeamManager.Name,
                     TeamMembers = t.TeamMembers
                         .Select(tm => new TeamMemberViewModel()
                         {
@@ -41,6 +43,28 @@ namespace BikingBuddy.Services
                             TeamMemberImageUrl = tm.ImageURL
 
                         }).ToList()
+
+                }).FirstOrDefaultAsync();
+
+            if (teamDetails is null)
+                throw new NullReferenceException(TeamDoesNotExist);
+
+
+            return teamDetails!;
+        }
+
+        public async Task<EditTeamViewModel> GetTeamToEditAsync(string teamId)
+        {
+            var teamDetails = await dbContext.Teams
+                .Where(t => t.Id == Guid.Parse(teamId))
+                .Select(t => new EditTeamViewModel()
+                {
+                    Id = t.Id.ToString(),
+                    Name = t.Name,
+                    TeamImageUrl = t.TeamImageUrl,
+                    EstablishedOn = t.EstablishedOn,
+                    Description = t.Description,
+                    TownName = t.Town.Name
 
                 }).FirstOrDefaultAsync();
 
@@ -57,10 +81,10 @@ namespace BikingBuddy.Services
                 {
                     Id = t.Id.ToString(),
                     Name = t.Name,
-                    TeamImageUrl = t.TeamImageUrl,
-                    Country=t.Country.Name,
+                    TeamImageUrl = t.TeamImageUrl!,
+                    Country = t.Country.Name,
                     TeamMembersCount = t.TeamMembers.Count
-                       
+
                 }).ToListAsync();
 
 
@@ -70,7 +94,7 @@ namespace BikingBuddy.Services
 
 
         //Create
-        public async Task AddTeam(AddTeamViewModel model,string teamManagerId)
+        public async Task AddTeam(AddTeamViewModel model, string teamManagerId)
         {
             var teamToAdd = new Team()
             {
@@ -78,9 +102,9 @@ namespace BikingBuddy.Services
                 TeamImageUrl = model.TeamImageUrl,
                 EstablishedOn = model.EstablishedOn,
                 TeamManagerId = Guid.Parse(teamManagerId),
-                CountryId= model.CountryId,
-                Town =  await eventService.GetTownByName(model.TownName),
-                Description = model.Description  
+                CountryId = model.CountryId,
+                Town = await eventService.GetTownByName(model.TownName),
+                Description = model.Description
 
             };
 
@@ -88,15 +112,15 @@ namespace BikingBuddy.Services
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task EditTeam(TeamDetailsViewModel model, string teamId)
+        public async Task EditTeam(EditTeamViewModel model, string teamId)
         {
             var teamToEdit = await GetTeamById(teamId);
 
             teamToEdit.Name = model.Name;
             teamToEdit.TeamImageUrl = model.TeamImageUrl;
-            teamToEdit.EstablishedOn = DateTime.Parse(model.EstablishedOn);
-            teamToEdit.CountryId = model.Country;
-            teamToEdit.Town = await eventService.GetTownByName(model.Town);
+            teamToEdit.EstablishedOn = model.EstablishedOn;
+            teamToEdit.CountryId = model.CountryId;
+            teamToEdit.Town = await eventService.GetTownByName(model.TownName);
             teamToEdit.Description = model.Description;
 
 
@@ -104,9 +128,22 @@ namespace BikingBuddy.Services
         }
 
         public Task DeleteTeam(int commentId)
-        {  
+        {
             //TODO: Soft Delete
             throw new NotImplementedException();
+        }
+
+        public async Task SendRequest(string teamId, string userId)
+        {
+        //    Team team = await GetTeamById(teamId);
+
+        //    AppUser user = await GetUserById(userId);
+
+
+        //    team.TeamRequests.Add(user);
+
+        //    await dbContext.SaveChangesAsync();
+
         }
 
 
@@ -167,11 +204,11 @@ namespace BikingBuddy.Services
             return userById;
         }
 
-        private  async Task<bool> IsMember(string userId)
+        private async Task<bool> IsMember(string userId)
         {
-           return await dbContext.Teams
-                .Where(t => t.TeamMembers.Any(tm => tm.Id == Guid.Parse(userId)))
-                .AnyAsync();
+            return await dbContext.Teams
+                 .Where(t => t.TeamMembers.Any(tm => tm.Id == Guid.Parse(userId)))
+                 .AnyAsync();
 
         }
     }

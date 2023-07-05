@@ -18,17 +18,17 @@ namespace BikingBuddy.Web.Models.Team
             this.CountriesCollection = new HashSet<CountryViewModel>();
         }
 
+
         [Required]
         [MaxLength(TeamNameMaxLength)]
-
         public string Name { get; set; } = null!;
 
         [Required]
         [MaxLength(TeamDescriptionMaxLength)]
         public string Description { get; set; } = null!;
 
-        [Required]
-        public DateTime EstablishedOn { get; set; }
+        
+        public DateTime? EstablishedOn { get; set; }
 
         [Url]
         public string? TeamImageUrl { get; set; }

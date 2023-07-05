@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BikingBuddy.Web.Controllers
 {
-    public class TeamController:BaseController
+    public class TeamController : BaseController
     {
         private readonly ITeamService teamService;
         private readonly IEventService eventService;
@@ -52,10 +52,10 @@ namespace BikingBuddy.Web.Controllers
             }
 
 
-            var teamManagerId =  this.User.GetId();
+            var teamManagerId = this.User.GetId();
 
 
-            await teamService.AddTeam(model,teamManagerId);
+            await teamService.AddTeam(model, teamManagerId);
 
 
             return RedirectToAction("All", "Team");
@@ -63,5 +63,65 @@ namespace BikingBuddy.Web.Controllers
         }
 
 
+        //Create
+        [HttpGet]
+        public async Task<IActionResult> Edit(string teamId)
+        {
+            EditTeamViewModel teamModel = await teamService.GetTeamToEditAsync(teamId);
+
+            teamModel.CountriesCollection = await eventService.GetCountriesAsync();
+
+
+            return View(teamModel);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditTeamViewModel model)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                model.CountriesCollection = await eventService.GetCountriesAsync();
+                return View(model);
+            }
+
+
+            var teamManagerId = this.User.GetId();
+
+
+            await teamService.EditTeam(model, model.Id);
+
+
+            return RedirectToAction("All", "Team");
+
+        }
+
+
+        public async Task<IActionResult> Details(string teamId)
+        {
+
+            var teamDetails = await teamService.GetTeamDetailsAsync(teamId);
+
+
+            return View(teamDetails);
+
+
+        }
+
+
+        public async Task<IActionResult> RequestToJoin(string teamId)
+        {
+
+
+
+            await teamService.SendRequest(teamId, this.User.GetId());
+
+
+
+            return RedirectToAction("Details", "Team", new {teamId});
+
+
+        }
     }
 }

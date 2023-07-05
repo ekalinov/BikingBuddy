@@ -1,6 +1,6 @@
 ﻿namespace BikingBuddy.Data.Models
 {
-
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using static BikingBuddy.Common.EntityValidationsConstants.Team;
@@ -12,6 +12,7 @@
             this.Id = Guid.NewGuid();
 
             this.TeamMembers = new HashSet<AppUser>();
+            this.TeamRequests = new HashSet<TeamRequest>();
         }
 
 
@@ -33,23 +34,23 @@
 
 
         [ForeignKey(nameof(CountryId))]
-        public Country Country { get; set; } = null!;
+        public virtual Country Country { get; set; } = null!;
 
         public string CountryId { get; set; } = null!;
 
 
         [ForeignKey(nameof(TownId))]
-        public Town Town { get; set; } = null!;
+        public virtual Town Town { get; set; } = null!;
 
         [Required]
         public int TownId { get; set; }
 
 
-        public ICollection<AppUser> TeamMembers { get; set; }
+        public virtual ICollection<AppUser> TeamMembers { get; set; }
 
+        public virtual ICollection<TeamRequest> TeamRequests { get; set; }
 
-
-        public AppUser TeamManager { get; set; } = null!;
+        public virtual AppUser TeamManager { get; set; } = null!;
 
         [ForeignKey(nameof(TeamManager))]
         public Guid TeamManagerId { get; set; }

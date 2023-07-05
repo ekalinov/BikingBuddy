@@ -10,13 +10,13 @@
 
 
         [ForeignKey(nameof(ParticipantId))]
-        public AppUser Participant { get; set; } = null!;
+        public virtual AppUser Participant { get; set; } = null!;
 
         [Required]
         public Guid EventId { get; set; } 
 
         [ForeignKey(nameof(EventId))]
-        public Event Event { get; set; } = null!;
+        public virtual Event Event { get; set; } = null!;
 
         public bool IsCompleted { get; set; } = false;
 
