@@ -1,0 +1,28 @@
+﻿@using static BikingBuddy.Common.NotificationMessagesConstants;
+
+@if (TempData.ContainsKey(ErrorMessage))
+{
+    // Display an error toast, with a title
+    <script>toastr.error('@TempData[ErrorMessage]');</script>
+}
+
+@if (TempData.ContainsKey(WarningMessage))
+{
+    // Display an warning toast, with a title
+    <script>toastr.warning('@TempData[WarningMessage]');</script>
+}
+
+
+@if (TempData.ContainsKey(InformationMessage))
+{
+    // Display an info toast with no title
+    <script>toastr.info('@TempData[InformationMessage]');</script>
+}
+
+@if (TempData.ContainsKey(SuccessMessage))
+{
+    // Display a success toast, with a title
+    <script>toastr.success('@TempData[SuccessMessage]');</script>
+}
+
+

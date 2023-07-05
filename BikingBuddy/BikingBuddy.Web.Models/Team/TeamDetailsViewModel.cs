@@ -27,7 +27,7 @@ namespace BikingBuddy.Web.Models.Team
 
         public string Description { get; set; } = null!;
 
-        public string EstablishedOn { get; set; } = null!;
+        public string? EstablishedOn { get; set; } = null!;
 
         public string TeamImageUrl { get; set; } = null!;
 

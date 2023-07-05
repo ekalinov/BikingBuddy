@@ -3,6 +3,9 @@ using BikingBuddy.Web.Infrastructure.Extensions;
 using BikingBuddy.Web.Models.Team;
 using Microsoft.AspNetCore.Mvc;
 
+using static BikingBuddy.Common.NotificationMessagesConstants;
+using static BikingBuddy.Common.ErrorMessages.TeamErrorMessages;
+
 namespace BikingBuddy.Web.Controllers
 {
     public class TeamController : BaseController
@@ -18,10 +21,20 @@ namespace BikingBuddy.Web.Controllers
 
         public async Task<IActionResult> All()
         {
-            var allTeams = await teamService.GetAllTeams();
+            try
+            {
+                var allTeams = await teamService.GetAllTeams();
+                return View(allTeams);
 
+            }
+            catch (Exception e)
+            {
 
-            return View(allTeams);
+                TempData[ErrorMessage] = AllTeamsLoadingFail;
+            }
+
+            return View();
+
 
         }
 
@@ -29,16 +42,28 @@ namespace BikingBuddy.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-
-            var model = new AddTeamViewModel()
+            try
             {
-                CountriesCollection = await eventService.GetCountriesAsync()
-            };
+                var model = new AddTeamViewModel()
+                {
+                    CountriesCollection = await eventService.GetCountriesAsync()
+                };
 
+                if (!model.CountriesCollection.Any())
+                {
 
+                    TempData[ErrorMessage] = CountriesNotPreloaded;
+                }
 
-            return View(model);
+                return View(model);
 
+            }
+            catch (Exception)
+            {
+                TempData[ErrorMessage] = AddTeamError;
+            }
+
+            return RedirectToAction("All", "Team");
         }
 
         [HttpPost]
@@ -54,26 +79,51 @@ namespace BikingBuddy.Web.Controllers
 
             var teamManagerId = this.User.GetId();
 
+            try
+            {
+                await teamService.AddTeam(model, teamManagerId);
 
-            await teamService.AddTeam(model, teamManagerId);
+                TempData[SuccessMessage] = TeamAddedSuccessfully;
+
+
+            }
+            catch (Exception)
+            {
+
+                TempData[ErrorMessage] = AddTeamError;
+                return View(model);
+            }
 
 
             return RedirectToAction("All", "Team");
 
         }
 
-
         //Create
         [HttpGet]
         public async Task<IActionResult> Edit(string teamId)
         {
-            EditTeamViewModel teamModel = await teamService.GetTeamToEditAsync(teamId);
+            EditTeamViewModel? teamModel = await teamService.GetTeamToEditAsync(teamId);
 
-            teamModel.CountriesCollection = await eventService.GetCountriesAsync();
+            try
+            {
+                if (teamModel != null)
+                {
+                    teamModel.CountriesCollection = await eventService.GetCountriesAsync();
 
+                    return View(teamModel);
+                }
+                else
+                {
+                    TempData[ErrorMessage] = TeamDoesNotExist;
+                }
+            }
+            catch (Exception)
+            {
+                //TODO: 
+            }
 
-            return View(teamModel);
-
+            return RedirectToAction("All", "Team");
         }
 
         [HttpPost]
@@ -87,13 +137,19 @@ namespace BikingBuddy.Web.Controllers
             }
 
 
-            var teamManagerId = this.User.GetId();
+            try
+            {
+                await teamService.EditTeam(model, model.Id);
+                TempData[SuccessMessage] = TeamEditedSuccessfully;
 
 
-            await teamService.EditTeam(model, model.Id);
-
-
-            return RedirectToAction("All", "Team");
+                return RedirectToAction("Details", "Team", new { model.Id });
+            }
+            catch (Exception)
+            {
+                TempData[ErrorMessage] = EditTeamError;
+                return View(model);
+            }
 
         }
 
@@ -101,27 +157,124 @@ namespace BikingBuddy.Web.Controllers
         public async Task<IActionResult> Details(string teamId)
         {
 
-            var teamDetails = await teamService.GetTeamDetailsAsync(teamId);
+            try
+            {
+                var teamDetails = await teamService.GetTeamDetailsAsync(teamId);
+                return View(teamDetails);
+            }
+            catch (Exception)
+            {
+                TempData[ErrorMessage] = TeamDoesNotExist;
+            }
 
 
-            return View(teamDetails);
+            return RedirectToAction("All", "Team");
 
 
         }
-
 
         public async Task<IActionResult> RequestToJoin(string teamId)
         {
 
 
+            try
+            {
+                if (await teamService.IsRequested(this.User.GetId(), teamId))
+                {
+                    TempData[ErrorMessage] = RequestAlreadySend;
+                }
+                else
+                {
+                    await teamService.SendRequest(teamId, this.User.GetId());
+                    TempData[SuccessMessage] = RequestSend;
+                }
 
-            await teamService.SendRequest(teamId, this.User.GetId());
+
+
+            }
+            catch (Exception)
+            {
+                TempData[ErrorMessage] = RequestAlreadySend;
+            }
 
 
 
-            return RedirectToAction("Details", "Team", new {teamId});
+            return RedirectToAction("Details", "Team", new { teamId });
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RejectRequest(string memberId, string teamId)
+        {
+
+            try
+            {
+                await teamService.RejectRequest(memberId, teamId);
+                TempData[InformationMessage] = RequestRejected;
+            }
+            catch (Exception e)
+            {
+                TempData[ErrorMessage] = RequestNotFound;
+
+            }
 
 
+            return RedirectToAction("Details", "Team", new { teamId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddMember(string memberId, string teamId)
+        {
+            try
+            {
+                if (!await teamService.IsMemberAsync(memberId, teamId))
+                {
+                    await teamService.AddMemberAsync(memberId, teamId);
+                    TempData[SuccessMessage] = MemberAddedSuccessfully;
+
+                }
+                else
+                {
+                    TempData[ErrorMessage] = UserAlreadyMember;
+                }
+
+            }
+            catch (Exception e)
+            {
+                TempData[ErrorMessage] = AddMemberError;
+
+            }
+
+
+            return RedirectToAction("Details", "Team", new { teamId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveMember(string memberId, string teamId)
+        {
+
+            try
+            {
+                if (await teamService.IsMemberAsync(memberId, teamId))
+                {
+                    await teamService.RemoveMemberAsync(memberId, teamId);
+                    TempData[SuccessMessage] = MemberRemovedSuccessfully;
+
+                }
+                else
+                {
+                    TempData[ErrorMessage] = UserIsNotAMember;
+                }
+
+            }
+            catch (Exception e)
+            {
+                TempData[ErrorMessage] = RemoveMemberError;
+
+            }
+
+
+            return RedirectToAction("Details", "Team", new { teamId });
         }
     }
 }

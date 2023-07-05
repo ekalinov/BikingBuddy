@@ -22,5 +22,21 @@ namespace BikingBuddy.Common
         public const string DateTimeFormat = "dd-MM-yyyy h:mmtt";
     }
 
+    public static class NotificationMessagesConstants
+    {
+
+        public const string ErrorMessage = "ErrorMessage";
+
+        public const string WarningMessage = "WarningMessage";
+
+        public const string InformationMessage = "InfoMessage";
+
+        public const string SuccessMessage = "SuccessMessage";
+
+
+
+
+
+    }
 
 }

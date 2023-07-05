@@ -19,7 +19,7 @@
 
         </div>
 
-        <hr/>
+        <hr />
 
 
         <a asp-controller="Team" asp-action="RequestToJoin" class="btn btn-warning mb-2 w-100 p-3 fw-bold" asp-route-teamId="@Model.Id">Request to join </a>
@@ -27,49 +27,104 @@
 
 
 
-        <div>
-            <h5>Team Members:</h5>
-            @foreach (var member in Model.TeamMembers)
-            {
-                <div class="row">
 
-                    <p class="mb-0"><span class="fw-bold"> </span>@member.TeamMemberImageUrl</p>
-                    <p class="mb-0"><span class="fw-bold"> </span>@member.Name</p>
-                    <p class="mb-0"><span class="fw-bold"> </span>@member.Id</p>
-                </div>
 
-            }
-        </div>
-        
-        <div>
-            <h5>Team Members:</h5>
-            @foreach (var member in Model.MembersRequests)
-            {
-                <div class="row">
 
-                    <p class="mb-0"><span class="fw-bold"> </span>@member.TeamMemberImageUrl</p>
-                    <p class="mb-0"><span class="fw-bold"> </span>@member.Name</p>
-                    <p class="mb-0"><span class="fw-bold"> </span>@member.Id</p>
-                </div>
-
-            }
-        </div>
 
         @if (User.Identity?.Name == Model.TeamManager)
         {
-            <a asp-controller="Team" asp-action="Edit" asp-route-teamId="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
+            
+           
+                <h5>Team Members:</h5>
+          
+            <table class="table align-middle mb-0 bg-white">
+                <thead class="bg-light">
+                <tr>
+                    <th> Photo</th>
+                    <th> Name</th>
+                    <th>Options</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                @foreach (var member in Model.TeamMembers)
+                {
+
+                    <tr>
+                        <td>
+                            < class="d-flex align-items-center">
+                            <img src=@member.TeamMemberImageUrl
+                                 alt=""
+                                 style="width: 45px; height: 45px"
+                                 class="rounded-circle" />
+
+                        </td>
+                        <td>
+                            <p class="fw-bold mb-1">@member.Name</p>
+                               
+                        </td>
+
+
+                        <td>
+                            <a asp-controller="User" asp-action="Details" asp-route-memberId="@member.Id" class="btn btn-warning btn-rounded">View Details</a>
+                            <a asp-controller="Team" asp-action="RemoveMember" asp-route-memberId="@member.Id" asp-route-teamId="@Model.Id" class="btn btn-info btn-rounded">Remove Member</a>
+                        </td>
+                    </tr>
+                }
+
+
+                </tbody>
+            </table>
+
+
+            <hr/>
+            <hr />
+            <hr />
+
+            
+            <h5>Member Requests:</h5>
+
+            <table class="table align-middle mb-0 bg-white">
+                <thead class="bg-light">
+                    <tr>
+                        <th> Photo</th>
+                        <th> Name</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var member in Model.MembersRequests)
+                    {
+
+                        <tr>
+                            <td>
+                                < class="d-flex align-items-center">
+                                <img src=@member.TeamMemberImageUrl
+                             alt=""
+                             style="width: 45px; height: 45px"
+                             class="rounded-circle" />
+
+                            </td>
+                            <td>
+                                    <p class="fw-bold mb-1">@member.Name</p>
+                               
+                            </td>
+
+
+                            <td>
+                                <a asp-controller="Team" asp-action="AddMember" asp-route-memberId="@member.Id" asp-route-teamId="@Model.Id" class="btn btn-info btn-rounded">AddMember</a>
+                                <a asp-controller="Team" asp-action="RejectRequest" asp-route-memberId="@member.Id" class="btn btn-warning btn-rounded">RejectRequest</a>
+                            </td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+
         }
-        else
-        {
-            if (Model.TeamMembers.All(ep => ep.Name != User.Identity?.Name))
-            {
-                <a asp-route-teamId="@Model.Id" asp-controller="Team" asp-action="RequestJoin" class="btn btn-warning mb-2 w-100 p-3 fw-bold">REquest to join</a>
-            }
-            else
-            {
-                <a asp-route-teamId="@Model.Id" asp-controller="Event" asp-action="LeaveTeam" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Leave Team</a>
-            }
-        }
+     
 
     </div>
 </div>
