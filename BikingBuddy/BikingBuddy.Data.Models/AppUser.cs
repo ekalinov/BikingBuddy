@@ -4,7 +4,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    using static Common.EntityValidationsConstants.User;
+        using static Common.EntityValidationsConstants.User;
 
 
     public class AppUser : IdentityUser<Guid>

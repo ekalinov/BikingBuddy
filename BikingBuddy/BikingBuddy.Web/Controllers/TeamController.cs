@@ -113,14 +113,13 @@ namespace BikingBuddy.Web.Controllers
 
                     return View(teamModel);
                 }
-                else
-                {
-                    TempData[ErrorMessage] = TeamDoesNotExist;
-                }
+               
             }
             catch (Exception)
             {
-                //TODO: 
+
+                TempData[ErrorMessage] = EditTeamError;
+
             }
 
             return RedirectToAction("All", "Team");
@@ -143,7 +142,7 @@ namespace BikingBuddy.Web.Controllers
                 TempData[SuccessMessage] = TeamEditedSuccessfully;
 
 
-                return RedirectToAction("Details", "Team", new { model.Id });
+                return RedirectToAction("Details", "Team", new {teamId= model.Id });
             }
             catch (Exception)
             {
@@ -203,7 +202,7 @@ namespace BikingBuddy.Web.Controllers
 
         }
 
-        [HttpPost]
+
         public async Task<IActionResult> RejectRequest(string memberId, string teamId)
         {
 
@@ -221,8 +220,8 @@ namespace BikingBuddy.Web.Controllers
 
             return RedirectToAction("Details", "Team", new { teamId });
         }
+         
 
-        [HttpPost]
         public async Task<IActionResult> AddMember(string memberId, string teamId)
         {
             try
@@ -249,7 +248,7 @@ namespace BikingBuddy.Web.Controllers
             return RedirectToAction("Details", "Team", new { teamId });
         }
 
-        [HttpPost]
+
         public async Task<IActionResult> RemoveMember(string memberId, string teamId)
         {
 

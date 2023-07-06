@@ -1,14 +1,8 @@
-﻿using BikingBuddy.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BikingBuddy.Web.Models.Team
+﻿namespace BikingBuddy.Web.Models.Team
 {
+
+    using BikingBuddy.Web.Models.User;
+
     public class TeamDetailsViewModel
     {
 
@@ -16,8 +10,8 @@ namespace BikingBuddy.Web.Models.Team
         public TeamDetailsViewModel()
         {
 
-            this.TeamMembers = new HashSet<TeamMemberViewModel>();
-            this.MembersRequests = new HashSet<TeamMemberViewModel>();
+            this.TeamMembers = new HashSet<UserViewModel>();
+            this.MembersRequests = new HashSet<UserViewModel>();
         }
 
 
@@ -35,9 +29,9 @@ namespace BikingBuddy.Web.Models.Team
 
         public string Town { get; set; } = null!;
 
-        public ICollection<TeamMemberViewModel> TeamMembers { get; set; }
+        public ICollection<UserViewModel> TeamMembers { get; set; }
 
-        public ICollection<TeamMemberViewModel> MembersRequests { get; set; }
+        public ICollection<UserViewModel> MembersRequests { get; set; }
 
         public string TeamManager { get; set; } = null!;
 

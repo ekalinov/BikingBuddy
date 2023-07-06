@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace BikingBuddy.Services.Contracts
 {
+    using Web.Models.User;
     public interface IUserService
     {
-        
+
+        Task<UserDetailsViewModel> GetUserDetails(string userId);
+
 
 
 

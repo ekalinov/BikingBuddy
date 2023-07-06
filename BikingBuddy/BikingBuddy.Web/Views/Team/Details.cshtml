@@ -53,7 +53,7 @@
                     <tr>
                         <td>
                             < class="d-flex align-items-center">
-                            <img src=@member.TeamMemberImageUrl
+                            <img src=@member.ProfileImageUrl
                                  alt=""
                                  style="width: 45px; height: 45px"
                                  class="rounded-circle" />
@@ -100,7 +100,7 @@
                         <tr>
                             <td>
                                 < class="d-flex align-items-center">
-                                <img src=@member.TeamMemberImageUrl
+                                <img src=@member.ProfileImageUrl
                              alt=""
                              style="width: 45px; height: 45px"
                              class="rounded-circle" />
@@ -112,8 +112,8 @@
                             </td>
 
 
-                            <td>
-                                <a asp-controller="Team" asp-action="AddMember" asp-route-memberId="@member.Id" asp-route-teamId="@Model.Id" class="btn btn-info btn-rounded">AddMember</a>
+                            <td >
+                                <a asp-controller="Team" asp-action="AddMember" asp-route-memberId="@member.Id" asp-route-teamId="@Model.Id" class="btn btn-info btn-rounded" method="post">AddMember</a>
                                 <a asp-controller="Team" asp-action="RejectRequest" asp-route-memberId="@member.Id" class="btn btn-warning btn-rounded">RejectRequest</a>
                             </td>
                         </tr>

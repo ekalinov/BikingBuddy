@@ -7,6 +7,7 @@ using BikingBuddy.Web.Models.Activity;
 using BikingBuddy.Web.Models.Comment;
 using BikingBuddy.Web.Models.Event;
 using BikingBuddy.Web.Models.Team;
+using BikingBuddy.Web.Models.User;
 using Microsoft.EntityFrameworkCore;
 
 using static BikingBuddy.Common.ErrorMessages.EventErrorMessages;
@@ -94,11 +95,11 @@ namespace BikingBuddy.Services
                     Town = e.Town.Name,
                     Municipality = e.Municipality!.Name,
                     EventsParticipants = e.EventsParticipants
-                        .Select(ep=> new EventParticipantViewModel
+                        .Select(ep=> new UserViewModel
                         {
                             Id = ep.ParticipantId.ToString(),
                             Name = ep.Participant.Name,
-                           ParticipantImageUrl = ep.Participant.ImageURL
+                           ProfileImageUrl = ep.Participant.ImageURL
                         })
                         .ToList()
                 })

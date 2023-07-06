@@ -2,6 +2,7 @@
 using BikingBuddy.Data.Models;
 using BikingBuddy.Services.Contracts;
 using BikingBuddy.Web.Models.Team;
+using BikingBuddy.Web.Models.User;
 using Microsoft.EntityFrameworkCore;
 
 using static BikingBuddy.Common.ErrorMessages.TeamErrorMessages;
@@ -37,19 +38,19 @@ namespace BikingBuddy.Services
                     TeamManager = t.TeamManager.UserName,
                     MembersRequests = t.TeamRequests.
                     Where(tr=> tr.TeamId==Guid.Parse(teamId) && tr.IsAccepted==false)
-                    .Select(tr=> new TeamMemberViewModel
+                    .Select(tr=> new UserViewModel
                     {
                         Id = tr.RequestFrom.Id.ToString(),
                         Name = tr.RequestFrom.Name,
-                        TeamMemberImageUrl = tr.RequestFrom.ImageURL
+                        ProfileImageUrl = tr.RequestFrom.ImageURL
 
                     }).ToList(),
                     TeamMembers = t.TeamMembers
-                        .Select(tm => new TeamMemberViewModel()
+                        .Select(tm => new UserViewModel()
                         {
                             Id = tm.Id.ToString(),
                             Name = tm.Name,
-                            TeamMemberImageUrl = tm.ImageURL
+                            ProfileImageUrl = tm.ImageURL
 
                         }).ToList()
 
