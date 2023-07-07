@@ -37,8 +37,8 @@ namespace BikingBuddy.Services
                     Town = t.Town.Name,
                     TeamManager = t.TeamManager.UserName,
                     MembersRequests = t.TeamRequests.
-                    Where(tr=> tr.TeamId==Guid.Parse(teamId) && tr.IsAccepted==false)
-                    .Select(tr=> new UserViewModel
+                    Where(tr => tr.TeamId == Guid.Parse(teamId) && tr.IsAccepted == false)
+                    .Select(tr => new UserViewModel
                     {
                         Id = tr.RequestFrom.Id.ToString(),
                         Name = tr.RequestFrom.Name,
@@ -70,7 +70,7 @@ namespace BikingBuddy.Services
                                       EstablishedOn = t.EstablishedOn,
                                       Description = t.Description,
                                       TownName = t.Town.Name
-                                  
+
                                   }).FirstOrDefaultAsync();
 
         }
@@ -131,6 +131,12 @@ namespace BikingBuddy.Services
         {
             //TODO: Soft Delete
             throw new NotImplementedException();
+        }
+
+        public async Task<int> GetTeamMembersCount(string teamId)
+        {
+            return await dbContext.AppUsers
+                .CountAsync(u=>u.TeamId == Guid.Parse(teamId));
         }
 
         public async Task SendRequest(string teamId, string userId)
@@ -200,14 +206,14 @@ namespace BikingBuddy.Services
 
             if (team != null
                 && userToRemove != null
-                && await IsMemberAsync(userId,teamId)
+                && await IsMemberAsync(userId, teamId)
                 )
             {
                 team.TeamMembers.Remove(userToRemove);
                 await dbContext.SaveChangesAsync();
             }
 
-            }
+        }
 
         private async Task<TeamRequest?> GetTeamRequestAsync(string userId, string teamId)
         {
@@ -219,6 +225,30 @@ namespace BikingBuddy.Services
                                   .FirstOrDefaultAsync();
         }
 
+        public async Task<ICollection<TeamRequestViewModel>> GetTeamRequestsByUserAsync(string userId)
+        {
+
+            var teamRequests = await dbContext.TeamsRequests
+                .Where(tr => tr.RequestFromId == Guid.Parse(userId))
+                .Select(tr => new TeamRequestViewModel
+                {
+                    Id = tr.TeamId.ToString(),
+                    Name = tr.Team.Name,
+                    Country = tr.Team.Country.Name,
+                    TeamImageUrl = tr.Team.TeamImageUrl
+                }).ToListAsync();
+
+
+            foreach (var team in teamRequests)
+            {
+                team.MembersCount = await GetTeamMembersCount(team.Id);
+            }
+
+
+            return teamRequests;
+
+        }
+
         public async Task<bool> IsRequested(string userId, string teamId)
         {
             return await dbContext.TeamsRequests
@@ -227,7 +257,8 @@ namespace BikingBuddy.Services
                              && tr.IsAccepted == false);
         }
 
-       
+
+
 
         private async Task<Team?> GetTeamByIdAsync(string id)
         {
@@ -246,8 +277,8 @@ namespace BikingBuddy.Services
         public async Task<bool> IsMemberAsync(string userId, string teamId)
         {
             return await dbContext.Teams
-                                  .Where(t => t.Id== Guid.Parse(teamId)
-                                    &&  t.TeamMembers.Any(tm => tm.Id == Guid.Parse(userId)))
+                                  .Where(t => t.Id == Guid.Parse(teamId)
+                                    && t.TeamMembers.Any(tm => tm.Id == Guid.Parse(userId)))
                                   .AnyAsync();
 
         }
@@ -256,7 +287,7 @@ namespace BikingBuddy.Services
         {
             var request = await GetTeamRequestAsync(userId, teamId);
 
-            if (request != null )
+            if (request != null)
             {
                 dbContext.TeamsRequests.Remove(request);
                 await dbContext.SaveChangesAsync();

@@ -12,7 +12,7 @@ namespace BikingBuddy.Web.Models.Team
 
         public string Name { get; set; } = null!;
 
-        public string TeamImageUrl { get; set; } = null!;
+        public string? TeamImageUrl { get; set; } = null!;
 
         public string Country { get; set; } = null!;
 

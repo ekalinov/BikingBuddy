@@ -5,7 +5,7 @@ namespace BikingBuddy.Services.Contracts
     public interface IUserService
     {
 
-        Task<UserDetailsViewModel> GetUserDetails(string userId);
+        Task<UserDetailsViewModel?> GetUserDetails(string userId);
 
 
 

@@ -20,9 +20,15 @@ namespace BikingBuddy.Services.Contracts
         Task DeleteTeam(int commentId);
 
 
+        Task<int> GetTeamMembersCount(string teamId);
+
+
         Task AddMemberAsync(string userId, string teamId);
         Task RemoveMemberAsync(string userId, string teamId);
 
+
+
+        Task<ICollection<TeamRequestViewModel>> GetTeamRequestsByUserAsync(string userId);
 
         Task SendRequest(string teamId, string userId);
 

@@ -20,10 +20,8 @@ namespace BikingBuddy.Web.Models.User
         }
 
 
+        public string Id { get; set; } = null!;
 
-        [Required]
-        [MaxLength(UsernameMaxLength)]
-        [Display(Name = "User Full Name")]
         public string Name { get; set; } = null!;
 
         public string? BikeId { get; set; } = null!;

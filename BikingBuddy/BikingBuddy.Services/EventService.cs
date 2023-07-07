@@ -9,7 +9,7 @@ using BikingBuddy.Web.Models.Event;
 using BikingBuddy.Web.Models.Team;
 using BikingBuddy.Web.Models.User;
 using Microsoft.EntityFrameworkCore;
-
+using System.Globalization;
 using static BikingBuddy.Common.ErrorMessages.EventErrorMessages;
 
 namespace BikingBuddy.Services
@@ -235,7 +235,7 @@ namespace BikingBuddy.Services
                     Date = e.Date.ToString(DateTimeFormats.DateTimeFormat),
                     Description = e.Description,
                     OrganizerUsername = e.Organizer.UserName,
-                    Distance = e.Distance.ToString(),
+                    Distance = e.Distance.ToString(CultureInfo.InvariantCulture),
                     EventImageUrl = e.EventImageUrl!,
                     ActivityType = e.ActivityType.Name,
                     Town = e.Town.Name,
@@ -249,6 +249,26 @@ namespace BikingBuddy.Services
             }
 
             return allUserEvents;
+        }
+
+
+        //This DTO will be used in /User/Details
+        //Get All events where user is participating (completed and not completed)
+        public async Task<ICollection<EventViewModel>> GetUserEventsAsync(string userId)
+        {
+
+            return await dbContext.EventsParticipants
+                .Where(ep => ep.ParticipantId == Guid.Parse(userId))
+                .Select(ep => new EventViewModel
+                {
+                    Id = ep.EventId.ToString(),
+                    Title = ep.Event.Title,
+                    Date = ep.Event.Date.ToString(DateTimeFormats.DateFormat),
+                    Distance = ep.Event.Distance,
+                    EventImageUrl = ep.Event.EventImageUrl,
+                    ParticipantsCount = ep.Event.EventsParticipants.Count(),
+                    IsCompleted = ep.IsCompleted
+                }).ToListAsync();
         }
 
         //Additional collections getter
@@ -281,6 +301,11 @@ namespace BikingBuddy.Services
         }
 
 
+        public async Task<int> GetCompletedEventsCountByUserAsync(string userId)
+        {
+            return await dbContext.EventsParticipants
+                .CountAsync(ep => ep.ParticipantId == Guid.Parse(userId) && ep.IsCompleted == true);
+        }
 
         //----------------------------------------------
 

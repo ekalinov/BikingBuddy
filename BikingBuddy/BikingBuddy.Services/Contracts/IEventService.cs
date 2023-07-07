@@ -32,6 +32,10 @@ namespace BikingBuddy.Services.Contracts
         //Get Events
         Task<ICollection<AllEventsViewModel>> GetEventsByUserId(string userId);
 
+        Task<ICollection<EventViewModel>> GetUserEventsAsync(string userId);
+
+        Task<int> GetCompletedEventsCountByUserAsync(string userId);
+
         Task<EditEventViewModel> GetEventViewModelByIdAsync(string id);
 
         Task<Event> GetEventByIdAsync(string id);
