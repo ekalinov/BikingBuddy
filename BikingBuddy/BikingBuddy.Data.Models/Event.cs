@@ -62,12 +62,6 @@
 
 
 
-        [ForeignKey(nameof(MunicipalityId))]
-        public virtual Municipality? Municipality { get; set; } = null!;
-
-        public int? MunicipalityId { get; set; }
-
-
         [ForeignKey(nameof(TownId))]
         public virtual Town Town { get; set; } = null!;
 

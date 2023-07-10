@@ -77,25 +77,25 @@ namespace BikingBuddy.Web.Controllers
             }
 
 
-            var teamManagerId = this.User.GetId();
+                var teamManagerId = this.User.GetId();
 
-            try
-            {
-                await teamService.AddTeam(model, teamManagerId);
+                try
+                {
+                    await teamService.AddTeam(model, teamManagerId);
 
-                TempData[SuccessMessage] = TeamAddedSuccessfully;
-
-
-            }
-            catch (Exception)
-            {
-
-                TempData[ErrorMessage] = AddTeamError;
-                return View(model);
-            }
+                    TempData[SuccessMessage] = TeamAddedSuccessfully;
 
 
-            return RedirectToAction("All", "Team");
+                }
+                catch (Exception)
+                {
+
+                    TempData[ErrorMessage] = AddTeamError;
+                    return View(model);
+                }
+
+
+                return RedirectToAction("All", "Team");
 
         }
 
@@ -208,7 +208,7 @@ namespace BikingBuddy.Web.Controllers
 
             try
             {
-                await teamService.RejectRequest(memberId, teamId);
+                await teamService.RemoveRequest(memberId, teamId);
                 TempData[InformationMessage] = RequestRejected;
             }
             catch (Exception e)

@@ -36,6 +36,6 @@ namespace BikingBuddy.Services.Contracts
 
         Task<bool> IsMemberAsync(string userId, string teamId);
 
-        Task RejectRequest(string userId, string teamId);
+        Task RemoveRequest(string userId, string teamId);
     }
 }

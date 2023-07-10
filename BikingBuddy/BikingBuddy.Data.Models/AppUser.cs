@@ -14,6 +14,7 @@
             this.Id = Guid.NewGuid();
             this.EventsParticipants = new HashSet<EventParticipants>();
             this.TeamRequests = new HashSet<TeamRequest>();
+            this.UserBikes = new HashSet<Bike>();
         }
 
 
@@ -22,35 +23,43 @@
         [MaxLength(UsernameMaxLength)]
         public string Name { get; set; } = null!;
 
-        [ForeignKey(nameof(BikeId))]
-        public virtual Bike? Bike { get; set; } = null!;
+        [Url]
+        public string? ProfileImageUrl { get; set; }
 
-        public string? BikeId { get; set; } = null!;
+        [ForeignKey(nameof(CountryId))]
+        public virtual Country Country { get; set; } = null!;
+
+        public string? CountryId { get; set; } 
+
+
+
+
+        [ForeignKey(nameof(TownId))]
+        public virtual Town Town { get; set; }
+
+        public int? TownId { get; set; }
+
 
         public string? Helmet { get; set; } = null!;
 
         public string? Shoes { get; set; } = null!;
 
 
-        [Url]
-        public string ImageURL { get; set; } = null!;
 
 
         public Guid? TeamId { get; set; } = null!;
         
         [ForeignKey(nameof(TeamId))]
         public virtual Team? Team { get; set; } = null!;
-
-
-      
-        [Url]
-        public string? ProfileImageUrl { get; set; }
         
 
         public virtual ICollection<EventParticipants> EventsParticipants { get; set; }
 
-
+        
         public virtual ICollection<TeamRequest> TeamRequests { get; set; }
+
+
+        public virtual ICollection<Bike> UserBikes { get; set; }
 
 
 

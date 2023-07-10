@@ -19,7 +19,16 @@ namespace BikingBuddy.Common
             public const string UserDoesNotHaveEvents = "The user is not participating in any events!";
 
         }
+        public static class BikeErrorMessages
+        {
+            public const string BikeAddedSuccessfully = "Bike successfully added to user! ";
 
+
+            public const string AddBikeError = "Something went wrong while Adding a bike!";
+
+
+
+        }
 
         public static class CommentErrorMessages
         {

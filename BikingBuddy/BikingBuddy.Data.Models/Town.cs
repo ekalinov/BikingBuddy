@@ -23,6 +23,9 @@
         public string Name { get; set; } = null!;
 
 
-        public ICollection<Event> TownEvents { get; set; } 
+        public ICollection<Event> TownEvents { get; set; }
+
+
+        public ICollection<AppUser> TownUsers { get; set; }
     }
 }

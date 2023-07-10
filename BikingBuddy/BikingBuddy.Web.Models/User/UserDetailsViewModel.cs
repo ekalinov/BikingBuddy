@@ -1,13 +1,11 @@
-﻿
+﻿using BikingBuddy.Web.Models.Bike;
+
 namespace BikingBuddy.Web.Models.User
 {
     using System.ComponentModel.DataAnnotations;
-
-    using BikingBuddy.Data.Models;
+    
     using Event;
     using Team;
-
-    using static Common.EntityValidationsConstants.User;
 
     public class UserDetailsViewModel
     {
@@ -17,20 +15,23 @@ namespace BikingBuddy.Web.Models.User
         {
             this.UserEvents = new HashSet<EventViewModel>();
             this.TeamRequests = new HashSet<TeamRequestViewModel>();
+            this.UserBikes = new HashSet<BikeDetailsViewModel>();
         }
 
 
         public string Id { get; set; } = null!;
 
         public string Name { get; set; } = null!;
+        public string Country { get; set; } = null!;
 
-        public string? BikeId { get; set; } = null!;
-
+        public string Town { get; set; } = null!;
+        
         public string? Helmet { get; set; } = null!;
 
         public string? Shoes { get; set; } = null!;
 
         public string? TeamId { get; set; } = null!;
+
 
         [Url]
         public string? ProfileImageUrl { get; set; }
@@ -41,11 +42,12 @@ namespace BikingBuddy.Web.Models.User
 
         public double TotalAscent { get; set; }
 
-        public virtual ICollection<EventViewModel> UserEvents { get; set; }
+        public virtual ICollection<EventViewModel> UserEvents { get; set; } = null!;
 
-        public virtual ICollection<TeamRequestViewModel> TeamRequests { get; set; }
+        public virtual ICollection<TeamRequestViewModel> TeamRequests { get; set; } = null!;
 
 
+        public virtual ICollection<BikeDetailsViewModel> UserBikes { get; set; } = null!;
 
 
 

@@ -1,12 +1,15 @@
 ﻿using BikingBuddy.Common;
 using BikingBuddy.Data;
+using BikingBuddy.Data.Models;
 using BikingBuddy.Services.Contracts;
+using BikingBuddy.Web.Models.Bike;
 using BikingBuddy.Web.Models.Event;
 using BikingBuddy.Web.Models.Team;
 using BikingBuddy.Web.Models.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 using System.Collections.Immutable;
+using System.Runtime.CompilerServices;
 
 namespace BikingBuddy.Services
 {
@@ -19,11 +22,17 @@ namespace BikingBuddy.Services
 
         private readonly ITeamService teamService;
 
-        public UserService(BikingBuddyDbContext _dbContext, IEventService _eventService, ITeamService _teamService)
+        private readonly IBikeService bikeService;
+
+        public UserService(BikingBuddyDbContext _dbContext, 
+            IEventService _eventService, 
+            ITeamService _teamService, 
+            IBikeService _bikeService)
         {
             this.dbContext = _dbContext;
             this.eventService = _eventService;
             this.teamService = _teamService;
+            this.bikeService = _bikeService;
         }
 
 
@@ -43,6 +52,9 @@ namespace BikingBuddy.Services
 
             var userTeamRequests = await teamService.GetTeamRequestsByUserAsync(userId);
 
+            var userBikes = await bikeService.GetUserBikesAsync(userId);
+
+
 
             UserDetailsViewModel? user = await dbContext.AppUsers.
                 Where(u => u.Id == Guid.Parse(userId))
@@ -50,7 +62,6 @@ namespace BikingBuddy.Services
                 {
                     Id= userId,
                     Name = u.Name,
-                    BikeId = u.BikeId,
                     Helmet = u.Helmet,
                     Shoes = u.Shoes,
                     TeamId = u.TeamId.ToString(),
@@ -58,6 +69,7 @@ namespace BikingBuddy.Services
                     CompletedEvents = completedEvents,
                     TotalDistance = userTotalDistance,
                     TotalAscent = userTotalAscent,
+                    UserBikes = userBikes,
                     UserEvents = userEvents,
                     TeamRequests = userTeamRequests,
                 }).FirstOrDefaultAsync();
@@ -66,9 +78,22 @@ namespace BikingBuddy.Services
             return user;
         }
 
+        public Task UpdateProfileInfo(UserDetailsViewModel userDetails)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task CompleteProfile(UserDetailsViewModel userDetails)
+        {
+            throw new NotImplementedException();
+        }
 
 
-
+        public async Task<AppUser?> GetUserByIdAsync(string userId)
+        {
+            return await dbContext.AppUsers
+                .FirstOrDefaultAsync(u => u.Id == Guid.Parse(userId));
+        }   
 
 
         private async Task<double> GetUserTotalDistanceAsync(string userId)
@@ -85,7 +110,6 @@ namespace BikingBuddy.Services
                 .SumAsync(ep => ep.Event.Ascent);
         }
 
-        //  private async Task<ICollection<EventPa>>
 
     }
 }

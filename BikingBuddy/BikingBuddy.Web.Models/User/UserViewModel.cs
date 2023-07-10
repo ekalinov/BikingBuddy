@@ -13,7 +13,7 @@ namespace BikingBuddy.Web.Models.User
 
         public string Name { get; set; } = null!;
 
-        public string ProfileImageUrl { get; set; } = null!;
+        public string? ProfileImageUrl { get; set; } = null!;
 
     }
 }

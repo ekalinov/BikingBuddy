@@ -42,7 +42,7 @@ namespace BikingBuddy.Services
                     {
                         Id = tr.RequestFrom.Id.ToString(),
                         Name = tr.RequestFrom.Name,
-                        ProfileImageUrl = tr.RequestFrom.ImageURL
+                        ProfileImageUrl = tr.RequestFrom.ProfileImageUrl
 
                     }).ToList(),
                     TeamMembers = t.TeamMembers
@@ -50,7 +50,7 @@ namespace BikingBuddy.Services
                         {
                             Id = tm.Id.ToString(),
                             Name = tm.Name,
-                            ProfileImageUrl = tm.ImageURL
+                            ProfileImageUrl = tm.ProfileImageUrl
 
                         }).ToList()
 
@@ -209,6 +209,8 @@ namespace BikingBuddy.Services
                 && await IsMemberAsync(userId, teamId)
                 )
             {
+
+                await RemoveRequest(userId,teamId);
                 team.TeamMembers.Remove(userToRemove);
                 await dbContext.SaveChangesAsync();
             }
@@ -283,7 +285,7 @@ namespace BikingBuddy.Services
 
         }
 
-        public async Task RejectRequest(string userId, string teamId)
+        public async Task RemoveRequest(string userId, string teamId)
         {
             var request = await GetTeamRequestAsync(userId, teamId);
 

@@ -30,6 +30,8 @@ namespace BikingBuddy.Data.Configurations
                 .WithMany(e => e.EventsParticipants)
                 .HasForeignKey(e => e.ParticipantId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+
         }
     }
 }

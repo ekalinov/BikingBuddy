@@ -30,4 +30,12 @@
     <Folder Include="Views\Comment\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\User\MyProfile.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\User\MyProfile.cshtml" />
+  </ItemGroup>
+
 </Project>

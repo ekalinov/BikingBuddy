@@ -24,7 +24,9 @@
 
 
 
-        public virtual ICollection<Event> CountryEvents { get; set; } 
+        public virtual ICollection<Event> CountryEvents { get; set; }
 
+
+        public virtual ICollection<AppUser> CountryUsers { get; set; }
     }
 }

@@ -1,9 +1,15 @@
 ﻿using System.Security.Claims;
+using BikingBuddy.Common;
 using BikingBuddy.Services;
 using BikingBuddy.Services.Contracts;
 using BikingBuddy.Web.Infrastructure.Extensions;
 using BikingBuddy.Web.Models.Event;
 using Microsoft.AspNetCore.Mvc;
+
+using static BikingBuddy.Common.ErrorMessages.EventErrorMessages;
+using static BikingBuddy.Common.NotificationMessagesConstants;
+
+
 
 namespace BikingBuddy.Web.Controllers
 {
@@ -24,12 +30,12 @@ namespace BikingBuddy.Web.Controllers
         public async Task<IActionResult> Details(string eventId)
         {
 
-                var eventDetails = await service.GetEventDetailsByIdAsync(eventId);
+            var eventDetails = await service.GetEventDetailsByIdAsync(eventId);
 
-               eventDetails.EventComments = await commentService.GetAllComments(eventId);
+            eventDetails.EventComments = await commentService.GetAllComments(eventId);
 
-                return View(eventDetails);
-          
+            return View(eventDetails);
+
 
             //return RedirectToAction("All", "Event", new {eventId});
 
@@ -97,7 +103,7 @@ namespace BikingBuddy.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(string eventId)
         {
-           EditEventViewModel editAddEvent = await service.GetEventViewModelByIdAsync(eventId);
+            EditEventViewModel editAddEvent = await service.GetEventViewModelByIdAsync(eventId);
 
             editAddEvent.ActivityTypes = await service.GetActivityTypesAsync();
             editAddEvent.CountriesCollection = await service.GetCountriesAsync();
@@ -140,7 +146,7 @@ namespace BikingBuddy.Web.Controllers
 
             try
             {
-             await service.JoinEvent(userId,eventId);
+                await service.JoinEvent(userId, eventId);
 
             }
             catch (Exception e)
@@ -173,16 +179,24 @@ namespace BikingBuddy.Web.Controllers
 
         public async Task<IActionResult> Mine()
         {
-            var userId = User.GetId();
 
-            var userEvents = await service.GetEventsByUserId(userId);
-
-            if (!userEvents.Any())
+            try
             {
-                //TODO:
+                var userId = User.GetId();
+                var userEvents = await service.GetEventsByUserId(userId);
+                return View(userEvents);
+            }
+            catch (Exception e)
+            {
+
+
+                TempData[ErrorMessage] = UserDoesNotHaveEvents;
+
+                return RedirectToAction("All");
             }
 
-            return View(userEvents);
+
+
         }
     }
 }

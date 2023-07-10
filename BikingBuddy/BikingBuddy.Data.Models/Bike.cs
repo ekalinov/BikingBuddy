@@ -23,7 +23,7 @@
         [Required]
         public double WheelSize { get; set; }
 
-        [MaxLength(FrameBrandMaxLength)]
+        [MaxLength(WheelBrandMaxLength)]
         public string? WheelBrand { get; set; }
 
         [MaxLength(DrivetrainMaxLength)]
@@ -37,6 +37,14 @@
         public int BikeTypeId { get; set; }
 
         public virtual BikeType BikeType { get; set; } = null!;
+
+
+        [Required]
+        [ForeignKey(nameof(AppUser))]
+        public Guid AppUserId { get; set; }
+
+        public virtual AppUser AppUser { get; set; } = null!;
+
     }
 
 

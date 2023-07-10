@@ -16,7 +16,7 @@ namespace BikingBuddy.Web.Models.Comment
 
         public string UserName { get; set; } = null!;
 
-        public string UserImageURL { get; set; } = null!;
+        public string? UserImageURL { get; set; } = null!;
 
         public bool IsEdited { get; set; } = false;
 

@@ -22,7 +22,12 @@
             public const int FrameBrandMaxLength = 20;
             public const int FrameBrandMinLength = 2;
 
+
+            public const int WheelBrandMaxLength = 20;
+            public const int WheelBrandMinLength = 2;
+
             public const int FrameSizeMaxLength = 2;
+            public const int FrameSizeMinLength = 1;
 
             public const int DrivetrainMaxLength = 20;
             public const int DrivetrainMinLength = 2;

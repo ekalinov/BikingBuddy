@@ -35,8 +35,6 @@ namespace BikingBuddy.Data
 
         public DbSet<Country> Countries { get; set; } = null!;
 
-        public DbSet<Municipality> Municipalities { get; set; } = null!;
-
         public DbSet<Town> Towns { get; set; } = null!;
         
         public DbSet<EventParticipants> EventsParticipants { get; set; } = null!;

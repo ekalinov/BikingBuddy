@@ -63,7 +63,6 @@ namespace BikingBuddy.Services
                 OrganizerId = Guid.Parse(userId),
                 CountryId = model.CountryId,
                 Town = await GetTownByName(model.TownName),
-                Municipality = await GetMunicipalityByName(model.Municipality),
                 Ascent = model.Ascent,
                 Distance = model.Distance,
 
@@ -93,13 +92,12 @@ namespace BikingBuddy.Services
                     ActivityType = e.ActivityType.Name,
                     Country = string.Format("{0}, {1}", e.Country.Name, e.CountryId),
                     Town = e.Town.Name,
-                    Municipality = e.Municipality!.Name,
                     EventsParticipants = e.EventsParticipants
                         .Select(ep=> new UserViewModel
                         {
                             Id = ep.ParticipantId.ToString(),
                             Name = ep.Participant.Name,
-                           ProfileImageUrl = ep.Participant.ImageURL
+                           ProfileImageUrl = ep.Participant.ProfileImageUrl
                         })
                         .ToList()
                 })
@@ -129,7 +127,6 @@ namespace BikingBuddy.Services
             eventToEdit.ActivityTypeId = model.ActivityTypeId;
             eventToEdit.CountryId = model.CountryId;
             eventToEdit.Town = await GetTownByName(model.TownName);
-            eventToEdit.Municipality = await GetMunicipalityByName(model.Municipality);
 
             await dbContext.SaveChangesAsync();
         }
@@ -197,7 +194,6 @@ namespace BikingBuddy.Services
                     Ascent = e.Ascent,
                     EventImageUrl = e.EventImageUrl!,
                     TownName = e.Town.Name,
-                    Municipality = e.Municipality!.Name,
                 })
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
@@ -336,35 +332,5 @@ namespace BikingBuddy.Services
         }
 
 
-        /// <summary>
-        ///  Method returns Municipality if there is such by given string,
-        /// /// if the town doesn't exists in the Db the method creates new one 
-        /// </summary>
-        /// <param name="name">string name of municipality</param>
-        /// <returns> Returns Municipality</returns>
-        private async Task<Municipality?> GetMunicipalityByName(string? name)
-        {
-            if (string.IsNullOrEmpty(name))
-            {
-                return null;
-            }
-
-            Municipality? municipality = await dbContext.Municipalities
-                .Where(t => t.Name.ToLower() == name.ToLower())
-                .FirstOrDefaultAsync();
-
-            if (municipality is null)
-            {
-                municipality = new()
-                {
-                    Name = name
-                };
-
-                await dbContext.Municipalities.AddAsync(municipality);
-                await dbContext.SaveChangesAsync();
-            }
-
-            return municipality;
-        }
     }
 }
