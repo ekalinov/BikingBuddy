@@ -12,10 +12,5 @@ namespace BikingBuddy.Services.Contracts
 
         Task UpdateProfileInfo(EditUserViewModel userDetails);
 
-        Task CompleteProfile(UserDetailsViewModel userDetails);
-
-
-        Task<AppUser?> GetUserByIdAsync(string userId);
-
     }
 }

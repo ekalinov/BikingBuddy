@@ -24,11 +24,11 @@ namespace BikingBuddy.Services
 
         public async Task<ICollection<CommentViewModel>> GetAllComments(string eventId)
         {
-            var eventComments = await dbContext.Comments
+            return await dbContext.Comments
                 .Where(c => c.EventId == Guid.Parse(eventId))
                 .Select(c => new CommentViewModel()
                 {
-                    CommentBody = c.CommentBody, 
+                    CommentBody = c.CommentBody,
                     CreatedOn = c.CommentedOn,
                     UserImageURL = c.User.ProfileImageUrl,
                     UserName = c.User.UserName,
@@ -37,64 +37,62 @@ namespace BikingBuddy.Services
                 })
                 .OrderByDescending(c => c.CreatedOn)
                 .ToListAsync();
-
-            
-
-
-            return eventComments;
         }
 
         public async Task AddComment(string comment, string userId, string eventId)
         {
             var eventToComment = await eventService.GetEventByIdAsync(eventId);
 
-            Comment newComment = new()
+            if (eventToComment != null)
             {
-                CommentBody = comment,
-                CommentedOn = DateTime.Now,
-                EventId = Guid.Parse(eventId),
-                UserId = Guid.Parse(userId)
-            };
+                Comment newComment = new()
+                {
+                    CommentBody = comment,
+                    CommentedOn = DateTime.Now,
+                    EventId = Guid.Parse(eventId),
+                    UserId = Guid.Parse(userId)
+                };
 
-
-            eventToComment.EventComments.Add(newComment);
-            await dbContext.SaveChangesAsync();
+                eventToComment.EventComments.Add(newComment);
+                await dbContext.SaveChangesAsync();
+            }
 
         }
 
-        
+
         public async Task EditComment(CommentViewModel commentModel)
         {
-            Comment? commentToEdit = await dbContext.Comments
-                .Where(c => c.Id == commentModel.Id)
-                .FirstOrDefaultAsync();
+            Comment? commentToEdit = await GetCommentAsync(commentModel.Id);
 
-            if (commentToEdit == null)
-                throw new NullReferenceException(CommentDoesNotExist);
+            if (commentToEdit != null)
+            {
+                commentToEdit.IsEdited = true;
+                commentToEdit.CommentedOn = DateTime.Now;
+                commentToEdit.CommentBody = commentModel.CommentBody;
 
-            commentToEdit.IsEdited = true;
-            commentToEdit.CommentedOn = DateTime.Now;
-            commentToEdit.CommentBody = commentModel.CommentBody;
-
-
-            await dbContext.SaveChangesAsync();
+                await dbContext.SaveChangesAsync();
+            }
 
         }
 
+
+        private async Task<Comment?> GetCommentAsync(int commentId)
+        {
+            return await dbContext.Comments
+                .Where(c => c.Id == commentId)
+                .FirstOrDefaultAsync();
+        }
 
 
         public async Task DeleteComment(int commentId)
         {
-            Comment? commentToDelete = await dbContext.Comments
-                .Where(c => c.Id == commentId)
-                .FirstOrDefaultAsync();
+            Comment? commentToDelete = await GetCommentAsync(commentId);
 
-            if (commentToDelete == null)
-                throw new NullReferenceException(CommentDoesNotExist);
-
-
-            dbContext.Remove(commentToDelete);
-            await dbContext.SaveChangesAsync();
+            if (commentToDelete != null)
+            {
+                dbContext.Remove(commentToDelete);
+                await dbContext.SaveChangesAsync();
+            }
 
         }
     }

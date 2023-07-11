@@ -1,14 +1,13 @@
-﻿using BikingBuddy.Data;
-using BikingBuddy.Data.Models;
-using BikingBuddy.Services.Contracts;
-using BikingBuddy.Web.Models.Team;
-using BikingBuddy.Web.Models.User;
-using Microsoft.EntityFrameworkCore;
-
-using static BikingBuddy.Common.ErrorMessages.TeamErrorMessages;
-
-namespace BikingBuddy.Services
+﻿namespace BikingBuddy.Services
 {
+    using Microsoft.EntityFrameworkCore;
+
+    using Data;
+    using Data.Models;
+    using Contracts;
+    using Web.Models.Team;
+    using Web.Models.User;
+
     public class TeamService : ITeamService
     {
 
@@ -100,7 +99,7 @@ namespace BikingBuddy.Services
                 EstablishedOn = model.EstablishedOn,
                 TeamManagerId = Guid.Parse(teamManagerId),
                 CountryId = model.CountryId,
-                Town = await eventService.GetTownByName(model.TownName),
+                Town = await eventService.GetTownByNameAsync(model.TownName),
                 Description = model.Description
 
             };
@@ -109,6 +108,7 @@ namespace BikingBuddy.Services
             await dbContext.SaveChangesAsync();
         }
 
+        //Update
         public async Task EditTeam(EditTeamViewModel model, string teamId)
         {
             var teamToEdit = await GetTeamByIdAsync(teamId);
@@ -119,7 +119,7 @@ namespace BikingBuddy.Services
                 teamToEdit.TeamImageUrl = model.TeamImageUrl;
                 teamToEdit.EstablishedOn = model.EstablishedOn;
                 teamToEdit.CountryId = model.CountryId;
-                teamToEdit.Town = await eventService.GetTownByName(model.TownName);
+                teamToEdit.Town = await eventService.GetTownByNameAsync(model.TownName);
                 teamToEdit.Description = model.Description;
 
                 await dbContext.SaveChangesAsync();
@@ -127,16 +127,18 @@ namespace BikingBuddy.Services
 
         }
 
+        //Delete
         public Task DeleteTeam(int commentId)
         {
             //TODO: Soft Delete
             throw new NotImplementedException();
         }
 
+
         public async Task<int> GetTeamMembersCount(string teamId)
         {
             return await dbContext.AppUsers
-                .CountAsync(u=>u.TeamId == Guid.Parse(teamId));
+                .CountAsync(u => u.TeamId == Guid.Parse(teamId));
         }
 
         public async Task SendRequest(string teamId, string userId)
@@ -210,21 +212,11 @@ namespace BikingBuddy.Services
                 )
             {
 
-                await RemoveRequest(userId,teamId);
+                await RemoveRequest(userId, teamId);
                 team.TeamMembers.Remove(userToRemove);
                 await dbContext.SaveChangesAsync();
             }
 
-        }
-
-        private async Task<TeamRequest?> GetTeamRequestAsync(string userId, string teamId)
-        {
-
-            return await dbContext.TeamsRequests
-                                  .Where(tr => tr.TeamId == Guid.Parse(teamId)
-                                                      && tr.RequestFromId == Guid.Parse(userId)
-                                                      && tr.IsAccepted == false)
-                                  .FirstOrDefaultAsync();
         }
 
         public async Task<ICollection<TeamRequestViewModel>> GetTeamRequestsByUserAsync(string userId)
@@ -259,23 +251,6 @@ namespace BikingBuddy.Services
                              && tr.IsAccepted == false);
         }
 
-
-
-
-        private async Task<Team?> GetTeamByIdAsync(string id)
-        {
-            return await dbContext.Teams
-                                .Where(t => t.Id == Guid.Parse(id))
-                                .FirstOrDefaultAsync();
-        }
-
-        private async Task<AppUser?> GetUserByIdAsync(string id)
-        {
-            return await dbContext.Users
-                                  .Where(u => u.Id == Guid.Parse(id))
-                                  .FirstOrDefaultAsync();
-        }
-
         public async Task<bool> IsMemberAsync(string userId, string teamId)
         {
             return await dbContext.Teams
@@ -295,5 +270,31 @@ namespace BikingBuddy.Services
                 await dbContext.SaveChangesAsync();
             }
         }
+
+
+        private async Task<TeamRequest?> GetTeamRequestAsync(string userId, string teamId)
+        {
+
+            return await dbContext.TeamsRequests
+                                  .Where(tr => tr.TeamId == Guid.Parse(teamId)
+                                                      && tr.RequestFromId == Guid.Parse(userId)
+                                                      && tr.IsAccepted == false)
+                                  .FirstOrDefaultAsync();
+        }
+
+        private async Task<Team?> GetTeamByIdAsync(string id)
+        {
+            return await dbContext.Teams
+                                .Where(t => t.Id == Guid.Parse(id))
+                                .FirstOrDefaultAsync();
+        }
+
+        private async Task<AppUser?> GetUserByIdAsync(string id)
+        {
+            return await dbContext.Users
+                                  .Where(u => u.Id == Guid.Parse(id))
+                                  .FirstOrDefaultAsync();
+        }
+
     }
 }

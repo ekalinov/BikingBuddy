@@ -1,19 +1,12 @@
-﻿using BikingBuddy.Common;
-using BikingBuddy.Data;
-using BikingBuddy.Data.Models;
-using BikingBuddy.Services.Contracts;
-using BikingBuddy.Web.Models.Bike;
-using BikingBuddy.Web.Models.Event;
-using BikingBuddy.Web.Models.Team;
-using BikingBuddy.Web.Models.User;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
-using System.Collections.Immutable;
-using System.Runtime.CompilerServices;
-
-namespace BikingBuddy.Services
+﻿namespace BikingBuddy.Services
 {
-    using static BikingBuddy.Common.GlobalConstants;
+    using Microsoft.EntityFrameworkCore;
+
+    using Data;
+    using Contracts;
+    using Data.Models;
+    using Web.Models.User;
+
     public class UserService : IUserService
     {
         private readonly BikingBuddyDbContext dbContext;
@@ -24,9 +17,9 @@ namespace BikingBuddy.Services
 
         private readonly IBikeService bikeService;
 
-        public UserService(BikingBuddyDbContext _dbContext, 
-            IEventService _eventService, 
-            ITeamService _teamService, 
+        public UserService(BikingBuddyDbContext _dbContext,
+            IEventService _eventService,
+            ITeamService _teamService,
             IBikeService _bikeService)
         {
             this.dbContext = _dbContext;
@@ -34,10 +27,6 @@ namespace BikingBuddy.Services
             this.teamService = _teamService;
             this.bikeService = _bikeService;
         }
-
-
-
-
 
         public async Task<UserDetailsViewModel?> GetUserDetails(string userId)
         {
@@ -60,13 +49,13 @@ namespace BikingBuddy.Services
                 Where(u => u.Id == Guid.Parse(userId))
                 .Select(u => new UserDetailsViewModel
                 {
-                    Id= userId,
+                    Id = userId,
                     Name = u.Name,
                     Helmet = u.Helmet,
                     Shoes = u.Shoes,
                     Team = u.Team!.Name,
                     Town = u.Town.Name,
-                    Country = u.Country.Name, 
+                    Country = u.Country.Name,
                     ProfileImageUrl = u.ProfileImageUrl,
                     CompletedEvents = completedEvents,
                     TotalDistance = userTotalDistance,
@@ -82,17 +71,17 @@ namespace BikingBuddy.Services
 
         public async Task<EditUserViewModel?> GetUserForEditAsync(string userId)
         {
-           return await dbContext.AppUsers.
-                Where(u => u.Id == Guid.Parse(userId))
-                .Select(u => new EditUserViewModel
-                {
-                    Id = userId,
-                    Helmet = u.Helmet,
-                    Shoes = u.Shoes,
-                    Town = u.Town.Name,
-                    ProfileImageUrl = u.ProfileImageUrl,
-                   
-                }).FirstOrDefaultAsync();
+            return await dbContext.AppUsers.
+                 Where(u => u.Id == Guid.Parse(userId))
+                 .Select(u => new EditUserViewModel
+                 {
+                     Id = userId,
+                     Helmet = u.Helmet,
+                     Shoes = u.Shoes,
+                     Town = u.Town.Name,
+                     ProfileImageUrl = u.ProfileImageUrl,
+
+                 }).FirstOrDefaultAsync();
 
         }
 
@@ -100,12 +89,12 @@ namespace BikingBuddy.Services
         {
             AppUser? user = await GetUserByIdAsync(model.Id);
 
-            if (user!=null)
+            if (user != null)
             {
                 user.ProfileImageUrl = model.ProfileImageUrl;
                 user.Shoes = model.Shoes;
-                user.Helmet= model.Helmet;
-                user.Town = await eventService.GetTownByName(model.Town);
+                user.Helmet = model.Helmet;
+                user.Town = await eventService.GetTownByNameAsync(model.Town);
                 user.CountryId = model.CountryId;
 
                 await dbContext.SaveChangesAsync();
@@ -114,18 +103,11 @@ namespace BikingBuddy.Services
 
         }
 
-        public Task CompleteProfile(UserDetailsViewModel userDetails)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public async Task<AppUser?> GetUserByIdAsync(string userId)
+        private async Task<AppUser?> GetUserByIdAsync(string userId)
         {
             return await dbContext.AppUsers
                 .FirstOrDefaultAsync(u => u.Id == Guid.Parse(userId));
-        }   
-
+        }
 
         private async Task<double> GetUserTotalDistanceAsync(string userId)
         {

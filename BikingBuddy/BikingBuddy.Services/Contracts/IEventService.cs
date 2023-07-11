@@ -2,8 +2,8 @@
 
 namespace BikingBuddy.Services.Contracts
 {
-    using BikingBuddy.Web.Models.Activity;
-    using BikingBuddy.Web.Models.Event;
+    using Web.Models.Activity;
+    using Web.Models.Event;
     using Web.Models;
 
     public interface IEventService
@@ -15,7 +15,7 @@ namespace BikingBuddy.Services.Contracts
         Task AddEventAsync(AddEventViewModel model, string userId);
 
         //Read
-        Task<EventDetailsViewModel> GetEventDetailsByIdAsync(string id);
+        Task<EventDetailsViewModel?> GetEventDetailsByIdAsync(string id);
 
         //Update
         Task EditEventAsync(EditEventViewModel model, string eventId);
@@ -24,35 +24,33 @@ namespace BikingBuddy.Services.Contracts
         Task DeleteEventAsync(int id);
 
         //Join Event
-        Task JoinEvent(string userId, string eventId);
+        Task JoinEventAsync(string userId, string eventId);
 
         //Leave Event
-        Task LeaveEvent(string userId, string eventId);
+        Task LeaveEventAsync(string userId, string eventId);
 
         //Get Events
-        Task<ICollection<AllEventsViewModel>> GetEventsByUserId(string userId);
+        Task<ICollection<AllEventsViewModel>> GetEventsByUserIdAsync(string userId);
 
         Task<ICollection<EventViewModel>> GetUserEventsAsync(string userId);
 
         Task<int?> GetCompletedEventsCountByUserAsync(string userId);
 
-        Task<EditEventViewModel> GetEventViewModelByIdAsync(string id);
+        Task<EditEventViewModel?> GetEventViewModelByIdAsync(string id);
 
-        Task<Event> GetEventByIdAsync(string id);
+        Task<Event?> GetEventByIdAsync(string id);
 
 
+        Task<bool> IsParticipating(string userId, string eventId);
+
+        //ActivityTypes
         Task<List<ActivityTypeViewModel>> GetActivityTypesAsync();
 
+        //Countries
         Task<List<CountryViewModel>> GetCountriesAsync();
 
-
-
-
-        Task<Town> GetTownByName(string name);
-
-        //Task<List<DetailsViewModel>> GetDetailsUserModels(string userId);
-
-        //Task LeaveEvent(string userId, int id);
+        //Towns
+        Task<Town> GetTownByNameAsync(string name);
 
     }
 }

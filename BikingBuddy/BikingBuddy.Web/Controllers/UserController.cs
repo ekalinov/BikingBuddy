@@ -1,17 +1,14 @@
-﻿using BikingBuddy.Common;
-using BikingBuddy.Services.Contracts;
-using BikingBuddy.Web.Infrastructure.Extensions;
-using BikingBuddy.Web.Models.User;
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-
-using static BikingBuddy.Common.NotificationMessagesConstants;
-using static BikingBuddy.Common.ErrorMessages.UserErrorMessages;
-using BikingBuddy.Services;
-using BikingBuddy.Web.Models.Bike;
-
-namespace BikingBuddy.Web.Controllers
+﻿namespace BikingBuddy.Web.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+
+    using Services.Contracts;
+    using Infrastructure.Extensions;
+    using Models.User;
+
+    using static  Common.ErrorMessages.UserErrorMessages;
+    using static  Common.NotificationMessagesConstants;
+
     public class UserController : BaseController
     {
         public readonly IEventService eventService;
@@ -45,7 +42,6 @@ namespace BikingBuddy.Web.Controllers
 
         }
 
-
         public async Task<IActionResult> MyProfile()
         {
             var userDetails = await userService.GetUserDetails(this.User.GetId());
@@ -53,7 +49,6 @@ namespace BikingBuddy.Web.Controllers
 
             return View(userDetails);
         }
-
 
         [HttpGet]
         public async Task<IActionResult> Edit(string userId)

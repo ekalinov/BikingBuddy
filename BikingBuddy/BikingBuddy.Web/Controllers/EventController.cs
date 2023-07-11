@@ -32,7 +32,11 @@ namespace BikingBuddy.Web.Controllers
 
             var eventDetails = await service.GetEventDetailsByIdAsync(eventId);
 
-            eventDetails.EventComments = await commentService.GetAllComments(eventId);
+            if (eventDetails != null)
+            {
+                eventDetails.EventComments = await commentService.GetAllComments(eventId);
+            }
+
 
             return View(eventDetails);
 
@@ -103,12 +107,23 @@ namespace BikingBuddy.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(string eventId)
         {
-            EditEventViewModel editAddEvent = await service.GetEventViewModelByIdAsync(eventId);
+            EditEventViewModel? editAddEvent = await service.GetEventViewModelByIdAsync(eventId);
 
-            editAddEvent.ActivityTypes = await service.GetActivityTypesAsync();
-            editAddEvent.CountriesCollection = await service.GetCountriesAsync();
+            if (editAddEvent != null)
+            {
+                editAddEvent.ActivityTypes = await service.GetActivityTypesAsync();
+                editAddEvent.CountriesCollection = await service.GetCountriesAsync();
 
-            return View(editAddEvent);
+                return View(editAddEvent);
+            }
+            else
+            {
+                TempData[ErrorMessage] = EventNotExistsMessage;
+                return RedirectToAction("All");
+
+            }
+
+
         }
 
 
@@ -117,7 +132,6 @@ namespace BikingBuddy.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-
                 model.ActivityTypes = await service.GetActivityTypesAsync();
                 model.CountriesCollection = await service.GetCountriesAsync();
 
@@ -128,9 +142,20 @@ namespace BikingBuddy.Web.Controllers
 
             string userId = this.User.GetId();
 
-            await service.EditEventAsync(model, userId);
+            try
+            {
 
-            return RedirectToAction("All", "Event");
+                await service.EditEventAsync(model, userId);
+                TempData[SuccessMessage] = EventSuccessfullyEdited;
+                return RedirectToAction("Details", "Event", new { eventId = model.EventId });
+
+            }
+            catch (Exception)
+            {
+                TempData[ErrorMessage] = EditEventError;
+
+                return RedirectToAction("All", "Event");
+            }
         }
 
 
@@ -146,13 +171,22 @@ namespace BikingBuddy.Web.Controllers
 
             try
             {
-                await service.JoinEvent(userId, eventId);
+                if (!await service.IsParticipating(eventId, userId))
+                {
+                    await service.JoinEventAsync(userId, eventId);
+                    TempData[SuccessMessage] = SuccessJoiningEvent;
+                }
+                else
+                {
+                    TempData[ErrorMessage] = UserAlreadyParticipatingErrorMessage;
+                }
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Console.WriteLine(e);
-                throw;
+                TempData[ErrorMessage] = JoinEventError;
+                return RedirectToAction("All", "Event");
+
             }
 
             return RedirectToAction("Mine", "Event");
@@ -164,13 +198,24 @@ namespace BikingBuddy.Web.Controllers
 
             try
             {
-                await service.LeaveEvent(userId, eventId);
+
+                if (await service.IsParticipating(eventId, userId))
+                {
+                    await service.LeaveEventAsync(userId, eventId);
+                    TempData[SuccessMessage] = SuccessLeavingEvent;
+                }
+                else
+                {
+                    TempData[ErrorMessage] = UserNotParticipatingErrorMessage;
+                }
+
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Console.WriteLine(e);
-                throw;
+                TempData[ErrorMessage] = LeaveEventError;
+                return RedirectToAction("Mine", "Event");
+
             }
 
             return RedirectToAction("All", "Event");
@@ -182,20 +227,14 @@ namespace BikingBuddy.Web.Controllers
 
             try
             {
-                var userId = User.GetId();
-                var userEvents = await service.GetEventsByUserId(userId);
+                var userEvents = await service.GetEventsByUserIdAsync(this.User.GetId());
                 return View(userEvents);
             }
             catch (Exception)
             {
-
-
                 TempData[ErrorMessage] = UserDoesNotHaveEvents;
-
                 return RedirectToAction("All");
             }
-
-
 
         }
     }

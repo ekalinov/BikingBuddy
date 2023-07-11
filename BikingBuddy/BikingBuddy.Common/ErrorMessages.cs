@@ -12,9 +12,26 @@ namespace BikingBuddy.Common
         {
             public const string EventNotExistsMessage =  "Event does not exist!";
 
-            public const string UserAlreadyParticipatingErrorMessage = "The user is already joined in this event!";
+            public const string EventSuccessfullyEdited = "Event is successfully edited!";
 
-            public const string UserNotParticipatingErrorMessage = "The user is not participating in this event!";
+            public const string EditEventError = "Something went wrong while Editing this event!";
+
+
+
+
+            public const string SuccessJoiningEvent = "Successfully join this event!";
+
+            public const string UserAlreadyParticipatingErrorMessage = "You already joined this event!";
+
+            public const string JoinEventError = "Something went wrong while joining this event!";
+
+            public const string SuccessLeavingEvent = "You leave this event!";
+
+            public const string LeaveEventError = "Something went wrong while leaving this event!";
+
+
+
+            public const string UserNotParticipatingErrorMessage = "You are not participating in this event!";
 
             public const string UserDoesNotHaveEvents = "The user is not participating in any events!";
 
@@ -35,12 +52,6 @@ namespace BikingBuddy.Common
             public const string BikeRemovedFromUserError = "Something went wrong! Bike is not removed from User's bike collection!";
 
 
-
-
-
-
-
-
         }
 
 
@@ -52,24 +63,6 @@ namespace BikingBuddy.Common
             public const string UpdatingProfileError = "Something went wrong! Edit User Error!";
 
             public const string ProfileChangesSaved = "Profile changes saved!";
-
-
-            //public const string AddBikeError = "Something went wrong while Adding a bike!";
-
-            //public const string EditBikeError = "Something went wrong! Edit Bike Error!";
-
-            //public const string BikeEditedSuccessfully = "Bike info is successfully edited!";
-
-            //public const string BikeRemovedFromUserSuccessfully = "Bike is successfully removed from user's bike collection!";
-
-            //public const string BikeRemovedFromUserError = "Something went wrong! Bike is not removed from User's bike collection!";
-
-
-
-
-
-
-
 
         }
 
@@ -135,22 +128,6 @@ namespace BikingBuddy.Common
             public const string AddMemberError = "Something went wrong while adding the member to the team!";
 
             public const string RemoveMemberError = "Something went wrong while removing the member to the team!";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         }
 
