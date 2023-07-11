@@ -10,6 +10,7 @@ namespace BikingBuddy.Services
     using Web.Models.BikeType;
     using Data;
     using Contracts;
+    using BikingBuddy.Web.Models.Team;
 
     public class BikeService : IBikeService
     {
@@ -25,8 +26,8 @@ namespace BikingBuddy.Services
         public async Task<ICollection<BikeDetailsViewModel>> GetUserBikesAsync(string userId)
         {
             return await dbContext.Bikes
-                .Where(b=>b.AppUserId==Guid.Parse(userId))
-                .Select(b=>new BikeDetailsViewModel
+                .Where(b => b.AppUserId == Guid.Parse(userId))
+                .Select(b => new BikeDetailsViewModel
                 {
                     Id = b.Id,
                     FrameBrand = b.FrameBrand,
@@ -38,6 +39,38 @@ namespace BikingBuddy.Services
                     BikeType = b.BikeType.Name
                 })
                 .ToListAsync();
+
+        }
+
+        public async Task<EditBikeViewModel?> GetBikeToEditAsync(string bikeId)
+        {
+            return await dbContext.Bikes
+                .Where(b => b.Id.ToLower() == bikeId.ToLower())
+                .Select(b => new EditBikeViewModel
+                {
+                    Id = b.Id,
+                    FrameBrand = b.FrameBrand,
+                    FrameSize = b.FrameSize,
+                    WheelSize = b.WheelSize,
+                    WheelBrand = b.WheelBrand,
+                    Drivetrain = b.Drivetrain,
+                    Fork = b.Fork
+                })
+                .FirstOrDefaultAsync();
+
+
+        }
+
+        public async Task RemoveBikeFromUserAsync(string bikeId, string userId)
+        {
+            Bike? bikeToEdit = await GetBikeByIdAsync(bikeId);
+
+            if (bikeToEdit != null)
+            {
+                // bikeToEdit.AppUserId = Guid.Empty;
+                dbContext.Remove(bikeToEdit);
+                await dbContext.SaveChangesAsync();
+            }
 
         }
 
@@ -64,12 +97,49 @@ namespace BikingBuddy.Services
                 Drivetrain = model.Drivetrain,
                 Fork = model.Fork,
                 BikeTypeId = model.BikeTypesId,
-                AppUserId =  Guid.Parse(userId)
+                AppUserId = Guid.Parse(userId)
             };
 
 
             await dbContext.Bikes.AddAsync(bike);
             await dbContext.SaveChangesAsync();
+        }
+
+        public async Task EditBike(EditBikeViewModel viewModel, string bikeId)
+        {
+            Bike? bikeToEdit = await GetBikeByIdAsync(bikeId);
+
+            if (bikeToEdit != null)
+            {
+
+                bikeToEdit.FrameBrand = viewModel.FrameBrand;
+                bikeToEdit.FrameSize = viewModel.FrameSize;
+                bikeToEdit.WheelSize = viewModel.WheelSize;
+                bikeToEdit.WheelBrand = viewModel.WheelBrand;
+                bikeToEdit.Drivetrain = viewModel.Drivetrain;
+                bikeToEdit.Fork = viewModel.Fork;
+                bikeToEdit.BikeTypeId = viewModel.BikeTypesId;
+
+                await dbContext.SaveChangesAsync();
+            }
+        }
+
+        private async Task RemoveBike(string bikeId)
+        {
+            Bike? bikeToRemove = await GetBikeByIdAsync(bikeId);
+
+            if (bikeToRemove != null)
+            {
+                //todo: Soft Delete
+
+
+                await dbContext.SaveChangesAsync();
+            }
+        }
+
+        private async Task<Bike?> GetBikeByIdAsync(string bikeId)
+        {
+            return await dbContext.Bikes.FirstOrDefaultAsync(b => b.Id == bikeId);
         }
     }
 }

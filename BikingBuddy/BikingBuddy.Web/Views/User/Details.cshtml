@@ -5,8 +5,12 @@
 <div class="row">
     <div class="card w-100">
         <div class="card-body">
-            <img class="img-fluid" style="width: 18rem;"
+
+            @if (Model.ProfileImageUrl != null)
+            {
+                <img class="img-fluid" style="width: 18rem;"
                  src="@Model.ProfileImageUrl" alt="UserImage">
+            }
             <h3 class="card-title text-center">@Model.Name</h3>
             <p class="mb-0">
                 <span class="fw-bold">Address: </span>@Model.Town , @Model.Country
@@ -16,69 +20,18 @@
             *@
             <p class="mb-0"><span class="fw-bold">Shoes: </span>@Model.Shoes</p>
             <p class="mb-0"><span class="fw-bold">Helmet: </span>@Model.Helmet</p>
-            <p class="mb-0"><span class="fw-bold">tEAMid: </span>@Model.TeamId</p>
+            <p class="mb-0"><span class="fw-bold">tEAMid: </span>@Model.Team</p>
             <p class="mb-0"><span class="fw-bold">Total Distance: </span>@Model.TotalDistance</p>
             <p class="mb-0"><span class="fw-bold">Total Ascent: </span>@Model.TotalAscent</p>
 
 
+            <a asp-controller="Event" asp-action="All" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Back to All Events</a>
         </div>
 
 
-        <div>
-            @*<div>
-            @await Html.PartialAsync("_AllCommentsPartial",modelComments)
-            </div>*@
-
-            @*  <div>
-            <form method="post" asp-controller="Comment" asp-action="Add">
-            <input hidden="hidden" name="eventId" value="@Model.Id" />
-            <div class="mb-3">
-            <label for="commentBody" class="form-label">Example textarea</label>
-            <textarea class="form-control" name="commentBody" value="@Model.ActivityType" rows="3"></textarea>
-            </div>
-            <div class="form_grp">
-            <button type="submit" class="btn btn-primary" id="submit">Добави</button>
-            </div>
-            </form>
-
-            </div>*@
-
-        </div>
-
-        <a asp-controller="Comment" asp-action="Add" class="btn btn-warning mb-2 w-100 p-3 fw-bold" asp-route-eventId="@Model.Id">Comment</a>
-        <a asp-controller="Event" asp-action="All" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Back to All Events</a>
 
 
-        @*
-        <div>
-        <h5>Participants:</h5>
-        @foreach (var ep in Model.EventsParticipants)
-        {
-        <div class="row">
 
-        <p class="mb-0"><span class="fw-bold"> </span>@ep.ProfileImageUrl</p>
-        <p class="mb-0"><span class="fw-bold"> </span>@ep.Name</p>
-        <p class="mb-0"><span class="fw-bold"> </span>@ep.Id</p>
-        </div>
 
-        }
-        </div>
-
-        @if (User.Identity?.Name == Model.OrganizerUsername)
-        {
-        <a asp-controller="Event" asp-action="Edit" asp-route-eventId="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
-        }
-        else
-        {
-        if (Model.EventsParticipants.All(ep => ep.Name != User.Identity?.Name))
-        {
-        <a asp-route-eventId="@Model.Id" asp-controller="Event" asp-action="Join" class="btn btn-warning mb-2 w-100 p-3 fw-bold">join Event</a>
-        }
-        else
-        {
-        <a asp-route-eventId="@Model.Id" asp-controller="Event" asp-action="Leave" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Leave Event</a>
-        }
-        }
-        *@
     </div>
 </div>

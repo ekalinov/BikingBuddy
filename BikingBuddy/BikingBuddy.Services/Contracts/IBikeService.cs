@@ -12,5 +12,11 @@ namespace BikingBuddy.Services.Contracts
 
 
         Task AddBikeToUserAsync(AddBikeViewModel model, string getId);
+
+        Task EditBike(EditBikeViewModel viewModel, string bikeId);
+
+        Task<EditBikeViewModel?> GetBikeToEditAsync(string bikeId);
+
+        Task RemoveBikeFromUserAsync(string bikeId, string userId);
     }
 }                           

@@ -34,7 +34,7 @@ namespace BikingBuddy.Services.Contracts
 
         Task<ICollection<EventViewModel>> GetUserEventsAsync(string userId);
 
-        Task<int> GetCompletedEventsCountByUserAsync(string userId);
+        Task<int?> GetCompletedEventsCountByUserAsync(string userId);
 
         Task<EditEventViewModel> GetEventViewModelByIdAsync(string id);
 

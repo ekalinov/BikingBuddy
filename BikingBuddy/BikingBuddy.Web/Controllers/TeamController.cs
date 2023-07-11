@@ -19,6 +19,29 @@ namespace BikingBuddy.Web.Controllers
             this.eventService = _eventService;
         }
 
+
+
+
+        //Read
+        public async Task<IActionResult> Details(string teamId)
+        {
+
+            try
+            {
+                var teamDetails = await teamService.GetTeamDetailsAsync(teamId);
+                return View(teamDetails);
+            }
+            catch (Exception)
+            {
+                TempData[ErrorMessage] = TeamDoesNotExist;
+            }
+
+
+            return RedirectToAction("All", "Team");
+
+
+        }
+
         public async Task<IActionResult> All()
         {
             try
@@ -27,7 +50,7 @@ namespace BikingBuddy.Web.Controllers
                 return View(allTeams);
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
                 TempData[ErrorMessage] = AllTeamsLoadingFail;
@@ -99,7 +122,7 @@ namespace BikingBuddy.Web.Controllers
 
         }
 
-        //Create
+        //Update
         [HttpGet]
         public async Task<IActionResult> Edit(string teamId)
         {
@@ -153,24 +176,6 @@ namespace BikingBuddy.Web.Controllers
         }
 
 
-        public async Task<IActionResult> Details(string teamId)
-        {
-
-            try
-            {
-                var teamDetails = await teamService.GetTeamDetailsAsync(teamId);
-                return View(teamDetails);
-            }
-            catch (Exception)
-            {
-                TempData[ErrorMessage] = TeamDoesNotExist;
-            }
-
-
-            return RedirectToAction("All", "Team");
-
-
-        }
 
         public async Task<IActionResult> RequestToJoin(string teamId)
         {
@@ -211,7 +216,7 @@ namespace BikingBuddy.Web.Controllers
                 await teamService.RemoveRequest(memberId, teamId);
                 TempData[InformationMessage] = RequestRejected;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 TempData[ErrorMessage] = RequestNotFound;
 
@@ -238,7 +243,7 @@ namespace BikingBuddy.Web.Controllers
                 }
 
             }
-            catch (Exception e)
+            catch(Exception)
             {
                 TempData[ErrorMessage] = AddMemberError;
 
@@ -266,7 +271,7 @@ namespace BikingBuddy.Web.Controllers
                 }
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 TempData[ErrorMessage] = RemoveMemberError;
 

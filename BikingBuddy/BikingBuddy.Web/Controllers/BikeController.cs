@@ -8,9 +8,9 @@ namespace BikingBuddy.Web.Controllers
     using Infrastructure.Extensions;
     using Models.Bike;
 
-    using static  Common.NotificationMessagesConstants;
-    using static  Common.ErrorMessages.BikeErrorMessages;
-    
+    using static Common.NotificationMessagesConstants;
+    using static Common.ErrorMessages.BikeErrorMessages;
+
     public class BikeController : BaseController
     {
         private readonly IBikeService bikeService;
@@ -21,6 +21,8 @@ namespace BikingBuddy.Web.Controllers
             this.bikeService = _bikeService;
         }
 
+        //Create
+        [HttpGet]
         public async Task<IActionResult> Add()
         {
             var addEventModel = new AddBikeViewModel()
@@ -70,5 +72,93 @@ namespace BikingBuddy.Web.Controllers
 
 
         }
+
+
+        //Update
+        [HttpGet]
+        public async Task<IActionResult> Edit(string bikeId)
+        {
+            EditBikeViewModel? bikeModel = await bikeService.GetBikeToEditAsync(bikeId);
+
+
+
+
+
+            try
+            {
+                if (bikeModel != null)
+                {
+                    bikeModel.BikeTypes = await bikeService.GetBikeTypesAsync();
+
+                    return View(bikeModel);
+                }
+
+            }
+            catch (Exception)
+            {
+
+                TempData[ErrorMessage] = EditBikeError;
+
+            }
+
+            return RedirectToAction("MyProfile", "User");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditBikeViewModel model)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                model.BikeTypes = await bikeService.GetBikeTypesAsync();
+
+                return View(model);
+            }
+
+
+            try
+            {
+                await bikeService.EditBike(model, model.Id);
+                TempData[SuccessMessage] = BikeEditedSuccessfully;
+
+
+                return RedirectToAction("MyProfile", "User");
+            }
+            catch (Exception)
+            {
+                TempData[ErrorMessage] = EditBikeError;
+                model.BikeTypes = await bikeService.GetBikeTypesAsync();
+
+                return View(model);
+            }
+
+        }
+
+
+        //Delete 
+
+        public async Task<IActionResult> Remove(string bikeId)
+        {
+
+
+            try
+            {
+
+                await bikeService.RemoveBikeFromUserAsync(bikeId, this.User.GetId());
+                TempData[SuccessMessage] = BikeRemovedFromUserSuccessfully;
+
+
+            }
+            catch (Exception)
+            {
+
+                TempData[ErrorMessage] = BikeRemovedFromUserError;
+
+            }
+
+            return RedirectToAction("MyProfile", "User");
+        }
+
+
     }
 }

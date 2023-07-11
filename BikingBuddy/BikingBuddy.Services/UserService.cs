@@ -64,7 +64,9 @@ namespace BikingBuddy.Services
                     Name = u.Name,
                     Helmet = u.Helmet,
                     Shoes = u.Shoes,
-                    TeamId = u.TeamId.ToString(),
+                    Team = u.Team!.Name,
+                    Town = u.Town.Name,
+                    Country = u.Country.Name, 
                     ProfileImageUrl = u.ProfileImageUrl,
                     CompletedEvents = completedEvents,
                     TotalDistance = userTotalDistance,
@@ -78,9 +80,38 @@ namespace BikingBuddy.Services
             return user;
         }
 
-        public Task UpdateProfileInfo(UserDetailsViewModel userDetails)
+        public async Task<EditUserViewModel?> GetUserForEditAsync(string userId)
         {
-            throw new NotImplementedException();
+           return await dbContext.AppUsers.
+                Where(u => u.Id == Guid.Parse(userId))
+                .Select(u => new EditUserViewModel
+                {
+                    Id = userId,
+                    Helmet = u.Helmet,
+                    Shoes = u.Shoes,
+                    Town = u.Town.Name,
+                    ProfileImageUrl = u.ProfileImageUrl,
+                   
+                }).FirstOrDefaultAsync();
+
+        }
+
+        public async Task UpdateProfileInfo(EditUserViewModel model)
+        {
+            AppUser? user = await GetUserByIdAsync(model.Id);
+
+            if (user!=null)
+            {
+                user.ProfileImageUrl = model.ProfileImageUrl;
+                user.Shoes = model.Shoes;
+                user.Helmet= model.Helmet;
+                user.Town = await eventService.GetTownByName(model.Town);
+                user.CountryId = model.CountryId;
+
+                await dbContext.SaveChangesAsync();
+            }
+
+
         }
 
         public Task CompleteProfile(UserDetailsViewModel userDetails)

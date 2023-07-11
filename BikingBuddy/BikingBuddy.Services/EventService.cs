@@ -297,7 +297,7 @@ namespace BikingBuddy.Services
         }
 
 
-        public async Task<int> GetCompletedEventsCountByUserAsync(string userId)
+        public async Task<int?> GetCompletedEventsCountByUserAsync(string userId)
         {
             return await dbContext.EventsParticipants
                 .CountAsync(ep => ep.ParticipantId == Guid.Parse(userId) && ep.IsCompleted == true);

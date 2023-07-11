@@ -26,6 +26,49 @@ namespace BikingBuddy.Common
 
             public const string AddBikeError = "Something went wrong while Adding a bike!";
 
+            public const string EditBikeError = "Something went wrong! Edit Bike Error!";
+
+            public const string BikeEditedSuccessfully = "Bike info is successfully edited!";
+
+            public const string BikeRemovedFromUserSuccessfully = "Bike is successfully removed from user's bike collection!";
+
+            public const string BikeRemovedFromUserError = "Something went wrong! Bike is not removed from User's bike collection!";
+
+
+
+
+
+
+
+
+        }
+
+
+        public static class UserErrorMessages
+        {
+
+            public const string UserNotFound = "User not found!";
+
+            public const string UpdatingProfileError = "Something went wrong! Edit User Error!";
+
+            public const string ProfileChangesSaved = "Profile changes saved!";
+
+
+            //public const string AddBikeError = "Something went wrong while Adding a bike!";
+
+            //public const string EditBikeError = "Something went wrong! Edit Bike Error!";
+
+            //public const string BikeEditedSuccessfully = "Bike info is successfully edited!";
+
+            //public const string BikeRemovedFromUserSuccessfully = "Bike is successfully removed from user's bike collection!";
+
+            //public const string BikeRemovedFromUserError = "Something went wrong! Bike is not removed from User's bike collection!";
+
+
+
+
+
+
 
 
         }

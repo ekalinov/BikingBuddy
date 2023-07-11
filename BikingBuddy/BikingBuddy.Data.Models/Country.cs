@@ -11,6 +11,7 @@
         public Country()
         {
            this.CountryEvents = new HashSet<Event>();
+           this.CountryUsers =new HashSet<AppUser>();
         }
 
         [Key]
@@ -24,9 +25,9 @@
 
 
 
-        public virtual ICollection<Event> CountryEvents { get; set; }
+        public virtual ICollection<Event> CountryEvents { get; set; } = null!;
 
 
-        public virtual ICollection<AppUser> CountryUsers { get; set; }
+        public virtual ICollection<AppUser> CountryUsers { get; set; } = null!;
     }
 }

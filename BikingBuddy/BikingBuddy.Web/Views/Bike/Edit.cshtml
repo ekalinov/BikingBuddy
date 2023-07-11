@@ -1,0 +1,65 @@
+﻿@model EditBikeViewModel
+@{
+    ViewBag.Title = "Add new Bike";
+}
+
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-action="Edit" method="post">
+            <div class="mb-3">
+                <label asp-for="@Model.FrameBrand" class="form-label-add-edit">Frame brand</label>
+                <input asp-for="@Model.FrameBrand" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.FrameBrand" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.FrameSize" class="form-label-add-edit">Frame Size</label>
+                <input asp-for="@Model.FrameSize" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.FrameSize" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.WheelBrand" class="form-label-add-edit">Wheel Brand</label>
+                <input asp-for="@Model.WheelBrand" class="form-control" aria-required="true" rows="5" />
+                <span asp-validation-for="WheelBrand" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.WheelSize" class="form-label">Wheel Size</label>
+                <input type="number" asp-for="@Model.WheelSize" class="form-control" />
+                <span asp-validation-for="@Model.WheelSize" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Drivetrain" class="form-label-add-edit">Drivetrain</label>
+                <input asp-for="@Model.Drivetrain" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.Drivetrain" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Fork" class="form-label-add-edit">Fork</label>
+                <input asp-for="@Model.Fork" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.Fork" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.BikeTypesId" class="form-label-add-edit">Type of event</label>
+                <select asp-for="@Model.BikeTypesId" class="form-control" aria-required="true">
+                    @foreach (var type in Model.BikeTypes)
+                    {
+                        <option value="@type.Id">@type.BikeTypeName</option>
+                    }
+                </select>
+                <span asp-validation-for="@Model.BikeTypes" class="text-danger"></span>
+            </div>
+
+            <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" asp-route-Id="@Model.Id" value="Edit" />
+
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

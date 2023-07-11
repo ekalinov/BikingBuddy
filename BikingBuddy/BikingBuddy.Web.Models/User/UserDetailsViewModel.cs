@@ -7,7 +7,7 @@ namespace BikingBuddy.Web.Models.User
     using Event;
     using Team;
 
-    public class UserDetailsViewModel
+    public class UserDetailsViewModel: EditUserViewModel
     {
 
 
@@ -19,24 +19,8 @@ namespace BikingBuddy.Web.Models.User
         }
 
 
-        public string Id { get; set; } = null!;
 
-        public string Name { get; set; } = null!;
-        public string Country { get; set; } = null!;
-
-        public string Town { get; set; } = null!;
-        
-        public string? Helmet { get; set; } = null!;
-
-        public string? Shoes { get; set; } = null!;
-
-        public string? TeamId { get; set; } = null!;
-
-
-        [Url]
-        public string? ProfileImageUrl { get; set; }
-
-        public int CompletedEvents { get; set; }
+        public int? CompletedEvents { get; set; }
       
         public double TotalDistance { get; set; }
 

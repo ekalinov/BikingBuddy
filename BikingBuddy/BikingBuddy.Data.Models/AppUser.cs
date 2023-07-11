@@ -35,7 +35,7 @@
 
 
         [ForeignKey(nameof(TownId))]
-        public virtual Town Town { get; set; }
+        public virtual Town Town { get; set; } = null!;
 
         public int? TownId { get; set; }
 

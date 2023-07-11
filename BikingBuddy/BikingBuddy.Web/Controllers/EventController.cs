@@ -96,7 +96,7 @@ namespace BikingBuddy.Web.Controllers
             return View(events);
         }
 
-        //TODO:
+        //TODO: TOastr notifications in Event Controller
 
         //Update
 
@@ -138,7 +138,7 @@ namespace BikingBuddy.Web.Controllers
 
         //Delete
 
-        //TODO:
+        //TODO: Soft Delete 
 
         public async Task<IActionResult> Join(string eventId)
         {
@@ -186,7 +186,7 @@ namespace BikingBuddy.Web.Controllers
                 var userEvents = await service.GetEventsByUserId(userId);
                 return View(userEvents);
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
 

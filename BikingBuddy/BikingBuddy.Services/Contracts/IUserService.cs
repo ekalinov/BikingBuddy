@@ -8,7 +8,9 @@ namespace BikingBuddy.Services.Contracts
 
         Task<UserDetailsViewModel?> GetUserDetails(string userId);
 
-        Task UpdateProfileInfo(UserDetailsViewModel userDetails);
+        Task<EditUserViewModel?> GetUserForEditAsync(string userId);
+
+        Task UpdateProfileInfo(EditUserViewModel userDetails);
 
         Task CompleteProfile(UserDetailsViewModel userDetails);
 
