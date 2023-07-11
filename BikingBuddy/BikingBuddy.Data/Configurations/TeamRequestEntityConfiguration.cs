@@ -1,21 +1,16 @@
-﻿using BikingBuddy.Data.Models;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BikingBuddy.Data.Configurations
+﻿namespace BikingBuddy.Data.Configurations
 {
-    public class TeamRequestEntityConfiguration:IEntityTypeConfiguration<TeamRequest>
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    using Models;
+    public class TeamRequestEntityConfiguration : IEntityTypeConfiguration<TeamRequest>
     {
 
         public void Configure(EntityTypeBuilder<TeamRequest> builder)
         {
             builder
-                .HasKey(pk => new { pk.RequestFromId, pk.TeamId});
+                .HasKey(pk => new { pk.RequestFromId, pk.TeamId });
 
 
 

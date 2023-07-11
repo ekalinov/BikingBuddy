@@ -1,8 +1,6 @@
-﻿using BikingBuddy.Data.Models;
-using BikingBuddy.Web.Models.Team;
-
-namespace BikingBuddy.Services.Contracts
+﻿namespace BikingBuddy.Services.Contracts
 {
+    using Web.Models.Team;
     public interface ITeamService
     {
         Task<TeamDetailsViewModel?> GetTeamDetailsAsync(string teamId);

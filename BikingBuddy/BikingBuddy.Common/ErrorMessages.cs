@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BikingBuddy.Common
+﻿namespace BikingBuddy.Common
 {
-   public static class ErrorMessages
+    public static class ErrorMessages
     {
         public static class EventErrorMessages
         {

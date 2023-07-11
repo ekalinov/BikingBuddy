@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
-using BikingBuddy.Data.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace BikingBuddy.Data.Configurations
+﻿namespace BikingBuddy.Data.Configurations
 {
-    internal class EventParticipantEntityConfiguration :IEntityTypeConfiguration<EventParticipants>
+    using Models;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    internal class EventParticipantEntityConfiguration : IEntityTypeConfiguration<EventParticipants>
     {
         public void Configure(EntityTypeBuilder<EventParticipants> builder)
         {

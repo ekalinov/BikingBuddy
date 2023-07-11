@@ -1,14 +1,10 @@
-﻿using BikingBuddy.Data.Models;
-using BikingBuddy.Services;
-using BikingBuddy.Services.Contracts;
-using BikingBuddy.Web.Infrastructure.Extensions;
-using BikingBuddy.Web.Models.Comment;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
-
-namespace BikingBuddy.Web.Controllers
+﻿namespace BikingBuddy.Web.Controllers
 {
-    public class CommentController : Controller
+    using Services.Contracts;
+    using Infrastructure.Extensions;
+    using Microsoft.AspNetCore.Mvc;
+
+    public class CommentController : BaseController
     {
 
         private readonly ICommentService commentService;
@@ -19,14 +15,14 @@ namespace BikingBuddy.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(string commentBody ,string eventId)
+        public async Task<IActionResult> Add(string commentBody, string eventId)
         {
             var userId = User.GetId();
 
-            await commentService.AddComment(commentBody, userId,eventId);
+            await commentService.AddComment(commentBody, userId, eventId);
 
 
-            return RedirectToAction("Details", "Event", new {eventId});
+            return RedirectToAction("Details", "Event", new { eventId });
         }
 
 

@@ -1,14 +1,11 @@
-﻿using BikingBuddy.Data;
-using BikingBuddy.Data.Models;
-using BikingBuddy.Services.Contracts;
-using BikingBuddy.Web.Models.Comment;
-using Microsoft.EntityFrameworkCore;
-
-using static BikingBuddy.Common.ErrorMessages.CommentErrorMessages;
-
-
-namespace BikingBuddy.Services
+﻿namespace BikingBuddy.Services
 {
+    using Data;
+    using Data.Models;
+    using Contracts;
+    using Web.Models.Comment;
+
+    using Microsoft.EntityFrameworkCore;
     public class CommentService : ICommentService
     {
 

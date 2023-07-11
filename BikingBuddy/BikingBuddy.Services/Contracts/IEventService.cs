@@ -1,10 +1,11 @@
-﻿using BikingBuddy.Data.Models;
-
+﻿
 namespace BikingBuddy.Services.Contracts
 {
+    using Data.Models;
+
+    using Web.Models;
     using Web.Models.Activity;
     using Web.Models.Event;
-    using Web.Models;
 
     public interface IEventService
     {

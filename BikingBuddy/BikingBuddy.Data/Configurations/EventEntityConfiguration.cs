@@ -1,7 +1,6 @@
-﻿
-namespace BikingBuddy.Data.Configurations
+﻿namespace BikingBuddy.Data.Configurations
 {
-    using BikingBuddy.Data.Models;
+    using Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

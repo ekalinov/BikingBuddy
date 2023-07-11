@@ -1,18 +1,14 @@
-﻿using System.Security.Claims;
-using BikingBuddy.Common;
-using BikingBuddy.Services;
-using BikingBuddy.Services.Contracts;
-using BikingBuddy.Web.Infrastructure.Extensions;
-using BikingBuddy.Web.Models.Event;
-using Microsoft.AspNetCore.Mvc;
-
-using static BikingBuddy.Common.ErrorMessages.EventErrorMessages;
-using static BikingBuddy.Common.NotificationMessagesConstants;
-
-
-
-namespace BikingBuddy.Web.Controllers
+﻿namespace BikingBuddy.Web.Controllers
 {
+    using Services.Contracts;
+    using Infrastructure.Extensions;
+    using Models.Event;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+
+    using static Common.ErrorMessages.EventErrorMessages;
+    using static Common.NotificationMessagesConstants;
+
     public class EventController : BaseController
     {
         private readonly IEventService service;
@@ -26,7 +22,9 @@ namespace BikingBuddy.Web.Controllers
 
 
 
+
         //Details 
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string eventId)
         {
 
@@ -93,6 +91,7 @@ namespace BikingBuddy.Web.Controllers
         //Read
 
         //All
+        [AllowAnonymous]
         public async Task<IActionResult> All()
         {
             var events = await service.GetAllEventsAsync();
@@ -140,12 +139,10 @@ namespace BikingBuddy.Web.Controllers
             }
 
 
-            string userId = this.User.GetId();
-
             try
             {
 
-                await service.EditEventAsync(model, userId);
+                await service.EditEventAsync(model, this.User.GetId());
                 TempData[SuccessMessage] = EventSuccessfullyEdited;
                 return RedirectToAction("Details", "Event", new { eventId = model.EventId });
 
@@ -167,13 +164,12 @@ namespace BikingBuddy.Web.Controllers
 
         public async Task<IActionResult> Join(string eventId)
         {
-            var userId = User.GetId();
 
             try
             {
-                if (!await service.IsParticipating(eventId, userId))
+                if (!await service.IsParticipating(eventId, this.User.GetId()))
                 {
-                    await service.JoinEventAsync(userId, eventId);
+                    await service.JoinEventAsync(this.User.GetId(), eventId);
                     TempData[SuccessMessage] = SuccessJoiningEvent;
                 }
                 else
@@ -194,14 +190,13 @@ namespace BikingBuddy.Web.Controllers
 
         public async Task<IActionResult> Leave(string eventId)
         {
-            var userId = User.GetId();
 
             try
             {
 
-                if (await service.IsParticipating(eventId, userId))
+                if (await service.IsParticipating(eventId, this.User.GetId()))
                 {
-                    await service.LeaveEventAsync(userId, eventId);
+                    await service.LeaveEventAsync(this.User.GetId(), eventId);
                     TempData[SuccessMessage] = SuccessLeavingEvent;
                 }
                 else

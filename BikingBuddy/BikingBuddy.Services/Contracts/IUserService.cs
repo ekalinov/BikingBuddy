@@ -1,7 +1,5 @@
-﻿
-namespace BikingBuddy.Services.Contracts
+﻿namespace BikingBuddy.Services.Contracts
 {
-    using BikingBuddy.Data.Models;
     using Web.Models.User;
     public interface IUserService
     {

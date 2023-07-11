@@ -1,8 +1,7 @@
-﻿using BikingBuddy.Web.Models.Bike;
-using BikingBuddy.Web.Models.BikeType;
-
-namespace BikingBuddy.Services.Contracts
-{
+﻿namespace BikingBuddy.Services.Contracts
+{          
+    using  Web.Models.Bike;
+    using  Web.Models.BikeType;
     public interface IBikeService
     {
 
@@ -19,4 +18,4 @@ namespace BikingBuddy.Services.Contracts
 
         Task RemoveBikeFromUserAsync(string bikeId, string userId);
     }
-}                           
+}
