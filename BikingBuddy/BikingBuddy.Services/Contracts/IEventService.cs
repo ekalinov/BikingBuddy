@@ -53,5 +53,6 @@ namespace BikingBuddy.Services.Contracts
         //Towns
         Task<Town> GetTownByNameAsync(string name);
 
+        Task<ICollection<EventMiniViewModel>> GetTopEventsAsync();
     }
 }

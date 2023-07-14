@@ -1,8 +1,185 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model IList<EventMiniViewModel>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<!-- about -->
+<div class="about">
+    <!-- about-top -->
+    <div class="agileits-about-top">
+        <div class="container">
+            <div class="agileits-about-top-heading">
+                <h3>Top Events</h3>
+            </div>
+            <div class="agileinfo-top-grids">
+
+                @foreach (var eventDetails in Model)
+                {
+                    <div class="col-sm-4 wthree-top-grid">
+                        <img src="@eventDetails.EventImageUrl" height="222px" width="335px" alt=""/>
+                        <h4>@eventDetails.Title, @eventDetails.Date</h4>
+                        <p>@eventDetails.Description</p>
+                        <a asp-controller="Event" asp-action="Details" asp-route-eventId="@eventDetails.Id">Read More</a>
+                    </div>
+                }
+
+                <div class="w3ls-text">
+                    <a asp-controller="Event" asp-action="All">Find More rides...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //about-top -->
+    <!-- choose -->
+    <div class="jarallax w3-agileits-choose">
+        <div class="container">
+            <div class="agileits-about-top-heading agileits-w3layouts-choose-heading">
+                <h3>Why choose us?</h3>
+            </div>
+            <div class="agile-choose-grids">
+                <div class="col-sm-4 agile-choose-grid">
+                    <div class="choose-icon">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                    </div>
+                    <div class="choose-info">
+                        <h4>Suspendisse ornare vitae ex nec aliquam</h4>
+                        <p>Nunc et massa ut purus porta euismod quis eu erat. Nam ornare faucibus elit sed tempor. Quisque iaculis odio nibh, et auctor tellus rhoncus vel. Maecenas arcu neque, semper eu commodo ut, pharetra vitae erat.</p>
+                    </div>
+                </div>
+                <div class="col-sm-4 agile-choose-grid">
+                    <div class="choose-icon">
+                        <i class="fa fa-cogs" aria-hidden="true"></i>
+                    </div>
+                    <div class="choose-info">
+                        <h4>Suspendisse ornare vitae ex nec aliquam</h4>
+                        <p>Nunc et massa ut purus porta euismod quis eu erat. Nam ornare faucibus elit sed tempor. Quisque iaculis odio nibh, et auctor tellus rhoncus vel. Maecenas arcu neque, semper eu commodo ut, pharetra vitae erat.</p>
+                    </div>
+                </div>
+                <div class="col-sm-4 agile-choose-grid">
+                    <div class="choose-icon">
+                        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                    </div>
+                    <div class="choose-info">
+                        <h4>Suspendisse ornare vitae ex nec aliquam</h4>
+                        <p>Nunc et massa ut purus porta euismod quis eu erat. Nam ornare faucibus elit sed tempor. Quisque iaculis odio nibh, et auctor tellus rhoncus vel. Maecenas arcu neque, semper eu commodo ut, pharetra vitae erat.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+			/* init Jarallax */
+			$('.jarallax').jarallax({
+				speed: 0.5,
+				imgWidth: 1366,
+				imgHeight: 768
+			})
+		</script>
+    </div>
+    <!-- //choose -->
+    <!-- team -->
+    <div class="agileits-about-top">
+        <div class="container">
+            <div class="agileits-about-top-heading">
+                <h3>Our Team</h3>
+            </div>
+            <div class="team-grids">
+                <!-- Bottom to top-->
+                <div class="col-sm-4 team-grid">
+                    <!-- normal -->
+                    <div class="ih-item circle effect10 bottom_to_top">
+                        <div class="img">
+                            <img src="images/t2.jpg" alt="img">
+                        </div>
+                        <div class="info">
+                            <h3>David Watson</h3>
+                            <div class="icons">
+                                <ul>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-google-plus" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end normal -->
+                </div>
+                <div class="col-sm-4 team-grid">
+                    <!-- normal -->
+                    <div class="ih-item circle effect10 bottom_to_top">
+                        <div class="img">
+                            <img src="images/t3.jpg" alt="img">
+                        </div>
+                        <div class="info">
+                            <h3>Shane Smith</h3>
+                            <div class="icons">
+                                <ul>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-google-plus" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end normal -->
+                </div>
+                <div class="col-sm-4 team-grid">
+                    <!-- normal -->
+                    <div class="ih-item circle effect10 bottom_to_top">
+                        <div class="img">
+                            <img src="images/t4.jpg" alt="img">
+                        </div>
+                        <div class="info">
+                            <h3>Steve Warner</h3>
+                            <div class="icons">
+                                <ul>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-google-plus" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end normal -->
+                </div>
+                <div class="clearfix"> </div>
+                <!-- end Bottom to top-->
+            </div>
+        </div>
+    </div>
+    <!-- //team -->
 </div>
+<!-- //about -->

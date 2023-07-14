@@ -1,4 +1,5 @@
-﻿using BikingBuddy.Web.Models;
+﻿using BikingBuddy.Services.Contracts;
+using BikingBuddy.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,16 +7,21 @@ namespace BikingBuddy.Web.Controllers
 {
     public class HomeController : BaseController
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> logger;
+        private readonly IEventService eventService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> _logger, IEventService _eventService)
         {
-            _logger = logger;
+            this.logger = _logger;
+            this.eventService = _eventService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+
+	        var topEvents = await eventService.GetTopEventsAsync();
+
+            return View(topEvents);
         }
 
        

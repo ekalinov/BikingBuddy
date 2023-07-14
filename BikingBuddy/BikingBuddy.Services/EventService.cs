@@ -184,6 +184,23 @@ namespace BikingBuddy.Services
                 .FirstOrDefaultAsync();
         }
 
+        public async Task<ICollection<EventMiniViewModel>> GetTopEventsAsync()
+        {
+	        return await  dbContext.Events
+		        .OrderByDescending(e=>e.Date)
+		        .Select(e => new EventMiniViewModel()
+		        {
+			        Id = e.Id.ToString(),
+			        Title = e.Title,
+			        Date = e.Date.ToString(DateTimeFormats.DateTimeFormat),
+			        Description = e.Description,
+			        EventImageUrl = e.EventImageUrl,
+		        })
+		        .Take(3)
+		        .AsNoTracking()
+		        .ToListAsync();
+
+		}
         public async Task<Event?> GetEventByIdAsync(string id)
         {
             return await dbContext.Events
@@ -325,7 +342,6 @@ namespace BikingBuddy.Services
 
             return town;
         }
-
 
     }
 }
