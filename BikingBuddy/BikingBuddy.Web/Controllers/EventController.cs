@@ -98,8 +98,7 @@
 
             return View(events);
         }
-
-        //TODO: TOastr notifications in Event Controller
+ 
 
         //Update
 
