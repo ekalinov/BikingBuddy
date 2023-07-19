@@ -510,7 +510,6 @@ body {
 	.w3ls-text a {
 
 
-	margin-left: 1015px;
 	margin-top: 7px;
 		color: #000000;
 		font-size: 2em;
@@ -1384,7 +1383,7 @@ h2.typoh2 {
 .agileits-about-top {
 	padding-bottom: 20px;
     border-radius: 6em;
-	padding: 4em 0 , ;
+	
 	background: #FFFFFF;
 }
 
@@ -1393,7 +1392,7 @@ h2.typoh2 {
 }
 
 .wthree-top-grid img {
-	width: 100%;
+	width: AUTO;
 }
 /*-- //about-top --*/
 /*-- choose --*/

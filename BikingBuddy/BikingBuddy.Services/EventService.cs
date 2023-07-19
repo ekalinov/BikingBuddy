@@ -184,7 +184,7 @@ namespace BikingBuddy.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<ICollection<EventMiniViewModel>> GetTopEventsAsync()
+        public async Task<IList<EventMiniViewModel>> GetTopEventsAsync()
         {
 	        return await  dbContext.Events
 		        .OrderByDescending(e=>e.Date)

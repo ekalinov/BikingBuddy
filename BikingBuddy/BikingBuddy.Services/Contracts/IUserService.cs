@@ -9,6 +9,8 @@
         Task<EditUserViewModel?> GetUserForEditAsync(string userId);
 
         Task UpdateProfileInfo(EditUserViewModel userDetails);
+        
+        
 
     }
 }
