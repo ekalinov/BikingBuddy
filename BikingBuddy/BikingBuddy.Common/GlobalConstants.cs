@@ -2,18 +2,19 @@
 {
     public static class GlobalConstants
     {
+
         public const int ApplicationReleaseYear = 2023;
+        public const int DefaultPage = 1;
+        public const int EntitiesPerPage = 3;
 
         public const string EventDefaultImageUrl = "";
     }
 
     public static class DateTimeFormats
     {
-        public const string DateFormat = "dd-MM-yyyy";
+        public const string DateFormat = "dd-MM-yyyy"; 
 
-        public const string TimeFormat = "h:mmtt";
-
-        public const string DateTimeFormat = "dd-MM-yyyy h:mmtt";
+        public const string DateTimeFormat = "dd.MM.yyyy h:mmtt";
     }
 
     public static class NotificationMessagesConstants

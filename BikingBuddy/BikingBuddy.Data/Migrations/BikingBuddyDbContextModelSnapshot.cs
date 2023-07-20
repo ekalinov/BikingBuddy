@@ -187,7 +187,7 @@ namespace BikingBuddy.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid?>("AppUserId")
+                    b.Property<Guid>("AppUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("BikeTypeId")
@@ -1560,6 +1560,9 @@ namespace BikingBuddy.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(2)");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -1898,15 +1901,19 @@ namespace BikingBuddy.Data.Migrations
 
             modelBuilder.Entity("BikingBuddy.Data.Models.Bike", b =>
                 {
-                    b.HasOne("BikingBuddy.Data.Models.AppUser", null)
+                    b.HasOne("BikingBuddy.Data.Models.AppUser", "AppUser")
                         .WithMany("UserBikes")
-                        .HasForeignKey("AppUserId");
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("BikingBuddy.Data.Models.BikeType", "BikeType")
                         .WithMany()
                         .HasForeignKey("BikeTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("AppUser");
 
                     b.Navigation("BikeType");
                 });

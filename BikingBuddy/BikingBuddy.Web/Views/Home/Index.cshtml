@@ -13,7 +13,7 @@
 
                 @foreach (var eventDetails in Model)
                 {
-                    <div class="col-sm-4 wthree-top-grid">
+                    <div class="col-sm-4">
                         <img src="@eventDetails.EventImageUrl" height="222px" width="335px" alt=""/>
                         <h4>@eventDetails.Title, @eventDetails.Date</h4>
                         <p>@eventDetails.Description</p>
@@ -21,9 +21,9 @@
                     </div>
                 }
 
-                <div class="row w3ls-text  justify-content-end">
-                    <a asp-controller="Event" asp-action="All">Find More rides...</a>
-                </div>
+            </div>
+            <div class="row w3ls-text  justify-content-end">
+                <a asp-controller="Event" asp-action="All">Find More rides...</a>
             </div>
         </div>
     </div>

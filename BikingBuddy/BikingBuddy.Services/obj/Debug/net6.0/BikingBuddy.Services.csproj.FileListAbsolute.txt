@@ -38,3 +38,5 @@ D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Services\obj\Debug\net6.0\Bi
 D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Services\obj\Debug\net6.0\ref\BikingBuddy.Services.dll
 D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Services\bin\Debug\net6.0\BikingBuddy.Web.Models.dll
 D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Services\bin\Debug\net6.0\BikingBuddy.Web.Models.pdb
+D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Services\bin\Debug\net6.0\BikingBuddy.Services.Data.Models.dll
+D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Services\bin\Debug\net6.0\BikingBuddy.Services.Data.Models.pdb

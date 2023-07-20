@@ -11,6 +11,10 @@ namespace BikingBuddy.Data
     public class BikingBuddyDbContext : IdentityDbContext<AppUser,IdentityRole<Guid> ,Guid>
     {
 
+        public BikingBuddyDbContext()
+        {
+            
+        }
         public BikingBuddyDbContext(DbContextOptions<BikingBuddyDbContext> options)
             : base(options)
         {
@@ -53,11 +57,7 @@ namespace BikingBuddy.Data
 
         }
 
-
-
-
-
-
-
+       
+        
     }
 }

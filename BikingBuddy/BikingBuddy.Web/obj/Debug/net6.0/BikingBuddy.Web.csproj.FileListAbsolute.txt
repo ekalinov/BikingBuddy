@@ -358,3 +358,5 @@ D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Web\bin\Debug\net6.0\Microso
 D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Web\bin\Debug\net6.0\Microsoft.DotNet.PlatformAbstractions.dll
 D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Web\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
 D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Web\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Web\bin\Debug\net6.0\BikingBuddy.Services.Data.Models.dll
+D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Web\bin\Debug\net6.0\BikingBuddy.Services.Data.Models.pdb

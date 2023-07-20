@@ -1,21 +1,17 @@
-﻿
-namespace BikingBuddy.Services
+﻿namespace BikingBuddy.Services
 {
+    using Microsoft.EntityFrameworkCore;
+    using System.Globalization;
+    using BikingBuddy.Data;
+    using BikingBuddy.Data.Models;
+    using Data.Models.Events;
     using Common;
-    using Data;
-    using Data.Models;
     using Contracts;
     using Web.Models;
     using Web.Models.Activity;
     using Web.Models.Event;
     using Web.Models.User;
-    using Microsoft.EntityFrameworkCore;
-    using System.Globalization;
-
-    using static Common.ErrorMessages.EventErrorMessages;
-
-    using Event = Data.Models.Event;
-    using Town = Data.Models.Town;
+    using Web.Models.Event.Enums;
 
 
     public class EventService : IEventService
@@ -29,7 +25,6 @@ namespace BikingBuddy.Services
         }
 
 
-
         //All
         public async Task<ICollection<AllEventsViewModel>> GetAllEventsAsync()
         {
@@ -40,7 +35,7 @@ namespace BikingBuddy.Services
                     Title = e.Title,
                     Date = e.Date.ToString(DateTimeFormats.DateTimeFormat),
                     Description = e.Description,
-                    Distance = e.Distance.ToString(),
+                    Distance = e.Distance.ToString(CultureInfo.InvariantCulture),
                     OrganizerUsername = e.Organizer.UserName,
                     EventImageUrl = e.EventImageUrl!,
                     ActivityType = e.ActivityType.Name,
@@ -51,20 +46,19 @@ namespace BikingBuddy.Services
 
 
             return allEvents;
-
         }
 
         //Create
         public async Task AddEventAsync(AddEventViewModel model, string userId)
         {
-
-            Data.Models.Event newEvent = new()
+            Event newEvent = new()
             {
                 Title = model.Title,
                 Date = DateTime.Parse(model.Date),
                 Description = model.Description,
                 EventImageUrl = model.EventImageUrl,
                 ActivityTypeId = model.ActivityTypeId,
+                CreatedOn = DateTime.UtcNow,
                 OrganizerId = Guid.Parse(userId),
                 CountryId = model.CountryId,
                 Town = await GetTownByNameAsync(model.TownName),
@@ -74,34 +68,32 @@ namespace BikingBuddy.Services
 
             await dbContext.Events.AddAsync(newEvent);
             await dbContext.SaveChangesAsync();
-
         }
 
         //Read
         public async Task<EventDetailsViewModel?> GetEventDetailsByIdAsync(string id)
         {
-
             var eventParticipants = await GetEventParticipants(id);
 
             var eventById = await dbContext.Events
                 .Where(e => e.Id.ToString() == id)
+                .OrderByDescending(e => e.Date)
                 .Select(e => new EventDetailsViewModel()
                 {
                     Id = e.Id.ToString(),
                     Title = e.Title,
-                    Date = e.Date,
+                    Date = e.Date.ToString(DateTimeFormats.DateTimeFormat),
                     Description = e.Description,
-                    Distance = e.Distance.ToString(),
-                    Ascent = e.Ascent.ToString(),
+                    Distance = e.Distance.ToString(CultureInfo.InvariantCulture),
+                    Ascent = e.Ascent.ToString(CultureInfo.InvariantCulture),
                     OrganizerName = e.Organizer.Name,
                     OrganizerUsername = e.Organizer.UserName,
                     EventImageUrl = e.EventImageUrl!,
                     ActivityType = e.ActivityType.Name,
-                    Country = string.Format("{0}, {1}", e.Country.Name, e.CountryId),
+                    Country = $"{e.Country.Name}, {e.CountryId}",
                     Town = e.Town.Name,
                     EventsParticipants = eventParticipants
                 })
-                .OrderByDescending(e => e.Date)
                 .FirstOrDefaultAsync();
 
             return eventById;
@@ -184,23 +176,85 @@ namespace BikingBuddy.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<IList<EventMiniViewModel>> GetTopEventsAsync()
+        public async Task<IList<EventMiniViewModel>> GetNewestEventsAsync()
         {
-	        return await  dbContext.Events
-		        .OrderByDescending(e=>e.Date)
-		        .Select(e => new EventMiniViewModel()
-		        {
-			        Id = e.Id.ToString(),
-			        Title = e.Title,
-			        Date = e.Date.ToString(DateTimeFormats.DateTimeFormat),
-			        Description = e.Description,
-			        EventImageUrl = e.EventImageUrl,
-		        })
-		        .Take(3)
-		        .AsNoTracking()
-		        .ToListAsync();
+            return await dbContext.Events
+                .OrderByDescending(e => e.CreatedOn)
+                .Select(e => new EventMiniViewModel()
+                {
+                    Id = e.Id.ToString(),
+                    Title = e.Title,
+                    Date = e.Date.ToString(DateTimeFormats.DateTimeFormat),
+                    Description = e.Description,
+                    EventImageUrl = e.EventImageUrl,
+                })
+                .Take(3)
+                .AsNoTracking()
+                .ToListAsync();
+        }
 
-		}
+        public async Task<AllEventsFilteredAndPagedServiceModel> AllAsync(AllEventsQueryModel queryModel)
+        {
+            IQueryable<Event> eventsQuery = dbContext.Events
+                .AsQueryable();
+
+            if (!String.IsNullOrWhiteSpace(queryModel.ActivityType))
+            {
+                eventsQuery = eventsQuery
+                    .Where(e => e.ActivityType.Name == queryModel.ActivityType);
+            }
+
+            if (!String.IsNullOrWhiteSpace(queryModel.SearchTerm))
+            {
+                string wildCard = $"%{queryModel.SearchTerm.ToLower()}%";
+                eventsQuery = eventsQuery
+                    .Where(e => EF.Functions.Like(e.ActivityType.Name, wildCard) ||
+                                EF.Functions.Like(e.Description, wildCard) ||
+                                EF.Functions.Like(e.Title, wildCard) ||
+                                EF.Functions.Like(e.Country.Name, wildCard) ||
+                                EF.Functions.Like(e.Town.Name, wildCard));
+            }
+
+            eventsQuery = queryModel.Sorting switch
+            {
+                EventSorting.Newest => eventsQuery
+                    .OrderByDescending(e => e.CreatedOn),
+                EventSorting.MostParticipants => eventsQuery
+                    .OrderByDescending(e => e.EventsParticipants.Count()),
+                EventSorting.ThisMonth => eventsQuery
+                    .Where(e => e.Date.Month == DateTime.Now.Month)
+                    .OrderByDescending(e => e.Date),
+                EventSorting.ThisWeek => eventsQuery
+                    .Where(e => (e.Date.Day - DateTime.Now.Day) <= 7)
+                    .OrderByDescending(e => e.Date),
+                _ => eventsQuery
+                    .OrderByDescending(e => e.Date)
+            };
+
+
+            ICollection<AllEventsViewModel> eventCollection = await eventsQuery
+                .Skip((queryModel.CurrentPage - 1) * queryModel.EventsPerPage)
+                .Take(queryModel.EventsPerPage)
+                .Select(e => new AllEventsViewModel()
+                {
+                    Id = e.Id.ToString(),
+                    Title = e.Title,
+                    ActivityType = e.ActivityType.Name,
+                    Distance = $"{e.Distance} km",
+                    Date = e.Date.ToString(DateTimeFormats.DateTimeFormat),
+                    EventImageUrl = e.EventImageUrl!,
+                    Description = e.Description,
+                    Town = e.Town.Name,
+                }).ToListAsync();
+
+            AllEventsFilteredAndPagedServiceModel model = new AllEventsFilteredAndPagedServiceModel()
+            {
+                AllEvents = eventCollection,
+                TotalEventsCount = eventsQuery.Count()
+            };
+            return model;
+        }
+
         public async Task<Event?> GetEventByIdAsync(string id)
         {
             return await dbContext.Events
@@ -211,31 +265,29 @@ namespace BikingBuddy.Services
         public async Task<ICollection<AllEventsViewModel>> GetEventsByUserIdAsync(string userId)
         {
             return await dbContext.Events
-                 .Where(e => e.EventsParticipants
-                             .Any(ep => ep.ParticipantId.ToString() == userId)
-                           || e.OrganizerId.ToString() == userId)
-                 .Select(e => new AllEventsViewModel()
-                 {
-                     Id = e.Id.ToString(),
-                     Title = e.Title,
-                     Date = e.Date.ToString(DateTimeFormats.DateTimeFormat),
-                     Description = e.Description,
-                     OrganizerUsername = e.Organizer.UserName,
-                     Distance = e.Distance.ToString(CultureInfo.InvariantCulture),
-                     EventImageUrl = e.EventImageUrl!,
-                     ActivityType = e.ActivityType.Name,
-                     Town = e.Town.Name,
-                 })
-                 .AsNoTracking()
-                 .ToArrayAsync();
-
+                .Where(e => e.EventsParticipants
+                                .Any(ep => ep.ParticipantId.ToString() == userId)
+                            || e.OrganizerId.ToString() == userId)
+                .Select(e => new AllEventsViewModel()
+                {
+                    Id = e.Id.ToString(),
+                    Title = e.Title,
+                    Date = e.Date.ToString(DateTimeFormats.DateTimeFormat),
+                    Description = e.Description,
+                    OrganizerUsername = e.Organizer.UserName,
+                    Distance = e.Distance.ToString(CultureInfo.InvariantCulture),
+                    EventImageUrl = e.EventImageUrl!,
+                    ActivityType = e.ActivityType.Name,
+                    Town = e.Town.Name,
+                })
+                .AsNoTracking()
+                .ToArrayAsync();
         }
 
         //This DTO will be used in /User/Details
         //Get All events where user is participating (completed and not completed)
         public async Task<ICollection<EventViewModel>> GetUserEventsAsync(string userId)
         {
-
             return await dbContext.EventsParticipants
                 .Where(ep => ep.ParticipantId == Guid.Parse(userId))
                 .Select(ep => new EventViewModel
@@ -299,7 +351,6 @@ namespace BikingBuddy.Services
 
         public async Task<bool> IsParticipating(string eventId, string userId)
         {
-
             return await dbContext.EventsParticipants
                 .AnyAsync(ep => ep.EventId == Guid.Parse(eventId)
                                 && ep.ParticipantId == Guid.Parse(userId));
@@ -308,10 +359,9 @@ namespace BikingBuddy.Services
         private async Task<EventParticipants?> GetEventParticipantByIdAsync(string eventId, string userId)
         {
             return await dbContext.EventsParticipants
-                 .Where(ep => ep.ParticipantId.ToString() == userId
-                              && ep.EventId.ToString() == eventId)
-                 .FirstOrDefaultAsync();
-
+                .Where(ep => ep.ParticipantId.ToString() == userId
+                             && ep.EventId.ToString() == eventId)
+                .FirstOrDefaultAsync();
         }
 
 
@@ -342,6 +392,5 @@ namespace BikingBuddy.Services
 
             return town;
         }
-
     }
 }

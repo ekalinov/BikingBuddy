@@ -1,4 +1,7 @@
 ﻿
+using BikingBuddy.Data.Models;
+using BikingBuddy.Services.Data.Models.Events;
+
 namespace BikingBuddy.Services.Contracts
 {
     using Data.Models;
@@ -53,6 +56,8 @@ namespace BikingBuddy.Services.Contracts
         //Towns
         Task<Town> GetTownByNameAsync(string name);
 
-        Task<IList<EventMiniViewModel>> GetTopEventsAsync();
+        Task<IList<EventMiniViewModel>> GetNewestEventsAsync();
+
+        Task<AllEventsFilteredAndPagedServiceModel> AllAsync(AllEventsQueryModel queryModel);
     }
 }

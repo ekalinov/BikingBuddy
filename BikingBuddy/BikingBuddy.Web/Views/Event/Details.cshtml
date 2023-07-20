@@ -1,4 +1,4 @@
-﻿@using BikingBuddy.Common
+﻿
 @model EventDetailsViewModel
 
 
@@ -17,16 +17,12 @@
                  src="@Model!.EventImageUrl" alt="Book Image">
             <h3 class="card-title text-center">@Model.Title</h3>
             <p class="mb-0">
-                <span class="fw-bold">Location: </span>@Model.Town , @Model.Country
-                @if (string.IsNullOrEmpty(Model.Municipality))
-                {
-                    @Html.Raw(@Model.Municipality)
-                }
+                <span class="fw-bold">Location: </span>@Model.Town , @Model.Country 
             </p>
 
             <p class="mb-0"><span class="fw-bold">Type: </span>@Model.ActivityType</p>
             <p class="mb-0"><span class="fw-bold">Description: </span>@Model.Description</p>
-            <p class="mb-0"><span class="fw-bold">Starting time: </span>@Model.Date.ToString(DateTimeFormats.DateTimeFormat)</p>
+            <p class="mb-0"><span class="fw-bold">Starting time: </span>@Model.Date</p>
             <p class="mb-0"><span class="fw-bold">Organiser: </span>@Model.OrganizerName</p>
             <p class="mb-0"><span class="fw-bold">Total Distance: </span>@Model.Distance</p>
             <p class="mb-0"><span class="fw-bold">Total Ascent: </span>@Model.Ascent</p>

@@ -21,3 +21,5 @@ D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Web.Infrastructure\obj\Debug
 D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Web.Infrastructure\obj\Debug\net6.0\refint\BikingBuddy.Web.Infrastructure.dll
 D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Web.Infrastructure\obj\Debug\net6.0\BikingBuddy.Web.Infrastructure.pdb
 D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Web.Infrastructure\obj\Debug\net6.0\ref\BikingBuddy.Web.Infrastructure.dll
+D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Web.Infrastructure\bin\Debug\net6.0\BikingBuddy.Services.Data.Models.dll
+D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Web.Infrastructure\bin\Debug\net6.0\BikingBuddy.Services.Data.Models.pdb

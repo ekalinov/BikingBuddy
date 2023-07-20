@@ -1,4 +1,6 @@
-﻿namespace BikingBuddy.Web.Controllers
+﻿using BikingBuddy.Services.Data.Models.Events;
+
+namespace BikingBuddy.Web.Controllers
 {
     using Services.Contracts;
     using Infrastructure.Extensions;
@@ -92,11 +94,19 @@
 
         //All
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery ]AllEventsQueryModel queryModel)
         {
-            var events = await service.GetAllEventsAsync();
+            AllEventsFilteredAndPagedServiceModel serviceModel = await service.AllAsync(queryModel);
 
-            return View(events);
+            queryModel.Events = serviceModel.AllEvents;
+            queryModel.TotalEventsCount = serviceModel.TotalEventsCount;
+            queryModel.ActivityTypes=await service.GetActivityTypesAsync();
+            
+                
+             
+             
+
+            return View(queryModel);
         }
  
 

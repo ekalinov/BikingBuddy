@@ -1,7 +1,9 @@
-﻿namespace BikingBuddy.Services
+﻿using BikingBuddy.Data;
+using BikingBuddy.Data.Models;
+
+namespace BikingBuddy.Services
 {
     using Microsoft.EntityFrameworkCore;
-
     using Data;
     using Contracts;
     using Data.Models;
@@ -30,7 +32,6 @@
 
         public async Task<UserDetailsViewModel?> GetUserDetails(string userId)
         {
-
             var completedEvents = await eventService.GetCompletedEventsCountByUserAsync(userId);
 
             var userTotalDistance = await GetUserTotalDistanceAsync(userId);
@@ -44,9 +45,7 @@
             var userBikes = await bikeService.GetUserBikesAsync(userId);
 
 
-
-            UserDetailsViewModel? user = await dbContext.AppUsers.
-                Where(u => u.Id == Guid.Parse(userId))
+            UserDetailsViewModel? user = await dbContext.AppUsers.Where(u => u.Id == Guid.Parse(userId))
                 .Select(u => new UserDetailsViewModel
                 {
                     Id = userId,
@@ -71,18 +70,15 @@
 
         public async Task<EditUserViewModel?> GetUserForEditAsync(string userId)
         {
-            return await dbContext.AppUsers.
-                 Where(u => u.Id == Guid.Parse(userId))
-                 .Select(u => new EditUserViewModel
-                 {
-                     Id = userId,
-                     Helmet = u.Helmet,
-                     Shoes = u.Shoes,
-                     Town = u.Town.Name,
-                     ProfileImageUrl = u.ProfileImageUrl,
-
-                 }).FirstOrDefaultAsync();
-
+            return await dbContext.AppUsers.Where(u => u.Id == Guid.Parse(userId))
+                .Select(u => new EditUserViewModel
+                {
+                    Id = userId,
+                    Helmet = u.Helmet,
+                    Shoes = u.Shoes,
+                    Town = u.Town.Name,
+                    ProfileImageUrl = u.ProfileImageUrl,
+                }).FirstOrDefaultAsync();
         }
 
         public async Task UpdateProfileInfo(EditUserViewModel model)
@@ -99,8 +95,6 @@
 
                 await dbContext.SaveChangesAsync();
             }
-
-
         }
 
         private async Task<AppUser?> GetUserByIdAsync(string userId)
@@ -122,7 +116,5 @@
                 .Where(ep => ep.ParticipantId == Guid.Parse(userId) && ep.IsCompleted == true)
                 .SumAsync(ep => ep.Event.Ascent);
         }
-
-
     }
 }

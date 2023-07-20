@@ -1,7 +1,8 @@
 ﻿namespace BikingBuddy.Services
 {
     using Microsoft.EntityFrameworkCore;
-
+    using BikingBuddy.Data;
+    using BikingBuddy.Data.Models;
     using Data;
     using Data.Models;
     using Contracts;
@@ -10,7 +11,6 @@
 
     public class TeamService : ITeamService
     {
-
         private readonly IEventService eventService;
         private readonly BikingBuddyDbContext dbContext;
 
@@ -35,58 +35,50 @@
                     Country = t.Country.Name,
                     Town = t.Town.Name,
                     TeamManager = t.TeamManager.UserName,
-                    MembersRequests = t.TeamRequests.
-                    Where(tr => tr.TeamId == Guid.Parse(teamId) && tr.IsAccepted == false)
-                    .Select(tr => new UserViewModel
-                    {
-                        Id = tr.RequestFrom.Id.ToString(),
-                        Name = tr.RequestFrom.Name,
-                        ProfileImageUrl = tr.RequestFrom.ProfileImageUrl
-
-                    }).ToList(),
+                    MembersRequests = t.TeamRequests
+                        .Where(tr => tr.TeamId == Guid.Parse(teamId) && tr.IsAccepted == false)
+                        .Select(tr => new UserViewModel
+                        {
+                            Id = tr.RequestFrom.Id.ToString(),
+                            Name = tr.RequestFrom.Name,
+                            ProfileImageUrl = tr.RequestFrom.ProfileImageUrl
+                        }).ToList(),
                     TeamMembers = t.TeamMembers
                         .Select(tm => new UserViewModel()
                         {
                             Id = tm.Id.ToString(),
                             Name = tm.Name,
                             ProfileImageUrl = tm.ProfileImageUrl
-
                         }).ToList()
-
                 }).FirstOrDefaultAsync();
-
         }
 
         public async Task<EditTeamViewModel?> GetTeamToEditAsync(string teamId)
         {
             return await dbContext.Teams
-                                  .Where(t => t.Id == Guid.Parse(teamId))
-                                  .Select(t => new EditTeamViewModel()
-                                  {
-                                      Id = t.Id.ToString(),
-                                      Name = t.Name,
-                                      TeamImageUrl = t.TeamImageUrl,
-                                      EstablishedOn = t.EstablishedOn,
-                                      Description = t.Description,
-                                      TownName = t.Town.Name
-
-                                  }).FirstOrDefaultAsync();
-
+                .Where(t => t.Id == Guid.Parse(teamId))
+                .Select(t => new EditTeamViewModel()
+                {
+                    Id = t.Id.ToString(),
+                    Name = t.Name,
+                    TeamImageUrl = t.TeamImageUrl,
+                    EstablishedOn = t.EstablishedOn,
+                    Description = t.Description,
+                    TownName = t.Town.Name
+                }).FirstOrDefaultAsync();
         }
 
         public async Task<ICollection<AllTeamsViewModel>> GetAllTeams()
         {
             return await dbContext.Teams
-                                  .Select(t => new AllTeamsViewModel()
-                                  {
-                                      Id = t.Id.ToString(),
-                                      Name = t.Name,
-                                      TeamImageUrl = t.TeamImageUrl!,
-                                      Country = t.Country.Name,
-                                      TeamMembersCount = t.TeamMembers.Count
-
-                                  }).ToListAsync();
-
+                .Select(t => new AllTeamsViewModel()
+                {
+                    Id = t.Id.ToString(),
+                    Name = t.Name,
+                    TeamImageUrl = t.TeamImageUrl!,
+                    Country = t.Country.Name,
+                    TeamMembersCount = t.TeamMembers.Count
+                }).ToListAsync();
         }
 
         //Create
@@ -101,7 +93,6 @@
                 CountryId = model.CountryId,
                 Town = await eventService.GetTownByNameAsync(model.TownName),
                 Description = model.Description
-
             };
 
             await dbContext.Teams.AddAsync(teamToAdd);
@@ -124,7 +115,6 @@
 
                 await dbContext.SaveChangesAsync();
             }
-
         }
 
         //Delete
@@ -158,10 +148,9 @@
             }
 
 
-
             if (request == null
-                 && team != null
-                 && user != null)
+                && team != null
+                && user != null)
             {
                 request = new TeamRequest
                 {
@@ -174,7 +163,6 @@
 
                 await dbContext.SaveChangesAsync();
             }
-
         }
 
         public async Task AddMemberAsync(string userId, string teamId)
@@ -197,7 +185,6 @@
 
                 await dbContext.SaveChangesAsync();
             }
-
         }
 
         public async Task RemoveMemberAsync(string userId, string teamId)
@@ -209,19 +196,16 @@
             if (team != null
                 && userToRemove != null
                 && await IsMemberAsync(userId, teamId)
-                )
+               )
             {
-
                 await RemoveRequest(userId, teamId);
                 team.TeamMembers.Remove(userToRemove);
                 await dbContext.SaveChangesAsync();
             }
-
         }
 
         public async Task<ICollection<TeamRequestViewModel>> GetTeamRequestsByUserAsync(string userId)
         {
-
             var teamRequests = await dbContext.TeamsRequests
                 .Where(tr => tr.RequestFromId == Guid.Parse(userId))
                 .Select(tr => new TeamRequestViewModel
@@ -240,24 +224,22 @@
 
 
             return teamRequests;
-
         }
 
         public async Task<bool> IsRequested(string userId, string teamId)
         {
             return await dbContext.TeamsRequests
                 .AnyAsync(tr => tr.TeamId == Guid.Parse(teamId)
-                             && tr.RequestFromId == Guid.Parse(userId)
-                             && tr.IsAccepted == false);
+                                && tr.RequestFromId == Guid.Parse(userId)
+                                && tr.IsAccepted == false);
         }
 
         public async Task<bool> IsMemberAsync(string userId, string teamId)
         {
             return await dbContext.Teams
-                                  .Where(t => t.Id == Guid.Parse(teamId)
-                                    && t.TeamMembers.Any(tm => tm.Id == Guid.Parse(userId)))
-                                  .AnyAsync();
-
+                .Where(t => t.Id == Guid.Parse(teamId)
+                            && t.TeamMembers.Any(tm => tm.Id == Guid.Parse(userId)))
+                .AnyAsync();
         }
 
         public async Task RemoveRequest(string userId, string teamId)
@@ -274,27 +256,25 @@
 
         private async Task<TeamRequest?> GetTeamRequestAsync(string userId, string teamId)
         {
-
             return await dbContext.TeamsRequests
-                                  .Where(tr => tr.TeamId == Guid.Parse(teamId)
-                                                      && tr.RequestFromId == Guid.Parse(userId)
-                                                      && tr.IsAccepted == false)
-                                  .FirstOrDefaultAsync();
+                .Where(tr => tr.TeamId == Guid.Parse(teamId)
+                             && tr.RequestFromId == Guid.Parse(userId)
+                             && tr.IsAccepted == false)
+                .FirstOrDefaultAsync();
         }
 
         private async Task<Team?> GetTeamByIdAsync(string id)
         {
             return await dbContext.Teams
-                                .Where(t => t.Id == Guid.Parse(id))
-                                .FirstOrDefaultAsync();
+                .Where(t => t.Id == Guid.Parse(id))
+                .FirstOrDefaultAsync();
         }
 
         private async Task<AppUser?> GetUserByIdAsync(string id)
         {
             return await dbContext.Users
-                                  .Where(u => u.Id == Guid.Parse(id))
-                                  .FirstOrDefaultAsync();
+                .Where(u => u.Id == Guid.Parse(id))
+                .FirstOrDefaultAsync();
         }
-
     }
 }

@@ -1,59 +1,154 @@
-﻿@model ICollection<AllEventsViewModel>
+﻿@model AllEventsQueryModel
 @{
     ViewBag.Title = "All of the Events Around You";
 }
 
-
 <h2 class="text-center">@ViewBag.Title</h2>
-<hr />
+<hr/>
 
-<div class="text-center row">
-
-    @if (!Model.Any())
-    {
-        <h2>There is no events added!</h2>
-    }
-    else
-    {
-        @foreach (var e in Model)
-        {
-            <div class="card col-4" style="width: 20rem;">
-                <img class="card-img-top" style="width: 18rem;"
-             src="@e.EventImageUrl" alt="Book Image">
-                <div class="card-body">
-
-                    <h5 class="card-title mt-1">@e.Title</h5>
-                    <p class="mb-0">Activity Type: @e.Town</p>
-                    <p class="mb-0">Distance: @e.Distance</p>
-                    <p class="mb-0">Date: @e.Date</p>
-                    <p>Activity Type: @e.ActivityType</p>
-                </div>
-
-
-
-                <a asp-controller="Event" asp-action="Details" asp-route-eventId="@e.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">View Details</a>
-                @if (User.Identity?.Name == e.OrganizerUsername)
+<form method="get" class="Container">
+    <div class="row ">
+        <div class="col-2 sorting">
+            <label asp-for="ActivityType"></label>
+            <select asp-for="ActivityType" class="form-control sorting">
+                <option value="">All</option>
+                @foreach (var activityType in Model.ActivityTypes)
                 {
-                    <a asp-controller="Event" asp-action="Edit" asp-route-eventId="@e.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
+                    <option value="@activityType.ActivityTypeName">@activityType.ActivityTypeName </option>
                 }
-                else
-                {
-                    <form class="input-group-sm " asp-controller="Event" asp-action="Join" asp-route-eventId="@e.Id">
-                        <input type="submit" value="Join the Event" class="fs-6 btn btn-warning mb-3 w-100 p-3 fw-bold" />
-                    </form>
-                }
+            </select>
+        </div>
+
+        <div class="col-2 sorting">
+            <label asp-for="EventsPerPage"></label>
+            <select asp-for="EventsPerPage" class="form-control">
+                <option value="3">3</option>
+                <option value="6">6</option>
+                <option value="9">9</option>
+            </select>
+        </div>
+
+        <div class="col-2 sorting">
+            <label asp-for="SearchTerm"></label>
+            <input asp-for="SearchTerm" class="form-control" placeholder="...">
+        </div>
+
+        <div class="col-2 sorting">
+            <label asp-for="Sorting"></label>
+            <select asp-for="Sorting" class="form-control">
+                <option value="0">Newest</option>
+                <option value="1">This Week</option>
+                <option value="2">This Month</option>
+                <option value="3">Most Participants</option>
+            </select>
+        </div>
+
+
+        <div class="col-2" style="display: inline-block">
+            <input type="submit" value="Search" class="btn btn-primary"/>
+        </div>
+
+    </div>
+
+    <div class="rides">
+        <div class="container">
+            <div class="w3-agileits-rides-heading">
+                <h3>Recent Rides</h3>
             </div>
-        }
+            <div class="agileits-w3layouts-rides-grids">
+                @foreach (var e in Model.Events)
+                {
+                    <div class="col-sm-4 rides-grid">
+                        <div class="rides-grid-info">
+                            <img src="@e.EventImageUrl">
+                            <h4>@e.Title</h4>
+                            <p class="mb-0">Town: @e.Town</p>
+                            <p>Distance: @e.Distance</p>
+                            <p>Date: @e.Date</p>
+                            <p>Activity Type: @e.ActivityType</p>
+                            <i class="fa fa-arrow-right" aria-hidden="true"></i> <a asp-action="Details" asp-route-eventId="@e.Id">View DetaiLS</a>
+                        </div>
+                    </div>
+                }
 
-    }
-    
-    
-    <a asp-controller="Event" asp-action="Add"  class="btn btn-warning mb-2 w-100 p-3 fw-bold">Create new Event</a>
-    <a asp-controller="Event" asp-action="Mine" class="btn btn-warning mb-2 w-100 p-3 fw-bold">My Events</a>
+
+                <div class="clearfix"> </div>
+            </div>
+
+        </div>
+        <nav aria-label="Page navigation example" class="pagination justify-content-center " >
+            
+            @{
+                int previousPage = Model.CurrentPage - 1;
+                if (previousPage < 1)
+                {
+                    previousPage = 1;
+                }
+
+                int maxPage = (int)Math.Ceiling((double)Model.TotalEventsCount /
+                                                Model.EventsPerPage);
+            }
 
 
-</div>
+            <ul class="pagination justify-content-center ">
+                @if (@Model.CurrentPage != 1)
+                {
+                    <li class="page-item">
+                        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+                           asp-controller="Event"
+                           asp-action="All"
+                           asp-route-currentPage="@previousPage"
+                           asp-route-category="@Model.ActivityType"
+                           asp-route-searchTerm="@Model.SearchTerm"
+                           asp-route-sorting="@((int)Model.Sorting)">
+                            Previous
+                        </a>
+                    </li>
+                }
+
+
+                @for (int i = 1; i <= maxPage; i++)
+                {
+                    <li class="page-item">
+                        <a class="btn btn-primary @(Model.CurrentPage == @i ? "disabled" : string.Empty)"
+                           asp-controller="Event"
+                           asp-action="All"
+                           asp-route-currentPage="@i"
+                           asp-route-category="@Model.ActivityType"
+                           asp-route-searchTerm="@Model.SearchTerm"
+                           asp-route-sorting="@((int)Model.Sorting)">
+                            @i
+                        </a>
+                    </li>
+                }
+                @{
+                    bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage ||
+                                                    !Model.Events.Any();
+                }
+
+                @if (@Model.CurrentPage != maxPage)
+                {
+                    <li class="page-item">
+                        <a class="btn btn-primary 
+                                                @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
+                           asp-controller="Event"
+                           asp-action="All"
+                           asp-route-currentPage="@(Model.CurrentPage + 1)"
+                           asp-route-category="@Model.ActivityType"
+                           asp-route-searchTerm="@Model.SearchTerm"
+                           asp-route-sorting="@((int)Model.Sorting)">
+                            Next
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+
+    </div>
+
+</form>
+
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
 }

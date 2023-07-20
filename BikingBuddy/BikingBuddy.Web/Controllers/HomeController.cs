@@ -19,7 +19,7 @@ namespace BikingBuddy.Web.Controllers
         public async Task<IActionResult> Index()
         {
 
-	        var topEvents = await eventService.GetTopEventsAsync();
+	        var topEvents = await eventService.GetNewestEventsAsync();
 
             return View(topEvents);
         }

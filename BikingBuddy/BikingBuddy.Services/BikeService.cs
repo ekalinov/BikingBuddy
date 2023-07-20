@@ -1,4 +1,5 @@
 ﻿
+using BikingBuddy.Data;
 using BikingBuddy.Data.Models;
 
 namespace BikingBuddy.Services
@@ -14,6 +15,7 @@ namespace BikingBuddy.Services
     public class BikeService : IBikeService
     {
 
+        
         public readonly BikingBuddyDbContext dbContext;
 
 

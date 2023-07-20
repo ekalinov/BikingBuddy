@@ -2997,10 +2997,19 @@
       "BikingBuddy.Services/1.0.0": {
         "dependencies": {
           "BikingBuddy.Data": "1.0.0",
+          "BikingBuddy.Services.Data.Models": "1.0.0",
           "BikingBuddy.Web.Models": "1.0.0"
         },
         "runtime": {
           "BikingBuddy.Services.dll": {}
+        }
+      },
+      "BikingBuddy.Services.Data.Models/1.0.0": {
+        "dependencies": {
+          "BikingBuddy.Web.Models": "1.0.0"
+        },
+        "runtime": {
+          "BikingBuddy.Services.Data.Models.dll": {}
         }
       },
       "BikingBuddy.Web.Infrastructure/1.0.0": {
@@ -4999,6 +5008,11 @@
       "sha512": ""
     },
     "BikingBuddy.Services/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BikingBuddy.Services.Data.Models/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

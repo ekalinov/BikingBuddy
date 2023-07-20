@@ -1,4 +1,7 @@
-﻿namespace BikingBuddy.Services
+﻿using BikingBuddy.Data;
+using BikingBuddy.Data.Models;
+
+namespace BikingBuddy.Services
 {
     using Data;
     using Data.Models;

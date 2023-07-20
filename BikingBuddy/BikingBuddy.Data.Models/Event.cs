@@ -26,6 +26,10 @@
 
         [Required]
         public DateTime Date { get; set; }
+        
+        [Required]
+        public DateTime CreatedOn { get; set; }
+
 
         [Required]
         public double Distance { get; set; }
