@@ -2,6 +2,8 @@
 using BikingBuddy.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using BikingBuddy.Services.Data.Models.Home;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BikingBuddy.Web.Controllers
 {
@@ -9,19 +11,35 @@ namespace BikingBuddy.Web.Controllers
     {
         private readonly ILogger<HomeController> logger;
         private readonly IEventService eventService;
+        private readonly IUserService userService;
+        private readonly ITeamService teamService;
 
-        public HomeController(ILogger<HomeController> _logger, IEventService _eventService)
+        public HomeController(
+            ILogger<HomeController> _logger,
+            IEventService _eventService,
+            IUserService _userService,
+            ITeamService _teamService)
         {
             this.logger = _logger;
             this.eventService = _eventService;
+            this.userService = _userService;
+            this.teamService = _teamService;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
 
-	        var topEvents = await eventService.GetNewestEventsAsync();
-
-            return View(topEvents);
+            var model = new IndexViewModel
+            {
+                TopEvents = await eventService.GetNewestEventsAsync(),
+                UsersCount = await userService.GetUserSCountAsync(),
+                TeamsCount = await teamService.GetTeamsCountAsync(),
+                ActiveEventsCount = await eventService.GetActiveEventsCountAsync(),
+                AllEventsCount =  await eventService.GetAllEventsCountAsync()
+            };
+ 
+            return View(model);
         }
 
        

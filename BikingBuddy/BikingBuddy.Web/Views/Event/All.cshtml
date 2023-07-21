@@ -6,7 +6,7 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr/>
 
-<form method="get" class="Container">
+<form method="get" class="container">
     <div class="row ">
         <div class="col-2 sorting">
             <label asp-for="ActivityType"></label>
@@ -44,7 +44,7 @@
         </div>
 
 
-        <div class="col-2" style="display: inline-block">
+        <div class="col-2" style="display: inline-block; padding-top: 32px">
             <input type="submit" value="Search" class="btn btn-primary"/>
         </div>
 
@@ -52,32 +52,33 @@
 
     <div class="rides">
         <div class="container">
-            <div class="w3-agileits-rides-heading">
-                <h3>Recent Rides</h3>
+            <div>
+                <h3>Upcoming Rides</h3>
             </div>
-            <div class="agileits-w3layouts-rides-grids">
+            <div class="card-deck">
                 @foreach (var e in Model.Events)
                 {
-                    <div class="col-sm-4 rides-grid">
-                        <div class="rides-grid-info">
-                            <img src="@e.EventImageUrl">
-                            <h4>@e.Title</h4>
-                            <p class="mb-0">Town: @e.Town</p>
-                            <p>Distance: @e.Distance</p>
-                            <p>Date: @e.Date</p>
-                            <p>Activity Type: @e.ActivityType</p>
-                            <i class="fa fa-arrow-right" aria-hidden="true"></i> <a asp-action="Details" asp-route-eventId="@e.Id">View DetaiLS</a>
+                    <div class="card">
+                        <img src=@e.EventImageUrl class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">@e.Title</h5>
+                            <p class="card-text">Town: @e.Town</p>
+                            <p class="card-text">Distance: @e.Distance</p>
+                            <p class="card-text">Date: @e.Date</p>
+                            <p class="card-text"> Activity Type: @e.ActivityType</p>
+                            <a class="btn btn-primary" asp-action="Details" asp-route-eventId="@e.Id">View DetaiLS</a>
+
                         </div>
                     </div>
                 }
 
-
-                <div class="clearfix"> </div>
             </div>
 
+
+
         </div>
-        <nav aria-label="Page navigation example" class="pagination justify-content-center " >
-            
+        <nav aria-label="Page navigation example" class="pagination justify-content-center ">
+
             @{
                 int previousPage = Model.CurrentPage - 1;
                 if (previousPage < 1)

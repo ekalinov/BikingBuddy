@@ -31,6 +31,7 @@
         public DateTime CreatedOn { get; set; }
 
 
+        
         [Required]
         public double Distance { get; set; }
 
@@ -58,6 +59,7 @@
         public virtual AppUser Organizer { get; set; } = null!;
         
 
+        
 
         [ForeignKey(nameof(CountryId))]
         public virtual Country Country { get; set; } = null!;
@@ -71,6 +73,9 @@
 
         [Required]
         public int TownId { get; set; }
+        
+        
+        public bool IsDeleted { get; set; } = false;
         
 
         public virtual ICollection<Comment> EventComments { get; set; }

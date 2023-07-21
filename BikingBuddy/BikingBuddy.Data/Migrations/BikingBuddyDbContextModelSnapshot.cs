@@ -113,6 +113,9 @@ namespace BikingBuddy.Data.Migrations
                     b.Property<string>("Helmet")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -310,6 +313,9 @@ namespace BikingBuddy.Data.Migrations
 
                     b.Property<Guid>("EventId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsEdited")
                         .HasColumnType("bit");
@@ -1577,6 +1583,9 @@ namespace BikingBuddy.Data.Migrations
                     b.Property<string>("EventImageUrl")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<Guid>("OrganizerId")
                         .HasColumnType("uniqueidentifier");
 
@@ -1636,6 +1645,9 @@ namespace BikingBuddy.Data.Migrations
 
                     b.Property<DateTime?>("EstablishedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()

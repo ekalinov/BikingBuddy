@@ -1,11 +1,9 @@
-﻿
-using BikingBuddy.Data.Models;
+﻿using BikingBuddy.Data.Models;
 using BikingBuddy.Services.Data.Models.Events;
 
 namespace BikingBuddy.Services.Contracts
 {
     using Data.Models;
-
     using Web.Models;
     using Web.Models.Activity;
     using Web.Models.Event;
@@ -59,5 +57,7 @@ namespace BikingBuddy.Services.Contracts
         Task<IList<EventMiniViewModel>> GetNewestEventsAsync();
 
         Task<AllEventsFilteredAndPagedServiceModel> AllAsync(AllEventsQueryModel queryModel);
+        Task<int> GetActiveEventsCountAsync();
+        Task<int> GetAllEventsCountAsync();
     }
 }

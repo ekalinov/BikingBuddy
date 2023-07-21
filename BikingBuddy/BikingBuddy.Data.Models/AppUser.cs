@@ -40,10 +40,9 @@
         public int? TownId { get; set; }
 
 
-        public string? Helmet { get; set; } = null!;
+        public string? Helmet { get; set; }  
 
-        public string? Shoes { get; set; } = null!;
-
+        public string? Shoes { get; set; }  
 
 
 
@@ -51,8 +50,10 @@
         
         [ForeignKey(nameof(TeamId))]
         public virtual Team? Team { get; set; } = null!;
-        
 
+
+        public bool IsDeleted { get; set; } = false;
+        
         public virtual ICollection<EventParticipants> EventsParticipants { get; set; }
 
         

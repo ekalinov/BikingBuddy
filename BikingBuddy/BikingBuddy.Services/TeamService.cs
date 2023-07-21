@@ -253,6 +253,13 @@
             }
         }
 
+        public async Task<int> GetTeamsCountAsync()
+        {
+            return await this.dbContext.Events
+                .Where(e => e.IsDeleted == false)
+                .CountAsync();
+        }
+
 
         private async Task<TeamRequest?> GetTeamRequestAsync(string userId, string teamId)
         {

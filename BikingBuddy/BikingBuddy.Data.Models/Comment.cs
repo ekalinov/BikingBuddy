@@ -22,6 +22,9 @@
         
         [Required]
         public string CommentBody { get; set; } = null!;
+        
+        
+        public bool IsDeleted { get; set; } = false;
 
         [Required]
         public bool IsEdited { get; set; } = false;

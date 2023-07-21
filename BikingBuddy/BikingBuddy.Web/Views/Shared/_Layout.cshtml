@@ -1,183 +1,197 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bike World a Sports Category Flat Bootstrap responsive Website Template | Home :: w3layouts</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="Bike World Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-    <!-- bootstrap-css -->
-    <link href="~/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-    <!--// bootstrap-css -->
-    <!-- css -->
-    <link rel="stylesheet" href="~/css/style.css" type="text/css" media="all" />
-    <!--// css -->
-    <!-- font-awesome icons -->
-    <link href="~/css/font-awesome.css" rel="stylesheet">
-    <!-- //font-awesome icons -->
-    <!-- font -->
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
-    <!-- //font -->
-    <script src="~/js/jquery.basictable.min.js"></script>
-    <script src="~/js/jquery-1.11.1.min.js"></script>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>BikingBuddy</title>
+    <!--/fonts-->
+    <link href="//fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap"
+          rel="stylesheet">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="~/css/style-starter.css">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
-    <script src="~/js/bootstrap.js"></script>
-    <script src="~/js/SmoothScroll.min.js"></script>
-    <script src="~/js/jarallax.js"></script>
 </head>
 
-<header>
+<header id="site-header" class="fixed-top">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg stroke px-0 pt-lg-0">
+            <h1>
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                    Biking<i class="fas fa-bicycle"></i>Buddy
+                </a>
+            </h1>
 
-    <partial name="_NotificationPartial" />
+            <button class="navbar-toggler  collapsed bg-gradient" type="button" data-toggle="collapse"
+                    data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
+                <span class="navbar-toggler-icon fa icon-close fa-times"></span>
+            </button>
 
-    <!-- banner -->
-    <div class="banner">
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav mr-lg-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" asp-controller="Event" asp-action="All">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Team" asp-action="All">Teams</a>
+                    </li>
+                    @if (User.Identity!.IsAuthenticated)
+                    {
+                        <li class="navbar-item">
+                            <a class="nav-link " asp-area="" asp-controller="Event" asp-action="Mine">Events</a>
+                        </li>
+                    }
 
-        <div class="w3ls-slider">
-            <div class="header-top">
-                <div class="container banner-drop">
-                    <div class="menu-icon"><span></span></div>
-                    <div class="agile-logo">
-                        <h1><a class="nav-link text-capitalize" asp-area="" asp-controller="Home" asp-action="Index">Biking <span> Buddy</span></a></h1>
+
+                </ul>
+                @* <!--/search-right--> *@
+                @* <div class="search-right"> *@
+                @*     <div id="wrap"> *@
+                @*         <form action="" autocomplete="on"> *@
+                @*             <input id="search" name="search" type="text" placeholder="Search here..."> *@
+                @*             <input id="search_submit" *@
+                @*                    value="Rechercher" type="submit"> *@
+                @*         </form> *@
+                @*     </div> *@
+                @*     <!-- /search popup --> *@
+                @* </div> *@
+                @* <!--//search-right--> *@
+                @* <div class="top-quote mr-lg-3 mt-lg-0 mr-lg-4"> *@
+                @*     <a href="contact.html" class="btn btn-style btn-white btn-primary">Request a Quote</a> *@
+                @* </div> *@
+
+            </div>
+            <!-- //Login Partial -->
+            <div>
+                <partial name="_LoginPartial"/>
+            </div>
+            <!-- toggle switch for light and dark theme -->
+            <div class="mobile-position">
+                <nav class="navigation">
+                    <div class="theme-switch-wrapper">
+                        <label class="theme-switch" for="checkbox">
+                            <input type="checkbox" id="checkbox">
+                            <div class="mode-container">
+                                <i class="gg-sun"></i>
+                                <i class="gg-moon"></i>
+                            </div>
+                        </label>
                     </div>
-                    <div class="header-right">
-                        <nav>
-                            <ul>
-                                <li class="navbar-btn">
-                                    <a class="nav-link text-capitalize" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                                </li>
-                                @if (User.Identity!.IsAuthenticated)
-                                {
-                                    <li class="navbar-btn">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Event" asp-action="All">Events</a>
-                                    </li>
-                                    <li class="navbar-btn">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Event" asp-action="Add">Create a new event</a>
-                                    </li>
-                                    <li class="navbar-btn">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Event" asp-action="Mine">My Events</a>
-                                    </li>
-                                    <li class="navbar-btn">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Team" asp-action="All">AllTeams</a>
-                                    </li>
-                                    <li class="navbar-btn">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Team" asp-action="Add">AddTeam</a>
-                                    </li>
-                                    <li class="navbar-btn">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Bike" asp-action="Add">AddBike</a>
-                                    </li>
-                                    <li class="navbar-btn">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="MyProfile">MyProfile</a>
-                                    </li>
-                                    <li>
-                                        <form class="form-inline my-2 my-lg-0">
-                                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                                        </form>
-                                    </li>
-
-                                }
-                            </ul>
-
-
-                        </nav>
-                        <div>
-
-                            <partial name="_LoginPartial" />
-                        </div>
-
-                    </div>
-                    <div class="clearfix"> </div>
-                    <script>
-                        (function ($) {
-                            $(".menu-icon").on("click", function () {
-                                $(this).toggleClass("open");
-                                $(".container").toggleClass("nav-open");
-                                $("nav ul li").toggleClass("animate");
-                            });
-
-                        })(jQuery);
-                    </script>
-                </div>
+                </nav>
             </div>
 
-        </div>
-        <!-- //banner -->
-</div>
-
+        </nav>
+    </div>
 </header>
 <body>
-    <div class="container-fluid row">
+<main>
 
-        <div>
-        </div>
-        <main role="main" class="pb-3">
-            <div class="col-md-2">
-            </div>
+    @RenderBody()
 
-            <div class="col-md-10">
-                @RenderBody()
-            </div>
-        </main>
-    </div>
+</main>
 
-    <footer class="border-top footer text-muted">
-        <!-- footer -->
-        <div class="footer">
+<!-- footer17 -->
+<footer class="footer-17">
+
+        <div class="copyright text-center">
             <div class="container">
-                <div class="agile-footer-grids">
-                    <div class="col-md-3 w3-agile-footer-grid">
-                        <h3>About</h3>
-                        <p>Aenean cursus dignissim porta. Quisque mattis dolor sem, nec ultrices arcu consequat vel. Phasellus sollicitudin dui diam, et scelerisque nunc venenatis non. Cras dapibus, urna et pellentesque egestas</p>
-                    </div>
-                    <div class="col-md-3 w3-agile-footer-grid">
-                        <h3>Events</h3>
-                        <ul>
-                            <li>12th Aug <a href="single.html">Curabitur</a></li>
-                            <li>10th Sept <a href="single.html">Fusce urna</a></li>
-                            <li>24th Sept <a href="single.html">Praesent</a></li>
-                            <li>17th Oct <a href="single.html">Malesuada </a></li>
-                            <li>09th Dec <a href="single.html">Cum sociis</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3 w3-agile-footer-grid">
-                        <h3>Navigation</h3>
-                        <ul>
-                            <li class="text"><a href="index.html">Home</a></li>
-                            <li class="text"><a href="about.html">About</a></li>
-                            <li class="text"><a href="short-codes.html">Short Codes</a></li>
-                            <li class="text"><a href="gallery.html">Gallery</a></li>
-                            <li class="text"><a href="training.html">Training</a></li>
-                            <li class="text"><a href="mail.html">Contact</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3 w3-agile-footer-grid">
-                        <h3>Newsletter</h3>
-                        <form action="#" method="post">
-                            <input type="email" id="mc4wp_email" name="EMAIL" placeholder="Enter your email here" required="">
-                            <input type="submit" value="Subscribe">
-                        </form>
-                    </div>
-                    <div class="clearfix"> </div>
+                <div class="container">
+                    <p class="copy-footer-29">
+                        © 2021 Secttore. All rights reserved | Designed by
+                        <a href="https://w3layouts.com"
+                           target="_blank">
+                            W3layouts
+                        </a>
+                    </p>
                 </div>
             </div>
         </div>
-        <!-- //footer -->
-        <!-- copyright -->
-        <div class="copyright">
-            <div class="container">
-                <p>© 2017 Bike World . All Rights Reserved | Design by <a href="http://w3layouts.com/"> W3layouts</a> </p>
-            </div>
-        </div>
-        <!-- //copyright -->
-    </footer>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+        <!-- move top -->
+        <button onclick="topFunction()" id="movetop" title="Go to top">
+            <i class="fas fa-long-arrow-alt-up"></i>
+        </button>
+        <script>
+      // When the user scrolls down 20px from the top of the document, show the button
+      window.onscroll = function () {
+        scrollFunction()
+      };
+
+      function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+          document.getElementById("movetop").style.display = "block";
+        } else {
+          document.getElementById("movetop").style.display = "none";
+        }
+      }
+
+      // When the user clicks on the button, scroll to the top of the document
+      function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }
+    </script>
+        <!-- /move top -->
+    
+</footer>
+<!-- //footer17 -->
+<!-- Template JavaScript -->
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script src="~/js/theme-change.js"></script>
+
+<!--/MENU-JS-->
+<script>
+    $(window).on("scroll", function () {
+      var scroll = $(window).scrollTop();
+
+      if (scroll >= 80) {
+        $("#site-header").addClass("nav-fixed");
+      } else {
+        $("#site-header").removeClass("nav-fixed");
+      }
+    });
+
+    //Main navigation Active Class Add Remove
+    $(".navbar-toggler").on("click", function () {
+      $("header").toggleClass("active");
+    });
+    $(document).on("ready", function () {
+      if ($(window).width() > 991) {
+        $("header").removeClass("active");
+      }
+      $(window).on("resize", function () {
+        if ($(window).width() > 991) {
+          $("header").removeClass("active");
+        }
+      });
+    });
+  </script>
+<!--//MENU-JS-->
+
+<script src="~/js/bootstrap.min.js"></script>
+
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script src="~/js/jquery-1.9.1.min.js"></script>
+
+<script src="~/js/jquery.countup.js"></script>
+<script src="~/js/jquery.waypoints.min.js"></script>
+
+<script>
+    $('.counter').countUp();
+  </script>
+
+
+@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

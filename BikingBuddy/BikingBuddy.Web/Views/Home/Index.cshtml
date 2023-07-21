@@ -1,185 +1,134 @@
-﻿@model IList<EventMiniViewModel>
+﻿
+@using Microsoft.DotNet.Scaffolding.Shared.Project
+@model BikingBuddy.Services.Data.Models.Home.IndexViewModel
 
-
-<!-- about -->
-<div class="about">
+ 
+  <section class="w3l-featureshny py-5" id="features">
+      <div class="container py-md-5">
+          <div class="row">
+              <div class="col-lg-5 pr-lg-5 mb-lg-0 mb-5">
+                  <div class="w3l-header-sec text-left mb-md-5 mb-4">
+                      <h6 class="title-subhny mb-2">Our Stats</h6>
+                      <h5 class="">Ride with friends
+                          Enjoy the Ride</h5> 
+                  </div>
+              </div>
+              <div class="col-lg-7 statsw3-left pl-lg-5">
+                  <div class="row w3l-stats-section stats-con">
+                      <div class="col-lg-4 col-6 stats_info counter_grid">
+                          <i class="far fa-trophy"></i>
+                          <p class="counter">@Model.ActiveEventsCount </p>
+                          <h3>Active Events</h3>
+                      </div>
+                      <div class="col-lg-4 col-6 stats_info counter_grid mt-md-0 mt-0">
+                          <i class="fas fa-smile"></i>
+                          <p class="counter">@Model.UsersCount</p>
+                          <h3>Happy Users</h3>
+                      </div>
+                      <div class="col-lg-4 col-6 stats_info counter_grid2 mt-md-0 mt-4">
+                          <i class="fas fa-users"></i>
+                          <p class="counter">@Model.TeamsCount </p>
+                          <h3>Teams</h3>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+  
     <!-- about-top -->
     <div class="agileits-about-top">
         <div class="container">
-            <div class="agileits-about-top-heading">
-                <h3>Top Events</h3>
-            </div>
-            <div class="row agileinfo-top-grids">
+            
+            <section class="index-component">
 
-                @foreach (var eventDetails in Model)
-                {
-                    <div class="col-sm-4">
-                        <img src="@eventDetails.EventImageUrl" height="222px" width="335px" alt=""/>
-                        <h4>@eventDetails.Title, @eventDetails.Date</h4>
-                        <p>@eventDetails.Description</p>
-                        <a asp-controller="Event" asp-action="Details" asp-route-eventId="@eventDetails.Id">Read More</a>
-                    </div>
-                }
+                <div class="w3layouts-services-heading ">
+                    <h2>Top Events</h2>
+                </div>
+                <div class="row agileinfo-top-grids">
 
-            </div>
-            <div class="row w3ls-text  justify-content-end">
-                <a asp-controller="Event" asp-action="All">Find More rides...</a>
-            </div>
-        </div>
-    </div>
-    <!-- //about-top -->
-    <!-- choose -->
-    <div class="jarallax w3-agileits-choose">
-        <div class="container">
-            <div class="agileits-about-top-heading agileits-w3layouts-choose-heading">
-                <h3>Why choose us?</h3>
-            </div>
-            <div class="agile-choose-grids">
-                <div class="col-sm-4 agile-choose-grid">
-                    <div class="choose-icon">
-                        <i class="fa fa-user" aria-hidden="true"></i>
-                    </div>
-                    <div class="choose-info">
-                        <h4>Suspendisse ornare vitae ex nec aliquam</h4>
-                        <p>Nunc et massa ut purus porta euismod quis eu erat. Nam ornare faucibus elit sed tempor. Quisque iaculis odio nibh, et auctor tellus rhoncus vel. Maecenas arcu neque, semper eu commodo ut, pharetra vitae erat.</p>
-                    </div>
+                    @foreach (var eventDetails in Model.TopEvents)
+                    {
+                        <div class="col-sm-4">
+                            <img src="@eventDetails.EventImageUrl" height="222px" width="335px" alt=""/>
+                            <h4>@eventDetails.Title, @eventDetails.Date</h4>
+                            <p>@eventDetails.Description</p>
+                            <a asp-controller="Event" asp-action="Details" asp-route-eventId="@eventDetails.Id">Read More</a>
+                        </div>
+                    }
+
                 </div>
-                <div class="col-sm-4 agile-choose-grid">
-                    <div class="choose-icon">
-                        <i class="fa fa-cogs" aria-hidden="true"></i>
-                    </div>
-                    <div class="choose-info">
-                        <h4>Suspendisse ornare vitae ex nec aliquam</h4>
-                        <p>Nunc et massa ut purus porta euismod quis eu erat. Nam ornare faucibus elit sed tempor. Quisque iaculis odio nibh, et auctor tellus rhoncus vel. Maecenas arcu neque, semper eu commodo ut, pharetra vitae erat.</p>
-                    </div>
+                <div class="row w3ls-text  justify-content-end">
+                    <a asp-controller="Event" asp-action="All">Find More rides...</a>
                 </div>
-                <div class="col-sm-4 agile-choose-grid">
-                    <div class="choose-icon">
-                        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                    </div>
-                    <div class="choose-info">
-                        <h4>Suspendisse ornare vitae ex nec aliquam</h4>
-                        <p>Nunc et massa ut purus porta euismod quis eu erat. Nam ornare faucibus elit sed tempor. Quisque iaculis odio nibh, et auctor tellus rhoncus vel. Maecenas arcu neque, semper eu commodo ut, pharetra vitae erat.</p>
-                    </div>
+            </section>
+
+            <section class="  parallax">
+                <div class="w3layouts-services-heading" >
+                    <h2>Why Biking Buddy?</h2>
                 </div>
-            </div>
+                <div class="w3-services-grids" style="display: inline-flex">
+                    <div class="col-md-3 w3l-services-grid ">
+                        <div class="w3ls-services-img ek">
+                            <i class="fa fa-male" aria-hidden="true"></i>
+                        </div>
+                        <div class="agileits-services-info">
+                            <h4 class="ek-h4">Personal Profile</h4>
+                            <p class="ek-p" >With our personalized profile feature, you can now embark on a thrilling journey to track your bike rides and biking events like never before. Whether you're a seasoned cyclist or just starting, this unique tool empowers you to record every pedal stroke and celebrate your biking milestones.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 w3l-services-grid">
+                        <div class="w3ls-services-img ek">
+                            <i class="fa fa-bicycle" aria-hidden="true"></i>
+                        </div>
+                        <div class="agileits-services-info">
+                            <h4 class="ek-h4" >Bike Configuration</h4>
+                            <p class="ek-p">So, gear up and add your bike configuration to your profile today. Let the world see the bike that fuels your adventures, and be inspired by the incredible bikes others ride. Together, let's make our cycling community stronger, more vibrant, and pedal towards an unforgettable biking experience! </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 w3l-services-grid">
+                        <div class="w3ls-services-img ek">
+                            <i class="fa fa-globe" aria-hidden="true"></i>
+                        </div>
+                        <div class="agileits-services-info">
+                            <h4 class="ek-h4" >Worldwide events</h4>
+                            <p class="ek-p">For those seeking new adventures, dive into our extensive collection of bike rides worldwide. From picturesque countryside trails to adrenaline-pumping downhill descents, there's a ride to suit every skill level and preference. </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 w3l-services-grid">
+                        <div class="w3ls-services-img ek">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                        </div>
+                        <div class="agileits-services-info">
+                            <h4 class="ek-h4" >Find your Team</h4>
+                            <p class="ek-p" >Join or create the perfect cycling team in our app! Connect with friends to form your own squad for exciting rides, or send a request to join your favorite team and ride alongside like-minded cyclists. Unite, pedal, and experience the joy of cycling together!</p>
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                
+            </section>
+            <script type="text/javascript">
+                            			/* init Jarallax */
+                            			$('.jarallax').jarallax({
+                            				speed: 0.5,
+                            				imgWidth: 1366,
+                            				imgHeight: 768
+                            			})
+                            		</script>
+
         </div>
         <script type="text/javascript">
-			/* init Jarallax */
-			$('.jarallax').jarallax({
-				speed: 0.5,
-				imgWidth: 1366,
-				imgHeight: 768
-			})
-		</script>
+                        			/* init Jarallax */
+                        			$('.jarallax').jarallax({
+                        				speed: 0.5,
+                        				imgWidth: 1366,
+                        				imgHeight: 768
+                        			})
+                        		</script>
     </div>
-    <!-- //choose -->
-    <!-- team -->
-    <div class="agileits-about-top">
-        <div class="container">
-            <div class="agileits-about-top-heading">
-                <h3>Our Team</h3>
-            </div>
-            <div class="team-grids">
-                <!-- Bottom to top-->
-                <div class="col-sm-4 team-grid">
-                    <!-- normal -->
-                    <div class="ih-item circle effect10 bottom_to_top">
-                        <div class="img">
-                            <img src="images/t2.jpg" alt="img">
-                        </div>
-                        <div class="info">
-                            <h3>David Watson</h3>
-                            <div class="icons">
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-google-plus" aria-hidden="true"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end normal -->
-                </div>
-                <div class="col-sm-4 team-grid">
-                    <!-- normal -->
-                    <div class="ih-item circle effect10 bottom_to_top">
-                        <div class="img">
-                            <img src="images/t3.jpg" alt="img">
-                        </div>
-                        <div class="info">
-                            <h3>Shane Smith</h3>
-                            <div class="icons">
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-google-plus" aria-hidden="true"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end normal -->
-                </div>
-                <div class="col-sm-4 team-grid">
-                    <!-- normal -->
-                    <div class="ih-item circle effect10 bottom_to_top">
-                        <div class="img">
-                            <img src="images/t4.jpg" alt="img">
-                        </div>
-                        <div class="info">
-                            <h3>Steve Warner</h3>
-                            <div class="icons">
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-google-plus" aria-hidden="true"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end normal -->
-                </div>
-                <div class="clearfix"> </div>
-                <!-- end Bottom to top-->
-            </div>
-        </div>
-    </div>
-    <!-- //team -->
-</div>
-<!-- //about -->
+    <!-- //about-top -->
+
+  <script>
+    $('.counter').countUp();
+  </script>

@@ -36,18 +36,13 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Views\User\MyProfile.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\fonts\fontawesome-webfont.svg" />
-    <None Include="wwwroot\fonts\fontawesome-webfont.woff2" />
-    <None Include="wwwroot\js\bootstrap.js" />
-    <None Include="wwwroot\js\jarallax.js" />
-    <None Include="wwwroot\js\jquery-1.11.1.min.js" />
-    <None Include="wwwroot\js\jquery.basictable.min.js" />
-    <None Include="wwwroot\js\responsiveslides.min.js" />
-    <None Include="wwwroot\js\simple-lightbox.js" />
-    <None Include="wwwroot\js\SmoothScroll.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\basictable.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\font-awesome.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\font-awesome.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\simplelightbox.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\style.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\table-style.css" />
   </ItemGroup>
 
 </Project>

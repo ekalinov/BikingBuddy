@@ -21,7 +21,7 @@
 
         public EventService(BikingBuddyDbContext _dbContext)
         {
-            this.dbContext = _dbContext;
+           dbContext = _dbContext;
         }
 
 
@@ -253,6 +253,19 @@
                 TotalEventsCount = eventsQuery.Count()
             };
             return model;
+        }
+
+        public async Task<int> GetActiveEventsCountAsync()
+        {
+            return await  dbContext.Events
+                .Where(e => e.IsDeleted == false && e.Date > DateTime.Today)
+                .CountAsync();
+        }
+
+        public async Task<int> GetAllEventsCountAsync()
+        {
+            return await dbContext.Events
+                .CountAsync();
         }
 
         public async Task<Event?> GetEventByIdAsync(string id)

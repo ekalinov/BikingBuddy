@@ -97,6 +97,13 @@ namespace BikingBuddy.Services
             }
         }
 
+         public async Task<int> GetUserSCountAsync()
+         {
+             return await this.dbContext.AppUsers
+                 .Where(u => u.IsDeleted == false)
+                 .CountAsync();
+         }
+
         private async Task<AppUser?> GetUserByIdAsync(string userId)
         {
             return await dbContext.AppUsers

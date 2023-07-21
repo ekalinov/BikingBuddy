@@ -46,6 +46,8 @@
         public int TownId { get; set; }
 
 
+        public bool IsDeleted { get; set; } = false;
+        
         public virtual ICollection<AppUser> TeamMembers { get; set; }
 
         public virtual ICollection<TeamRequest> TeamRequests { get; set; }

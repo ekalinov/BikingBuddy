@@ -1,6 +1,5 @@
 /* _content/BikingBuddy.Web/Views/Shared/_Layout.cshtml.rz.scp.css */
- /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
+
 a.navbar-brand[b-26v214np2h] {
     white-space: normal;
     text-align: center;
@@ -39,8 +38,6 @@ button.accept-policy[b-26v214np2h] {
     font-size: 1rem;
     line-height: inherit;
 }
-
-
 
 .footer[b-26v214np2h] {
     position: absolute;

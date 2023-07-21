@@ -35,5 +35,6 @@
         Task<bool> IsMemberAsync(string userId, string teamId);
 
         Task RemoveRequest(string userId, string teamId);
+        Task<int> GetTeamsCountAsync();
     }
 }
