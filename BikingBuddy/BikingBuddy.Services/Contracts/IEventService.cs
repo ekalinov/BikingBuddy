@@ -23,7 +23,7 @@ namespace BikingBuddy.Services.Contracts
         Task EditEventAsync(EditEventViewModel model, string eventId);
 
         //Delete
-        Task DeleteEventAsync(int id);
+        Task DeleteEventAsync(string eventId);
 
         //Join Event
         Task JoinEventAsync(string userId, string eventId);

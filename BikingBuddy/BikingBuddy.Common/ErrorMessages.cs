@@ -10,6 +10,10 @@
 
             public const string EditEventError = "Something went wrong while Editing this event!";
 
+            
+            public const string EventDeletedSuccessfully = "Event is successfully deleted!";
+
+            public const string DeleteEventError = "Something went wrong while Deleting Event!";
 
 
 

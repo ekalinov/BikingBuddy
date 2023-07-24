@@ -15,18 +15,15 @@ namespace BikingBuddy.Services
 
         private readonly IEventService eventService;
 
-        private readonly ITeamService teamService;
 
         private readonly IBikeService bikeService;
 
         public UserService(BikingBuddyDbContext _dbContext,
             IEventService _eventService,
-            ITeamService _teamService,
             IBikeService _bikeService)
         {
             dbContext = _dbContext;
             eventService = _eventService;
-            teamService = _teamService;
             bikeService = _bikeService;
         }
 
@@ -39,8 +36,6 @@ namespace BikingBuddy.Services
             var userTotalAscent = await GetUserTotalAscentAsync(userId);
 
             var userEvents = await eventService.GetUserEventsAsync(userId);
-
-            var userTeamRequests = await teamService.GetTeamRequestsByUserAsync(userId);
 
             var userBikes = await bikeService.GetUserBikesAsync(userId);
 
@@ -60,8 +55,7 @@ namespace BikingBuddy.Services
                     TotalDistance = userTotalDistance,
                     TotalAscent = userTotalAscent,
                     UserBikes = userBikes,
-                    UserEvents = userEvents,
-                    TeamRequests = userTeamRequests,
+                    UserEvents = userEvents
                 }).FirstOrDefaultAsync();
 
 

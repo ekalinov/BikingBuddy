@@ -29,6 +29,7 @@
         public async Task<ICollection<AllEventsViewModel>> GetAllEventsAsync()
         {
             var allEvents = await dbContext.Events
+                .Where(e=>e.IsDeleted==false)
                 .Select(e => new AllEventsViewModel()
                 {
                     Id = e.Id.ToString(),
@@ -76,7 +77,7 @@
             var eventParticipants = await GetEventParticipants(id);
 
             var eventById = await dbContext.Events
-                .Where(e => e.Id.ToString() == id)
+                .Where(e => e.Id.ToString() == id && e.IsDeleted==false)
                 .OrderByDescending(e => e.Date)
                 .Select(e => new EventDetailsViewModel()
                 {
@@ -120,10 +121,17 @@
         }
 
         //Delete
-        public Task DeleteEventAsync(int id)
+        public async Task DeleteEventAsync(string eventId)
         {
-            //Todo: SoftDelete 
-            throw new NotImplementedException();
+            
+            Event? eventToDelete = await GetEventByIdAsync(eventId);
+
+            if (eventToDelete != null)
+            {
+                eventToDelete.IsDeleted = true;
+
+                await dbContext.SaveChangesAsync();
+            }
         }
 
         //Join Event
@@ -160,7 +168,8 @@
         public async Task<EditEventViewModel?> GetEventViewModelByIdAsync(string id)
         {
             return await dbContext.Events
-                .Where(e => e.Id.ToString() == id)
+                .Where(e => e.Id.ToString() == id 
+                              && e.IsDeleted==false)
                 .Select(e => new EditEventViewModel()
                 {
                     EventId = e.Id.ToString(),
@@ -179,6 +188,7 @@
         public async Task<IList<EventMiniViewModel>> GetNewestEventsAsync()
         {
             return await dbContext.Events
+                .Where(e=>e.IsDeleted==false && e.Date > DateTime.Today)
                 .OrderByDescending(e => e.CreatedOn)
                 .Select(e => new EventMiniViewModel()
                 {
@@ -196,6 +206,7 @@
         public async Task<AllEventsFilteredAndPagedServiceModel> AllAsync(AllEventsQueryModel queryModel)
         {
             IQueryable<Event> eventsQuery = dbContext.Events
+                .Where(e=>e.IsDeleted==false)
                 .AsQueryable();
 
             if (!String.IsNullOrWhiteSpace(queryModel.ActivityType))
@@ -265,13 +276,14 @@
         public async Task<int> GetAllEventsCountAsync()
         {
             return await dbContext.Events
+                .Where(e=> e.IsDeleted==false)
                 .CountAsync();
         }
 
         public async Task<Event?> GetEventByIdAsync(string id)
         {
             return await dbContext.Events
-                .Where(e => e.Id == Guid.Parse(id))
+                .Where(e => e.Id == Guid.Parse(id) && e.IsDeleted==false)
                 .FirstOrDefaultAsync();
         }
 

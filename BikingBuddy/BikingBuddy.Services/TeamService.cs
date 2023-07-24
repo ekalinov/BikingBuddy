@@ -11,9 +11,9 @@
     {
         private readonly IEventService eventService;
         private readonly BikingBuddyDbContext dbContext;
-        private readonly UserService userService;
+        private readonly IUserService userService;
 
-        public TeamService(IEventService _eventService, BikingBuddyDbContext _dbContext, UserService _userService)
+        public TeamService(IEventService _eventService, BikingBuddyDbContext _dbContext,IUserService _userService)
         {
             eventService = _eventService;
             dbContext = _dbContext;
@@ -142,7 +142,7 @@
         {
             Team? team = await GetTeamByIdAsync(teamId);
 
-            AppUser? user = await userService.GetUserByIdAsync(userId);
+             AppUser? user = await userService.GetUserByIdAsync(userId);
 
             TeamRequest? request = await GetTeamRequestAsync(userId, teamId);
 
@@ -176,27 +176,27 @@
         {
             Team? team = await GetTeamByIdAsync(teamId);
 
-            AppUser? user = await userService.GetUserByIdAsync(userId);
+           AppUser? user = await userService.GetUserByIdAsync(userId);
 
-            TeamRequest? request = await GetTeamRequestAsync(userId, teamId);
+             TeamRequest? request = await GetTeamRequestAsync(userId, teamId);
 
 
-            if (request != null
-                && team != null
-                && user != null
-                && !await IsMemberAsync(userId, teamId))
-            {
-                team.TeamMembers.Add(user);
+             if (request != null
+                 && team != null
+                 && user != null
+                 && !await IsMemberAsync(userId, teamId))
+             {
+                 team.TeamMembers.Add(user);
 
-                request.IsAccepted = true;
+                 request.IsAccepted = true;
 
-                await dbContext.SaveChangesAsync();
-            }
+                 await dbContext.SaveChangesAsync();
+             }
         }
 
         public async Task RemoveMemberAsync(string userId, string teamId)
         {
-            var team = await GetTeamByIdAsync(teamId);
+            /*var team = await GetTeamByIdAsync(teamId);
 
             var userToRemove = await userService.GetUserByIdAsync(userId);
 
@@ -208,7 +208,7 @@
                 await RemoveRequest(userId, teamId);
                 team.TeamMembers.Remove(userToRemove);
                 await dbContext.SaveChangesAsync();
-            }
+            }*/
         }
 
         public async Task<ICollection<TeamRequestViewModel>> GetTeamRequestsByUserAsync(string userId)

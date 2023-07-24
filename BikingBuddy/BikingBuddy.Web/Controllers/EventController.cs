@@ -163,13 +163,28 @@ namespace BikingBuddy.Web.Controllers
                 return RedirectToAction("All", "Event");
             }
         }
-
-
-
-
+ 
+ 
         //Delete
+        
+        [HttpPost]
+        public async Task<IActionResult> Delete(string eventId)
+        {
+ 
+            try
+            {
+                await service.DeleteEventAsync(eventId);
 
-        //TODO: Soft Delete 
+                TempData[SuccessMessage] = EventDeletedSuccessfully; 
+            }
+            catch (Exception)
+            { 
+                TempData[ErrorMessage] = DeleteEventError;
+                return RedirectToAction("Details", "Event", new {eventId});
+            }
+ 
+            return RedirectToAction("All", "Event"); 
+        }
 
         public async Task<IActionResult> Join(string eventId)
         {
