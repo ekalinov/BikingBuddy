@@ -3,8 +3,18 @@
     ViewBag.Title = "All of the Events Around You";
 }
 
-<h2 class="text-center">@ViewBag.Title</h2>
+ <section class="allEvents-banner py-5" id="features">
+     <div class="col-lg-6 pr-lg-6 mb-lg-0 mb-6">
+                       <div class="w3l-header-sec text-left mb-md-5 mb-4" style="margin-left: 160px;">
+                           <h6 class="title-subhny mb-2">Upcoming events</h6>
+                           <h5 class="">Find your journey here</h5> 
+                       </div>
+                   </div>
+  </section> 
 <hr/>
+<div class=" text-center "> 
+    <h5 class="">@ViewBag.Title</h5> 
+</div>
 
 <form method="get" class="container">
     <div class="row ">
@@ -67,7 +77,7 @@
                                 <p class="card-text">Distance: @e.Distance</p>
                                 <p class="card-text">Date: @e.Date</p>
                                 <p class="card-text"> Activity Type: @e.ActivityType</p>
-                                <a class="btn btn-primary" asp-action="Details" asp-route-eventId="@e.Id">View DetaiLS</a>
+                                <a class="btn btn-primary" asp-action="Details" asp-route-eventId="@e.Id">View Details</a>
 
                             </div>
                         </div>

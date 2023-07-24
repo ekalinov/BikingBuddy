@@ -10,6 +10,52 @@ Author URL: http://w3layouts.com
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+
+/*custom  appClasses*/
+
+.allEvents-banner {
+    background: url(../images/AllEventsBannerPhoto.jpg) no-repeat 0% 80%;
+    background-size: cover;
+    z-index: 0;
+    position: relative;
+    display: grid;
+    align-items: center; 
+}
+
+.allEvents-banner::before    {
+    content: "";
+    background: var(--bg-layer);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+}
+
+.allEvents-banner h5{
+    
+    
+font-size: 40px;
+line-height: 44px;
+font-weight: 700;
+color: #fff;
+
+}
+.heading-sec{
+    
+    font-size: 50px;
+    color: var(--primary-color);
+}
+
+
+
+
+.card-title h5 {
+    margin-bottom: 0.75rem;
+    color: var(--primary-color);
+}
+
 :root {
     --blue: #007bff;
     --indigo: #6610f2;
@@ -9530,7 +9576,8 @@ button.bg-dark:focus {
 
     .mb-md-5,
     .my-md-5 {
-        margin-bottom: 3rem !important;
+        margin-top: 4rem; !important;
+        margin-bottom: 1rem !important;
     }
 
     .ml-md-5,
