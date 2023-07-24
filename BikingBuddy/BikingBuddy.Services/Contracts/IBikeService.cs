@@ -16,6 +16,6 @@
 
         Task<EditBikeViewModel?> GetBikeToEditAsync(string bikeId);
 
-        Task RemoveBikeFromUserAsync(string bikeId, string userId);
+        Task RemoveBikeAsync(string bikeId);
     }
 }

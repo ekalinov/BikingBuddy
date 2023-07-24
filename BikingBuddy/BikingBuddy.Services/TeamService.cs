@@ -196,7 +196,7 @@
 
         public async Task RemoveMemberAsync(string userId, string teamId)
         {
-            /*var team = await GetTeamByIdAsync(teamId);
+            var team = await GetTeamByIdAsync(teamId);
 
             var userToRemove = await userService.GetUserByIdAsync(userId);
 
@@ -208,7 +208,7 @@
                 await RemoveRequest(userId, teamId);
                 team.TeamMembers.Remove(userToRemove);
                 await dbContext.SaveChangesAsync();
-            }*/
+            }
         }
 
         public async Task<ICollection<TeamRequestViewModel>> GetTeamRequestsByUserAsync(string userId)

@@ -212,6 +212,9 @@ namespace BikingBuddy.Data.Migrations
                         .HasMaxLength(2)
                         .HasColumnType("nvarchar(2)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("WheelBrand")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");

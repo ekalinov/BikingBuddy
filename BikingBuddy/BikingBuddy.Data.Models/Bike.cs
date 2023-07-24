@@ -32,6 +32,8 @@
         [MaxLength(ForkMaxLength)]
         public string? Fork { get; set; }
 
+        public bool IsDeleted { get; set; } = false;
+
         [Required]
         [ForeignKey(nameof(BikeType))]
         public int BikeTypeId { get; set; }

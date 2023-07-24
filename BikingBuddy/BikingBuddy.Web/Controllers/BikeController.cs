@@ -41,8 +41,6 @@ namespace BikingBuddy.Web.Controllers
             if (!ModelState.IsValid)
             {
                 model.BikeTypes = await bikeService.GetBikeTypesAsync();
-
-
                 return View(model);
             }
 
@@ -52,8 +50,6 @@ namespace BikingBuddy.Web.Controllers
                 await bikeService.AddBikeToUserAsync(model, User.GetId());
 
                 TempData[SuccessMessage] = BikeAddedSuccessfully;
-
-
             }
             catch (Exception)
             {
@@ -65,12 +61,7 @@ namespace BikingBuddy.Web.Controllers
                 return View(model);
             }
 
-
             return RedirectToAction("MyProfile", "User");
-
-
-
-
         }
 
 
@@ -79,11 +70,7 @@ namespace BikingBuddy.Web.Controllers
         public async Task<IActionResult> Edit(string bikeId)
         {
             EditBikeViewModel? bikeModel = await bikeService.GetBikeToEditAsync(bikeId);
-
-
-
-
-
+ 
             try
             {
                 if (bikeModel != null)
@@ -138,22 +125,15 @@ namespace BikingBuddy.Web.Controllers
         //Delete 
 
         public async Task<IActionResult> Remove(string bikeId)
-        {
-
-
+        { 
             try
             {
-
-                await bikeService.RemoveBikeFromUserAsync(bikeId, User.GetId());
+                await bikeService.RemoveBikeAsync(bikeId);
                 TempData[SuccessMessage] = BikeRemovedFromUserSuccessfully;
-
-
             }
             catch (Exception)
             {
-
                 TempData[ErrorMessage] = BikeRemovedFromUserError;
-
             }
 
             return RedirectToAction("MyProfile", "User");

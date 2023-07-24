@@ -62,14 +62,14 @@ namespace BikingBuddy.Services
 
         }
 
-        public async Task RemoveBikeFromUserAsync(string bikeId, string userId)
+        public async Task RemoveBikeAsync(string bikeId)
         {
             Bike? bikeToEdit = await GetBikeByIdAsync(bikeId);
 
             if (bikeToEdit != null)
             {
-                // bikeToEdit.AppUserId = Guid.Empty;
-                dbContext.Remove(bikeToEdit);
+                bikeToEdit.IsDeleted = true;
+                
                 await dbContext.SaveChangesAsync();
             }
 
@@ -125,19 +125,9 @@ namespace BikingBuddy.Services
             }
         }
 
-        private async Task RemoveBike(string bikeId)
-        {
-            Bike? bikeToRemove = await GetBikeByIdAsync(bikeId);
-
-            if (bikeToRemove != null)
-            {
-                //todo: Soft Delete
-
-
-                await dbContext.SaveChangesAsync();
-            }
-        }
-
+      
+        
+        
         private async Task<Bike?> GetBikeByIdAsync(string bikeId)
         {
             return await dbContext.Bikes.FirstOrDefaultAsync(b => b.Id == bikeId);
