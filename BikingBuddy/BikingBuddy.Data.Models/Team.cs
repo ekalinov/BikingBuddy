@@ -9,10 +9,10 @@
     {
         public Team()
         {
-            this.Id = Guid.NewGuid();
+            Id = Guid.NewGuid();
 
-            this.TeamMembers = new HashSet<AppUser>();
-            this.TeamRequests = new HashSet<TeamRequest>();
+            TeamMembers = new HashSet<AppUser>();
+            TeamRequests = new HashSet<TeamRequest>();
         }
 
 

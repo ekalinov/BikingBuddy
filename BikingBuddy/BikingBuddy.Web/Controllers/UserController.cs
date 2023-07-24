@@ -17,8 +17,8 @@
 
         public UserController(IEventService _eventService, IUserService _userService)
         {
-            this.eventService = _eventService;
-            this.userService = _userService;
+            eventService = _eventService;
+            userService = _userService;
         }
 
 
@@ -44,7 +44,7 @@
 
         public async Task<IActionResult> MyProfile()
         {
-            var userDetails = await userService.GetUserDetails(this.User.GetId());
+            var userDetails = await userService.GetUserDetails(User.GetId());
 
 
             return View(userDetails);

@@ -3,8 +3,6 @@
     using Microsoft.EntityFrameworkCore;
     using BikingBuddy.Data;
     using BikingBuddy.Data.Models;
-    using Data;
-    using Data.Models;
     using Contracts;
     using Web.Models.Team;
     using Web.Models.User;
@@ -13,18 +11,20 @@
     {
         private readonly IEventService eventService;
         private readonly BikingBuddyDbContext dbContext;
+        private readonly UserService userService;
 
-        public TeamService(IEventService _eventService, BikingBuddyDbContext _dbContext)
+        public TeamService(IEventService _eventService, BikingBuddyDbContext _dbContext, UserService _userService)
         {
-            this.eventService = _eventService;
-            this.dbContext = _dbContext;
+            eventService = _eventService;
+            dbContext = _dbContext;
+            userService = _userService;
         }
 
         //Details
         public async Task<TeamDetailsViewModel?> GetTeamDetailsAsync(string teamId)
         {
             return await dbContext.Teams
-                .Where(t => t.Id == Guid.Parse(teamId))
+                .Where(t => t.Id == Guid.Parse(teamId) && t.IsDeleted == false)
                 .Select(t => new TeamDetailsViewModel()
                 {
                     Id = t.Id.ToString(),
@@ -56,7 +56,7 @@
         public async Task<EditTeamViewModel?> GetTeamToEditAsync(string teamId)
         {
             return await dbContext.Teams
-                .Where(t => t.Id == Guid.Parse(teamId))
+                .Where(t => t.Id == Guid.Parse(teamId) && t.IsDeleted == false)
                 .Select(t => new EditTeamViewModel()
                 {
                     Id = t.Id.ToString(),
@@ -71,6 +71,7 @@
         public async Task<ICollection<AllTeamsViewModel>> GetAllTeams()
         {
             return await dbContext.Teams
+                .Where(t => t.IsDeleted == false)
                 .Select(t => new AllTeamsViewModel()
                 {
                     Id = t.Id.ToString(),
@@ -84,7 +85,7 @@
         //Create
         public async Task AddTeam(AddTeamViewModel model, string teamManagerId)
         {
-            var teamToAdd = new Team()
+            var teamToAdd = new Team
             {
                 Name = model.Name,
                 TeamImageUrl = model.TeamImageUrl,
@@ -118,10 +119,16 @@
         }
 
         //Delete
-        public Task DeleteTeam(int commentId)
+        public async Task DeleteTeam(string teamId)
         {
-            //TODO: Soft Delete
-            throw new NotImplementedException();
+            Team? teamToDelete = await GetTeamByIdAsync(teamId);
+
+            if (teamToDelete != null)
+            {
+                teamToDelete.IsDeleted = true;
+
+                await dbContext.SaveChangesAsync();
+            }
         }
 
 
@@ -135,7 +142,7 @@
         {
             Team? team = await GetTeamByIdAsync(teamId);
 
-            AppUser? user = await GetUserByIdAsync(userId);
+            AppUser? user = await userService.GetUserByIdAsync(userId);
 
             TeamRequest? request = await GetTeamRequestAsync(userId, teamId);
 
@@ -169,7 +176,7 @@
         {
             Team? team = await GetTeamByIdAsync(teamId);
 
-            AppUser? user = await GetUserByIdAsync(userId);
+            AppUser? user = await userService.GetUserByIdAsync(userId);
 
             TeamRequest? request = await GetTeamRequestAsync(userId, teamId);
 
@@ -191,7 +198,7 @@
         {
             var team = await GetTeamByIdAsync(teamId);
 
-            var userToRemove = await GetUserByIdAsync(userId);
+            var userToRemove = await userService.GetUserByIdAsync(userId);
 
             if (team != null
                 && userToRemove != null
@@ -220,9 +227,8 @@
             foreach (var team in teamRequests)
             {
                 team.MembersCount = await GetTeamMembersCount(team.Id);
-            }
-
-
+            } 
+            
             return teamRequests;
         }
 
@@ -237,7 +243,8 @@
         public async Task<bool> IsMemberAsync(string userId, string teamId)
         {
             return await dbContext.Teams
-                .Where(t => t.Id == Guid.Parse(teamId)
+                .Where(t => t.Id == Guid.Parse(teamId) 
+                            && t.IsDeleted == false
                             && t.TeamMembers.Any(tm => tm.Id == Guid.Parse(userId)))
                 .AnyAsync();
         }
@@ -255,8 +262,8 @@
 
         public async Task<int> GetTeamsCountAsync()
         {
-            return await this.dbContext.Events
-                .Where(e => e.IsDeleted == false)
+            return await dbContext.Teams
+                .Where(t => t.IsDeleted == false)
                 .CountAsync();
         }
 
@@ -273,14 +280,7 @@
         private async Task<Team?> GetTeamByIdAsync(string id)
         {
             return await dbContext.Teams
-                .Where(t => t.Id == Guid.Parse(id))
-                .FirstOrDefaultAsync();
-        }
-
-        private async Task<AppUser?> GetUserByIdAsync(string id)
-        {
-            return await dbContext.Users
-                .Where(u => u.Id == Guid.Parse(id))
+                .Where(t => t.Id == Guid.Parse(id) && t.IsDeleted == false)
                 .FirstOrDefaultAsync();
         }
     }

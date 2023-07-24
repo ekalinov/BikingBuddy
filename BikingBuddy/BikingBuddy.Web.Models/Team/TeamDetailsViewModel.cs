@@ -1,7 +1,7 @@
 ﻿namespace BikingBuddy.Web.Models.Team
 {
 
-    using BikingBuddy.Web.Models.User;
+    using User;
 
     public class TeamDetailsViewModel
     {
@@ -10,8 +10,8 @@
         public TeamDetailsViewModel()
         {
 
-            this.TeamMembers = new HashSet<UserViewModel>();
-            this.MembersRequests = new HashSet<UserViewModel>();
+            TeamMembers = new HashSet<UserViewModel>();
+            MembersRequests = new HashSet<UserViewModel>();
         }
 
 

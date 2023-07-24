@@ -11,10 +11,10 @@
     {
         public AppUser()
         {
-            this.Id = Guid.NewGuid();
-            this.EventsParticipants = new HashSet<EventParticipants>();
-            this.TeamRequests = new HashSet<TeamRequest>();
-            this.UserBikes = new HashSet<Bike>();
+            Id = Guid.NewGuid();
+            EventsParticipants = new HashSet<EventParticipants>();
+            TeamRequests = new HashSet<TeamRequest>();
+            UserBikes = new HashSet<Bike>();
         }
 
 

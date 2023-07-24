@@ -7,7 +7,7 @@
     {
         public EventDetailsViewModel()
         {
-            this.EventsParticipants = new HashSet<UserViewModel>();
+            EventsParticipants = new HashSet<UserViewModel>();
         }
 
         public string Ascent { get; set; } = null!;

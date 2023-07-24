@@ -15,7 +15,7 @@ namespace BikingBuddy.Web.Models.Team
     {
         public AddTeamViewModel()
         {
-            this.CountriesCollection = new HashSet<CountryViewModel>();
+            CountriesCollection = new HashSet<CountryViewModel>();
         }
 
 

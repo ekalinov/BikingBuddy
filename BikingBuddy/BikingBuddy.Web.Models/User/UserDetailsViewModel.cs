@@ -13,9 +13,9 @@ namespace BikingBuddy.Web.Models.User
 
         public UserDetailsViewModel()
         {
-            this.UserEvents = new HashSet<EventViewModel>();
-            this.TeamRequests = new HashSet<TeamRequestViewModel>();
-            this.UserBikes = new HashSet<BikeDetailsViewModel>();
+            UserEvents = new HashSet<EventViewModel>();
+            TeamRequests = new HashSet<TeamRequestViewModel>();
+            UserBikes = new HashSet<BikeDetailsViewModel>();
         }
 
 

@@ -11,7 +11,7 @@ namespace BikingBuddy.Web.Models.User
     {
         public EditUserViewModel()
         {
-            this.CountriesCollection = new HashSet<CountryViewModel>();
+            CountriesCollection = new HashSet<CountryViewModel>();
         }
 
         public string Id { get; set; } = null!;

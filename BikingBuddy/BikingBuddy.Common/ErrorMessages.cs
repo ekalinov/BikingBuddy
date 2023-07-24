@@ -84,6 +84,10 @@
             public const string TeamDoesNotExist = "Team does not exist!";
             
             public const string TeamAddedSuccessfully = "Team added successfully!";
+            
+            public const string TeamDeletedSuccessfully = "Team is successfully deleted!";
+
+            public const string DeleteTeamError = "Something went wrong while Deleting Team!";
 
             public const string AddTeamError = "Something went wrong while Adding Team!";
 

@@ -11,7 +11,7 @@
 
         public CommentController(ICommentService _commentService)
         {
-            this.commentService = _commentService;
+            commentService = _commentService;
         }
 
         [HttpPost]

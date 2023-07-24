@@ -8,7 +8,7 @@ namespace BikingBuddy.Web.Models.Event
 
         public AllEventsViewModel()
         {
-            this.Comments = new HashSet<CommentViewModel>();
+            Comments = new HashSet<CommentViewModel>();
         }
 
         public string Distance { get; set; } = null!;

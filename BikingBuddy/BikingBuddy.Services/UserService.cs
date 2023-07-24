@@ -24,10 +24,10 @@ namespace BikingBuddy.Services
             ITeamService _teamService,
             IBikeService _bikeService)
         {
-            this.dbContext = _dbContext;
-            this.eventService = _eventService;
-            this.teamService = _teamService;
-            this.bikeService = _bikeService;
+            dbContext = _dbContext;
+            eventService = _eventService;
+            teamService = _teamService;
+            bikeService = _bikeService;
         }
 
         public async Task<UserDetailsViewModel?> GetUserDetails(string userId)
@@ -99,12 +99,12 @@ namespace BikingBuddy.Services
 
          public async Task<int> GetUserSCountAsync()
          {
-             return await this.dbContext.AppUsers
+             return await dbContext.AppUsers
                  .Where(u => u.IsDeleted == false)
                  .CountAsync();
          }
 
-        private async Task<AppUser?> GetUserByIdAsync(string userId)
+        public async Task<AppUser?> GetUserByIdAsync(string userId)
         {
             return await dbContext.AppUsers
                 .FirstOrDefaultAsync(u => u.Id == Guid.Parse(userId));

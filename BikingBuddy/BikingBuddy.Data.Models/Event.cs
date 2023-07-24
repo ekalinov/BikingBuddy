@@ -10,10 +10,10 @@
 
         public Event()
         {
-            this.Id = Guid.NewGuid();
+            Id = Guid.NewGuid();
 
-            this.EventComments = new HashSet<Comment>();
-            this.EventsParticipants = new HashSet<EventParticipants>();
+            EventComments = new HashSet<Comment>();
+            EventsParticipants = new HashSet<EventParticipants>();
         }
 
 

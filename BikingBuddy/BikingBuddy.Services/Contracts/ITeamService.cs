@@ -15,7 +15,7 @@
 
         Task EditTeam(EditTeamViewModel model, string teamId);
 
-        Task DeleteTeam(int commentId);
+        Task DeleteTeam(string teamId);
 
 
         Task<int> GetTeamMembersCount(string teamId);

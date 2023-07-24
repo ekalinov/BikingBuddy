@@ -18,8 +18,8 @@ namespace BikingBuddy.Web.Controllers
 
         public EventController(IEventService _service, ICommentService _commentService)
         {
-            this.service = _service;
-            this.commentService = _commentService;
+            service = _service;
+            commentService = _commentService;
         }
 
 
@@ -74,7 +74,7 @@ namespace BikingBuddy.Web.Controllers
 
             }
 
-            string userId = this.User.GetId();
+            string userId = User.GetId();
 
             try
             {
@@ -151,7 +151,7 @@ namespace BikingBuddy.Web.Controllers
             try
             {
 
-                await service.EditEventAsync(model, this.User.GetId());
+                await service.EditEventAsync(model, User.GetId());
                 TempData[SuccessMessage] = EventSuccessfullyEdited;
                 return RedirectToAction("Details", "Event", new { eventId = model.EventId });
 
@@ -176,9 +176,9 @@ namespace BikingBuddy.Web.Controllers
 
             try
             {
-                if (!await service.IsParticipating(eventId, this.User.GetId()))
+                if (!await service.IsParticipating(eventId, User.GetId()))
                 {
-                    await service.JoinEventAsync(this.User.GetId(), eventId);
+                    await service.JoinEventAsync(User.GetId(), eventId);
                     TempData[SuccessMessage] = SuccessJoiningEvent;
                 }
                 else
@@ -203,9 +203,9 @@ namespace BikingBuddy.Web.Controllers
             try
             {
 
-                if (await service.IsParticipating(eventId, this.User.GetId()))
+                if (await service.IsParticipating(eventId, User.GetId()))
                 {
-                    await service.LeaveEventAsync(this.User.GetId(), eventId);
+                    await service.LeaveEventAsync(User.GetId(), eventId);
                     TempData[SuccessMessage] = SuccessLeavingEvent;
                 }
                 else
@@ -231,7 +231,7 @@ namespace BikingBuddy.Web.Controllers
 
             try
             {
-                var userEvents = await service.GetEventsByUserIdAsync(this.User.GetId());
+                var userEvents = await service.GetEventsByUserIdAsync(User.GetId());
                 return View(userEvents);
             }
             catch (Exception)

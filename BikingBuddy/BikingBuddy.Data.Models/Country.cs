@@ -10,8 +10,8 @@
 
         public Country()
         {
-           this.CountryEvents = new HashSet<Event>();
-           this.CountryUsers =new HashSet<AppUser>();
+           CountryEvents = new HashSet<Event>();
+           CountryUsers =new HashSet<AppUser>();
         }
 
         [Key]

@@ -21,7 +21,7 @@ namespace BikingBuddy.Services
 
         public BikeService(BikingBuddyDbContext _dbContext)
         {
-            this.dbContext = _dbContext;
+            dbContext = _dbContext;
         }
 
         public async Task<ICollection<BikeDetailsViewModel>> GetUserBikesAsync(string userId)

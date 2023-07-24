@@ -8,7 +8,7 @@ namespace BikingBuddy.Web.Models.Bike
     {
         public AddBikeViewModel()
         {
-            this.BikeTypes = new HashSet<BikeTypeViewModel>();
+            BikeTypes = new HashSet<BikeTypeViewModel>();
         }
        
         [StringLength(FrameBrandMaxLength, MinimumLength = FrameBrandMinLength)]

@@ -11,11 +11,11 @@ public class AllEventsQueryModel
 {
     public AllEventsQueryModel()
     {
-        this.Events = new HashSet<AllEventsViewModel>();
-        this.ActivityTypes = new HashSet<ActivityTypeViewModel>();
+        Events = new HashSet<AllEventsViewModel>();
+        ActivityTypes = new HashSet<ActivityTypeViewModel>();
 
-        this.CurrentPage = DefaultPage;
-        this.EventsPerPage = EntitiesPerPage ;
+        CurrentPage = DefaultPage;
+        EventsPerPage = EntitiesPerPage ;
     }
       
     [Display(Name = "Activity Type")]

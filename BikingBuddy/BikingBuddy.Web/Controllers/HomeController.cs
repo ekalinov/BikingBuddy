@@ -20,10 +20,10 @@ namespace BikingBuddy.Web.Controllers
             IUserService _userService,
             ITeamService _teamService)
         {
-            this.logger = _logger;
-            this.eventService = _eventService;
-            this.userService = _userService;
-            this.teamService = _teamService;
+            logger = _logger;
+            eventService = _eventService;
+            userService = _userService;
+            teamService = _teamService;
         }
 
         [AllowAnonymous]

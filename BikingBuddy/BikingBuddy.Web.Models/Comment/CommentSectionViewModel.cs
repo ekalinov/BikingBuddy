@@ -11,7 +11,7 @@ namespace BikingBuddy.Web.Models.Comment
 
         public CommentSectionViewModel()
         {
-            this.AllComments = new HashSet<CommentViewModel>();
+            AllComments = new HashSet<CommentViewModel>();
         }
 
         public string EventId { get; set; } = null!; 

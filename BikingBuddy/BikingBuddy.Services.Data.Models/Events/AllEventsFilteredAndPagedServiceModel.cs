@@ -6,7 +6,7 @@ public class AllEventsFilteredAndPagedServiceModel
 {
     public AllEventsFilteredAndPagedServiceModel()
     {
-        this.AllEvents = new HashSet<AllEventsViewModel>();
+        AllEvents = new HashSet<AllEventsViewModel>();
     }
 
     public int TotalEventsCount { get; set; }

@@ -18,7 +18,7 @@ namespace BikingBuddy.Web.Controllers
 
         public BikeController(IBikeService _bikeService)
         {
-            this.bikeService = _bikeService;
+            bikeService = _bikeService;
         }
 
         //Create
@@ -49,7 +49,7 @@ namespace BikingBuddy.Web.Controllers
 
             try
             {
-                await bikeService.AddBikeToUserAsync(model, this.User.GetId());
+                await bikeService.AddBikeToUserAsync(model, User.GetId());
 
                 TempData[SuccessMessage] = BikeAddedSuccessfully;
 
@@ -144,7 +144,7 @@ namespace BikingBuddy.Web.Controllers
             try
             {
 
-                await bikeService.RemoveBikeFromUserAsync(bikeId, this.User.GetId());
+                await bikeService.RemoveBikeFromUserAsync(bikeId, User.GetId());
                 TempData[SuccessMessage] = BikeRemovedFromUserSuccessfully;
 
 

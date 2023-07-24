@@ -2,7 +2,7 @@
 
 
 <h2 class="text-center">Team Details</h2>
-<hr />
+<hr/>
 
 <div class="row">
     <div class="card">
@@ -13,30 +13,34 @@
             <p class="mb-0">
                 <span class="fw-bold">Location: </span>@Model.Town , @Model.Country
             </p>
-            <p class="mb-0"><span class="fw-bold">Description: </span>@Model.Description</p>
+            <p class="mb-0">
+                <span class="fw-bold">Description: </span>@Model.Description
+            </p>
 
-            <p class="mb-0"><span class="fw-bold">Team Manager: </span>@Model.TeamManager</p>
+            <p class="mb-0">
+                <span class="fw-bold">Team Manager: </span>@Model.TeamManager
+            </p>
 
         </div>
 
-                <hr />
-
-
-        <a asp-controller="Team" asp-action="RequestToJoin" class="btn btn-warning mb-2 w-100 p-3 fw-bold" asp-route-teamId="@Model.Id">Request to join </a>
-        <a asp-controller="Team" asp-action="All" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Back to All Teams</a>
-
-
-
-
-
-
+        <hr/>
 
         @if (User.Identity?.Name == Model.TeamManager)
         {
-            
-           
-                <h5>Team Members:</h5>
-          
+            <a asp-controller="Team" asp-action="Edit" class="btn btn-warning mb-2 w-100 p-3 fw-bold" asp-route-teamId="@Model.Id">Edit Team </a>
+
+
+            <form class="ml-2" asp-controller="Team" asp-action="Delete"
+                  asp-route-teamId="@Model.Id" method="post">
+                <input class="btn btn-danger mb-2 w-100 p-3 fw-bold" type="submit" value="Delete Team"/>
+                
+                <a   class="btn btn-danger mb-2 w-100 p-3 fw-bold" type="submit" >Delete Team</a>
+                
+            </form>
+
+
+            <h5>Team Members:</h5>
+
             <table class="table align-middle mb-0 bg-white">
                 <thead class="bg-light">
                 <tr>
@@ -49,25 +53,23 @@
 
                 @foreach (var member in Model.TeamMembers)
                 {
-
                     <tr>
-                        <td>
-                            < class="d-flex align-items-center">
+                        <td> 
                             <img src=@member.ProfileImageUrl
                                  alt=""
                                  style="width: 45px; height: 45px"
-                                 class="rounded-circle" />
+                                 class="rounded-circle"/>
 
                         </td>
                         <td>
                             <p class="fw-bold mb-1">@member.Name</p>
-                               
+
                         </td>
 
 
                         <td>
                             <a asp-controller="User" asp-action="Details" asp-route-userId="@member.Id" class="btn btn-warning btn-rounded">View Details</a>
-                                <a asp-controller="Team" asp-action="RemoveMember" asp-route-userId="@member.Id" asp-route-teamId="@Model.Id" class="btn btn-info btn-rounded">Remove Member</a>
+                            <a asp-controller="Team" asp-action="RemoveMember" asp-route-userId="@member.Id" asp-route-teamId="@Model.Id" class="btn btn-info btn-rounded">Remove Member</a>
                         </td>
                     </tr>
                 }
@@ -78,57 +80,69 @@
 
 
             <hr/>
-            <hr />
-            <hr />
+            <hr/>
+            <hr/>
 
-            
+
             <h5>Member Requests:</h5>
 
             <table class="table align-middle mb-0 bg-white">
                 <thead class="bg-light">
-                    <tr>
-                        <th> Photo</th>
-                        <th> Name</th>
-                        <th>Options</th>
-                    </tr>
+                <tr>
+                    <th> Photo</th>
+                    <th> Name</th>
+                    <th>Options</th>
+                </tr>
                 </thead>
                 <tbody>
 
-                    @foreach (var member in Model.MembersRequests)
-                    {
+                @foreach (var member in Model.MembersRequests)
+                {
+                    <tr>
+                        <td>
+                            < class="d-flex align-items-center">
+                            <img src=@member.ProfileImageUrl
+                                 alt=""
+                                 style="width: 45px; height: 45px"
+                                 class="rounded-circle"/>
 
-                        <tr>
-                            <td>
-                                < class="d-flex align-items-center">
-                                <img src=@member.ProfileImageUrl
-                             alt=""
-                             style="width: 45px; height: 45px"
-                             class="rounded-circle" />
+                        </td>
+                        <td>
+                            <p class="fw-bold mb-1">@member.Name</p>
 
-                            </td>
-                            <td>
-                                    <p class="fw-bold mb-1">@member.Name</p>
-                               
-                            </td>
+                        </td>
 
 
-                            <td >
-                                <a asp-controller="Team" asp-action="AddMember" asp-route-memberId="@member.Id" asp-route-teamId="@Model.Id" class="btn btn-info btn-rounded" method="post">AddMember</a>
-                                <a asp-controller="Team" asp-action="RejectRequest" asp-route-memberId="@member.Id" class="btn btn-warning btn-rounded">RejectRequest</a>
-                            </td>
-                        </tr>
-                    }
+                        <td >
+                            <a asp-controller="Team" asp-action="AddMember" asp-route-memberId="@member.Id" asp-route-teamId="@Model.Id" class="btn btn-info btn-rounded" method="post">AddMember</a>
+                            <a asp-controller="Team" asp-action="RejectRequest" asp-route-memberId="@member.Id" class="btn btn-warning btn-rounded">RejectRequest</a>
+                        </td>
+                    </tr>
+                }
 
 
                 </tbody>
             </table>
-
         }
-     
+        else
+        {
+            <a asp-controller="Team" asp-action="RequestToJoin" class="btn btn-warning mb-2 w-100 p-3 fw-bold" asp-route-teamId="@Model.Id">Request to join </a>
+            <a asp-controller="Team" asp-action="All" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Back to All Teams</a>
+        }
+
+
+
+
+
+
+
+
+
+
 
     </div>
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
 }

@@ -10,8 +10,8 @@
 
         public Town()
         {
-            this.TownEvents = new HashSet<Event>();
-            this.TownUsers = new HashSet<AppUser>();
+            TownEvents = new HashSet<Event>();
+            TownUsers = new HashSet<AppUser>();
         }
         
 

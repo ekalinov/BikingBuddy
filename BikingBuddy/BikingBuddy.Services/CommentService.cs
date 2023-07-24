@@ -17,8 +17,8 @@ namespace BikingBuddy.Services
 
         public CommentService(IEventService _eventService, BikingBuddyDbContext _dbContext)
         {
-            this.eventService = _eventService;
-            this.dbContext = _dbContext;
+            eventService = _eventService;
+            dbContext = _dbContext;
         }
 
 
