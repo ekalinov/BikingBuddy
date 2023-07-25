@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace BikingBuddy.Web.Models.Bike
+﻿namespace BikingBuddy.Web.Models.Bike
 {
     public class BikeDetailsViewModel
     {

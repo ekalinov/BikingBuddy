@@ -21,7 +21,7 @@
 
         public EventService(BikingBuddyDbContext _dbContext)
         {
-           dbContext = _dbContext;
+            dbContext = _dbContext;
         }
 
 
@@ -29,7 +29,7 @@
         public async Task<ICollection<AllEventsViewModel>> GetAllEventsAsync()
         {
             var allEvents = await dbContext.Events
-                .Where(e=>e.IsDeleted==false)
+                .Where(e => e.IsDeleted == false)
                 .Select(e => new AllEventsViewModel()
                 {
                     Id = e.Id.ToString(),
@@ -77,7 +77,7 @@
             var eventParticipants = await GetEventParticipants(id);
 
             var eventById = await dbContext.Events
-                .Where(e => e.Id.ToString() == id && e.IsDeleted==false)
+                .Where(e => e.Id.ToString() == id && e.IsDeleted == false)
                 .OrderByDescending(e => e.Date)
                 .Select(e => new EventDetailsViewModel()
                 {
@@ -123,7 +123,6 @@
         //Delete
         public async Task DeleteEventAsync(string eventId)
         {
-            
             Event? eventToDelete = await GetEventByIdAsync(eventId);
 
             if (eventToDelete != null)
@@ -168,8 +167,8 @@
         public async Task<EditEventViewModel?> GetEventViewModelByIdAsync(string id)
         {
             return await dbContext.Events
-                .Where(e => e.Id.ToString() == id 
-                              && e.IsDeleted==false)
+                .Where(e => e.Id.ToString() == id
+                            && e.IsDeleted == false)
                 .Select(e => new EditEventViewModel()
                 {
                     EventId = e.Id.ToString(),
@@ -180,6 +179,7 @@
                     Ascent = e.Ascent,
                     EventImageUrl = e.EventImageUrl!,
                     TownName = e.Town.Name,
+                    OrganiserId = e.OrganizerId.ToString()
                 })
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
@@ -188,7 +188,7 @@
         public async Task<IList<EventMiniViewModel>> GetNewestEventsAsync()
         {
             return await dbContext.Events
-                .Where(e=>e.IsDeleted==false && e.Date > DateTime.Today)
+                .Where(e => e.IsDeleted == false && e.Date > DateTime.Today)
                 .OrderByDescending(e => e.CreatedOn)
                 .Select(e => new EventMiniViewModel()
                 {
@@ -206,7 +206,7 @@
         public async Task<AllEventsFilteredAndPagedServiceModel> AllAsync(AllEventsQueryModel queryModel)
         {
             IQueryable<Event> eventsQuery = dbContext.Events
-                .Where(e=>e.IsDeleted==false)
+                .Where(e => e.IsDeleted == false)
                 .AsQueryable();
 
             if (!String.IsNullOrWhiteSpace(queryModel.ActivityType))
@@ -268,7 +268,7 @@
 
         public async Task<int> GetActiveEventsCountAsync()
         {
-            return await  dbContext.Events
+            return await dbContext.Events
                 .Where(e => e.IsDeleted == false && e.Date > DateTime.Today)
                 .CountAsync();
         }
@@ -276,14 +276,14 @@
         public async Task<int> GetAllEventsCountAsync()
         {
             return await dbContext.Events
-                .Where(e=> e.IsDeleted==false)
+                .Where(e => e.IsDeleted == false)
                 .CountAsync();
         }
 
         public async Task<Event?> GetEventByIdAsync(string id)
         {
             return await dbContext.Events
-                .Where(e => e.Id == Guid.Parse(id) && e.IsDeleted==false)
+                .Where(e => e.Id == Guid.Parse(id) && e.IsDeleted == false)
                 .FirstOrDefaultAsync();
         }
 
@@ -341,20 +341,6 @@
             return activityTypes;
         }
 
-        public async Task<List<CountryViewModel>> GetCountriesAsync()
-        {
-            var countries = await dbContext.Countries
-                .Select(a => new CountryViewModel()
-                {
-                    Id = a.Code,
-                    Name = a.Name
-                })
-                .AsNoTracking()
-                .ToListAsync();
-
-            return countries;
-        }
-
         public async Task<int?> GetCompletedEventsCountByUserAsync(string userId)
         {
             return await dbContext.EventsParticipants
@@ -372,6 +358,17 @@
                     ProfileImageUrl = ep.Participant.ProfileImageUrl
                 })
                 .ToListAsync();
+        }
+
+        public async Task<bool> IsOrganiser(string eventId, string userId)
+        {
+            Event? eventToCheck = await GetEventByIdAsync(eventId);
+            if (eventToCheck != null)
+            {
+                return eventToCheck.OrganizerId.ToString() == userId;
+            }
+
+            return false;
         }
 
         public async Task<bool> IsParticipating(string eventId, string userId)
@@ -416,6 +413,20 @@
             }
 
             return town;
+        }
+
+        public async Task<List<CountryViewModel>> GetCountriesAsync()
+        {
+            var countries = await dbContext.Countries
+                .Select(a => new CountryViewModel()
+                {
+                    Id = a.Code,
+                    Name = a.Name
+                })
+                .AsNoTracking()
+                .ToListAsync();
+
+            return countries;
         }
     }
 }

@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using BikingBuddy.Data;
 using BikingBuddy.Data.Models;
-using BikingBuddy.Services;
 using BikingBuddy.Services.Contracts;
 using BikingBuddy.Web.Infrastructure.Extensions;
 using BikingBuddy.Web.Infrastructure.ModelBinders;
@@ -61,6 +60,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+
 
 if (app.Environment.IsDevelopment())
 {

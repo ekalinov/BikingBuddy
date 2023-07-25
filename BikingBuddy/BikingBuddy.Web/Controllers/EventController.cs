@@ -1,4 +1,5 @@
-﻿using BikingBuddy.Services.Data.Models.Events;
+﻿using BikingBuddy.Common;
+using BikingBuddy.Services.Data.Models.Events;
 
 namespace BikingBuddy.Web.Controllers
 {
@@ -115,8 +116,17 @@ namespace BikingBuddy.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(string eventId)
         {
+
+            
             EditEventViewModel? editAddEvent = await service.GetEventViewModelByIdAsync(eventId);
 
+            if (!await service.IsOrganiser(eventId,User.GetId()) && !User.IsAdmin())
+            { 
+                TempData[ErrorMessage] = UnauthorizedForError;
+                return Unauthorized();
+            }
+            
+            
             if (editAddEvent != null)
             {
                 editAddEvent.ActivityTypes = await service.GetActivityTypesAsync();
@@ -146,6 +156,12 @@ namespace BikingBuddy.Web.Controllers
                 return View(model);
 
             }
+            
+            if (!await service.IsOrganiser(model.EventId,User.GetId()) && !User.IsAdmin())
+            { 
+                TempData[ErrorMessage] = UnauthorizedForError;
+                return Unauthorized();
+            }
 
 
             try
@@ -170,6 +186,12 @@ namespace BikingBuddy.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(string eventId)
         {
+            
+            if (!await service.IsOrganiser(eventId,User.GetId()) && !User.IsAdmin())
+            { 
+                TempData[ErrorMessage] = UnauthorizedForError;
+                return Unauthorized();
+            }
  
             try
             {
@@ -191,7 +213,7 @@ namespace BikingBuddy.Web.Controllers
 
             try
             {
-                if (!await service.IsParticipating(eventId, User.GetId()))
+                if (!await service.IsParticipating(eventId, User.GetId()) )
                 {
                     await service.JoinEventAsync(User.GetId(), eventId);
                     TempData[SuccessMessage] = SuccessJoiningEvent;

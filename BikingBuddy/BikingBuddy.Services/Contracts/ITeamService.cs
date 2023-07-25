@@ -36,5 +36,6 @@
 
         Task RemoveRequest(string userId, string teamId);
         Task<int> GetTeamsCountAsync();
+        Task<bool> IsManager(string teamId, string userId);
     }
 }

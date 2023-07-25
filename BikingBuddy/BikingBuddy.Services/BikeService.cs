@@ -9,7 +9,6 @@ namespace BikingBuddy.Services
 
     using Web.Models.Bike;
     using Web.Models.BikeType;
-    using Data;
     using Contracts; 
 
     public class BikeService : IBikeService

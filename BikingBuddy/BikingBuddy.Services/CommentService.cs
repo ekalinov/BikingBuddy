@@ -3,8 +3,6 @@ using BikingBuddy.Data.Models;
 
 namespace BikingBuddy.Services
 {
-    using Data;
-    using Data.Models;
     using Contracts;
     using Web.Models.Comment;
 

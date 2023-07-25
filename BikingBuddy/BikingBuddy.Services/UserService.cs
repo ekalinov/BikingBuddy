@@ -4,9 +4,7 @@ using BikingBuddy.Data.Models;
 namespace BikingBuddy.Services
 {
     using Microsoft.EntityFrameworkCore;
-    using Data;
     using Contracts;
-    using Data.Models;
     using Web.Models.User;
 
     public class UserService : IUserService

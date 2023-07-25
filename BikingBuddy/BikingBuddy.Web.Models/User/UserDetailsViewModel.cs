@@ -2,8 +2,6 @@
 
 namespace BikingBuddy.Web.Models.User
 {
-    using System.ComponentModel.DataAnnotations;
-    
     using Event;
     using Team;
 

@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.InteropServices;
 using BikingBuddy.Web.Models.Activity;
 using BikingBuddy.Web.Models.Event.Enums;
 

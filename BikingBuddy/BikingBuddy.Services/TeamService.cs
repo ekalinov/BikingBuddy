@@ -64,7 +64,8 @@
                     TeamImageUrl = t.TeamImageUrl,
                     EstablishedOn = t.EstablishedOn,
                     Description = t.Description,
-                    TownName = t.Town.Name
+                    TownName = t.Town.Name,
+                    TeamManagerId = t.TeamManagerId.ToString(),
                 }).FirstOrDefaultAsync();
         }
 
@@ -265,6 +266,18 @@
             return await dbContext.Teams
                 .Where(t => t.IsDeleted == false)
                 .CountAsync();
+        }
+
+        public async Task<bool> IsManager(string teamId, string userId)
+        {
+            Team? teamToCheck = await GetTeamByIdAsync(teamId);
+
+            if (teamToCheck != null)
+            {
+                return teamToCheck.TeamManager.Id.ToString() == userId;
+            }
+
+            return false;
         }
 
 

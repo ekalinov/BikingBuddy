@@ -8,7 +8,10 @@
 
             public const string EventSuccessfullyEdited = "Event is successfully edited!";
 
+
             public const string EditEventError = "Something went wrong while Editing this event!";
+            
+            public const string UnauthorizedForError = "Error: Only Organisers of the event can edit or delete it!";
 
             
             public const string EventDeletedSuccessfully = "Event is successfully deleted!";
@@ -79,7 +82,11 @@
 
             public const string AllTeamsLoadingFail = "Something went wrong while loading all teams!";
 
+            //UnAuthorize 
+            public const string UnauthorizedErrorMessage = "Error: Only Team Managers can edit or delete team info!";
 
+
+            
             //Add Team Messages
 
             public const string CountriesNotPreloaded = "Countries are not preloaded!";

@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using BikingBuddy.Common;
 using BikingBuddy.Web.Models.Activity;  
 
 using static BikingBuddy.Common.EntityValidationsConstants.Event;
@@ -51,12 +49,7 @@ namespace BikingBuddy.Web.Models.Event
 
         public string CountryId { get; set; } = null!;
 
-        [StringLength(MunicipalityNameMaxLength,
-            ErrorMessage = "Municipality must be between {2} and {1}", MinimumLength = MunicipalityNameMinLength)]
-
-        public string? Municipality { get; set; }
-
-
+     
         [Required]
         [StringLength(TownNameMaxLength,
             ErrorMessage = "Municipality must be between {2} and {1}", MinimumLength = TownNameMinLength)]

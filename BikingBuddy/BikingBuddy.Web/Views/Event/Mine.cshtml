@@ -1,11 +1,12 @@
-﻿@model ICollection<AllEventsViewModel>
+﻿@using BikingBuddy.Web.Infrastructure.Extensions
+@model ICollection<AllEventsViewModel>
 @{
     ViewBag.Title = "All of the Events Around You";
 }
 
 
 <h2 class="text-center">@ViewBag.Title</h2>
-<hr />
+<hr/>
 
 <div class="text-center row">
 
@@ -30,30 +31,29 @@
                 </div>
 
 
-
                 <a asp-controller="Event" asp-action="Details" asp-route-eventId="@e.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">View Details</a>
-                @if (User.Identity?.Name == e.OrganizerUsername)
+                @if (User.Identity?.Name == e.OrganizerUsername || User.IsAdmin())
                 {
                     <a asp-controller="Event" asp-action="Edit" asp-route-eventId="@e.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
+                    <a asp-controller="Event" asp-action="Delete" asp-route-eventId="@e.Id" class="btn btn-danger mb-2 w-100 p-3 fw-bold">Edit</a>
                 }
                 else
                 {
                     <form class="input-group-sm " asp-controller="Event" asp-action="Leave" asp-route-eventId="@e.Id">
-                        <input type="submit" value="Leave Event" class="fs-6 btn btn-warning mb-3 w-100 p-3 fw-bold" />
+                        <input type="submit" value="Leave Event" class="fs-6 btn btn-warning mb-3 w-100 p-3 fw-bold"/>
                     </form>
                 }
             </div>
         }
-
     }
-    
-    
-    <a asp-controller="Event" asp-action="Add"  class="btn btn-warning mb-2 w-100 p-3 fw-bold">Create new Event</a>
+
+
+    <a asp-controller="Event" asp-action="Add" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Create new Event</a>
     <a asp-controller="Event" asp-action="Mine" class="btn btn-warning mb-2 w-100 p-3 fw-bold">My Events</a>
 
 
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
 }

@@ -1,10 +1,12 @@
-﻿using BikingBuddy.Services.Contracts;
+﻿using BikingBuddy.Common;
+using BikingBuddy.Services.Contracts;
 using BikingBuddy.Web.Infrastructure.Extensions;
 using BikingBuddy.Web.Models.Team;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using static BikingBuddy.Common.NotificationMessagesConstants;
-using static BikingBuddy.Common.ErrorMessages.TeamErrorMessages;
+using static BikingBuddy.Common.ErrorMessages.TeamErrorMessages; 
 
 namespace BikingBuddy.Web.Controllers
 {
@@ -23,6 +25,7 @@ namespace BikingBuddy.Web.Controllers
 
 
         //Read
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string teamId)
         {
 
@@ -35,13 +38,12 @@ namespace BikingBuddy.Web.Controllers
             {
                 TempData[ErrorMessage] = TeamDoesNotExist;
             }
-
-
+ 
             return RedirectToAction("All", "Team");
-
-
+ 
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> All()
         {
             try
@@ -128,6 +130,12 @@ namespace BikingBuddy.Web.Controllers
         {
             EditTeamViewModel? teamModel = await teamService.GetTeamToEditAsync(teamId);
 
+            if (!await teamService.IsManager(teamId,User.GetId()) && !User.IsAdmin())
+            { 
+                TempData[ErrorMessage] = UnauthorizedErrorMessage;
+                return Unauthorized();
+            }
+            
             try
             {
                 if (teamModel != null)
@@ -153,6 +161,11 @@ namespace BikingBuddy.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(string teamId)
         {
+            if (!await teamService.IsManager(teamId,User.GetId()) && !User.IsAdmin())
+            { 
+                TempData[ErrorMessage] = UnauthorizedErrorMessage;
+                return Unauthorized();
+            }
  
             try
             {
@@ -187,7 +200,12 @@ namespace BikingBuddy.Web.Controllers
                 return View(model);
             }
 
-
+            if (!await teamService.IsManager(model.Id,User.GetId()) && !User.IsAdmin())
+            { 
+                TempData[ErrorMessage] = UnauthorizedErrorMessage;
+                return Unauthorized();
+            }
+            
             try
             {
                 await teamService.EditTeam(model, model.Id);
@@ -285,10 +303,14 @@ namespace BikingBuddy.Web.Controllers
 
         public async Task<IActionResult> RemoveMember(string memberId, string teamId)
         {
-
+            if (await teamService.IsManager(teamId,User.GetId()) && !User.IsAdmin())
+            { 
+                TempData[ErrorMessage] = UnauthorizedErrorMessage;
+                return Unauthorized();
+            }
             try
             {
-                if (await teamService.IsMemberAsync(memberId, teamId))
+                if (!await teamService.IsMemberAsync(memberId, teamId))
                 {
                     await teamService.RemoveMemberAsync(memberId, teamId);
                     TempData[SuccessMessage] = MemberRemovedSuccessfully;

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using static BikingBuddy.Common.GlobalConstants;
 
 namespace BikingBuddy.Web.Infrastructure.Extensions
 {
@@ -12,6 +8,12 @@ namespace BikingBuddy.Web.Infrastructure.Extensions
         public static string GetId(this ClaimsPrincipal user)
         {
           return user.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        }
+        
+        public static bool IsAdmin(this ClaimsPrincipal user)
+        {
+            return user.IsInRole(AdminRoleName);
 
         }
     }

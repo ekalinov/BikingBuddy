@@ -2,7 +2,6 @@
 {
 
     using System.ComponentModel.DataAnnotations;
-    using System.Diagnostics;
     using static BikingBuddy.Common.EntityValidationsConstants.Town;
 
     public class Town

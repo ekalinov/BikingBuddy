@@ -1,4 +1,5 @@
-﻿@model TeamDetailsViewModel
+﻿@using BikingBuddy.Web.Infrastructure.Extensions
+@model TeamDetailsViewModel
 
 
 <h2 class="text-center">Team Details</h2>
@@ -25,7 +26,7 @@
 
         <hr/>
 
-        @if (User.Identity?.Name == Model.TeamManager)
+        @if (User.Identity?.Name == Model.TeamManager  || User.IsAdmin())
         {
             <a asp-controller="Team" asp-action="Edit" class="btn btn-warning mb-2 w-100 p-3 fw-bold" asp-route-teamId="@Model.Id">Edit Team </a>
 
@@ -128,18 +129,7 @@
         {
             <a asp-controller="Team" asp-action="RequestToJoin" class="btn btn-warning mb-2 w-100 p-3 fw-bold" asp-route-teamId="@Model.Id">Request to join </a>
             <a asp-controller="Team" asp-action="All" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Back to All Teams</a>
-        }
-
-
-
-
-
-
-
-
-
-
-
+        } 
     </div>
 </div>
 
