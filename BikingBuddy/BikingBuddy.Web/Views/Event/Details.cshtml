@@ -5,12 +5,18 @@
 
 @{
     var modelComments = @Model.EventComments;
+    ViewBag.Title = "Event Details";
 }
 
 
-<div class="row">
+<div>
+    @await Html.PartialAsync("_EventTopBannerPartial")
+</div>
 
-<h2 class="text-center">Details</h2>
+<hr/>
+<div class=" text-center ">
+    <h5 class="">@ViewBag.Title</h5>
+</div>
 <hr />
     <div class="card w-100">
         <div class="card-body">
@@ -90,8 +96,7 @@
             }
         }
 
-    </div>
-</div>
+    </div> 
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

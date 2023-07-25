@@ -3,21 +3,24 @@
     ViewBag.Title = $"Edit Event {Model.Title}";
 }
 
+<div>
+    @await Html.PartialAsync("_EventTopBannerPartial")
+</div>
 
 <h2 class="text-center">@ViewBag.Title</h2>
-<hr />
+<hr/>
 
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-        <form asp-action="Edit" method="post">
+        <form asp-action="Edit" enctype="multipart/form-data"  method="post">
             <div class="mb-3">
                 <label asp-for="@Model.Title" class="form-label-add-edit">Name</label>
-                <input asp-for="@Model.Title" class="form-control" aria-required="true" />
+                <input asp-for="@Model.Title" class="form-control" aria-required="true"/>
                 <span asp-validation-for="@Model.Title" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.Date" class="form-label-add-edit">Start</label>
-                <input type="datetime" asp-for="@Model.Date" class="form-control" aria-required="true" value="@DateTime.Now.ToString("yyyy-MM-dd H:mm")" />
+                <input  asp-for="@Model.Date" class="form-control" aria-required="true" value="@DateTime.Now.ToString("yyyy-MM-dd H:mm")"/>
                 <span asp-validation-for="@Model.Date" class="text-danger"></span>
             </div>
             <div class="mb-3">
@@ -27,12 +30,12 @@
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.Distance" class="form-label">Distance</label>
-                <input type="text" asp-for="@Model.Distance" class="form-control" />
+                <input type="text" asp-for="@Model.Distance" class="form-control"/>
                 <span asp-validation-for="@Model.Distance" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.Ascent" class="form-label">Ascent</label>
-                <input type="text" asp-for="@Model.Ascent" class="form-control" />
+                <input type="text" asp-for="@Model.Ascent" class="form-control"/>
                 <span asp-validation-for="@Model.Ascent" class="text-danger"></span>
             </div>
             <div class="mb-3">
@@ -57,16 +60,32 @@
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.TownName" class="form-label-add-edit">Town</label>
-                <input asp-for="@Model.TownName" class="form-control" aria-required="true" />
+                <input asp-for="@Model.TownName" class="form-control" aria-required="true"/>
                 <span asp-validation-for="@Model.TownName" class="text-danger"></span>
-            </div> 
-            <div class="mb-3">
-                <label asp-for="@Model.EventImageUrl" class="form-label-add-edit">Image URL</label>
-                <input asp-for="@Model.EventImageUrl" class="form-control" aria-required="true" />
-                <span asp-validation-for="@Model.EventImageUrl" class="text-danger"></span>
+            </div>
+            <div class="input-group mb-3">
+
+                <div class="custom-file">
+                    <input asp-for="EventImage" class="custom-file-input" id="inputGroupFile02" aria-describedby="inputGroupFileAddon01">
+                    <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+
+                    <span asp-validation-for="EventImage" class="text-danger"></span>
+                </div>
+                <script>
+                                   $('#inputGroupFile02').on('change',function(){
+                                       //get the file name
+                                       var fileName = $(this).val();
+                                       //replace the "Choose a file" label
+                                       $(this).next('.custom-file-label').html(fileName);
+                                   })
+                               </script>
             </div>
             <div class="mb-3">
-                <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" asp-route-eventId="@Model.EventId"  value="Edit" />
+                <input class="btn btn-warning mb-2 w-100 p-3 fw-bold"
+                       type="submit"
+                       asp-route-eventId="@Model.EventId"
+                       asp-route-OrganiserId="@Model.OrganiserId"
+                       value="Edit"/>
             </div>
         </form>
     </div>
@@ -74,5 +93,5 @@
 
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
 }

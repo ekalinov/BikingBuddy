@@ -175,7 +175,7 @@
                     Title = e.Title,
                     Date = e.Date.ToString(DateTimeFormats.DateTimeFormat),
                     Description = e.Description,
-                    Distance = e.Distance,
+                    Distance = e.Distance,  
                     Ascent = e.Ascent,
                     EventImageUrl = e.EventImageUrl!,
                     TownName = e.Town.Name,

@@ -288,8 +288,7 @@ a:hover {
     text-decoration: underline;
 }
 
-a:not([href]) {
-    color: inherit;
+a:not([href]) {  
     text-decoration: none;
 }
 

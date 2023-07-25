@@ -1584,7 +1584,9 @@ namespace BikingBuddy.Data.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("EventImageUrl")
-                        .HasColumnType("nvarchar(max)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("/FileStorage/EventPhotos/default_event_image.jpg");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");

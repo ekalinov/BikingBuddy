@@ -19,6 +19,9 @@
                 .WithMany(e => e.CountryEvents)
                 .HasForeignKey(e => e.CountryId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Property(e => e.EventImageUrl)
+                .HasDefaultValue("/FileStorage/EventPhotos/default_event_image.jpg");
         }
     }
 }
