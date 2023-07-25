@@ -48,8 +48,22 @@ color: #fff;
     color: var(--primary-color);
 }
 
+.event-card{
+     min-height: 450px;
+    
+}
 
+.event-card-img{
+    min-height: 220px;
 
+}
+
+.baner-right-button-line{
+
+    display: inline-flex;
+    align-content: stretch;
+    justify-content: space-between;
+}
 
 .card-title h5 {
     margin-bottom: 0.75rem;

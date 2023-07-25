@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
 using BikingBuddy.Data;
 using BikingBuddy.Data.Models;
 using BikingBuddy.Services;
 using BikingBuddy.Services.Contracts;
 using BikingBuddy.Web.Infrastructure.Extensions;
 using BikingBuddy.Web.Infrastructure.ModelBinders;
+using static BikingBuddy.Common.GlobalConstants;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,23 +18,24 @@ builder.Services.AddDbContext<BikingBuddyDbContext>(options =>
 
 builder.Services.AddDefaultIdentity<AppUser>(options =>
     {
-        options.SignIn.RequireConfirmedAccount = builder.Configuration.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
+        options.SignIn.RequireConfirmedAccount =
+            builder.Configuration.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
 
 
         options.Password.RequireDigit = builder.Configuration.GetValue<bool>("Identity:Password:RequireDigit");
-        options.Password.RequireNonAlphanumeric= builder.Configuration.GetValue<bool>("Identity:Password:RequireNonAlphanumeric");
-        options.Password.RequireLowercase= builder.Configuration.GetValue<bool>("Identity:Password:");
-        options.Password.RequireUppercase= builder.Configuration.GetValue<bool>("Identity:Password:RequireUppercase");
-        options.Password.RequireNonAlphanumeric= builder.Configuration.GetValue<bool>("Identity:Password:RequireNonAlphanumeric");
+        options.Password.RequireNonAlphanumeric =
+            builder.Configuration.GetValue<bool>("Identity:Password:RequireNonAlphanumeric");
+        options.Password.RequireLowercase = builder.Configuration.GetValue<bool>("Identity:Password:");
+        options.Password.RequireUppercase = builder.Configuration.GetValue<bool>("Identity:Password:RequireUppercase");
+        options.Password.RequireNonAlphanumeric =
+            builder.Configuration.GetValue<bool>("Identity:Password:RequireNonAlphanumeric");
         options.Password.RequiredLength = builder.Configuration.GetValue<int>("Identity:Password:RequiredLength");
     })
+    .AddRoles<IdentityRole<Guid>>()
     .AddEntityFrameworkStores<BikingBuddyDbContext>();
 
 builder.Services.AddControllersWithViews()
-    .AddMvcOptions(options =>
-    {
-        options.ModelBinderProviders.Insert(0, new DoubleModelBinderProvider ());
-    });
+    .AddMvcOptions(options => { options.ModelBinderProviders.Insert(0, new DoubleModelBinderProvider()); });
 
 builder.Services.AddApplicationServices(typeof(IEventService));
 
@@ -60,6 +61,11 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+if (app.Environment.IsDevelopment())
+{
+    app.SeedAdministrator(AdminRoleEmail);
+}
 
 app.MapControllerRoute(
     name: "default",

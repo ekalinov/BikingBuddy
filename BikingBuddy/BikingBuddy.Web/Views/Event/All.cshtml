@@ -3,21 +3,27 @@
     ViewBag.Title = "All of the Events Around You";
 }
 
- <section class="allEvents-banner py-5" id="features">
-     <div class="col-lg-6 pr-lg-6 mb-lg-0 mb-6">
-                       <div class="w3l-header-sec text-left mb-md-5 mb-4" style="margin-left: 160px;">
-                           <h6 class="title-subhny mb-2">Upcoming events</h6>
-                           <h5 class="">Find your journey here</h5> 
-                       </div>
-                   </div>
-  </section> 
+<section class="allEvents-banner py-5  row" id="features">
+    <div class="col-lg-6 pr-lg-6 mb-lg-0 mb-6">
+        <div class="w3l-header-sec text-left mb-md-5 mb-4" style="margin-left: 160px;">
+            <h6 class="title-subhny mb-2">Upcoming events</h6>
+            <h5 class="">Find your journey here</h5>
+        </div>
+    </div>
+    <div class="col-lg-6 pr-lg-6 mb-lg-0 mb-6 ">
+        <div class="w3l-header-sec text-left mb-md-5 mb-4" style="margin-left: 160px;">
+            <h6 class="title-subhny mb-2">Have something on your mind</h6> 
+            <a class=" w3ls-text"> Add new event! </a> 
+        </div>
+    </div>
+</section>
 <hr/>
-<div class=" text-center "> 
-    <h5 class="">@ViewBag.Title</h5> 
+<div class=" text-center ">
+    <h5 class="">@ViewBag.Title</h5>
 </div>
 
 <form method="get" class="container">
-    <div class="row ">
+    <div class="row mb-3 ">
         <div class="col-2 sorting">
             <label asp-for="ActivityType"></label>
             <select asp-for="ActivityType" class="form-control sorting">
@@ -55,40 +61,17 @@
 
 
         <div class="col-2" style="display: inline-block; padding-top: 32px">
-            <input type="submit" value="Search" class="btn btn-primary"/>
+            <input type="submit" value="Sort" class="btn btn-primary"/>
         </div>
 
     </div>
 
     <div class="rides">
-        <div class="container">
-            <div>
-                <h3>Upcoming Rides</h3>
-            </div>
-            <div class="card-deck">
-                @foreach (var e in Model.Events)
-                {
-                    <div class="col-md-4">
-                        <div class="card mb-3">
-                            <img src=@e.EventImageUrl class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">@e.Title</h5>
-                                <p class="card-text">Town: @e.Town</p>
-                                <p class="card-text">Distance: @e.Distance</p>
-                                <p class="card-text">Date: @e.Date</p>
-                                <p class="card-text"> Activity Type: @e.ActivityType</p>
-                                <a class="btn btn-primary" asp-action="Details" asp-route-eventId="@e.Id">View Details</a>
-
-                            </div>
-                        </div>
-                    </div>
-                }
-
-            </div>
-
-
+        <div>
+            @await Html.PartialAsync("_AllEventsPartial", @Model.Events)
         </div>
-        <nav aria-label="Page navigation example" class="pagination justify-content-center ">
+
+        <nav aria-label="Page navigation example" class="pagination justify-content-center m-1 ">
 
             @{
                 int previousPage = Model.CurrentPage - 1;
@@ -105,8 +88,8 @@
             <ul class="pagination justify-content-center ">
                 @if (@Model.CurrentPage != 1)
                 {
-                    <li class="page-item">
-                        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+                    <li class="page-item m-1">
+                        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled mr-2 ml-2" : string.Empty)"
                            asp-controller="Event"
                            asp-action="All"
                            asp-route-currentPage="@previousPage"
@@ -121,8 +104,8 @@
 
                 @for (int i = 1; i <= maxPage; i++)
                 {
-                    <li class="page-item">
-                        <a class="btn btn-primary @(Model.CurrentPage == @i ? "disabled" : string.Empty)"
+                    <li class="page-item m-1">
+                        <a class="btn btn-primary @(Model.CurrentPage == @i ? "disabled mr-2 ml-2" : string.Empty)"
                            asp-controller="Event"
                            asp-action="All"
                            asp-route-currentPage="@i"
@@ -140,9 +123,9 @@
 
                 @if (@Model.CurrentPage != maxPage)
                 {
-                    <li class="page-item">
+                    <li class="page-item m-1">
                         <a class="btn btn-primary 
-                                                @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
+                                                @(shouldNextPageBeDisabled ? "disabled mr-2 ml-2" : string.Empty)"
                            asp-controller="Event"
                            asp-action="All"
                            asp-route-currentPage="@(Model.CurrentPage + 1)"

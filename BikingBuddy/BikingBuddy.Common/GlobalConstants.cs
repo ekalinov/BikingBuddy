@@ -8,6 +8,11 @@
         public const int EntitiesPerPage = 3;
 
         public const string EventDefaultImageUrl = "";
+        
+        public const string AdminRoleName = "Administrator";
+        public const string AdminRoleEmail = "admin@bbuddy.com";
+
+
     }
 
     public static class DateTimeFormats
@@ -28,10 +33,9 @@
 
         public const string SuccessMessage = "SuccessMessage";
 
-
-
-
-
+ 
     }
+    
+    
 
 }
