@@ -17,6 +17,7 @@
     public class EventService : IEventService
     {
         private readonly BikingBuddyDbContext dbContext;
+        
 
 
         public EventService(BikingBuddyDbContext _dbContext)
@@ -387,6 +388,8 @@
         }
 
 
+        
+        
         //----------------------------------------------
 
         /// <summary>

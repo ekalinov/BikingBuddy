@@ -73,16 +73,7 @@ namespace BikingBuddy.Web.Controllers
 
             if (model.EventImage != null)
             {
-                string folderStorage = "FileStorage/EventPhotos/";
-
-                folderStorage += Guid.NewGuid() + ".jpg";
-
-
-                string serverFolder = Path.Combine(environment.WebRootPath, folderStorage);
-
-                await model.EventImage.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
-
-                model.EventImageUrl = "/" + folderStorage;
+                await UploadPhotoToLocalStorageAsync(model);
             }
 
             string userId = User.GetId();
@@ -159,16 +150,7 @@ namespace BikingBuddy.Web.Controllers
 
             if (model.EventImage != null)
             {
-                string folderStorage = "FileStorage/EventPhotos/";
-
-                folderStorage += Guid.NewGuid() + ".jpg";
-
-
-                string serverFolder = Path.Combine(environment.WebRootPath, folderStorage);
-
-                await model.EventImage.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
-
-                model.EventImageUrl = "/" + folderStorage;
+                await UploadPhotoToLocalStorageAsync(model);
             }
 
             if (!await service.IsOrganiser(model.EventId, User.GetId()) && !User.IsAdmin())
@@ -191,6 +173,8 @@ namespace BikingBuddy.Web.Controllers
                 return RedirectToAction("All", "Event");
             }
         }
+
+        
 
 
         //Delete
@@ -265,6 +249,7 @@ namespace BikingBuddy.Web.Controllers
             return RedirectToAction("All", "Event");
         }
 
+        
 
         public async Task<IActionResult> Mine()
         {
@@ -279,5 +264,35 @@ namespace BikingBuddy.Web.Controllers
                 return RedirectToAction("All");
             }
         }
+        
+        //-------------Upload Files--------------------
+
+        private async Task UploadPhotoToLocalStorageAsync(EditEventViewModel model)
+        { 
+            string folderStorage = "FileStorage/EventPhotos/";
+
+            folderStorage += Guid.NewGuid() + ".jpg";
+
+
+            string serverFolder = Path.Combine(environment.WebRootPath, folderStorage);
+
+            await model.EventImage!.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+
+            model.EventImageUrl = "/" + folderStorage;
+        }
+        private async Task UploadPhotoToLocalStorageAsync(AddEventViewModel model)
+        { 
+            string folderStorage = "FileStorage/EventPhotos/";
+
+            folderStorage += Guid.NewGuid() + ".jpg";
+
+
+            string serverFolder = Path.Combine(environment.WebRootPath, folderStorage);
+
+            await model.EventImage!.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+
+            model.EventImageUrl = "/" + folderStorage;
+        }
+
     }
 }
