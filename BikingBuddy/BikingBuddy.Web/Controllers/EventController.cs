@@ -259,18 +259,16 @@ namespace BikingBuddy.Web.Controllers
         }
 
 
-        public async Task<IActionResult> Mine()
+        public async Task<IActionResult> Mine([FromQuery] AllEventsQueryModel queryModel)
         {
-            try
-            {
-                var userEvents = await service.GetEventsByUserIdAsync(User.GetId());
-                return View(userEvents);
-            }
-            catch (Exception)
-            {
-                TempData[ErrorMessage] = UserDoesNotHaveEvents;
-                return RedirectToAction("All");
-            }
+            AllEventsFilteredAndPagedServiceModel serviceModel = await service.MineAsync(queryModel,User.GetId());
+
+            queryModel.Events = serviceModel.AllEvents;
+            queryModel.TotalEventsCount = serviceModel.TotalEventsCount;
+            queryModel.ActivityTypes = await service.GetActivityTypesAsync();
+
+
+            return View(queryModel);
         }
         
         

@@ -59,5 +59,6 @@ namespace BikingBuddy.Services.Contracts
         Task<int> GetActiveEventsCountAsync();
         Task<int> GetAllEventsCountAsync();
         Task<bool> IsOrganiser(string eventId, string userId);
+        Task<AllEventsFilteredAndPagedServiceModel> MineAsync(AllEventsQueryModel queryModel, string userId);
     }
 }
