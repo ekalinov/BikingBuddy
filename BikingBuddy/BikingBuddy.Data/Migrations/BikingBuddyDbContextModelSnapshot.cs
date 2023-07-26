@@ -1660,7 +1660,9 @@ namespace BikingBuddy.Data.Migrations
                         .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("TeamImageUrl")
-                        .HasColumnType("nvarchar(max)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("/FileStorage/TeamPhotos/default_team_image.jpg");
 
                     b.Property<Guid>("TeamManagerId")
                         .HasColumnType("uniqueidentifier");
