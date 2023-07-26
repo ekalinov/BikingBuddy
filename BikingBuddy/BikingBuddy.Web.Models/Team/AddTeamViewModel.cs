@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Http;
 using static BikingBuddy.Common.EntityValidationsConstants.Team;
 
 namespace BikingBuddy.Web.Models.Team
@@ -24,6 +26,13 @@ namespace BikingBuddy.Web.Models.Team
 
         [Url]
         public string? TeamImageUrl { get; set; }
+
+        [Display(Name = "Choose your Team photo")]    
+        public IFormFile? TeamImage { get; set; }
+
+        [NotMapped]
+        [FileExtensions(ErrorMessage = "Supported file extensions are .jpg, .jpeg and .png")]
+        public string? FileName => TeamImage?.FileName;
 
 
         public ICollection<CountryViewModel> CountriesCollection { get; set; }

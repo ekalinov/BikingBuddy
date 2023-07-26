@@ -1,4 +1,7 @@
-﻿namespace BikingBuddy.Services
+﻿
+
+
+namespace BikingBuddy.Services
 {
     using Microsoft.EntityFrameworkCore;
     using BikingBuddy.Data;
@@ -13,13 +16,17 @@
         private readonly BikingBuddyDbContext dbContext;
         private readonly IUserService userService;
 
-        public TeamService(IEventService _eventService, BikingBuddyDbContext _dbContext, IUserService _userService)
+        public TeamService(IEventService _eventService,
+            BikingBuddyDbContext _dbContext, 
+            IUserService _userService)
         {
             eventService = _eventService;
             dbContext = _dbContext;
-            userService = _userService;
+            userService = _userService; 
+
         }
 
+        
         //Details
         public async Task<TeamDetailsViewModel?> GetTeamDetailsAsync(string teamId)
         {
@@ -297,5 +304,44 @@
                 .Where(t => t.Id == Guid.Parse(id) && t.IsDeleted == false)
                 .FirstOrDefaultAsync();
         }
+        
+        
+        public async Task UploadPhotoToLocalStorageAsync(EditTeamViewModel model, string envWebRoot)
+        {
+            var ext = Path.GetExtension(model.TeamImage!.FileName).ToLowerInvariant();
+ 
+
+            string folderStorage = "FileStorage/TeamPhotos/";
+
+            folderStorage += Guid.NewGuid() + ext;
+
+
+            string serverFolder = Path.Combine(envWebRoot, folderStorage);
+
+            await model.TeamImage!.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+
+            model.TeamImageUrl = "/" + folderStorage;
+        }
+
+
+        public async Task UploadPhotoToLocalStorageAsync(AddTeamViewModel model,string envWebRoot)
+        {
+            var ext = Path.GetExtension(model.TeamImage!.FileName).ToLowerInvariant();
+           
+            string folderStorage = "FileStorage/TeamPhotos/";
+
+            folderStorage += Guid.NewGuid() + ext;
+
+
+            string serverFolder = Path.Combine(envWebRoot, folderStorage);
+
+            await model.TeamImage!.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+
+            model.TeamImageUrl = "/" + folderStorage;
+        }
+        
+        
     }
+    
+    
 }

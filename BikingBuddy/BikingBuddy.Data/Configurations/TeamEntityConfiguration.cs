@@ -16,6 +16,9 @@ namespace BikingBuddy.Data.Configurations
                 .HasForeignKey(e => e.TeamId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            
+            builder.Property(e => e.TeamImageUrl)
+                .HasDefaultValue("/FileStorage/TeamPhotos/default_team_image.jpg");
         }
     }
 }

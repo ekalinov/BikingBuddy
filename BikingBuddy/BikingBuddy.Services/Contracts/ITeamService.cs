@@ -37,5 +37,8 @@
         Task RemoveRequest(string userId, string teamId);
         Task<int> GetTeamsCountAsync();
         Task<bool> IsManager(string teamId, string userId);
+        Task UploadPhotoToLocalStorageAsync(EditTeamViewModel model, string envWebRoot);
+        Task UploadPhotoToLocalStorageAsync(AddTeamViewModel model, string envWebRoot);
+
     }
 }
