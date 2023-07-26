@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using BikingBuddy.Common;
 using BikingBuddy.Web.Models.Activity;
 using Microsoft.AspNetCore.Http;
 using static BikingBuddy.Common.EntityValidationsConstants.Event;
@@ -39,8 +41,13 @@ namespace BikingBuddy.Web.Models.Event
 
         [Required] [Range(0, 1000)] public double Ascent { get; set; }
 
-        [Display(Name="Choose the cover photo of your event")]
+        [Display(Name = "Choose the cover photo of your event")]    
         public IFormFile? EventImage { get; set; }
+
+        [NotMapped]
+        [FileExtensions(ErrorMessage = "Supported file extensions are .jpg, .jpeg and .png")]
+        public string? FileName => EventImage?.FileName;
+        
 
         public ICollection<CountryViewModel> CountriesCollection { get; set; }
 

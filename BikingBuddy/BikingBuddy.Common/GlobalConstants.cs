@@ -6,12 +6,17 @@
         public const int ApplicationReleaseYear = 2023;
         public const int DefaultPage = 1;
         public const int EntitiesPerPage = 3;
-
-        public const string EventDefaultImageUrl = "";
+ 
         
         public const string AdminRoleName = "Administrator";
         public const string AdminRoleEmail = "admin@bbuddy.com";
 
+
+        public const long MaxPhotoSizeAllowed = 5242880;
+        public const string MaxPhotoSizeAllowedErrorMessage =  "Error: Allowed photo size is up to 5Mb!";
+
+
+        
 
     }
 

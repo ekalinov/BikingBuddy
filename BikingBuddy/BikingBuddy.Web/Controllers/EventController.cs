@@ -1,5 +1,7 @@
 ﻿using BikingBuddy.Common;
 using BikingBuddy.Services.Data.Models.Events;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace BikingBuddy.Web.Controllers
 {
@@ -8,8 +10,9 @@ namespace BikingBuddy.Web.Controllers
     using Models.Event;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using static  ErrorMessages.EventErrorMessages;
-    using static  NotificationMessagesConstants;
+    using static ErrorMessages.EventErrorMessages;
+    using static NotificationMessagesConstants;
+    using static GlobalConstants;
 
     public class EventController : BaseController
     {
@@ -63,6 +66,12 @@ namespace BikingBuddy.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddEventViewModel model)
         {
+            
+            if (model.EventImage is { Length: >= MaxPhotoSizeAllowed })
+            {
+                ModelState.AddModelError((string)"EventImage",MaxPhotoSizeAllowedErrorMessage); 
+            }
+            
             if (!ModelState.IsValid)
             {
                 model.ActivityTypes = await service.GetActivityTypesAsync();
@@ -122,24 +131,27 @@ namespace BikingBuddy.Web.Controllers
             }
 
 
-            if (editAddEvent != null)
-            {
-                editAddEvent.ActivityTypes = await service.GetActivityTypesAsync();
-                editAddEvent.CountriesCollection = await service.GetCountriesAsync();
-
-                return View(editAddEvent);
-            }
-            else
+            if (editAddEvent == null)
             {
                 TempData[ErrorMessage] = EventNotExistsMessage;
                 return RedirectToAction("All");
             }
+
+            editAddEvent.ActivityTypes = await service.GetActivityTypesAsync();
+            editAddEvent.CountriesCollection = await service.GetCountriesAsync();
+            return View(editAddEvent);
         }
 
-
+    
         [HttpPost]
         public async Task<IActionResult> Edit(EditEventViewModel model)
         {
+            
+            if (model.EventImage is { Length: >= MaxPhotoSizeAllowed })
+            {
+                ModelState.AddModelError((string)"EventImage",MaxPhotoSizeAllowedErrorMessage); 
+            }
+            
             if (!ModelState.IsValid)
             {
                 model.ActivityTypes = await service.GetActivityTypesAsync();
@@ -157,8 +169,7 @@ namespace BikingBuddy.Web.Controllers
             {
                 TempData[ErrorMessage] = UnauthorizedForError;
                 return Unauthorized();
-            }
-
+            } 
 
             try
             {
@@ -173,8 +184,6 @@ namespace BikingBuddy.Web.Controllers
                 return RedirectToAction("All", "Event");
             }
         }
-
-        
 
 
         //Delete
@@ -249,7 +258,6 @@ namespace BikingBuddy.Web.Controllers
             return RedirectToAction("All", "Event");
         }
 
-        
 
         public async Task<IActionResult> Mine()
         {
@@ -265,13 +273,18 @@ namespace BikingBuddy.Web.Controllers
             }
         }
         
+        
+
         //-------------Upload Files--------------------
 
         private async Task UploadPhotoToLocalStorageAsync(EditEventViewModel model)
-        { 
+        {
+            var ext = Path.GetExtension(model.EventImage!.FileName).ToLowerInvariant();
+ 
+
             string folderStorage = "FileStorage/EventPhotos/";
 
-            folderStorage += Guid.NewGuid() + ".jpg";
+            folderStorage += Guid.NewGuid() + ext;
 
 
             string serverFolder = Path.Combine(environment.WebRootPath, folderStorage);
@@ -280,11 +293,15 @@ namespace BikingBuddy.Web.Controllers
 
             model.EventImageUrl = "/" + folderStorage;
         }
+
+
         private async Task UploadPhotoToLocalStorageAsync(AddEventViewModel model)
-        { 
+        {
+            var ext = Path.GetExtension(model.EventImage!.FileName).ToLowerInvariant();
+           
             string folderStorage = "FileStorage/EventPhotos/";
 
-            folderStorage += Guid.NewGuid() + ".jpg";
+            folderStorage += Guid.NewGuid() + ext;
 
 
             string serverFolder = Path.Combine(environment.WebRootPath, folderStorage);
@@ -294,5 +311,19 @@ namespace BikingBuddy.Web.Controllers
             model.EventImageUrl = "/" + folderStorage;
         }
 
+        //TODO: IMPORT GPX file track to event
+        private async Task UploadTrackFileToLocalStorageAsync(EditEventViewModel model)
+        {
+            string folderStorage = "FileStorage/EventPhotos/";
+
+            folderStorage += Guid.NewGuid() + ".gpx";
+
+
+            string serverFolder = Path.Combine(environment.WebRootPath, folderStorage);
+
+            await model.EventImage!.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+
+            model.EventImageUrl = "/" + folderStorage;
+        }
     }
 }
