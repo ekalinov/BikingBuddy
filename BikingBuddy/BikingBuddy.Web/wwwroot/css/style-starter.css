@@ -13,7 +13,7 @@ Author URL: http://w3layouts.com
 
 /*custom  appClasses*/
 
-.allEvents-banner {
+.allEvents-banner { 
     background: url(../images/AllEventsBannerPhoto.jpg) no-repeat 0% 80%;
     background-size: cover;
     z-index: 0;
@@ -40,6 +40,36 @@ font-size: 40px;
 line-height: 44px;
 font-weight: 700;
 color: #fff;
+
+}
+
+
+.allTeam-banner {
+    background: url(../images/Team_topBanner.jpg) no-repeat 46% 46%; 
+    z-index: 0;
+    position: relative;
+    display: grid;
+    align-items: center;
+}
+
+.allTeam-banner::before    {
+    content: "";
+    background: var(--bg-layer);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+}
+
+.allTeam-banner h5{
+
+
+    font-size: 40px;
+    line-height: 44px;
+    font-weight: 700;
+    color: #fff;
 
 }
 .heading-sec{
