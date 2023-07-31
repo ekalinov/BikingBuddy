@@ -11,8 +11,52 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr/>
 
-<div class="row">
-    <div class="card">
+<div class="row ">
+    <div class="card col-3 ek-containers-margin" @*style="width: 18rem;"*@>
+        <img src=@Model.TeamImageUrl class="card-img-top" alt="...">
+        <div class="card-body">
+            <h3 class="card-title text-center">@Model.Name</h3>
+            <p class="mb-0">
+                <span class="fw-bold">Location: </span> @Model.Town , @Model.Country
+            </p>
+
+            <p class="mb-0">
+                <span class="fw-bold">Team Manager: </span>@Model.TeamManager
+            </p>
+            <p class="mb-0">
+                <span class="fw-bold">Established: </span>@Model.EstablishedOn
+            </p>
+        
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                
+                 <div class="stats w3-left" text-align: -webkit-center>
+                                  <div class="row w3l-stats-section stats-con">
+                                      <div class=" stats_info counter_grid">
+                                          <i class="far fa-users" style="margin-top: 12px;"></i>
+                                          <p class="counter">@Model.TeamMembers.Count </p>
+                                          <h3>Members</h3>
+                                      </div>
+                                      <div class=" stats_info counter_grid ">
+                                           <i class="fas fa-user"></i>
+                                          <p class="counter">@Model.MembersRequests.Count</p>
+                                          <h3>Requests</h3>
+                                      </div> 
+                                  </div>
+                              </div>
+            </li>
+            <li class="list-group-item">
+                <a href="about.html" class="btn btn-primary btn-white btn-style mt-lg-5 mt-4"> Read More </a>
+            </li>
+            <li class="list-group-item">Vestibulum at eros</li>
+        </ul>
+        <div class="card-body">
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+        </div>
+    </div>
+    <div class="card col-8 ek-containers-margin">
         <div class="card-body">
             <img class="img-fluid" style="width: 18rem;"
                  src="@Model.TeamImageUrl" alt="Book Image">
@@ -32,7 +76,7 @@
 
         <hr/>
 
-        @if (User.Identity?.Name == Model.TeamManager  || User.IsAdmin())
+        @if (User.Identity?.Name == Model.TeamManager || User.IsAdmin())
         {
             <a asp-controller="Team" asp-action="Edit" class="btn btn-warning mb-2 w-100 p-3 fw-bold" asp-route-teamId="@Model.Id">Edit Team </a>
 
@@ -40,9 +84,9 @@
             <form class="ml-2" asp-controller="Team" asp-action="Delete"
                   asp-route-teamId="@Model.Id" method="post">
                 <input class="btn btn-danger mb-2 w-100 p-3 fw-bold" type="submit" value="Delete Team"/>
-                
-                <a   class="btn btn-danger mb-2 w-100 p-3 fw-bold" type="submit" >Delete Team</a>
-                
+
+                <a class="btn btn-danger mb-2 w-100 p-3 fw-bold" type="submit">Delete Team</a>
+
             </form>
 
 
@@ -61,7 +105,7 @@
                 @foreach (var member in Model.TeamMembers)
                 {
                     <tr>
-                        <td> 
+                        <td>
                             <img src=@member.ProfileImageUrl
                                  alt=""
                                  style="width: 45px; height: 45px"
@@ -135,7 +179,7 @@
         {
             <a asp-controller="Team" asp-action="RequestToJoin" class="btn btn-warning mb-2 w-100 p-3 fw-bold" asp-route-teamId="@Model.Id">Request to join </a>
             <a asp-controller="Team" asp-action="All" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Back to All Teams</a>
-        } 
+        }
     </div>
 </div>
 

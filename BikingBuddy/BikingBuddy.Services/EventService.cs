@@ -76,11 +76,11 @@
         public async Task<EventDetailsViewModel?> GetEventDetailsByIdAsync(string id)
         {
             var eventParticipants = await GetEventParticipants(id);
-
+            
+            
             var eventById = await dbContext.Events
-                .Where(e => e.Id.ToString() == id && e.IsDeleted == false)
-                .OrderByDescending(e => e.Date)
-                .Select(e => new EventDetailsViewModel()
+                .Where(e => e.Id.ToString() == id && e.IsDeleted == false) 
+                .Select(e => new EventDetailsViewModel
                 {
                     Id = e.Id.ToString(),
                     Title = e.Title,
@@ -90,15 +90,17 @@
                     Ascent = e.Ascent.ToString(CultureInfo.InvariantCulture),
                     OrganizerName = e.Organizer.Name,
                     OrganizerUsername = e.Organizer.UserName,
-                    EventImageUrl = e.EventImageUrl!,
+                    EventImageUrl = e.EventImageUrl,
                     ActivityType = e.ActivityType.Name,
                     Country = $"{e.Country.Name}, {e.CountryId}",
                     Town = e.Town.Name,
-                    EventsParticipants = eventParticipants
+                    EventsParticipants = eventParticipants,
+                    EventComments = null,
+                    
                 })
                 .FirstOrDefaultAsync();
 
-            return eventById;
+         return eventById;
         }
 
         //Update
@@ -254,7 +256,7 @@
                     ActivityType = e.ActivityType.Name,
                     Distance = $"{e.Distance} km",
                     Date = e.Date.ToString(DateTimeFormats.DateTimeFormat),
-                    EventImageUrl = e.EventImageUrl!,
+                    EventImageUrl = e.EventImageUrl,
                     Description = e.Description,
                     Town = e.Town.Name,
                 }).ToListAsync();

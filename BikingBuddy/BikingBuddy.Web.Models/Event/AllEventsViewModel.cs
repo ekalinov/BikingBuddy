@@ -6,10 +6,7 @@ namespace BikingBuddy.Web.Models.Event
     public class AllEventsViewModel : EventMiniViewModel
     {
 
-        public AllEventsViewModel()
-        {
-            Comments = new HashSet<CommentViewModel>();
-        }
+       
 
         public string Distance { get; set; } = null!;
 
@@ -17,7 +14,6 @@ namespace BikingBuddy.Web.Models.Event
         
         public string Town { get; set; } = null!;
 
-        public ICollection<CommentViewModel> Comments { get; set; } 
 
     }
 }

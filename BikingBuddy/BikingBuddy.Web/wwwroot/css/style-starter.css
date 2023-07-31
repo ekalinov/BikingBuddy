@@ -72,6 +72,12 @@ color: #fff;
     color: #fff;
 
 }
+
+.ek-containers-margin{
+
+    margin: 0 10px;
+}
+
 .heading-sec{
     
     font-size: 50px;
@@ -858,11 +864,12 @@ pre code {
 
 .row {
 
-    justify-content: center;
+    justify-content: space-around;
     display: flex;
     flex-wrap: wrap;
     margin-right: -15px;
-    margin-left: -15px;
+    margin-left: -15px;     
+    align-items: stretch;
 }
 
 .no-gutters {
@@ -5183,7 +5190,6 @@ input[type="button"].btn-block {
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
-    background-color: #fff;
     background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0.25rem;
@@ -5968,8 +5974,7 @@ a.badge-dark.focus {
 .list-group-item {
     position: relative;
     display: block;
-    padding: 0.75rem 1.25rem;
-    background-color: #fff;
+    padding: 0.75rem 1.25rem; 
     border: 1px solid rgba(0, 0, 0, 0.125);
 }
 
@@ -19304,7 +19309,7 @@ h2.resp-accordion:first-child {
 
 /*--/w3l-stats--*/
 .stats_info {
-    text-align: left;
+    text-align: center;
     padding: 0 30px;
 }
 
