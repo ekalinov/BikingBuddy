@@ -1,0 +1,24 @@
+@model ICollection<AllEventsViewModel>
+
+
+<div class="container">
+    <div class="card-deck">
+        @foreach (var e in Model)
+        {
+            <div class="col-md-4">
+                <div class="card mb-4 event-card">
+                    <img src=@e.EventImageUrl class="card-img-top event-card-img" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@e.Title</h5>
+                        <p class="card-text">Town: @e.Town</p>
+                        <p class="card-text">Distance: @e.Distance</p>
+                        <p class="card-text">Date: @e.Date</p>
+                        <p class="card-text"> Activity Type: @e.ActivityType</p>
+                    </div>
+                    <a class="btn btn-primary m-1" asp-action="Details" asp-route-eventId="@e.Id">View Details</a>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

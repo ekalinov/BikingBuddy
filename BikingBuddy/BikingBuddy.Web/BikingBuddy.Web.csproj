@@ -27,6 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Administration\Data\" />
+    <Folder Include="Areas\Administration\Models\" />
     <Folder Include="Views\Comment\" />
     <Folder Include="wwwroot\FileStorage\CourseTracks\" />
     <Folder Include="wwwroot\FileStorage\EventPhotos\" />

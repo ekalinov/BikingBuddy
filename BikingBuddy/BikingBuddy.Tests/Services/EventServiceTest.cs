@@ -1,36 +1,31 @@
 using System.Globalization;
-using BikingBuddy.Common;
 using BikingBuddy.Data;
 using BikingBuddy.Data.Models;
 using BikingBuddy.Services;
 using BikingBuddy.Services.Contracts;
-using BikingBuddy.Services.Data.Models.Events;
-using BikingBuddy.Web.Models;
 using BikingBuddy.Web.Models.Activity;
 using BikingBuddy.Web.Models.Event;
 using BikingBuddy.Web.Models.Event.Enums;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Primitives;
 
 namespace BikingBuddy.Tests.Services;
 
 [TestFixture]
 public class EventServiceTest
 {
-    private BikingBuddyDbContext dbContext;
-    private IEventService eventService;
+    private BikingBuddyDbContext dbContext= null!;
+    private IEventService eventService= null!;
+    private AddEventViewModel testEventModel= null!;
 
-    private AddEventViewModel testEventModel;
 
+    private ICollection<ActivityTypeViewModel> testActivityTypesModels = null!;
 
-    private ICollection<ActivityTypeViewModel> testActivityTypesModels;
+    private string testEventId= null!;
+    private string testEventTitle= null!;
+    private string testEventDescription= null!;
 
-    private string? testEventId;
-    private string testEventTitle;
-    private string testEventDescription;
-
-    private string? testUserId;
-    private string testUserName;
+    private string testUserId= null!;
+    private string testUserName= null!;
 
     [SetUp]
     public async Task Setup()
@@ -211,7 +206,7 @@ public class EventServiceTest
 
         Assert.Multiple(() =>
         {
-            Assert.That(testModel.Title, Is.EqualTo(testEventTitle));
+            Assert.That(testModel!.Title, Is.EqualTo(testEventTitle));
             Assert.That(testModel.Description, Is.EqualTo(testEventDescription));
             Assert.That(testModel.OrganiserId, Is.EqualTo(testUserId));
         });
@@ -243,7 +238,7 @@ public class EventServiceTest
     {
         var eventToEdit = await eventService.GetEventViewModelByIdAsync(testEventId);
 
-        eventToEdit.Title = "Edited Title";
+        eventToEdit!.Title = "Edited Title";
         eventToEdit.Distance = 200;
         eventToEdit.Ascent = 250;
         eventToEdit.Description = "Edited testEventDescription description";
@@ -252,11 +247,11 @@ public class EventServiceTest
         await eventService.EditEventAsync(eventToEdit, testEventId);
 
 
-        var editedEvent = await eventService.GetEventByIdAsync(testEventId);
+        Event? editedEvent = await eventService.GetEventByIdAsync(testEventId);
 
-        Assert.Multiple(async () =>
+        Assert.Multiple( () =>
         {
-            Assert.That(editedEvent.Title, Is.EqualTo("Edited Title"));
+            Assert.That(editedEvent!.Title, Is.EqualTo("Edited Title"));
             Assert.That(editedEvent.Description, Is.EqualTo("Edited testEventDescription description"));
             Assert.That(editedEvent.Distance, Is.EqualTo(200));
             Assert.That(editedEvent.Ascent, Is.EqualTo(250));
@@ -267,12 +262,10 @@ public class EventServiceTest
     [Test]
     public async Task AllAsync_ValidEntry()
     {
-        AllEventsFilteredAndPagedServiceModel all;
-        
         var queryModel = new AllEventsQueryModel
         {
             ActivityType = "MTBiking",
-            SearchTerm = "asdsadsa",
+            SearchTerm = "Running",
             Sorting = EventSorting.Newest,
             CurrentPage = 0,
             EventsPerPage = 1,
@@ -281,7 +274,7 @@ public class EventServiceTest
             Events = await eventService.GetAllEventsAsync()
         };
 
-        all =  await eventService.AllAsync(queryModel);
+        var all = await eventService.AllAsync(queryModel);
 
        Assert.That(all.AllEvents.Count, Is.EqualTo(0));
 
@@ -312,7 +305,7 @@ public class EventServiceTest
 
         Assert.Multiple(() =>
         {
-            Assert.That(testModel.Title, Is.EqualTo(testEventTitle));
+            Assert.That(testModel!.Title, Is.EqualTo(testEventTitle));
             Assert.That(testModel.Description, Is.EqualTo(testEventDescription));
             Assert.That(testModel.OrganizerName, Is.EqualTo(testUserName));
         });
@@ -321,11 +314,11 @@ public class EventServiceTest
     [Test]
     public async Task GetEventByIdAsync_ValidEntry()
     {
-        var testEvent = await eventService.GetEventByIdAsync(testEventId);
+        Event? testEvent = await eventService.GetEventByIdAsync(testEventId);
 
         Assert.Multiple(() =>
         {
-            Assert.That(testEvent.Title, Is.EqualTo(testEventTitle));
+            Assert.That(testEvent!.Title, Is.EqualTo(testEventTitle));
             Assert.That(testEvent.Description, Is.EqualTo(testEventDescription));
             Assert.That(testEvent.Id, Is.EqualTo(Guid.Parse(testEventId)));
         });

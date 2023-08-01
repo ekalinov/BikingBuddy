@@ -11,6 +11,8 @@
         public const string AdminRoleName = "Administrator";
         public const string AdminRoleEmail = "admin@bbuddy.com";
 
+        public const string AdminAreaName = "Administration";
+
 
         public const long MaxPhotoSizeAllowed = 5242880;
         public const string MaxPhotoSizeAllowedErrorMessage =  "Error: Allowed photo size is up to 5Mb!";
