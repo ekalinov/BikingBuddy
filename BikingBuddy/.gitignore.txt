@@ -474,3 +474,7 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 .idea/
+
+# Ignore any files in /bin and /obj Folders
+**/bin/*
+**/obj/*
