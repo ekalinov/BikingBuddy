@@ -1,148 +1,41 @@
-using System;
-using System.Collections.Generic;
+namespace BikingBuddy.Tests.Services;
+
 using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using BikingBuddy.Data;
-using BikingBuddy.Data.Models;
-using BikingBuddy.Services;
-using BikingBuddy.Services.Contracts;
-using BikingBuddy.Web.Models.Activity;
-using BikingBuddy.Web.Models.Event;
-using BikingBuddy.Web.Models.Event.Enums;
+
 using Microsoft.EntityFrameworkCore;
 
-namespace BikingBuddy.Tests.Services;
+using Data;
+using Data.Models;
+
+using BikingBuddy.Services;
+using BikingBuddy.Services.Contracts;
+
+using Web.Models.Event;
+using Web.Models.Event.Enums;
+
+
+
+using static DbSeeder;
 
 [TestFixture]
 public class EventServiceTest
 {
-    private BikingBuddyDbContext dbContext= null!;
-    private IEventService eventService= null!;
-    private AddEventViewModel testEventModel= null!;
-
-
-    private ICollection<ActivityTypeViewModel> testActivityTypesModels = null!;
-
-    private string testEventId= null!;
-    private string testEventTitle= null!;
-    private string testEventDescription= null!;
-
-    private string testUserId= null!;
-    private string testUserName= null!;
+    private BikingBuddyDbContext dbContext = null!;
+    private IEventService eventService = null!;
 
     [SetUp]
     public async Task Setup()
     {
-        Country testCountry1 = new()
-        {
-            Code = "BG",
-            Name = "Bulgaria"
-        };
-
-        Country testCountry2 = new()
-        {
-            Code = "USA",
-            Name = "USA"
-        };
-
-        var testCountries = new HashSet<Country>
-        {
-            testCountry1,
-            testCountry2
-        };
-
-        Town testTown = new Town
-        {
-            Id = 1,
-            Name = "Sofia"
-        };
-
-        testUserId = "df666d9f-4332-45ea-adae-36aba1f83289";
-
-        ActivityType testActivityType1 = new()
-        {
-            Id = 1,
-            Name = "MTBiking"
-        };
-        ActivityType testActivityType2 = new()
-        {
-            Id = 2,
-            Name = "Road Biking"
-        };
-
-
-        var testActivityTypes = new HashSet<ActivityType>()
-        {
-            testActivityType1,
-            testActivityType2
-        };
-
-
-        ActivityTypeViewModel testActivityTypeModel1 = new()
-        {
-            Id = 1,
-            ActivityTypeName = "MTBiking"
-        };
-        ActivityTypeViewModel testActivityTypeModel2 = new()
-        {
-            Id = 2,
-            ActivityTypeName = "Road Biking"
-        };
-
-
-        testActivityTypesModels = new HashSet<ActivityTypeViewModel>()
-        {
-            testActivityTypeModel1,
-            testActivityTypeModel2
-        };
-
-        testUserName = "Test Testov";
-
-        AppUser testUser = new()
-        {
-            Id = Guid.Parse(testUserId),
-            Name = testUserName,
-            Country = new Country { Name = "Bangladesh", Code = "BD" },
-            Town = testTown
-        };
-
-        testEventTitle = "Test Event";
-        testEventDescription = "Test Event Description";
-        testEventId = "cd0a1105-ba73-4da7-8769-f24c7a22b4b7";
-
-        Event testEvent = new()
-        {
-            Id = Guid.Parse(testEventId),
-            Title = testEventTitle,
-            CreatedOn = DateTime.UtcNow,
-            ActivityType = testActivityType1,
-            Description = testEventDescription,
-            OrganizerId = Guid.Parse(testUserId),
-            Organizer = testUser,
-            Country = testCountry1,
-            CountryId = testCountry1.Code,
-            Town = testTown,
-            TownId = 1,
-            IsDeleted = false
-        };
-
-
         var options = new DbContextOptionsBuilder<BikingBuddyDbContext>()
-            .UseInMemoryDatabase(databaseName: "BikingBuddyDbContextInMemory")
+            .UseInMemoryDatabase(databaseName: "BikingBuddyDbContextInMemory" + Guid.NewGuid() )
             .Options;
 
         dbContext = new BikingBuddyDbContext(options);
-
+        
         await dbContext.Database.EnsureDeletedAsync();
+        await dbContext.Database.EnsureCreatedAsync();
 
-        await dbContext.Events.AddAsync(testEvent);
-        await dbContext.AppUsers.AddAsync(testUser);
-        await dbContext.ActivityTypes.AddRangeAsync(testActivityTypes);
-        await dbContext.Countries.AddRangeAsync(testCountries);
-
-
-        await dbContext.SaveChangesAsync();
+        await SeedDatabase(dbContext);
 
         eventService = new EventService(dbContext);
     }
@@ -150,7 +43,7 @@ public class EventServiceTest
     [Test]
     public async Task AddEventAsync_ValidEntry()
     {
-        testEventModel = new AddEventViewModel
+        var testEventModel = new AddEventViewModel
         {
             Title = "testEventTitle2",
             Date = DateTime.UtcNow.AddDays(10).ToString(CultureInfo.InvariantCulture),
@@ -165,6 +58,8 @@ public class EventServiceTest
             TownName = "Sofia"
         };
 
+        string testUserId = testUser.Id.ToString();
+
         await eventService.AddEventAsync(testEventModel, testUserId);
 
         Assert.Multiple(async () =>
@@ -178,6 +73,8 @@ public class EventServiceTest
     [Test]
     public async Task DeleteEventAsync_ValidEntry()
     {
+        string testEventId = testEvent.Id.ToString();
+
         await eventService.DeleteEventAsync(testEventId);
 
         var events = await eventService.GetAllEventsAsync();
@@ -190,22 +87,31 @@ public class EventServiceTest
     {
         Assert.That(await dbContext.EventsParticipants.CountAsync(), Is.EqualTo(0));
 
+        string testUserId = testUser.Id.ToString();
+        string testEventId = testEvent.Id.ToString();
+
         await eventService.JoinEventAsync(testUserId, testEventId);
-
-        Assert.That(await dbContext.EventsParticipants.CountAsync(), Is.EqualTo(1));
-        Assert.That(await dbContext.EventsParticipants.AnyAsync(ep => ep.EventId == Guid.Parse(testEventId)));
-        Assert.That(await dbContext.EventsParticipants.AnyAsync(ep => ep.ParticipantId == Guid.Parse(testUserId)));
-
+        Assert.Multiple(async () =>
+        {
+            Assert.That(await dbContext.EventsParticipants.CountAsync(), Is.EqualTo(1));
+            Assert.That(await dbContext.EventsParticipants.AnyAsync(ep => ep.EventId == Guid.Parse(testEventId)));
+            Assert.That(await dbContext.EventsParticipants.AnyAsync(ep => ep.ParticipantId == Guid.Parse(testUserId)));
+        });
         await eventService.LeaveEventAsync(testUserId, testEventId);
 
 
         Assert.That(await dbContext.EventsParticipants.CountAsync(), Is.EqualTo(0));
     }
 
-
     [Test]
     public async Task GetEventViewModelByIdAsync_ValidEntry()
     {
+        string testUserId = testUser.Id.ToString();
+        string testEventId = testEvent.Id.ToString();
+        string testEventTitle = testEvent.Title;
+        string testEventDescription = testEvent.Description;
+
+
         var testModel = await eventService.GetEventViewModelByIdAsync(testEventId);
 
         Assert.Multiple(() =>
@@ -231,15 +137,18 @@ public class EventServiceTest
 
         Assert.Multiple(() =>
         {
-            Assert.That(activityTypes.Count, Is.EqualTo(2));
-            Assert.That( activityTypes.Any(model =>model.ActivityTypeName=="MTBiking" ));
-            Assert.That(activityTypes.Any(model =>model.ActivityTypeName=="Road Biking" ));
+            Assert.That(activityTypes.Count, Is.EqualTo(9));
+            Assert.That(activityTypes.Any(model => model.ActivityTypeName == "Mountain Biking"));
+            Assert.That(activityTypes.Any(model => model.ActivityTypeName == "Road Cycling"));
         });
     }
 
     [Test]
     public async Task EditEventAsync_ValidEntry()
+    
     {
+        string testEventId = testEvent.Id.ToString();
+
         var eventToEdit = await eventService.GetEventViewModelByIdAsync(testEventId);
 
         eventToEdit!.Title = "Edited Title";
@@ -253,7 +162,7 @@ public class EventServiceTest
 
         Event? editedEvent = await eventService.GetEventByIdAsync(testEventId);
 
-        Assert.Multiple( () =>
+        Assert.Multiple(() =>
         {
             Assert.That(editedEvent!.Title, Is.EqualTo("Edited Title"));
             Assert.That(editedEvent.Description, Is.EqualTo("Edited testEventDescription description"));
@@ -280,31 +189,50 @@ public class EventServiceTest
 
         var all = await eventService.AllAsync(queryModel);
 
-       Assert.That(all.AllEvents.Count, Is.EqualTo(0));
+        Assert.That(all.AllEvents, Is.Empty);
 
-       var queryModel1 = new AllEventsQueryModel
-       {
-           ActivityType = "MTBiking",
-           SearchTerm = "Biking",
-           Sorting = EventSorting.Newest,
-           CurrentPage = 0,
-           EventsPerPage = 1,
-           TotalEventsCount = 1,
-           ActivityTypes = await eventService.GetActivityTypesAsync(),
-           Events = await eventService.GetAllEventsAsync()
-       };
+        var queryModel1 = new AllEventsQueryModel
+        {
+            ActivityType ="Mountain Biking",
+            SearchTerm = "",
+            Sorting = EventSorting.Newest,
+            CurrentPage = 0,
+            EventsPerPage = 1,
+            TotalEventsCount = 1,
+            ActivityTypes = await eventService.GetActivityTypesAsync(),
+            Events = await eventService.GetAllEventsAsync()
+        };
 
-        all =  await eventService.AllAsync(queryModel1);
+        all = await eventService.AllAsync(queryModel1);
 
-       Assert.That(all.AllEvents.Count, Is.EqualTo(1));
+        Assert.That(all.AllEvents, Has.Count.EqualTo(1));
 
+        var queryModel2 = new AllEventsQueryModel
+        {
+            ActivityType = "Mountain Biking",
+            SearchTerm = "Biking",
+            Sorting = EventSorting.MostParticipants,
+            CurrentPage = 0,
+            EventsPerPage = 1,
+            TotalEventsCount = 1,
+            ActivityTypes = await eventService.GetActivityTypesAsync(),
+            Events = await eventService.GetAllEventsAsync()
+        };
 
+        all = await eventService.AllAsync(queryModel2);
 
+        Assert.That(all.AllEvents, Has.Count.EqualTo(1));
     }
 
     [Test]
     public async Task GetEventDetailsByIdAsync_ValidEntry()
     {
+        string testUserName = testUser.Name;
+        string testEventId = testEvent.Id.ToString();
+        string testEventTitle = testEvent.Title;
+        string testEventDescription = testEvent.Description;
+
+
         var testModel = await eventService.GetEventDetailsByIdAsync(testEventId);
 
         Assert.Multiple(() =>
@@ -318,13 +246,18 @@ public class EventServiceTest
     [Test]
     public async Task GetEventByIdAsync_ValidEntry()
     {
-        Event? testEvent = await eventService.GetEventByIdAsync(testEventId);
+        string testEventId = testEvent.Id.ToString();
+        string testEventTitle = testEvent.Title;
+        string testEventDescription = testEvent.Description;
+
+
+        Event? result = await eventService.GetEventByIdAsync(testEventId);
 
         Assert.Multiple(() =>
         {
-            Assert.That(testEvent!.Title, Is.EqualTo(testEventTitle));
-            Assert.That(testEvent.Description, Is.EqualTo(testEventDescription));
-            Assert.That(testEvent.Id, Is.EqualTo(Guid.Parse(testEventId)));
+            Assert.That(result!.Title, Is.EqualTo(testEventTitle));
+            Assert.That(result.Description, Is.EqualTo(testEventDescription));
+            Assert.That(result.Id, Is.EqualTo(Guid.Parse(testEventId)));
         });
     }
 }
