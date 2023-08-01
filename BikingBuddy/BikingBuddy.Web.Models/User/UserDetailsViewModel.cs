@@ -1,4 +1,5 @@
-﻿using BikingBuddy.Web.Models.Bike;
+﻿using System.Collections.Generic;
+using BikingBuddy.Web.Models.Bike;
 
 namespace BikingBuddy.Web.Models.User
 {

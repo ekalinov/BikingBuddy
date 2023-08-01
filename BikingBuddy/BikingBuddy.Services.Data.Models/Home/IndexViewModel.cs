@@ -1,4 +1,5 @@
-﻿using BikingBuddy.Web.Models.Event;
+﻿using System.Collections.Generic;
+using BikingBuddy.Web.Models.Event;
 
 namespace BikingBuddy.Services.Data.Models.Home;
 

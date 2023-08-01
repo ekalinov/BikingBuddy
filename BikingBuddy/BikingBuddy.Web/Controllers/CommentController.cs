@@ -1,4 +1,6 @@
-﻿namespace BikingBuddy.Web.Controllers
+﻿using System.Threading.Tasks;
+
+namespace BikingBuddy.Web.Controllers
 {
     using Services.Contracts;
     using Infrastructure.Extensions;

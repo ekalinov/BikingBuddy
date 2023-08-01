@@ -1,4 +1,7 @@
-﻿namespace BikingBuddy.Services.Contracts
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace BikingBuddy.Services.Contracts
 {
     using Web.Models.Comment;
     public interface ICommentService

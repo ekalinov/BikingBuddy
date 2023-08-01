@@ -1,4 +1,6 @@
-﻿namespace BikingBuddy.Web.Models.Event
+﻿using System.Collections.Generic;
+
+namespace BikingBuddy.Web.Models.Event
 {
     using Comment;
     using User;

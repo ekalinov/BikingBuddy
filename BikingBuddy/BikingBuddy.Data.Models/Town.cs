@@ -1,4 +1,6 @@
-﻿namespace BikingBuddy.Data.Models
+﻿using System.Collections.Generic;
+
+namespace BikingBuddy.Data.Models
 {
 
     using System.ComponentModel.DataAnnotations;

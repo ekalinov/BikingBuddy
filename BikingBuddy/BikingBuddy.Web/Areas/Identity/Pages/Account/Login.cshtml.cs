@@ -2,13 +2,16 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 using BikingBuddy.Data.Models;
-
+using Microsoft.Extensions.Logging;
 using static  BikingBuddy.Common.EntityValidationsConstants.User;
 
 namespace BikingBuddy.Web.Areas.Identity.Pages.Account

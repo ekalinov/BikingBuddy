@@ -1,4 +1,6 @@
-﻿namespace BikingBuddy.Web.Models.Team
+﻿using System.Collections.Generic;
+
+namespace BikingBuddy.Web.Models.Team
 {
 
     using User;

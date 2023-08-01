@@ -2,8 +2,10 @@
 using BikingBuddy.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using BikingBuddy.Services.Data.Models.Home;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
 using NuGet.Configuration;
 
 namespace BikingBuddy.Web.Controllers

@@ -1,4 +1,7 @@
-﻿namespace BikingBuddy.Web.Controllers
+﻿using System;
+using System.Threading.Tasks;
+
+namespace BikingBuddy.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
 

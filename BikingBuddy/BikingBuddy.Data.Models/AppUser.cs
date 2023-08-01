@@ -1,4 +1,7 @@
-﻿namespace BikingBuddy.Data.Models
+﻿using System;
+using System.Collections.Generic;
+
+namespace BikingBuddy.Data.Models
 {
     using Microsoft.AspNetCore.Identity;
     using System.ComponentModel.DataAnnotations;

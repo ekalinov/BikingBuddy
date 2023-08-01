@@ -1,4 +1,6 @@
-﻿using BikingBuddy.Data.Models;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using BikingBuddy.Data.Models;
 using BikingBuddy.Services.Data.Models.Events;
 
 namespace BikingBuddy.Services.Contracts

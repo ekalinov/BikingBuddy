@@ -1,4 +1,8 @@
+using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
 using BikingBuddy.Data;
 using BikingBuddy.Data.Models;
 using BikingBuddy.Services;
@@ -228,7 +232,7 @@ public class EventServiceTest
         Assert.Multiple(() =>
         {
             Assert.That(activityTypes.Count, Is.EqualTo(2));
-            Assert.That(activityTypes.Any(model =>model.ActivityTypeName=="MTBiking" ));
+            Assert.That( activityTypes.Any(model =>model.ActivityTypeName=="MTBiking" ));
             Assert.That(activityTypes.Any(model =>model.ActivityTypeName=="Road Biking" ));
         });
     }

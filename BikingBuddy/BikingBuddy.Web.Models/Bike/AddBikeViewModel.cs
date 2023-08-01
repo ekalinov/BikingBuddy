@@ -1,4 +1,5 @@
-﻿using BikingBuddy.Web.Models.BikeType;
+﻿using System.Collections.Generic;
+using BikingBuddy.Web.Models.BikeType;
 using System.ComponentModel.DataAnnotations;
 using static BikingBuddy.Common.EntityValidationsConstants.Bike;
 

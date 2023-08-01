@@ -1,4 +1,6 @@
-﻿namespace BikingBuddy.Web.Models.Comment
+﻿using System.Collections.Generic;
+
+namespace BikingBuddy.Web.Models.Comment
 {
     public class CommentSectionViewModel
     {

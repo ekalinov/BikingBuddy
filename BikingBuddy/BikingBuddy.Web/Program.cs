@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using BikingBuddy.Data;
@@ -5,6 +6,10 @@ using BikingBuddy.Data.Models;
 using BikingBuddy.Services.Contracts;
 using BikingBuddy.Web.Infrastructure.Extensions;
 using BikingBuddy.Web.Infrastructure.ModelBinders;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using static BikingBuddy.Common.GlobalConstants;
 
 var builder = WebApplication.CreateBuilder(args);
