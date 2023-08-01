@@ -74,11 +74,11 @@ public class EventServiceTest
     public async Task DeleteEventAsync_ValidEntry()
     {
         string testEventId = testEvent.Id.ToString();
-
+    
         await eventService.DeleteEventAsync(testEventId);
-
+    
         var events = await eventService.GetAllEventsAsync();
-
+    
         Assert.That(events.Count, Is.EqualTo(0));
     }
 
@@ -187,9 +187,9 @@ public class EventServiceTest
             Events = await eventService.GetAllEventsAsync()
         };
 
-        var all = await eventService.AllAsync(queryModel);
+        var result = await eventService.AllAsync(queryModel);
 
-        Assert.That(all.AllEvents, Is.Empty);
+        Assert.That(result.AllEvents, Is.Empty);
 
         var queryModel1 = new AllEventsQueryModel
         {
@@ -203,9 +203,9 @@ public class EventServiceTest
             Events = await eventService.GetAllEventsAsync()
         };
 
-        all = await eventService.AllAsync(queryModel1);
+        result = await eventService.AllAsync(queryModel1);
 
-        Assert.That(all.AllEvents, Has.Count.EqualTo(1));
+        Assert.That(result.AllEvents, Has.Count.EqualTo(1));
 
         var queryModel2 = new AllEventsQueryModel
         {
@@ -219,9 +219,131 @@ public class EventServiceTest
             Events = await eventService.GetAllEventsAsync()
         };
 
-        all = await eventService.AllAsync(queryModel2);
+        result = await eventService.AllAsync(queryModel2);
 
-        Assert.That(all.AllEvents, Has.Count.EqualTo(1));
+        Assert.That(result.AllEvents, Has.Count.EqualTo(1));
+        var queryModel3= new AllEventsQueryModel
+        {
+            ActivityType = "Mountain Biking",
+            SearchTerm = "Biking",
+            Sorting = EventSorting.ThisMonth,
+            CurrentPage = 0,
+            EventsPerPage = 1,
+            TotalEventsCount = 1,
+            ActivityTypes = await eventService.GetActivityTypesAsync(),
+            Events = await eventService.GetAllEventsAsync()
+        };
+        
+        result = await eventService.AllAsync(queryModel3);
+        
+        Assert.That(result.AllEvents, Has.Count.EqualTo(1));
+        
+        var queryModel4= new AllEventsQueryModel
+        {
+            ActivityType = "Mountain Biking",
+            SearchTerm = "Biking",
+            Sorting = EventSorting.ThisWeek,
+            CurrentPage = 0,
+            EventsPerPage = 1,
+            TotalEventsCount = 1,
+            ActivityTypes = await eventService.GetActivityTypesAsync(),
+            Events = await eventService.GetAllEventsAsync()
+        };
+        
+        result = await eventService.AllAsync(queryModel4);
+        
+        Assert.That(result.AllEvents, Has.Count.EqualTo(0));
+    }
+
+    [Test]
+    public async Task MineAsync_ValidEntry()
+    { 
+
+        string testUserId = testUser.Id.ToString();
+        string testEventId = testEvent.Id.ToString();
+
+        await eventService.JoinEventAsync(testUserId, testEventId);
+        
+        
+        var queryModel = new AllEventsQueryModel
+        {
+            ActivityType = "Mountain Biking",
+            SearchTerm = "Running",
+            Sorting = EventSorting.Newest,
+            CurrentPage = 0,
+            EventsPerPage = 1,
+            TotalEventsCount = 1,
+            ActivityTypes = await eventService.GetActivityTypesAsync(),
+            Events = await eventService.GetAllEventsAsync()
+        };
+        
+        var result = await eventService.MineAsync(queryModel,testUserId);
+        
+        Assert.That(result.AllEvents, Is.Empty);
+        
+        var queryModel1 = new AllEventsQueryModel
+        {
+            ActivityType ="Mountain Biking",
+            SearchTerm = "",
+            Sorting = EventSorting.Newest,
+            CurrentPage = 0,
+            EventsPerPage = 1,
+            TotalEventsCount = 1,
+            ActivityTypes = await eventService.GetActivityTypesAsync(),
+            Events = await eventService.GetAllEventsAsync()
+        };
+        
+        result = await eventService.MineAsync(queryModel1,testUserId);
+        
+        Assert.That(result.AllEvents, Has.Count.EqualTo(1));
+        
+        var queryModel2 = new AllEventsQueryModel
+        {
+            ActivityType = "Mountain Biking",
+            SearchTerm = "Biking",
+            Sorting = EventSorting.MostParticipants,
+            CurrentPage = 0,
+            EventsPerPage = 1,
+            TotalEventsCount = 1,
+            ActivityTypes = await eventService.GetActivityTypesAsync(),
+            Events = await eventService.GetAllEventsAsync()
+        };
+        
+        result = await eventService.MineAsync(queryModel2,testUserId);
+        
+        Assert.That(result.AllEvents, Has.Count.EqualTo(1));
+        
+        var queryModel3= new AllEventsQueryModel
+        {
+            ActivityType = "Mountain Biking",
+            SearchTerm = "Biking",
+            Sorting = EventSorting.ThisMonth,
+            CurrentPage = 0,
+            EventsPerPage = 1,
+            TotalEventsCount = 1,
+            ActivityTypes = await eventService.GetActivityTypesAsync(),
+            Events = await eventService.GetAllEventsAsync()
+        };
+        
+        result = await eventService.MineAsync(queryModel3,testUserId);
+        
+        Assert.That(result.AllEvents, Has.Count.EqualTo(1));
+        
+        var queryModel4= new AllEventsQueryModel
+        {
+            ActivityType = "Mountain Biking",
+            SearchTerm = "Biking",
+            Sorting = EventSorting.ThisWeek,
+            CurrentPage = 0,
+            EventsPerPage = 1,
+            TotalEventsCount = 1,
+            ActivityTypes = await eventService.GetActivityTypesAsync(),
+            Events = await eventService.GetAllEventsAsync()
+        };
+        
+        result = await eventService.MineAsync(queryModel4,testUserId);
+        
+        Assert.That(result.AllEvents, Has.Count.EqualTo(0));
     }
 
     [Test]

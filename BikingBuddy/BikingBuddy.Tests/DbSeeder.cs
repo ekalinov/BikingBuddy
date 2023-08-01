@@ -55,6 +55,7 @@ public static class DbSeeder
         {
             Id = Guid.Parse(testEventId),
             Title = testEventTitle,
+            Date = DateTime.UtcNow.AddDays(10) ,
             CreatedOn = DateTime.UtcNow,
             ActivityType = dbContext.ActivityTypes.First(a=>a.Id==1),
             ActivityTypeId = 1,

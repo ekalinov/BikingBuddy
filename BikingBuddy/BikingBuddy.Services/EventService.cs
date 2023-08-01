@@ -379,7 +379,7 @@ namespace BikingBuddy.Services
             return false;
         }
 
-        public async Task<AllEventsFilteredAndPagedServiceModel> MineAsync(AllEventsQueryModel queryModel,string userId)
+        public async Task<AllEventsFilteredAndPagedServiceModel>  MineAsync(AllEventsQueryModel queryModel,string userId)
          {
             IQueryable<Event> eventsQuery = dbContext.Events
                 .Where(e => e.EventsParticipants.Any(ep=>ep.ParticipantId == Guid.Parse(userId))
