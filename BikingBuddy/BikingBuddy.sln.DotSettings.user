@@ -4,4 +4,9 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=46ae9937_002D5ff5_002D4542_002D8d5b_002D2a473c3cf6ca/@EntryIndexedValue">&lt;SessionState ContinuousTestingIsOn="True" ContinuousTestingMode="1" IsActive="True" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8bf1b132_002D6e5e_002D444d_002D8b10_002Dbda4395e1f70/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="EditTeamAsync_ValidEntry" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::0C7A0D81-A277-4658-83BA-641701C632C2::net6.0::BikingBuddy.Tests.Services.TeamServiceTests.EditTeamAsync_ValidEntry&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Organiser/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

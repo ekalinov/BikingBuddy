@@ -12,16 +12,16 @@ namespace BikingBuddy.Services.Contracts
         Task<EditTeamViewModel?> GetTeamToEditAsync(string teamId);
 
 
-        Task<ICollection<AllTeamsViewModel>> GetAllTeams();
+        Task<ICollection<AllTeamsViewModel>> GetAllTeamsAsync();
 
-        Task AddTeam(AddTeamViewModel model, string teamManagerId);
+        Task AddTeamAsync(AddTeamViewModel model, string teamManagerId);
 
-        Task EditTeam(EditTeamViewModel model, string teamId);
+        Task EditTeamAsync(EditTeamViewModel model, string teamId);
 
-        Task DeleteTeam(string teamId);
+        Task DeleteTeamAsync(string teamId);
 
 
-        Task<int> GetTeamMembersCount(string teamId);
+        Task<int> GetTeamMembersCountAsync(string teamId);
 
 
         Task AddMemberAsync(string userId, string teamId);
@@ -31,15 +31,15 @@ namespace BikingBuddy.Services.Contracts
 
         Task<ICollection<TeamRequestViewModel>> GetTeamRequestsByUserAsync(string userId);
 
-        Task SendRequest(string teamId, string userId);
+        Task SendRequestAsync(string teamId, string userId);
 
-        Task<bool> IsRequested(string userId, string teamId);
+        Task<bool> IsRequestedAsync(string userId, string teamId);
 
         Task<bool> IsMemberAsync(string userId, string teamId);
 
-        Task RemoveRequest(string userId, string teamId);
+        Task RemoveRequestAsync(string userId, string teamId);
         Task<int> GetTeamsCountAsync();
-        Task<bool> IsManager(string teamId, string userId);
+        Task<bool> IsManagerAsync(string teamId, string userId);
         Task UploadPhotoToLocalStorageAsync(EditTeamViewModel model, string envWebRoot);
         Task UploadPhotoToLocalStorageAsync(AddTeamViewModel model, string envWebRoot);
 

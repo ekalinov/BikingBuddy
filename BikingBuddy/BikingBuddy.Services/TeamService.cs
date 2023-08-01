@@ -37,6 +37,7 @@ namespace BikingBuddy.Services
         public async Task<TeamDetailsViewModel?> GetTeamDetailsAsync(string teamId)
         {
             return await dbContext.Teams
+                .Include(t=>t.TeamManager)
                 .Where(t => t.Id == Guid.Parse(teamId) && t.IsDeleted == false)
                 .Select(t => new TeamDetailsViewModel()
                 {
@@ -82,7 +83,7 @@ namespace BikingBuddy.Services
                 }).FirstOrDefaultAsync();
         }
 
-        public async Task<ICollection<AllTeamsViewModel>> GetAllTeams()
+        public async Task<ICollection<AllTeamsViewModel>> GetAllTeamsAsync()
         {
             return await dbContext.Teams
                 .Where(t => t.IsDeleted == false)
@@ -97,7 +98,7 @@ namespace BikingBuddy.Services
         }
 
         //Create
-        public async Task AddTeam(AddTeamViewModel model, string teamManagerId)
+        public async Task AddTeamAsync(AddTeamViewModel model, string teamManagerId)
         {
             var teamToAdd = new Team
             {
@@ -115,7 +116,7 @@ namespace BikingBuddy.Services
         }
 
         //Update
-        public async Task EditTeam(EditTeamViewModel model, string teamId)
+        public async Task EditTeamAsync(EditTeamViewModel model, string teamId)
         {
             var teamToEdit = await GetTeamByIdAsync(teamId);
 
@@ -127,13 +128,14 @@ namespace BikingBuddy.Services
                 teamToEdit.CountryId = model.CountryId;
                 teamToEdit.Town = await eventService.GetTownByNameAsync(model.TownName);
                 teamToEdit.Description = model.Description;
+                
 
                 await dbContext.SaveChangesAsync();
             }
         }
 
         //Delete
-        public async Task DeleteTeam(string teamId)
+        public async Task DeleteTeamAsync(string teamId)
         {
             Team? teamToDelete = await GetTeamByIdAsync(teamId);
 
@@ -146,13 +148,13 @@ namespace BikingBuddy.Services
         }
 
 
-        public async Task<int> GetTeamMembersCount(string teamId)
+        public async Task<int> GetTeamMembersCountAsync(string teamId)
         {
             return await dbContext.AppUsers
                 .CountAsync(u => u.TeamId == Guid.Parse(teamId));
         }
 
-        public async Task SendRequest(string teamId, string userId)
+        public async Task SendRequestAsync(string teamId, string userId)
         {
             Team? team = await GetTeamByIdAsync(teamId);
 
@@ -219,7 +221,7 @@ namespace BikingBuddy.Services
                 && await IsMemberAsync(userId, teamId)
                )
             {
-                await RemoveRequest(userId, teamId);
+                await RemoveRequestAsync(userId, teamId);
                 team.TeamMembers.Remove(userToRemove);
                 await dbContext.SaveChangesAsync();
             }
@@ -240,13 +242,13 @@ namespace BikingBuddy.Services
 
             foreach (var team in teamRequests)
             {
-                team.MembersCount = await GetTeamMembersCount(team.Id);
+                team.MembersCount = await GetTeamMembersCountAsync(team.Id);
             }
 
             return teamRequests;
         }
 
-        public async Task<bool> IsRequested(string userId, string teamId)
+        public async Task<bool> IsRequestedAsync(string userId, string teamId)
         {
             return await dbContext.TeamsRequests
                 .AnyAsync(tr => tr.TeamId == Guid.Parse(teamId)
@@ -263,7 +265,7 @@ namespace BikingBuddy.Services
                 .AnyAsync();
         }
 
-        public async Task RemoveRequest(string userId, string teamId)
+        public async Task RemoveRequestAsync(string userId, string teamId)
         {
             var request = await GetTeamRequestAsync(userId, teamId);
 
@@ -281,7 +283,7 @@ namespace BikingBuddy.Services
                 .CountAsync();
         }
 
-        public async Task<bool> IsManager(string teamId, string userId)
+        public async Task<bool> IsManagerAsync(string teamId, string userId)
         {
             Team? teamToCheck = await GetTeamByIdAsync(teamId);
 
