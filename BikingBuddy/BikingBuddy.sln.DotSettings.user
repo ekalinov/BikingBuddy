@@ -1,3 +1,4 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:Int64 x:Key="/Default/Dpa/Thresholds/=SqlRecordCount/@EntryIndexedValue">241</s:Int64>
+	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\OMEN\AppData\Local\Temp\JetBrains\Rider\vAny\CoverageData\_BikingBuddy.472521751\Snapshot\snapshot.utdcvr</s:String>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Organiser/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

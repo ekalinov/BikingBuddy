@@ -21,4 +21,16 @@
       <ProjectReference Include="..\BikingBuddy.Web\BikingBuddy.Web.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Areas\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Areas\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Areas\**" />
+    </ItemGroup>
+
 </Project>
