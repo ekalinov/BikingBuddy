@@ -41,8 +41,7 @@ namespace BikingBuddy.Web.Controllers
 
 
             var model = new IndexViewModel
-            {
-                TopEvents = await eventService.GetNewestEventsAsync(),
+            { 
                 UsersCount = await userService.GetUserSCountAsync(),
                 TeamsCount = await teamService.GetTeamsCountAsync(),
                 ActiveEventsCount = await eventService.GetActiveEventsCountAsync(),

@@ -40,22 +40,8 @@
             
             <section class="index-component">
 
-                <div class="w3layouts-services-heading ">
-                    <h2>Top Events</h2>
-                </div>
-                <div class="row agileinfo-top-grids">
+                @await Component.InvokeAsync("TopEvents")
 
-                    @foreach (var eventDetails in Model.TopEvents)
-                    {
-                        <div class="col-sm-4">
-                            <img src="@eventDetails.EventImageUrl" height="222px" width="335px" alt=""/>
-                            <h4>@eventDetails.Title, @eventDetails.Date</h4>
-                            <p>@eventDetails.Description</p>
-                            <a asp-controller="Event" asp-action="Details" asp-route-eventId="@eventDetails.Id">Read More</a>
-                        </div>
-                    }
-
-                </div>
                 <div class="row w3ls-text  justify-content-end">
                     <a asp-controller="Event" asp-action="All">Find More rides...</a>
                 </div>
