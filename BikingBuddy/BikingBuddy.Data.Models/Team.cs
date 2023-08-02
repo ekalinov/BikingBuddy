@@ -15,6 +15,7 @@ namespace BikingBuddy.Data.Models
 
             TeamMembers = new HashSet<AppUser>();
             TeamRequests = new HashSet<TeamRequest>();
+            GalleryPhotos = new HashSet<TeamGalleryPhoto>();
         }
 
 
@@ -54,6 +55,7 @@ namespace BikingBuddy.Data.Models
 
         public virtual ICollection<TeamRequest> TeamRequests { get; set; }
 
+        public virtual ICollection<TeamGalleryPhoto> GalleryPhotos { get; set; }
         public virtual AppUser TeamManager { get; set; } = null!;
 
         [ForeignKey(nameof(TeamManager))]

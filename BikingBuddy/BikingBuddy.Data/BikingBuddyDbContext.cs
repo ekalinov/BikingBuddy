@@ -28,6 +28,7 @@ namespace BikingBuddy.Data
 
         public DbSet<Team> Teams { get; set; } = null!;
 
+        public DbSet<TeamGalleryPhoto> TeamsGalleryPhotos { get; set; } = null!;
         public DbSet<TeamRequest> TeamsRequests { get; set; } = null!;
 
         public DbSet<Bike> Bikes { get; set; } = null!;

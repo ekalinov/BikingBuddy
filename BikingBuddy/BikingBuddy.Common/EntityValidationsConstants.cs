@@ -85,6 +85,13 @@
             public const int TeamDescriptionMinLength = 15;
         }
 
+        public class TeamGallery
+        {
+            public const int TeamGalleryPhotoNameMaxLength = 50; 
+
+
+       
+        }
         public class Town
         {
             public const int TownNameMaxLength = 20;
