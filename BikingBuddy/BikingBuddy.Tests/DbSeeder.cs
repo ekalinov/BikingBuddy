@@ -21,20 +21,26 @@ public static class DbSeeder
     private static string testTeamTitle = null!;
     private static string testTeamDescription = null!;
 
+    
     private static string testUserId = null!;
     private static string testUserName = null!;
+    
+    private static string testMemberId = null!;
+    private static string testMemberName = null!;
 
 
-    public static Event testEvent;
-    public static AppUser testUser;
+    public static Event testEvent= null!;
+    public static AppUser testUser= null!;
+    public static AppUser testMember= null!;
 
-    public static Team testTeam;
+    public static Team testTeam= null!;
 
     public static ICollection<ActivityTypeViewModel> testActivityTypesModels;
 
 
     public static async Task SeedDatabase(BikingBuddyDbContext dbContext)
     {
+
         testUserName = "Test Testov";
         testUserId = "df666d9f-4332-45ea-adae-36aba1f83289";
 
@@ -45,6 +51,21 @@ public static class DbSeeder
             CountryId = "BG",
             TownId = 1
         };
+
+        
+        
+        testMemberName = "Test Member";
+        testMemberId = "8056358f-68fe-4c25-8503-282f8ada3090";
+
+        testMember = new()
+        {
+            Id = Guid.Parse(testMemberId),
+            Name = testMemberName,
+            CountryId = "BG",
+            TownId = 1
+        };
+
+
 
 
         testEventTitle = "Test Event";
@@ -90,6 +111,7 @@ public static class DbSeeder
         await dbContext.Teams.AddAsync(testTeam);
         await dbContext.Events.AddAsync(testEvent);
         await dbContext.AppUsers.AddAsync(testUser);
+        await dbContext.AppUsers.AddAsync(testMember);
 
 
         await dbContext.SaveChangesAsync();
