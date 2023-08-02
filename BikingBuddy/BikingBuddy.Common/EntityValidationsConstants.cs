@@ -69,16 +69,11 @@
         public class Country
         {
             public const int NameMaxLength = 60;
-            public const int NameMinLength = 4;
 
             public const int CodeLength = 2;
         }
 
-        public class Municipality
-        {
-            public const int MunicipalityNameMaxLength = 20;
-            public const int MunicipalityNameMinLength = 3;
-        }
+      
 
         public class Team
         {

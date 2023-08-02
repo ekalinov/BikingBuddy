@@ -18,7 +18,9 @@
         public const string MaxPhotoSizeAllowedErrorMessage =  "Error: Allowed photo size is up to 5Mb!";
 
 
-        
+        //Photo Storage paths
+        public const string TeamPhotoDestinationPath = "FileStorage/TeamPhotos/";
+        public const string TeamGalleryPhotosDestinationPath = "FileStorage/TeamPhotos/Gallery/";
 
     }
 

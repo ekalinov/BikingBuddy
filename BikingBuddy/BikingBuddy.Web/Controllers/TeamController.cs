@@ -1,16 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using BikingBuddy.Common;
-using BikingBuddy.Services.Contracts;
+﻿using BikingBuddy.Services.Contracts;
 using BikingBuddy.Web.Infrastructure.Extensions;
 using BikingBuddy.Web.Models.Team;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using static BikingBuddy.Common.NotificationMessagesConstants;
 using static BikingBuddy.Common.ErrorMessages.TeamErrorMessages;
 using static BikingBuddy.Common.GlobalConstants;
+using static BikingBuddy.Services.Helpers.UploadPhotosHepler;
 
 namespace BikingBuddy.Web.Controllers
 {
@@ -107,7 +103,8 @@ namespace BikingBuddy.Web.Controllers
             if (model.TeamImage != null)
             {
                 string envWebRooth = environment.WebRootPath;
-                await teamService.UploadPhotoToLocalStorageAsync(model, envWebRooth);
+
+                model.TeamImageUrl =  await UploadPhotoToLocalStorageAsync(TeamPhotoDestinationPath, model.TeamImage, envWebRooth);
             }
 
             var teamManagerId = User.GetId();
@@ -207,7 +204,8 @@ namespace BikingBuddy.Web.Controllers
             if (model.TeamImage != null)
             {
                 string envWebRooth = environment.WebRootPath;
-                await teamService.UploadPhotoToLocalStorageAsync(model, envWebRooth);
+                model.TeamImageUrl =
+                    await  UploadPhotoToLocalStorageAsync(TeamPhotoDestinationPath, model.TeamImage, envWebRooth);
             }
 
             try
@@ -293,7 +291,6 @@ namespace BikingBuddy.Web.Controllers
 
         public async Task<IActionResult> RemoveMember(string memberId, string teamId)
         {
-            
             if (await teamService.IsManagerAsync(teamId, User.GetId()) && !User.IsAdmin())
             {
                 TempData[ErrorMessage] = UnauthorizedErrorMessage;

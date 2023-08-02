@@ -4,8 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using BikingBuddy.Common;
 using BikingBuddy.Web.Models.Activity;
 using Microsoft.AspNetCore.Http;
-using static BikingBuddy.Common.EntityValidationsConstants.Event;
-using static BikingBuddy.Common.EntityValidationsConstants.Municipality;
+using static BikingBuddy.Common.EntityValidationsConstants.Event; 
 using static BikingBuddy.Common.EntityValidationsConstants.Town;
 
 namespace BikingBuddy.Web.Models.Event

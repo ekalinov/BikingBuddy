@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace BikingBuddy.Services.Contracts
 {
@@ -40,8 +41,6 @@ namespace BikingBuddy.Services.Contracts
         Task RemoveRequestAsync(string userId, string teamId);
         Task<int> GetTeamsCountAsync();
         Task<bool> IsManagerAsync(string teamId, string userId);
-        Task UploadPhotoToLocalStorageAsync(EditTeamViewModel model, string envWebRoot);
-        Task UploadPhotoToLocalStorageAsync(AddTeamViewModel model, string envWebRoot);
-
+ 
     }
 }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace BikingBuddy.Services
 {
@@ -308,39 +309,10 @@ namespace BikingBuddy.Services
         }
         
         
-        public async Task UploadPhotoToLocalStorageAsync(EditTeamViewModel model, string envWebRoot)
-        {
-            var ext = Path.GetExtension(model.TeamImage!.FileName).ToLowerInvariant();
+   
+
+
  
-
-            string folderStorage = "FileStorage/TeamPhotos/";
-
-            folderStorage += Guid.NewGuid() + ext;
-
-
-            string serverFolder = Path.Combine(envWebRoot, folderStorage);
-
-            await model.TeamImage!.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
-
-            model.TeamImageUrl = "/" + folderStorage;
-        }
-
-
-        public async Task UploadPhotoToLocalStorageAsync(AddTeamViewModel model,string envWebRoot)
-        {
-            var ext = Path.GetExtension(model.TeamImage!.FileName).ToLowerInvariant();
-           
-            string folderStorage = "FileStorage/TeamPhotos/";
-
-            folderStorage += Guid.NewGuid() + ext;
-
-
-            string serverFolder = Path.Combine(envWebRoot, folderStorage);
-
-            await model.TeamImage!.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
-
-            model.TeamImageUrl = "/" + folderStorage;
-        }
         
         
     }
