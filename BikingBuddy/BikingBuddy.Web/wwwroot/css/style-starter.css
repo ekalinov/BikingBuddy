@@ -5234,7 +5234,9 @@ input[type="button"].btn-block {
 }
 
 .card-link + .card-link {
-    margin-left: 1.25rem;
+    margin-left: 3.25rem;
+    margin-right: 3.25rem;
+    
 }
 
 .card-header {
@@ -19311,6 +19313,14 @@ h2.resp-accordion:first-child {
 .stats_info {
     text-align: center;
     padding: 0 30px;
+}
+
+.team-stats_info h3 {
+    color: #afafaf;
+}
+
+.team-stats_info i {
+    color: #afafaf;
 }
 
 .stats_info h3 {

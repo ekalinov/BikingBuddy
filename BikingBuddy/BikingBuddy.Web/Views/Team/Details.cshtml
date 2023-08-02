@@ -1,7 +1,10 @@
-﻿@model TeamDetailsViewModel
-
+﻿@using BikingBuddy.Services.Contracts
+@model TeamDetailsViewModel
+@inject ITeamService teamService
 @{
     ViewBag.Title = "All Teams";
+    var isMember = await teamService.IsMemberAsync(User.GetId(), Model.Id);
+    ViewDataDictionary dictionary = new ViewDataDictionary(ViewData) { { "teamId", Model.Id } };
 }
 
 <div>
@@ -26,160 +29,91 @@
             <p class="mb-0">
                 <span class="fw-bold">Established: </span>@Model.EstablishedOn
             </p>
-        
+
         </div>
         <ul class="list-group list-group-flush">
+
+            <li class="list-group-item">
+
+                <div class="stats w3-left" text-align: -webkit-center>
+                    <div class="row w3l-stats-section stats-con">
+                        <div class=" stats_info team-stats_info  counter_grid">
+                            <i class="far fa-users team-stats_info" style="color: #afafaf;margin-top: 12px;"></i>
+                            <p class="counter">@Model.TeamMembers.Count </p>
+                            <h3 class="" style="color: #afafaf">Members</h3>
+                        </div>
+                        <div class=" stats_info counter_grid ">
+                            <i class="fas fa-user" style="color: #afafaf"></i>
+                            <p class="counter">@Model.MembersRequests.Count</p>
+                            <h3 class="team-stats_info" style="color: #afafaf">Requests</h3>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
             <li class="list-group-item">
                 
-                 <div class="stats w3-left" text-align: -webkit-center>
-                                  <div class="row w3l-stats-section stats-con">
-                                      <div class=" stats_info counter_grid">
-                                          <i class="far fa-users" style="margin-top: 12px;"></i>
-                                          <p class="counter">@Model.TeamMembers.Count </p>
-                                          <h3>Members</h3>
-                                      </div>
-                                      <div class=" stats_info counter_grid ">
-                                           <i class="fas fa-user"></i>
-                                          <p class="counter">@Model.MembersRequests.Count</p>
-                                          <h3>Requests</h3>
-                                      </div> 
-                                  </div>
-                              </div>
+                @if (!isMember && (User.Identity?.Name == Model.TeamManager || User.IsAdmin()))
+                {
+                    <a asp-controller="Team" asp-action="RequestToJoin" class="btn btn-primary btn-white btn-style  " style="display: block" asp-route-teamId="@Model.Id">Request to join </a>
+
+                }
+                else if (isMember && (User.Identity?.Name != Model.TeamManager || !User.IsAdmin()))
+                {
+                    <a asp-controller="Team" asp-action="RemoveMember" class="btn btn-primary btn-white btn-style  " style="display: block" asp-route-memberId="@User.GetId()" asp-route-teamId="@Model.Id">Leave team </a>
+
+                }
+                
             </li>
-            <li class="list-group-item">
-                <a href="about.html" class="btn btn-primary btn-white btn-style mt-lg-5 mt-4"> Read More </a>
+            
+            <li class="list-group-item" style=" ">
+                <a asp-controller="Team" asp-action="All" class="btn btn-primary btn-white btn-style  " style="display:block" > Back to All Teams</a>
+
             </li>
-            <li class="list-group-item">Vestibulum at eros</li>
+            
+
         </ul>
         <div class="card-body">
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
+            @if (User.Identity?.Name == Model.TeamManager || User.IsAdmin())
+            {
+                <h3 style="text-align: center; margin-bottom: 1rem">Team Options</h3>
+
+                <div class="row">
+                    <a asp-controller="Team" asp-action="Edit" class="card-link ml-2 mr-2" asp-route-teamId="@Model.Id">Edit</a>
+                    <form class="ml-2" method="post">
+                        <a asp-controller="Team" asp-action="Delete" asp-route-teamId="@Model.Id" class="card-link ml-2 mr-2">Delete</a>
+                    </form>
+                </div>
+            }
+
         </div>
     </div>
     <div class="card col-8 ek-containers-margin">
-        <div class="card-body">
-            <img class="img-fluid" style="width: 18rem;"
-                 src="@Model.TeamImageUrl" alt="Book Image">
-            <h3 class="card-title text-center">@Model.Name</h3>
-            <p class="mb-0">
-                <span class="fw-bold">Location: </span>@Model.Town , @Model.Country
-            </p>
+        <div class="card-body"> 
+            <h3 class="card-title text-center">@Model.Name</h3> 
             <p class="mb-0">
                 <span class="fw-bold">Description: </span>@Model.Description
             </p>
-
-            <p class="mb-0">
-                <span class="fw-bold">Team Manager: </span>@Model.TeamManager
-            </p>
+ 
 
         </div>
 
         <hr/>
 
+        @if (User.Identity?.Name == Model.TeamManager || User.IsAdmin() || isMember)
+        {
+            <div>
+                @await Html.PartialAsync("_TeamMembersPartial", Model.TeamMembers)
+            </div>
+        }
+        
         @if (User.Identity?.Name == Model.TeamManager || User.IsAdmin())
         {
-            <a asp-controller="Team" asp-action="Edit" class="btn btn-warning mb-2 w-100 p-3 fw-bold" asp-route-teamId="@Model.Id">Edit Team </a>
-
-
-            <form class="ml-2" asp-controller="Team" asp-action="Delete"
-                  asp-route-teamId="@Model.Id" method="post">
-                <input class="btn btn-danger mb-2 w-100 p-3 fw-bold" type="submit" value="Delete Team"/>
-
-                <a class="btn btn-danger mb-2 w-100 p-3 fw-bold" type="submit">Delete Team</a>
-
-            </form>
-
-
-            <h5>Team Members:</h5>
-
-            <table class="table align-middle mb-0 bg-white">
-                <thead class="bg-light">
-                <tr>
-                    <th> Photo</th>
-                    <th> Name</th>
-                    <th>Options</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                @foreach (var member in Model.TeamMembers)
-                {
-                    <tr>
-                        <td>
-                            <img src=@member.ProfileImageUrl
-                                 alt=""
-                                 style="width: 45px; height: 45px"
-                                 class="rounded-circle"/>
-
-                        </td>
-                        <td>
-                            <p class="fw-bold mb-1">@member.Name</p>
-
-                        </td>
-
-
-                        <td>
-                            <a asp-controller="User" asp-action="Details" asp-route-userId="@member.Id" class="btn btn-warning btn-rounded">View Details</a>
-                            <a asp-controller="Team" asp-action="RemoveMember" asp-route-userId="@member.Id" asp-route-teamId="@Model.Id" class="btn btn-info btn-rounded">Remove Member</a>
-                        </td>
-                    </tr>
-                }
-
-
-                </tbody>
-            </table>
-
-
-            <hr/>
-            <hr/>
-            <hr/>
-
-
-            <h5>Member Requests:</h5>
-
-            <table class="table align-middle mb-0 bg-white">
-                <thead class="bg-light">
-                <tr>
-                    <th> Photo</th>
-                    <th> Name</th>
-                    <th>Options</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                @foreach (var member in Model.MembersRequests)
-                {
-                    <tr>
-                        <td>
-                            < class="d-flex align-items-center">
-                            <img src=@member.ProfileImageUrl
-                                 alt=""
-                                 style="width: 45px; height: 45px"
-                                 class="rounded-circle"/>
-
-                        </td>
-                        <td>
-                            <p class="fw-bold mb-1">@member.Name</p>
-
-                        </td>
-
-
-                        <td >
-                            <a asp-controller="Team" asp-action="AddMember" asp-route-memberId="@member.Id" asp-route-teamId="@Model.Id" class="btn btn-info btn-rounded" method="post">AddMember</a>
-                            <a asp-controller="Team" asp-action="RejectRequest" asp-route-memberId="@member.Id" class="btn btn-warning btn-rounded">RejectRequest</a>
-                        </td>
-                    </tr>
-                }
-
-
-                </tbody>
-            </table>
+            <div>
+                @await Html.PartialAsync("_MembersRequestsPartial", Model.MembersRequests, dictionary)
+            </div>
         }
-        else
-        {
-            <a asp-controller="Team" asp-action="RequestToJoin" class="btn btn-warning mb-2 w-100 p-3 fw-bold" asp-route-teamId="@Model.Id">Request to join </a>
-            <a asp-controller="Team" asp-action="All" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Back to All Teams</a>
-        }
+        
     </div>
 </div>
 
