@@ -1,0 +1,48 @@
+@model ICollection<UserViewModel>
+ 
+ 
+<h5>Member Requests:</h5>
+@if (Model.Any())
+{
+    
+<table class="table align-middle mb-0 bg-white">
+    <thead class="bg-light">
+    <tr>
+        <th> Photo</th>
+        <th> Name</th>
+        <th>Options</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    @foreach (var member in Model )
+    {
+        <tr>
+            <td>
+                < class="d-flex align-items-center">
+                <img src=@member.ProfileImageUrl
+                     alt=""
+                     style="width: 45px; height: 45px"
+                     class="rounded-circle"/>
+
+            </td>
+            <td>
+                <p class="fw-bold mb-1">@member.Name</p>
+
+            </td>
+
+
+            <td >
+                <a asp-controller="Team" asp-action="AddMember" asp-route-memberId="@member.Id"  asp-route-teamId="@ViewData["teamId"]" class="btn btn-info btn-rounded" method="post">AddMember</a>
+                <a asp-controller="Team" asp-action="RejectRequest" asp-route-memberId="@member.Id"  asp-route-teamId="@ViewData["teamId"]"  class="btn btn-warning btn-rounded">RejectRequest</a>
+            </td>
+        </tr>
+    }
+
+    </tbody>
+</table>
+}
+else
+{
+    <h6>No new requests!</h6>
+}
