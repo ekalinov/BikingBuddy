@@ -161,16 +161,7 @@ namespace BikingBuddy.Services
             AppUser? user = await userService.GetUserByIdAsync(userId);
 
             TeamRequest? request = await GetTeamRequestAsync(userId, teamId);
-
-
-            //Check if the user was accepted once 
-            if (request is { IsAccepted: true })
-            {
-                request.IsAccepted = false;
-                await dbContext.SaveChangesAsync();
-            }
-
-
+ 
             if (request == null
                 && team != null
                 && user != null)
@@ -183,6 +174,7 @@ namespace BikingBuddy.Services
                 };
 
                 team.TeamRequests.Add(request);
+                
 
                 await dbContext.SaveChangesAsync();
             }
@@ -203,6 +195,8 @@ namespace BikingBuddy.Services
                 && !await IsMemberAsync(userId, teamId))
             {
                 team.TeamMembers.Add(user);
+                 
+                dbContext.TeamsRequests.Remove(request);
 
                 request.IsAccepted = true;
 
