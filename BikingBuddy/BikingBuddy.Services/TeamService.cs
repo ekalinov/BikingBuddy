@@ -6,7 +6,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using BikingBuddy.Common;
+using BikingBuddy.Web.Models;
 using Microsoft.AspNetCore.Http;
+
+using static BikingBuddy.Common.DateTimeFormats;
+using DateFormat = Microsoft.VisualBasic.DateFormat;
 
 namespace BikingBuddy.Services
 {
@@ -64,6 +69,13 @@ namespace BikingBuddy.Services
                             Id = tm.Id.ToString(),
                             Name = tm.Name,
                             ProfileImageUrl = tm.ProfileImageUrl
+                        }).ToList(),
+                    GalleryPhotosModels = t.GalleryPhotos
+                        .Select(p=> new GalleryPhotoModel
+                        {
+                            Id = p.Id.ToString(),
+                            Name = p.Name,
+                            URL = p.Url
                         }).ToList()
                 }).FirstOrDefaultAsync();
         }
@@ -109,8 +121,25 @@ namespace BikingBuddy.Services
                 TeamManagerId = Guid.Parse(teamManagerId),
                 CountryId = model.CountryId,
                 Town = await eventService.GetTownByNameAsync(model.TownName),
-                Description = model.Description
+                Description = model.Description, 
             };
+
+            if (model.GalleryPhotosModels != null && model.GalleryPhotosModels.Any())
+            {
+                
+                var galleryPhotos = new List<TeamGalleryPhoto>(); 
+
+                foreach (var photo in model.GalleryPhotosModels)
+                {
+                    teamToAdd.GalleryPhotos.Add(new TeamGalleryPhoto
+                    { 
+                        Name = photo.Name,
+                        Url = photo.URL,  
+                    });
+                  
+                }
+
+            }
 
             await dbContext.Teams.AddAsync(teamToAdd);
             await dbContext.SaveChangesAsync();
@@ -130,7 +159,23 @@ namespace BikingBuddy.Services
                 teamToEdit.Town = await eventService.GetTownByNameAsync(model.TownName);
                 teamToEdit.Description = model.Description;
                 
+                if (model.GalleryPhotosModels != null && model.GalleryPhotosModels.Any())
+                {
+                
+                    var galleryPhotos = new List<TeamGalleryPhoto>(); 
 
+                    foreach (var photo in model.GalleryPhotosModels)
+                    {
+                        galleryPhotos.Add(new TeamGalleryPhoto
+                        { 
+                            Name = photo.Name,
+                            Url = photo.URL,  
+                        });
+                    }
+
+                    await dbContext.TeamsGalleryPhotos.AddRangeAsync(galleryPhotos);
+                }
+                
                 await dbContext.SaveChangesAsync();
             }
         }

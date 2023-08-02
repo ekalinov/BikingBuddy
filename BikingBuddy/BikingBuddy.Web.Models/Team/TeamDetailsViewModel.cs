@@ -14,6 +14,7 @@ namespace BikingBuddy.Web.Models.Team
 
             TeamMembers = new HashSet<UserViewModel>();
             MembersRequests = new HashSet<UserViewModel>();
+            GalleryPhotosModels = new List<GalleryPhotoModel>();
         }
 
 
@@ -34,6 +35,8 @@ namespace BikingBuddy.Web.Models.Team
         public ICollection<UserViewModel> TeamMembers { get; set; }
 
         public ICollection<UserViewModel> MembersRequests { get; set; }
+        
+        public IList<GalleryPhotoModel>  GalleryPhotosModels{ get; set; } 
 
         public string TeamManager { get; set; } = null!;
 

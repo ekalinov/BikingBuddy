@@ -12,6 +12,7 @@ namespace BikingBuddy.Web.Models.Team
         public AddTeamViewModel()
         {
             CountriesCollection = new HashSet<CountryViewModel>();
+            GalleryPhotosModels = new HashSet<GalleryPhotoModel>();
         }
 
 
@@ -36,7 +37,11 @@ namespace BikingBuddy.Web.Models.Team
         [FileExtensions(ErrorMessage = "Supported file extensions are .jpg, .jpeg and .png")]
         public string? FileName => TeamImage?.FileName;
 
-
+        [Display(Name = "Choose your Team Gallery photos")]    
+        public ICollection<GalleryPhotoModel>? GalleryPhotosModels{ get; set; } 
+        
+        public IFormFileCollection? GalleryPhotos { get; set; } 
+        
         public ICollection<CountryViewModel> CountriesCollection { get; set; }
 
         [Required]
