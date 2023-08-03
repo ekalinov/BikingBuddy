@@ -30,7 +30,9 @@
             builder
                 .Property(e => e.CountryId)
                 .IsRequired(false);
-
+            
+            builder.Property(u => u.ProfileImageUrl)
+                .HasDefaultValue("/FileStorage/UserPhotos/default_user_icon.jpg");
         }
     }
 }

@@ -145,7 +145,9 @@ namespace BikingBuddy.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ProfileImageUrl")
-                        .HasColumnType("nvarchar(max)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("/FileStorage/UserPhotos/default_user_icon.jpg");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
