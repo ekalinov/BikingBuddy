@@ -29,7 +29,7 @@
 
             <td>
                 <a asp-controller="User" asp-action="Details" asp-route-userId="@member.Id" class="btn btn-warning btn-rounded">View Details</a>
-                <a asp-controller="Team" asp-action="RemoveMember" asp-route-userId="@member.Id" class="btn btn-info btn-rounded">Remove Member</a>
+                <a asp-controller="Team" asp-action="RemoveMember" asp-route-memberId="@member.Id" asp-route-teamId="@ViewData["teamId"]" class="btn btn-info btn-rounded">Remove Member</a>
             </td>
         </tr>
     }

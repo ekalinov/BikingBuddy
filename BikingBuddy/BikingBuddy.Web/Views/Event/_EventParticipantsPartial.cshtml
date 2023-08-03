@@ -1,0 +1,44 @@
+  @model ICollection<UserViewModel>
+<h5>Team Members:</h5>
+
+@if (Model.Any())
+{
+    <table class="table align-middle mt-2    mb-5 bg-white">
+        <thead class="bg-light">
+        <tr>
+            <th> Photo</th>
+            <th> Name</th>
+            <th>Options</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        @foreach (var member in Model)
+        {
+            <tr>
+                <td>
+                    <img src=@member.ProfileImageUrl
+                         alt=""
+                         style="width: 45px; height: 45px"
+                         class="rounded-circle"/>
+
+                </td>
+                <td>
+                    <p class="fw-bold mb-1">@member.Name</p>
+
+                </td>
+
+
+                <td>
+                    <a asp-controller="User" asp-action="Details" asp-route-userId="@member.Id" class="btn btn-warning btn-rounded">View Details</a>
+                </td>
+            </tr>
+        }
+
+        </tbody>
+    </table>
+}
+else
+{
+    <h6>There is no participants for this event, yet!</h6>
+}

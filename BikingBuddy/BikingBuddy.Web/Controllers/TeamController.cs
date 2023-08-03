@@ -31,8 +31,7 @@ namespace BikingBuddy.Web.Controllers
         }
 
 
-        //Read
-        [AllowAnonymous]
+        //Read 
         public async Task<IActionResult> Details(string teamId)
         {
             try
@@ -306,7 +305,7 @@ namespace BikingBuddy.Web.Controllers
 
         public async Task<IActionResult> RemoveMember(string memberId, string teamId)
         {
-            if (await teamService.IsManagerAsync(teamId, User.GetId()) && !User.IsAdmin())
+            if (!await teamService.IsManagerAsync(teamId, User.GetId()) && !User.IsAdmin())
             {
                 TempData[ErrorMessage] = UnauthorizedErrorMessage;
                 return Unauthorized();

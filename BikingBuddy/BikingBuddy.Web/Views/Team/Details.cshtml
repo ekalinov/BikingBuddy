@@ -3,6 +3,7 @@
 @inject ITeamService teamService
 @{
     ViewBag.Title = "Teams Details";
+
     var isMember = await teamService.IsMemberAsync(User.GetId(), Model.Id);
     ViewDataDictionary dictionary = new ViewDataDictionary(ViewData) { { "teamId", Model.Id } };
 }
@@ -14,8 +15,8 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr/>
 
-<div class="row ">
-    <div class="card col-2 ek-containers-margin" @*style="width: 18rem;"*@>
+<div class="ek-row">
+    <div class="card col-3 ek-containers-margin" @*style="width: 18rem;"*@>
         <img src=@Model.TeamImageUrl class="card-img-top" alt="...">
         <div class="card-body">
             <h3 class="card-title text-center">@Model.Name</h3>
@@ -53,11 +54,15 @@
 
             <li class="list-group-item">
 
-                @if (!isMember && (User.Identity?.Name == Model.TeamManager || User.IsAdmin()))
+                @if (!isMember && !await teamService.IsRequestedAsync(User.GetId(), Model.Id))
                 {
                     <a asp-controller="Team" asp-action="RequestToJoin" class="btn btn-primary btn-white btn-style  " style="display: block" asp-route-teamId="@Model.Id">Request to join </a>
                 }
-                else if (isMember && (User.Identity?.Name != Model.TeamManager || !User.IsAdmin()))
+                else if (!isMember && await teamService.IsRequestedAsync(User.GetId(), Model.Id))
+                {
+                    <a asp-controller="Team" asp-action="RejectRequest" class="btn btn-primary btn-white btn-style  " style="display: block" asp-route-teamId="@Model.Id">Reject request</a>
+                }
+                else
                 {
                     <a asp-controller="Team" asp-action="RemoveMember" class="btn btn-primary btn-white btn-style  " style="display: block" asp-route-memberId="@User.GetId()" asp-route-teamId="@Model.Id">Leave team </a>
                 }
@@ -86,7 +91,7 @@
 
         </div>
     </div>
-    <div class="card col-9 ek-containers-margin">
+    <div class="card col-8 ek-containers-margin">
         <div class="card-body">
             <h3 class="card-title text-center">@Model.Name</h3>
             <p class="mb-0">
@@ -95,29 +100,32 @@
             <div class="row mt-4">
 
                 <div class="col-6">
-                    
+
                     @await Html.PartialAsync("_GalleryPhotosPartial", Model.GalleryPhotosModels)
                 </div>
                 <div class="col-6">
-                    @if (User.Identity?.Name == Model.TeamManager || User.IsAdmin() || isMember)
-                    {
-                        <div>
-                            @await Html.PartialAsync("_TeamMembersPartial", Model.TeamMembers)
-                        </div>
-                    }
+                    <h2> // TODO: Put Review section Here! </h2>
 
-                    @if (User.Identity?.Name == Model.TeamManager || User.IsAdmin())
-                    {
-                        <div>
-                            @await Html.PartialAsync("_MembersRequestsPartial", Model.MembersRequests, dictionary)
-                        </div>
-                    }
                 </div>
 
             </div>
 
+            @if (User.Identity?.Name == Model.TeamManager || User.IsAdmin() || isMember)
+            {
+                <div class="mt-2">
+                    @await Html.PartialAsync("_TeamMembersPartial", Model.TeamMembers, dictionary)
+                </div>
+                @if (User.Identity?.Name == Model.TeamManager || User.IsAdmin())
+                {
+                    <div  class="mt-2">
+                        @await Html.PartialAsync("_MembersRequestsPartial", Model.MembersRequests, dictionary)
+                    </div>
+                }
+            }
+
+
         </div>
- 
+
 
     </div>
 </div>
