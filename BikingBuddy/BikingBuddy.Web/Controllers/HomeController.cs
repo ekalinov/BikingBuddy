@@ -1,16 +1,12 @@
 ﻿using BikingBuddy.Services.Contracts;
-using BikingBuddy.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using BikingBuddy.Services.Data.Models.Home;
+using BikingBuddy.Services.Helpers;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Logging;
-using NuGet.Configuration;
 
 namespace BikingBuddy.Web.Controllers
 {
-    using static BikingBuddy.Common.GlobalConstants;
+    using static Common.GlobalConstants;
 
     public class HomeController : BaseController
     {
@@ -41,7 +37,7 @@ namespace BikingBuddy.Web.Controllers
 
 
             var model = new IndexViewModel
-            { 
+            {
                 UsersCount = await userService.GetUserSCountAsync(),
                 TeamsCount = await teamService.GetTeamsCountAsync(),
                 ActiveEventsCount = await eventService.GetActiveEventsCountAsync(),
@@ -51,6 +47,15 @@ namespace BikingBuddy.Web.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> UploadPhoto(IFormFile photo)
+        {
+            string envWebRooth = String.Empty;
+            string destination = String.Empty;
+            string url = await UploadPhotosHepler.UploadPhotoToLocalStorageAsync(destination, photo, envWebRooth);
+
+
+            return Ok();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error(int statusCode)

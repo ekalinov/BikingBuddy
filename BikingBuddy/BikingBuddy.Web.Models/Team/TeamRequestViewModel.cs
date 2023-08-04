@@ -10,7 +10,6 @@
 
         public string Country { get; set; } = null!;
 
-        public int MembersCount { get; set; } 
-
+        public int MembersCount { get; set; }
     }
 }

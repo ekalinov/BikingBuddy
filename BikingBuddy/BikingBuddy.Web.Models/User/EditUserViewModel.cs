@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BikingBuddy.Web.Models.User
 {
@@ -29,7 +28,6 @@ namespace BikingBuddy.Web.Models.User
         public string? Team { get; set; } = null!;
 
 
-        [Url]
-        public string? ProfileImageUrl { get; set; }
+        [Url] public string? ProfileImageUrl { get; set; }
     }
 }

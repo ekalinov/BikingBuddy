@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace BikingBuddy.Web.Models.Event
+﻿namespace BikingBuddy.Web.Models.Event
 {
     using Comment;
     using User;
@@ -20,7 +18,9 @@ namespace BikingBuddy.Web.Models.Event
         public string Country { get; set; } = null!;
 
 
-        public ICollection<CommentViewModel>? EventComments { get; set; }  
+        public IList<GalleryPhotoModel> GalleryPhotosModels { get; set; }
+
+        public ICollection<CommentViewModel>? EventComments { get; set; }
 
         public ICollection<UserViewModel>? EventsParticipants { get; set; }
     }

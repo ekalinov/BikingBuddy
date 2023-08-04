@@ -1,16 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace BikingBuddy.Web.Controllers
+﻿namespace BikingBuddy.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-
     using Services.Contracts;
     using Infrastructure.Extensions;
     using Models.User;
-
-    using static  Common.ErrorMessages.UserErrorMessages;
-    using static  Common.NotificationMessagesConstants;
+    using static Common.ErrorMessages.UserErrorMessages;
+    using static Common.NotificationMessagesConstants;
 
     public class UserController : BaseController
     {
@@ -32,17 +27,14 @@ namespace BikingBuddy.Web.Controllers
             if (model != null)
             {
                 return View(model);
-
             }
             else
             {
                 TempData[ErrorMessage] = UserNotFound;
-
             }
 
             //Todo: return to same page
             return BadRequest();
-
         }
 
         public async Task<IActionResult> MyProfile()
@@ -67,13 +59,10 @@ namespace BikingBuddy.Web.Controllers
 
                     return View(model);
                 }
-
             }
             catch (Exception)
             {
-
                 TempData[ErrorMessage] = UpdatingProfileError;
-
             }
 
             return RedirectToAction("MyProfile", "User");
@@ -82,11 +71,8 @@ namespace BikingBuddy.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditUserViewModel model)
         {
-
-
             try
             {
-
                 await userService.UpdateProfileInfo(model);
 
                 TempData[SuccessMessage] = ProfileChangesSaved;
@@ -102,8 +88,6 @@ namespace BikingBuddy.Web.Controllers
 
                 return View(model);
             }
-
         }
-
     }
 }

@@ -8,19 +8,19 @@
 </div>
 
 <h2 class="text-center">@ViewBag.Title</h2>
-<hr />
+<hr/>
 
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
         <form asp-action="Add" enctype="multipart/form-data" method="post">
             <div class="mb-3">
                 <label asp-for="@Model.Title" class="form-label-add-edit">Name</label>
-                <input asp-for="@Model.Title" class="form-control" aria-required="true" />
+                <input asp-for="@Model.Title" class="form-control" aria-required="true"/>
                 <span asp-validation-for="@Model.Title" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.Date" class="form-label-add-edit">Start</label>
-                <input type="text" asp-for="@Model.Date" class="form-control" aria-required="true" value="@DateTime.UtcNow.ToString("yyyy-MM-dd H:mm")" />
+                <input type="text" asp-for="@Model.Date" class="form-control" aria-required="true" value="@DateTime.UtcNow.ToString("yyyy-MM-dd H:mm")"/>
                 <span asp-validation-for="@Model.Date" class="text-danger"></span>
             </div>
             <div class="mb-3">
@@ -28,14 +28,14 @@
                 <textarea asp-for="@Model.Description" class="form-control" aria-required="true" rows="5"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-             <div class="mb-3">
+            <div class="mb-3">
                 <label asp-for="@Model.Distance" class="form-label">Distance</label>
-                <input type="text" asp-for="@Model.Distance" class="form-control" />
+                <input type="text" asp-for="@Model.Distance" class="form-control"/>
                 <span asp-validation-for="@Model.Distance" class="text-danger"></span>
             </div>
-           <div class="mb-3">
+            <div class="mb-3">
                 <label asp-for="@Model.Ascent" class="form-label">Ascent</label>
-               <input type="text" asp-for="@Model.Ascent" class="form-control"/> 
+                <input type="text" asp-for="@Model.Ascent" class="form-control"/>
                 <span asp-validation-for="@Model.Ascent" class="text-danger"></span>
             </div>
             <div class="mb-3">
@@ -60,22 +60,22 @@
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.TownName" class="form-label-add-edit">Town</label>
-                <input asp-for="@Model.TownName" class="form-control" aria-required="true" />
+                <input asp-for="@Model.TownName" class="form-control" aria-required="true"/>
                 <span asp-validation-for="@Model.TownName" class="text-danger"></span>
-            </div> 
-             
-          <div class="mb-3">
-             
-                  
-                <label  class="form-label-add-edit">Select File for event cover photo <span class="font-italic">(.jpg, .jpeg, .png)</span></label>
-              <div class="custom-file">
-                  <input asp-for="@Model.EventImage" class="custom-file-input" id="inputGroupFile02" aria-describedby="inputGroupFileAddon01" />
-                  <label class="custom-file-label">Choose file</label> 
-              </div>
-              <span asp-validation-for="@Model.EventImage" class="text-danger"></span>
-                  <span asp-validation-for="@Model.FileName" class="text-danger"></span>
-              
-                   <script>
+            </div>
+
+            <div class="mb-3">
+
+
+                <label class="form-label-add-edit">Select File for event cover photo <span class="font-italic">(.jpg, .jpeg, .png)</span></label>
+                <div class="custom-file">
+                    <input asp-for="@Model.EventImage" class="custom-file-input" id="inputGroupFile02" aria-describedby="inputGroupFileAddon01"/>
+                    <label class="custom-file-label">Choose file</label>
+                </div>
+                <span asp-validation-for="@Model.EventImage" class="text-danger"></span>
+                <span asp-validation-for="@Model.FileName" class="text-danger"></span>
+
+                <script>
                           $('#inputGroupFile02').on('change',function(){
                               //get the file name
                               var fileName = $(this).val();
@@ -83,10 +83,28 @@
                               $(this).next('.custom-file-label').html(fileName);
                           })
                       </script>
-          </div>
+            </div>
+            <div class="mb-3">
+
+                <label class="form-label-add-edit">Select Photos for your Event Gallery <span class="font-italic">(.jpg, .jpeg, .png)</span></label>
+                <div class="custom-file">
+                    <input asp-for="@Model.GalleryPhotos" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon01"/>
+                    <label class="custom-file-label">Choose files</label>
+                </div>
+
+
+                <script>
+                           $('#inputGroupFile03').on('change',function(){
+                               //get the file name
+                               var fileName = $(this).val();
+                               //replace the "Choose a file" label
+                               $(this).next('.custom-file-label').html(fileName);
+                           })
+                </script>
+            </div>
 
             <div class="mb-3">
-                <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" value="Add" />
+                <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" value="Add"/>
             </div>
         </form>
     </div>
@@ -94,5 +112,5 @@
 
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
 }

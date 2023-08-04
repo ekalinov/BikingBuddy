@@ -29,7 +29,7 @@
   <ItemGroup>
     <Folder Include="Views\Comment\" />
     <Folder Include="wwwroot\FileStorage\CourseTracks\" />
-    <Folder Include="wwwroot\FileStorage\EventPhotos\" />
+    <Folder Include="wwwroot\FileStorage\EventPhotos\Gallery\" />
     <Folder Include="wwwroot\FileStorage\TeamPhotos\Gallery\" />
     <Folder Include="wwwroot\FileStorage\UserPhotos\" />
     <Folder Include="wwwroot\lib\bootstrap\dist\css\" />

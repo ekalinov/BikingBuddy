@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace BikingBuddy.Services.Contracts
+﻿namespace BikingBuddy.Services.Contracts
 {          
     using  Web.Models.Bike;
     using  Web.Models.BikeType;

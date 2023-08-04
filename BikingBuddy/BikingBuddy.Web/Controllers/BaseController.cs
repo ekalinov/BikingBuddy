@@ -6,8 +6,5 @@ namespace BikingBuddy.Web.Controllers
     [Authorize]
     public class BaseController : Controller
     {
-        
-
-
     }
 }

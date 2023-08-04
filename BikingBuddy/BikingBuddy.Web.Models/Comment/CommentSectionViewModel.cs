@@ -1,16 +1,13 @@
-﻿using System.Collections.Generic;
-
-namespace BikingBuddy.Web.Models.Comment
+﻿namespace BikingBuddy.Web.Models.Comment
 {
     public class CommentSectionViewModel
     {
-
         public CommentSectionViewModel()
         {
             AllComments = new HashSet<CommentViewModel>();
         }
 
-        public string EventId { get; set; } = null!; 
+        public string EventId { get; set; } = null!;
 
         public ICollection<CommentViewModel> AllComments { get; set; }
 

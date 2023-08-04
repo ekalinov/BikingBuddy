@@ -1,19 +1,18 @@
- @model IList<EventMiniViewModel> 
+@model IList<EventMiniViewModel> 
 
 
- 
- <div class="row agileinfo-top-grids">
+<div class="row agileinfo-top-grids">
 
-     @foreach (var eventDetails in Model)
-     {
-         <div class="col-sm-4">
-             <img src="@eventDetails.EventImageUrl" height="222px" width="335px" alt=""/>
-             <h4>@eventDetails.Title, </h4>
-             <h5>@eventDetails.Date  </h5>
-             
-             <p>@eventDetails.ActivityType</p>
-             <a asp-controller="Event" asp-action="Details" asp-route-eventId="@eventDetails.Id">Read More</a>
-         </div>
-     }
+    @foreach (var eventDetails in Model)
+    {
+        <div class="col-sm-4">
+            <img src="@eventDetails.EventImageUrl" height="222px" width="335px" alt=""/>
+            <h4>@eventDetails.Title, </h4>
+            <h5>@eventDetails.Date </h5>
 
- </div>
+            <p>@eventDetails.ActivityType</p>
+            <a asp-controller="Event" asp-action="Details" asp-route-eventId="@eventDetails.Id">Read More</a>
+        </div>
+    }
+
+</div>

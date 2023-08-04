@@ -5,8 +5,7 @@ using static BikingBuddy.Common.GlobalConstants;
 namespace BikingBuddy.Web.Areas.Administration.Controllers;
 
 [Area(AdminAreaName)]
-[Authorize(Roles=AdminRoleName)]
+[Authorize(Roles = AdminRoleName)]
 public class BaseAdminController : Controller
 {
-     
 }

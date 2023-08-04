@@ -1,20 +1,18 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using BikingBuddy.Common;
-using BikingBuddy.Web.Models.Activity;
-using Microsoft.AspNetCore.Http;
-using static BikingBuddy.Common.EntityValidationsConstants.Event; 
-using static BikingBuddy.Common.EntityValidationsConstants.Town;
-
-namespace BikingBuddy.Web.Models.Event
+﻿namespace BikingBuddy.Web.Models.Event
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using Activity;
+    using Microsoft.AspNetCore.Http;
+    using static BikingBuddy.Common.EntityValidationsConstants.Event;
+    using static Common.EntityValidationsConstants.Town;
     public class AddEventViewModel
     {
         public AddEventViewModel()
         {
             ActivityTypes = new HashSet<ActivityTypeViewModel>();
             CountriesCollection = new HashSet<CountryViewModel>();
+            GalleryPhotosModels = new List<GalleryPhotoModel>();
         }
 
 
@@ -41,13 +39,19 @@ namespace BikingBuddy.Web.Models.Event
 
         [Required] [Range(0, 1000)] public double Ascent { get; set; }
 
-        [Display(Name = "Choose the cover photo of your event")]    
+        [Display(Name = "Choose the cover photo of your event")]
         public IFormFile? EventImage { get; set; }
 
         [NotMapped]
         [FileExtensions(ErrorMessage = "Supported file extensions are .jpg, .jpeg and .png")]
         public string? FileName => EventImage?.FileName;
-        
+
+        [Display(Name = "Choose your Event Gallery photos")]
+        public ICollection<GalleryPhotoModel>? GalleryPhotosModels { get; set; }
+
+
+        public IFormFileCollection? GalleryPhotos { get; set; }
+
 
         public ICollection<CountryViewModel> CountriesCollection { get; set; }
 

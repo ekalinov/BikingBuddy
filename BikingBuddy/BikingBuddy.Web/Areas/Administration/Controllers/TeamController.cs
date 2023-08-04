@@ -2,11 +2,11 @@
 
 namespace BikingBuddy.Web.Areas.Administration.Controllers
 {
-	public class TeamController : Controller
-	{
-		public IActionResult Index()
-		{
-			return View();
-		}
-	}
+    public class TeamController : Controller
+    {
+        public IActionResult Index()
+        {
+            return View();
+        }
+    }
 }

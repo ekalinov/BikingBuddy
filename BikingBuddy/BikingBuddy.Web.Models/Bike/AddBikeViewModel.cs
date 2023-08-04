@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using BikingBuddy.Web.Models.BikeType;
+﻿using BikingBuddy.Web.Models.BikeType;
 using System.ComponentModel.DataAnnotations;
 using static BikingBuddy.Common.EntityValidationsConstants.Bike;
 
@@ -11,16 +10,14 @@ namespace BikingBuddy.Web.Models.Bike
         {
             BikeTypes = new HashSet<BikeTypeViewModel>();
         }
-       
+
         [StringLength(FrameBrandMaxLength, MinimumLength = FrameBrandMinLength)]
         public string? FrameBrand { get; set; }
 
         [StringLength(FrameSizeMaxLength, MinimumLength = FrameSizeMinLength)]
         public string? FrameSize { get; set; }
 
-        [Required]
-        [Range(0,30)]
-        public double WheelSize { get; set; }
+        [Required] [Range(0, 30)] public double WheelSize { get; set; }
 
         [StringLength(WheelBrandMaxLength, MinimumLength = WheelBrandMinLength)]
         public string? WheelBrand { get; set; }
@@ -34,8 +31,6 @@ namespace BikingBuddy.Web.Models.Bike
 
         public virtual ICollection<BikeTypeViewModel> BikeTypes { get; set; }
 
-        [Required]
-        public int BikeTypesId { get; set; } 
-
+        [Required] public int BikeTypesId { get; set; }
     }
 }

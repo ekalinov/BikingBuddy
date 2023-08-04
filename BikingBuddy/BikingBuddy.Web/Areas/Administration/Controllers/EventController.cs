@@ -7,6 +7,6 @@ public class EventController : Controller
     // GET
     public IActionResult Index()
     {
-            return View();
+        return View();
     }
 }

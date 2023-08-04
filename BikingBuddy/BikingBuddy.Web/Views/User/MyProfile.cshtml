@@ -11,36 +11,44 @@
             @*
             <p class="mb-0"><span class="fw-bold">BikeID: </span>@Model.BikeId</p>
             *@
-            <p class="mb-0"><span class="fw-bold">Shoes: </span>@Model.Shoes</p>
-            <p class="mb-0"><span class="fw-bold">Helmet: </span>@Model.Helmet</p>
-            <p class="mb-0"><span class="fw-bold">tEAMid: </span>@Model.Team</p>
-            <p class="mb-0"><span class="fw-bold">Total Distance: </span>@Model.TotalDistance</p>
-            <p class="mb-0"><span class="fw-bold">Total Ascent: </span>@Model.TotalAscent</p>
+            <p class="mb-0">
+                <span class="fw-bold">Shoes: </span>@Model.Shoes
+            </p>
+            <p class="mb-0">
+                <span class="fw-bold">Helmet: </span>@Model.Helmet
+            </p>
+            <p class="mb-0">
+                <span class="fw-bold">tEAMid: </span>@Model.Team
+            </p>
+            <p class="mb-0">
+                <span class="fw-bold">Total Distance: </span>@Model.TotalDistance
+            </p>
+            <p class="mb-0">
+                <span class="fw-bold">Total Ascent: </span>@Model.TotalAscent
+            </p>
 
 
-            
-
-                @if (Model.Shoes == null ||
-               Model.Helmet == null ||
-               Model.Country == null ||
-               Model.Town == null ||
-               Model.ProfileImageUrl == null)
-                {
-                    <a asp-controller="User" asp-action="Edit" asp-route-userId="@Model.Id" class="btn btn-info btn-rounded">Complete</a>
-                }
-                else
-                {
+            @if (Model.Shoes == null ||
+                 Model.Helmet == null ||
+                 Model.Country == null ||
+                 Model.Town == null ||
+                 Model.ProfileImageUrl == null)
+            {
+                <a asp-controller="User" asp-action="Edit" asp-route-userId="@Model.Id" class="btn btn-info btn-rounded">Complete</a>
+            }
+            else
+            {
                 <a asp-controller="User" asp-action="Edit" asp-route-bikeId="@Model.Id" class="btn btn-info btn-rounded">Edit Profile</a>
-                }
+            }
 
-            
+
 
         </div>
 
         <div>
 
 
-            <hr />
+            <hr/>
 
             <div>
 
@@ -50,30 +58,38 @@
             </div>
 
 
-
             @foreach (var bike in Model.UserBikes)
             {
-                <hr />
+                <hr/>
                 <h3 class="card-title text-center">@bike.FrameBrand, @bike.BikeType </h3>
 
-                <p class="mb-0"><span class="fw-bold">BikeType: </span>@bike.BikeType</p>
-                <p class="mb-0"><span class="fw-bold">FrameSize: </span>@bike.FrameSize</p>
-                <p class="mb-0"><span class="fw-bold">FrameBrand: </span>@bike.FrameBrand</p>
-                <p class="mb-0"><span class="fw-bold">WheelSize: </span>@bike.WheelSize</p>
-                <p class="mb-0"><span class="fw-bold">WheelBrand: </span>@bike.WheelBrand</p>
-                <p class="mb-0"><span class="fw-bold">DriveTrain: </span>@bike.Drivetrain</p>
-                <p class="mb-0"><span class="fw-bold">Fork: </span>@bike.Fork</p>
+                <p class="mb-0">
+                    <span class="fw-bold">BikeType: </span>@bike.BikeType
+                </p>
+                <p class="mb-0">
+                    <span class="fw-bold">FrameSize: </span>@bike.FrameSize
+                </p>
+                <p class="mb-0">
+                    <span class="fw-bold">FrameBrand: </span>@bike.FrameBrand
+                </p>
+                <p class="mb-0">
+                    <span class="fw-bold">WheelSize: </span>@bike.WheelSize
+                </p>
+                <p class="mb-0">
+                    <span class="fw-bold">WheelBrand: </span>@bike.WheelBrand
+                </p>
+                <p class="mb-0">
+                    <span class="fw-bold">DriveTrain: </span>@bike.Drivetrain
+                </p>
+                <p class="mb-0">
+                    <span class="fw-bold">Fork: </span>@bike.Fork
+                </p>
 
                 <a asp-controller="Bike" asp-action="Edit" asp-route-bikeId="@bike.Id" class="btn btn-info btn-rounded">Edit</a>
                 <a asp-controller="Bike" asp-action="Remove" asp-route-bikeId="@bike.Id" class="btn btn-info btn-rounded">Remove bike</a>
-
-
-
             }
 
         </div>
-
-
 
 
         <div>

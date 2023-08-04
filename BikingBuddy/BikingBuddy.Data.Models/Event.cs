@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace BikingBuddy.Data.Models
+﻿namespace BikingBuddy.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -17,6 +14,7 @@ namespace BikingBuddy.Data.Models
 
             EventComments = new HashSet<Comment>();
             EventsParticipants = new HashSet<EventParticipants>();
+            GalleryPhotos = new HashSet<EventGalleryPhoto>();
         }
 
 

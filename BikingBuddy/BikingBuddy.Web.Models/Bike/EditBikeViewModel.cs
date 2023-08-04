@@ -2,7 +2,6 @@
 {
     public class EditBikeViewModel : AddBikeViewModel
     {
-
         public string Id { get; set; } = null!;
     }
 }

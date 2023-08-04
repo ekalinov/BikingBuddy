@@ -12,47 +12,18 @@ Author URL: http://w3layouts.com
  */
 
 /*custom  appClasses*/
+.link-muted { color: #aaa; } .link-muted:hover { color: #1266f1; }
 
-.allEvents-banner { 
+.allEvents-banner {
     background: url(../images/AllEventsBannerPhoto.jpg) no-repeat 0% 80%;
     background-size: cover;
-    z-index: 0;
-    position: relative;
-    display: grid;
-    align-items: center; 
-}
-
-.allEvents-banner::before    {
-    content: "";
-    background: var(--bg-layer);
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: -1;
-}
-
-.allEvents-banner h5{
-    
-    
-font-size: 40px;
-line-height: 44px;
-font-weight: 700;
-color: #fff;
-
-}
-
-
-.allTeam-banner {
-    background: url(../images/Team_topBanner.jpg) no-repeat 46% 46%; 
     z-index: 0;
     position: relative;
     display: grid;
     align-items: center;
 }
 
-.allTeam-banner::before    {
+.allEvents-banner::before {
     content: "";
     background: var(--bg-layer);
     position: absolute;
@@ -63,7 +34,7 @@ color: #fff;
     z-index: -1;
 }
 
-.allTeam-banner h5{
+.allEvents-banner h5 {
 
 
     font-size: 40px;
@@ -73,28 +44,80 @@ color: #fff;
 
 }
 
-.ek-containers-margin{
+
+.allTeam-banner {
+    background: url(../images/Team_topBanner.jpg) no-repeat 46% 46%;
+    z-index: 0;
+    position: relative;
+    display: grid;
+    align-items: center;
+}
+
+.allTeam-banner::before {
+    content: "";
+    background: var(--bg-layer);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+}
+
+.allTeam-banner h5 {
+
+
+    font-size: 40px;
+    line-height: 44px;
+    font-weight: 700;
+    color: #fff;
+
+}
+.ek-card-comment{
+
+    border-radius: 15px;
+    border: 1px solid;
+    padding: 10px; 
+
+}
+.ek-card-comment:nth-child(odd) {
+
+    flex-direction: row-reverse;
+}
+
+.ek-containers-margin {
 
     margin: 0 10px;
 }
 
-.heading-sec{
-    
+.ek-row {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    align-items: stretch;
+}
+
+
+
+.heading-sec {
+
     font-size: 50px;
     color: var(--primary-color);
 }
 
-.event-card{
-     min-height: 450px;
-    
+.event-card {
+    min-height: 450px;
+
 }
 
-.event-card-img{
+.event-card-img {
     min-height: 220px;
 
 }
 
-.baner-right-button-line{
+.baner-right-button-line {
 
     display: inline-flex;
     align-content: stretch;
@@ -140,7 +163,7 @@ color: #fff;
 *,
 *::before,
 *::after {
-    
+
     box-sizing: border-box;
 }
 
@@ -164,9 +187,10 @@ section {
     display: block;
 }
 
-main { 
+main {
     display: block;
 }
+
 .parallax {
     /* The image used */
     background-image: url("../images/Bikebuddies2019_bearb-54-2-1.jpg");
@@ -182,17 +206,18 @@ main {
 }
 
 
-.w3layouts-services-heading{
+.w3layouts-services-heading {
     text-align: center;
     margin-bottom: 20px;
 }
-.ek{
- 
+
+.ek {
+
     font-size: 50px;
     background-color: coral;
     text-align: center;
     border: solid;
-    border-radius: 47px; 
+    border-radius: 47px;
 }
 
 body {
@@ -225,11 +250,13 @@ h6 {
     margin-top: 0;
     margin-bottom: 0.5rem;
 }
-.ek-h4{ 
+
+.ek-h4 {
     text-align: center;
     padding: 8px 0px;
 }
-.ek-p{
+
+.ek-p {
 
     background-color: #00000094;
     border-radius: 26px;
@@ -324,7 +351,7 @@ a:hover {
     text-decoration: underline;
 }
 
-a:not([href]) {  
+a:not([href]) {
     text-decoration: none;
 }
 
@@ -868,7 +895,7 @@ pre code {
     display: flex;
     flex-wrap: wrap;
     margin-right: -15px;
-    margin-left: -15px;     
+    margin-left: -15px;
     align-items: stretch;
 }
 
@@ -5191,8 +5218,8 @@ input[type="button"].btn-block {
     min-width: 0;
     word-wrap: break-word;
     background-clip: border-box;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    border-radius: 0.25rem;
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
 }
 
 .card > hr {
@@ -5236,7 +5263,7 @@ input[type="button"].btn-block {
 .card-link + .card-link {
     margin-left: 3.25rem;
     margin-right: 3.25rem;
-    
+
 }
 
 .card-header {
@@ -5290,12 +5317,21 @@ input[type="button"].btn-block {
 .card-img-bottom {
     flex-shrink: 0;
     width: 100%;
+    
 }
 
 .card-img,
 .card-img-top {
-    border-top-left-radius: calc(0.25rem - 1px);
-    border-top-right-radius: calc(0.25rem - 1px);
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+}
+
+element.style {
+}
+.card-img, .card-img-top {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+    padding: 5px;
 }
 
 .card-img,
@@ -5976,7 +6012,7 @@ a.badge-dark.focus {
 .list-group-item {
     position: relative;
     display: block;
-    padding: 0.75rem 1.25rem; 
+    padding: 0.75rem 1.25rem;
     border: 1px solid rgba(0, 0, 0, 0.125);
 }
 
@@ -9626,7 +9662,8 @@ button.bg-dark:focus {
 
     .mb-md-5,
     .my-md-5 {
-        margin-top: 4rem; !important;
+        margin-top: 4rem;
+    !important;
         margin-bottom: 1rem !important;
     }
 

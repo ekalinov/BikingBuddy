@@ -65,7 +65,7 @@
             </div>
             <div class="mb-3">
 
-                <label   class="form-label-add-edit">Select File for event cover photo <span class="font-italic">(.jpg, .jpeg, .png)</span></label>
+                <label class="form-label-add-edit">Select File for event cover photo <span class="font-italic">(.jpg, .jpeg, .png)</span></label>
                 <div class="custom-file">
                     <input asp-for="@Model.EventImage" class="custom-file-input" id="inputGroupFile02" aria-describedby="inputGroupFileAddon01"/>
                     <label class="custom-file-label">Choose file</label>
@@ -82,6 +82,24 @@
                                        $(this).next('.custom-file-label').html(fileName);
                                    })
                                </script>
+            </div>
+            <div class="mb-3">
+
+                <label class="form-label-add-edit">Select Photos for your Event Gallery <span class="font-italic">(.jpg, .jpeg, .png)</span></label>
+                <div class="custom-file">
+                    <input asp-for="@Model.GalleryPhotos" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon01"/>
+                    <label class="custom-file-label">Choose files</label>
+                </div>
+
+
+                <script>
+                                       $('#inputGroupFile03').on('change',function(){
+                                           //get the file name
+                                           var fileName = $(this).val();
+                                           //replace the "Choose a file" label
+                                           $(this).next('.custom-file-label').html(fileName);
+                                       })
+                            </script>
             </div>
             <div class="mb-3">
                 <input class="btn btn-warning mb-2 w-100 p-3 fw-bold"

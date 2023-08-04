@@ -17,6 +17,5 @@
         public string? Fork { get; set; }
 
         public string BikeType { get; set; } = null!;
-
     }
 }

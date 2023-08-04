@@ -121,18 +121,26 @@
         <div class="card-body">
             <h3 class="card-title text-center">@Model.Title</h3>
 
-            <div class="row mt-4">
-                <p class=" col-6 ">
-                    <span class="fw-bold">Description: </span>@Model.Description
+            <div>
+
+                @if (Model.GalleryPhotosModels.Any())
+                {
+                    <div class="float-right"
+                         style="
+                                      width: 500px;
+                                      margin: 10px 30px;">
+
+                        @await Html.PartialAsync("_GalleryPhotosPartial", Model.GalleryPhotosModels)
+                    </div>
+                }
+
+                <p class="mt-1">
+                    <h5 class="fw-bold"> Event Description: </h5> <span> @Model.Description </span>
                 </p>
-                <div class="col-6">
-
-                    @* TODO: @await Html.PartialAsync("_GalleryPhotosPartial",  ) *@
-                </div>
-
-
             </div>
-            <div class ="col-10">
+
+
+            <div class="col-10">
 
                 @await Html.PartialAsync("_AllCommentsPartial", Model.EventComments, dictionary)
 

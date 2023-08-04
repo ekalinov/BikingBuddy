@@ -1,16 +1,9 @@
-﻿
-using System;
-using System.Threading.Tasks;
-
-namespace BikingBuddy.Web.Controllers
+﻿namespace BikingBuddy.Web.Controllers
 {
-
     using Microsoft.AspNetCore.Mvc;
-
     using Services.Contracts;
     using Infrastructure.Extensions;
     using Models.Bike;
-
     using static Common.NotificationMessagesConstants;
     using static Common.ErrorMessages.BikeErrorMessages;
 
@@ -39,8 +32,6 @@ namespace BikingBuddy.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddBikeViewModel model)
         {
-
-
             if (!ModelState.IsValid)
             {
                 model.BikeTypes = await bikeService.GetBikeTypesAsync();
@@ -56,7 +47,6 @@ namespace BikingBuddy.Web.Controllers
             }
             catch (Exception)
             {
-
                 TempData[ErrorMessage] = AddBikeError;
 
                 model.BikeTypes = await bikeService.GetBikeTypesAsync();
@@ -73,7 +63,7 @@ namespace BikingBuddy.Web.Controllers
         public async Task<IActionResult> Edit(string bikeId)
         {
             EditBikeViewModel? bikeModel = await bikeService.GetBikeToEditAsync(bikeId);
- 
+
             try
             {
                 if (bikeModel != null)
@@ -82,13 +72,10 @@ namespace BikingBuddy.Web.Controllers
 
                     return View(bikeModel);
                 }
-
             }
             catch (Exception)
             {
-
                 TempData[ErrorMessage] = EditBikeError;
-
             }
 
             return RedirectToAction("MyProfile", "User");
@@ -97,7 +84,6 @@ namespace BikingBuddy.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditBikeViewModel model)
         {
-
             if (!ModelState.IsValid)
             {
                 model.BikeTypes = await bikeService.GetBikeTypesAsync();
@@ -121,14 +107,13 @@ namespace BikingBuddy.Web.Controllers
 
                 return View(model);
             }
-
         }
 
 
         //Delete 
 
         public async Task<IActionResult> Remove(string bikeId)
-        { 
+        {
             try
             {
                 await bikeService.RemoveBikeAsync(bikeId);
@@ -141,7 +126,5 @@ namespace BikingBuddy.Web.Controllers
 
             return RedirectToAction("MyProfile", "User");
         }
-
-
     }
 }

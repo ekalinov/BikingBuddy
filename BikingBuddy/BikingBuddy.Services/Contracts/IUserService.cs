@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using BikingBuddy.Data.Models;
+﻿using BikingBuddy.Data.Models;
 
 namespace BikingBuddy.Services.Contracts
 {

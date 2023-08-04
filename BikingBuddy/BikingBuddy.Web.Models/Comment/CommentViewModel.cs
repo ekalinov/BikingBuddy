@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BikingBuddy.Web.Models.Comment
+﻿namespace BikingBuddy.Web.Models.Comment
 {
     public class CommentViewModel
     {
@@ -8,7 +6,7 @@ namespace BikingBuddy.Web.Models.Comment
 
         public string CommentBody { get; set; } = null!;
 
-        public DateTime CreatedOn { get; set; } 
+        public DateTime CreatedOn { get; set; }
 
         public string UserName { get; set; } = null!;
 
@@ -17,7 +15,5 @@ namespace BikingBuddy.Web.Models.Comment
         public bool IsEdited { get; set; } = false;
 
         public DateTime? EditedOn { get; set; }
-
-
     }
 }

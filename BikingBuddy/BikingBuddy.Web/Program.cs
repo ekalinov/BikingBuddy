@@ -1,4 +1,3 @@
-using System;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using BikingBuddy.Data;
@@ -6,10 +5,6 @@ using BikingBuddy.Data.Models;
 using BikingBuddy.Services.Contracts;
 using BikingBuddy.Web.Infrastructure.Extensions;
 using BikingBuddy.Web.Infrastructure.ModelBinders;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using static BikingBuddy.Common.GlobalConstants;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -52,7 +47,7 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 else
-{ 
+{
     app.UseExceptionHandler("/Home/Error/5OO");
     app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
@@ -68,7 +63,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 
-
 if (app.Environment.IsDevelopment())
 {
     app.SeedAdministrator(AdminRoleEmail);
@@ -80,12 +74,11 @@ app.UseEndpoints(config =>
         name: "areas",
         pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
     );
-    
+
     config.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
 
     config.MapRazorPages();
-
 });
-    app.Run();
+app.Run();

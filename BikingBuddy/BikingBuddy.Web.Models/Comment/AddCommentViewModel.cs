@@ -9,4 +9,3 @@ namespace BikingBuddy.Web.Models.Comment
         public string CommentBody { get; set; } = null!;
     }
 }
-    

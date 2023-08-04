@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-using static BikingBuddy.Common.ErrorMessages.CommentErrorMessages;
+﻿using static BikingBuddy.Common.ErrorMessages.CommentErrorMessages;
 using static BikingBuddy.Common.NotificationMessagesConstants;
 
 namespace BikingBuddy.Web.Controllers
@@ -11,7 +9,6 @@ namespace BikingBuddy.Web.Controllers
 
     public class CommentController : BaseController
     {
-
         private readonly ICommentService commentService;
 
         public CommentController(ICommentService _commentService)
@@ -24,13 +21,11 @@ namespace BikingBuddy.Web.Controllers
         {
             if (commentBody == null)
             {
-                
-                TempData[ErrorMessage] = CommentBoddyEmpty; 
+                TempData[ErrorMessage] = CommentBoddyEmpty;
                 return RedirectToAction("Details", "Event", new { eventId });
-                
             }
-            
-            
+
+
             var userId = User.GetId();
 
             await commentService.AddComment(commentBody, userId, eventId);
@@ -38,7 +33,6 @@ namespace BikingBuddy.Web.Controllers
 
             return RedirectToAction("Details", "Event", new { eventId });
         }
-
 
 
         [HttpGet]

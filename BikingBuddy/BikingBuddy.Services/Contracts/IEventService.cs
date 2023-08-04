@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using BikingBuddy.Data.Models;
+﻿using BikingBuddy.Data.Models;
 using BikingBuddy.Services.Data.Models.Events;
 
 namespace BikingBuddy.Services.Contracts
@@ -21,7 +19,7 @@ namespace BikingBuddy.Services.Contracts
         Task<EventDetailsViewModel?> GetEventDetailsByIdAsync(string id);
 
         //Update
-        Task EditEventAsync(EditEventViewModel model, string eventId);
+        Task EditEventAsync(EditEventViewModel model);
 
         //Delete
         Task DeleteEventAsync(string eventId);

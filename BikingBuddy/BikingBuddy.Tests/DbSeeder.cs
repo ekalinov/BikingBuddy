@@ -1,12 +1,6 @@
-using System.Runtime.InteropServices.ComTypes;
 using BikingBuddy.Data;
 using BikingBuddy.Data.Models;
-using BikingBuddy.Services;
-using BikingBuddy.Services.Contracts;
 using BikingBuddy.Web.Models.Activity;
-using BikingBuddy.Web.Models.Event;
-using Humanizer;
-using Microsoft.EntityFrameworkCore;
 
 namespace BikingBuddy.Tests;
 

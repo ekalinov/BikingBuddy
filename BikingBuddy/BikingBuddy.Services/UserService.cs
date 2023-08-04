@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using BikingBuddy.Data;
+﻿using BikingBuddy.Data;
 using BikingBuddy.Data.Models;
 
 namespace BikingBuddy.Services

@@ -1,6 +1,6 @@
 ﻿namespace BikingBuddy.Web.Models.Team
 {
-    public class EditTeamViewModel:AddTeamViewModel
+    public class EditTeamViewModel : AddTeamViewModel
 
     {
         public string Id { get; set; } = null!;

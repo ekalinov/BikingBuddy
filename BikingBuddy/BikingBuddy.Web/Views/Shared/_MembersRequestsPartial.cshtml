@@ -1,45 +1,44 @@
 @model ICollection<UserViewModel>
- 
- 
+
+
 <h5>Member Requests:</h5>
 @if (Model.Any())
 {
-    
-<table class="table align-middle mt-2    mb-5 bg-white">
-    <thead class="bg-light">
-    <tr>
-        <th> Photo</th>
-        <th> Name</th>
-        <th>Options</th>
-    </tr>
-    </thead>
-    <tbody>
-
-    @foreach (var member in Model )
-    {
+    <table class="table align-middle mt-2    mb-5 bg-white">
+        <thead class="bg-light">
         <tr>
-            <td>
-                <img src="@member.ProfileImageUrl"   
-                     alt=""
-                     style="width: 45px; height: 45px"
-                     class="rounded-circle"/>
-
-            </td>
-            <td>
-                <p class="fw-bold mb-1">@member.Name</p>
-
-            </td>
-
-
-            <td >
-                <a asp-controller="Team" asp-action="AddMember" asp-route-memberId="@member.Id"  asp-route-teamId="@ViewData["teamId"]" class="btn btn-info btn-rounded" method="post">AddMember</a>
-                <a asp-controller="Team" asp-action="RejectRequest" asp-route-memberId="@member.Id"  asp-route-teamId="@ViewData["teamId"]"  class="btn btn-warning btn-rounded">RejectRequest</a>
-            </td>
+            <th> Photo</th>
+            <th> Name</th>
+            <th>Options</th>
         </tr>
-    }
+        </thead>
+        <tbody>
 
-    </tbody>
-</table>
+        @foreach (var member in Model)
+        {
+            <tr>
+                <td>
+                    <img src="@member.ProfileImageUrl"
+                         alt=""
+                         style="width: 45px; height: 45px"
+                         class="rounded-circle"/>
+
+                </td>
+                <td>
+                    <p class="fw-bold mb-1">@member.Name</p>
+
+                </td>
+
+
+                <td >
+                    <a asp-controller="Team" asp-action="AddMember" asp-route-memberId="@member.Id" asp-route-teamId="@ViewData["teamId"]" class="btn btn-info btn-rounded" method="post">AddMember</a>
+                    <a asp-controller="Team" asp-action="RejectRequest" asp-route-memberId="@member.Id" asp-route-teamId="@ViewData["teamId"]" class="btn btn-warning btn-rounded">RejectRequest</a>
+                </td>
+            </tr>
+        }
+
+        </tbody>
+    </table>
 }
 else
 {
