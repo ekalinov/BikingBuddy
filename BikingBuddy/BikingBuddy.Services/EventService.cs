@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BikingBuddy.Services
+﻿namespace BikingBuddy.Services
 {
     using Microsoft.EntityFrameworkCore;
     using System.Globalization;
@@ -22,7 +17,6 @@ namespace BikingBuddy.Services
     public class EventService : IEventService
     {
         private readonly BikingBuddyDbContext dbContext;
-        
 
 
         public EventService(BikingBuddyDbContext _dbContext)
@@ -73,6 +67,19 @@ namespace BikingBuddy.Services
                 Distance = model.Distance,
             };
 
+
+            if (model.GalleryPhotosModels != null && model.GalleryPhotosModels.Any())
+            {
+                foreach (var photo in model.GalleryPhotosModels)
+                {
+                    newEvent.GalleryPhotos.Add(new EventGalleryPhoto()
+                    {
+                        Name = photo.Name,
+                        Url = photo.URL,
+                    });
+                }
+            }
+
             await dbContext.Events.AddAsync(newEvent);
             await dbContext.SaveChangesAsync();
         }
@@ -81,10 +88,10 @@ namespace BikingBuddy.Services
         public async Task<EventDetailsViewModel?> GetEventDetailsByIdAsync(string id)
         {
             var eventParticipants = await GetEventParticipants(id);
-            
-            
+
+
             var eventById = await dbContext.Events
-                .Where(e => e.Id.ToString() == id && e.IsDeleted == false) 
+                .Where(e => e.Id.ToString() == id && e.IsDeleted == false)
                 .Select(e => new EventDetailsViewModel
                 {
                     Id = e.Id.ToString(),
@@ -101,15 +108,21 @@ namespace BikingBuddy.Services
                     Town = e.Town.Name,
                     EventsParticipants = eventParticipants,
                     EventComments = null,
-                    
+                    GalleryPhotosModels = e.GalleryPhotos
+                        .Select(p => new GalleryPhotoModel
+                        {
+                            Id = p.Id.ToString(),
+                            Name = p.Name,
+                            URL = p.Url
+                        }).ToList()
                 })
                 .FirstOrDefaultAsync();
 
-         return eventById;
+            return eventById;
         }
 
         //Update
-        public async Task EditEventAsync(EditEventViewModel model, string eventId)
+        public async Task EditEventAsync(EditEventViewModel model)
         {
             var eventToEdit = await GetEventByIdAsync(model.EventId);
             if (eventToEdit != null)
@@ -119,13 +132,35 @@ namespace BikingBuddy.Services
                 eventToEdit.Description = model.Description;
                 eventToEdit.Distance = model.Distance;
                 eventToEdit.Ascent = model.Ascent;
-                eventToEdit.EventImageUrl = model.EventImageUrl;
                 eventToEdit.ActivityTypeId = model.ActivityTypeId;
                 eventToEdit.CountryId = model.CountryId;
                 eventToEdit.Town = await GetTownByNameAsync(model.TownName);
-            }
 
-            await dbContext.SaveChangesAsync();
+                if (model.EventImageUrl != null)
+                {
+                    eventToEdit.EventImageUrl = model.EventImageUrl;
+                }
+
+
+                if (model.GalleryPhotosModels != null && model.GalleryPhotosModels.Any())
+                {
+                    ICollection<EventGalleryPhoto> galleryPhotos = new HashSet<EventGalleryPhoto>();
+
+                    foreach (var photo in model.GalleryPhotosModels)
+                    {
+                        galleryPhotos.Add(new EventGalleryPhoto
+                        {
+                            Event = eventToEdit,
+                            Name = photo.Name,
+                            Url = photo.URL
+                        });
+                    }
+
+                    await dbContext.EventGalleryPhotos.AddRangeAsync(galleryPhotos);
+                }
+
+                await dbContext.SaveChangesAsync();
+            }
         }
 
         //Delete
@@ -183,7 +218,7 @@ namespace BikingBuddy.Services
                     Title = e.Title,
                     Date = e.Date.ToString(DateTimeFormats.DateTimeFormat),
                     Description = e.Description,
-                    Distance = e.Distance,  
+                    Distance = e.Distance,
                     Ascent = e.Ascent,
                     EventImageUrl = e.EventImageUrl!,
                     TownName = e.Town.Name,
@@ -211,12 +246,13 @@ namespace BikingBuddy.Services
                 .AsNoTracking()
                 .ToListAsync();
         }
+
         public async Task<IList<EventMiniViewModel>> GetNewestEventsAsync(string? eventId)
         {
             return await dbContext.Events
-                .Where(e => e.IsDeleted == false 
-                                && e.Date > DateTime.Today
-                                && e.Id!=Guid.Parse(eventId ?? string.Empty))
+                .Where(e => e.IsDeleted == false
+                            && e.Date > DateTime.Today
+                            && e.Id != Guid.Parse(eventId ?? string.Empty))
                 .OrderByDescending(e => e.CreatedOn)
                 .Select(e => new EventMiniViewModel()
                 {
@@ -231,8 +267,8 @@ namespace BikingBuddy.Services
                 .AsNoTracking()
                 .ToListAsync();
         }
-        
-        
+
+
         public async Task<AllEventsFilteredAndPagedServiceModel> AllAsync(AllEventsQueryModel queryModel)
         {
             IQueryable<Event> eventsQuery = dbContext.Events
@@ -401,11 +437,12 @@ namespace BikingBuddy.Services
             return false;
         }
 
-        public async Task<AllEventsFilteredAndPagedServiceModel>  MineAsync(AllEventsQueryModel queryModel,string userId)
-         {
+        public async Task<AllEventsFilteredAndPagedServiceModel> MineAsync(AllEventsQueryModel queryModel,
+            string userId)
+        {
             IQueryable<Event> eventsQuery = dbContext.Events
-                .Where(e => e.EventsParticipants.Any(ep=>ep.ParticipantId == Guid.Parse(userId))
-                            ||e.OrganizerId== Guid.Parse(userId))
+                .Where(e => e.EventsParticipants.Any(ep => ep.ParticipantId == Guid.Parse(userId))
+                            || e.OrganizerId == Guid.Parse(userId))
                 .AsQueryable();
 
             if (!String.IsNullOrWhiteSpace(queryModel.ActivityType))
@@ -481,8 +518,6 @@ namespace BikingBuddy.Services
         }
 
 
-        
-        
         //----------------------------------------------
 
         /// <summary>

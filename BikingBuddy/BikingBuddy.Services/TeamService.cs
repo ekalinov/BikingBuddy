@@ -1,17 +1,4 @@
-﻿
-
-
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using BikingBuddy.Common;
-using BikingBuddy.Web.Models;
-using Microsoft.AspNetCore.Http;
-
-using static BikingBuddy.Common.DateTimeFormats;
-using DateFormat = Microsoft.VisualBasic.DateFormat;
+﻿using BikingBuddy.Web.Models;
 
 namespace BikingBuddy.Services
 {
@@ -29,21 +16,20 @@ namespace BikingBuddy.Services
         private readonly IUserService userService;
 
         public TeamService(IEventService _eventService,
-            BikingBuddyDbContext _dbContext, 
+            BikingBuddyDbContext _dbContext,
             IUserService _userService)
         {
             eventService = _eventService;
             dbContext = _dbContext;
-            userService = _userService; 
-
+            userService = _userService;
         }
 
-        
+
         //Details
         public async Task<TeamDetailsViewModel?> GetTeamDetailsAsync(string teamId)
         {
             return await dbContext.Teams
-                .Include(t=>t.TeamManager)
+                .Include(t => t.TeamManager)
                 .Where(t => t.Id == Guid.Parse(teamId) && t.IsDeleted == false)
                 .Select(t => new TeamDetailsViewModel()
                 {
@@ -71,7 +57,7 @@ namespace BikingBuddy.Services
                             ProfileImageUrl = tm.ProfileImageUrl
                         }).ToList(),
                     GalleryPhotosModels = t.GalleryPhotos
-                        .Select(p=> new GalleryPhotoModel
+                        .Select(p => new GalleryPhotoModel
                         {
                             Id = p.Id.ToString(),
                             Name = p.Name,
@@ -121,24 +107,19 @@ namespace BikingBuddy.Services
                 TeamManagerId = Guid.Parse(teamManagerId),
                 CountryId = model.CountryId,
                 Town = await eventService.GetTownByNameAsync(model.TownName),
-                Description = model.Description, 
+                Description = model.Description,
             };
 
             if (model.GalleryPhotosModels != null && model.GalleryPhotosModels.Any())
-            {
-                
-                var galleryPhotos = new List<TeamGalleryPhoto>(); 
-
+            { 
                 foreach (var photo in model.GalleryPhotosModels)
                 {
                     teamToAdd.GalleryPhotos.Add(new TeamGalleryPhoto
-                    { 
+                    {
                         Name = photo.Name,
-                        Url = photo.URL,  
+                        Url = photo.URL,
                     });
-                  
-                }
-
+                } 
             }
 
             await dbContext.Teams.AddAsync(teamToAdd);
@@ -154,28 +135,32 @@ namespace BikingBuddy.Services
             {
                 teamToEdit.Name = model.Name;
                 teamToEdit.TeamImageUrl = model.TeamImageUrl;
-                teamToEdit.EstablishedOn = model.EstablishedOn;
                 teamToEdit.CountryId = model.CountryId;
                 teamToEdit.Town = await eventService.GetTownByNameAsync(model.TownName);
                 teamToEdit.Description = model.Description;
-                
+
+                if (model.TeamImageUrl != null)
+                {
+                    teamToEdit.EstablishedOn = model.EstablishedOn;
+                }
+ 
                 if (model.GalleryPhotosModels != null && model.GalleryPhotosModels.Any())
                 {
-                
-                    var galleryPhotos = new List<TeamGalleryPhoto>(); 
+                    ICollection<TeamGalleryPhoto> galleryPhotos = new HashSet<TeamGalleryPhoto>();
 
                     foreach (var photo in model.GalleryPhotosModels)
                     {
                         galleryPhotos.Add(new TeamGalleryPhoto
-                        { 
+                        {
+                            Team = teamToEdit,
                             Name = photo.Name,
-                            Url = photo.URL,  
+                            Url = photo.URL
                         });
                     }
 
                     await dbContext.TeamsGalleryPhotos.AddRangeAsync(galleryPhotos);
                 }
-                
+
                 await dbContext.SaveChangesAsync();
             }
         }
@@ -207,7 +192,7 @@ namespace BikingBuddy.Services
             AppUser? user = await userService.GetUserByIdAsync(userId);
 
             TeamRequest? request = await GetTeamRequestAsync(userId, teamId);
- 
+
             if (request == null
                 && team != null
                 && user != null)
@@ -220,7 +205,7 @@ namespace BikingBuddy.Services
                 };
 
                 team.TeamRequests.Add(request);
-                
+
 
                 await dbContext.SaveChangesAsync();
             }
@@ -241,7 +226,7 @@ namespace BikingBuddy.Services
                 && !await IsMemberAsync(userId, teamId))
             {
                 team.TeamMembers.Add(user);
-                 
+
                 dbContext.TeamsRequests.Remove(request);
 
                 request.IsAccepted = true;
@@ -333,7 +318,6 @@ namespace BikingBuddy.Services
             }
 
             return false;
-
         }
 
 
@@ -352,15 +336,5 @@ namespace BikingBuddy.Services
                 .Where(t => t.Id == Guid.Parse(id) && t.IsDeleted == false)
                 .FirstOrDefaultAsync();
         }
-        
-        
-   
-
-
- 
-        
-        
     }
-    
-    
 }

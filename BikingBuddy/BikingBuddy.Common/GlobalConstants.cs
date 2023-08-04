@@ -20,7 +20,12 @@
 
         //Photo Storage paths
         public const string TeamPhotoDestinationPath = "FileStorage/TeamPhotos/";
+
         public const string TeamGalleryPhotosDestinationPath = "FileStorage/TeamPhotos/Gallery/";
+        
+        public const string EventPhotoDestinationPath = "FileStorage/EventPhotos/";
+
+        public const string EventGalleryPhotosDestinationPath = "FileStorage/EventPhotos/Gallery/";
 
     }
 

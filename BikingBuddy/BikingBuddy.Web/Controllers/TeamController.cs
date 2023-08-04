@@ -17,7 +17,7 @@ namespace BikingBuddy.Web.Controllers
         private readonly IEventService eventService;
         private readonly IWebHostEnvironment environment;
         private readonly string envWebRooth;
-        
+
 
         public TeamController(ITeamService _teamService,
             IEventService _eventService,
@@ -104,16 +104,16 @@ namespace BikingBuddy.Web.Controllers
             }
 
             if (model.TeamImage != null)
-            { 
-
-                model.TeamImageUrl =  await UploadPhotoToLocalStorageAsync(TeamPhotoDestinationPath, model.TeamImage, envWebRooth);
+            {
+                model.TeamImageUrl =
+                    await UploadPhotoToLocalStorageAsync(TeamPhotoDestinationPath, model.TeamImage, envWebRooth);
             }
-            
+
             if (model.GalleryPhotos != null && model.GalleryPhotos.Any())
-            {  
+            {
                 foreach (var photo in model.GalleryPhotos)
                 {
-                    var galleryPhotoModel = new GalleryPhotoModel()
+                    var galleryPhotoModel = new GalleryPhotoModel
                     {
                         Name = photo.Name,
                         URL = await UploadPhotoToLocalStorageAsync(TeamGalleryPhotosDestinationPath, photo, envWebRooth)
@@ -217,9 +217,22 @@ namespace BikingBuddy.Web.Controllers
             }
 
             if (model.TeamImage != null)
-            { 
+            {
                 model.TeamImageUrl =
-                    await  UploadPhotoToLocalStorageAsync(TeamPhotoDestinationPath, model.TeamImage, envWebRooth);
+                    await UploadPhotoToLocalStorageAsync(TeamPhotoDestinationPath, model.TeamImage, envWebRooth);
+            }
+
+            if (model.GalleryPhotos != null && model.GalleryPhotos.Any())
+            {
+                foreach (var photo in model.GalleryPhotos)
+                {
+                    var galleryPhotoModel = new GalleryPhotoModel
+                    {
+                        Name = photo.Name,
+                        URL = await UploadPhotoToLocalStorageAsync(TeamGalleryPhotosDestinationPath, photo, envWebRooth)
+                    };
+                    model.GalleryPhotosModels.Add(galleryPhotoModel);
+                }
             }
 
             try
