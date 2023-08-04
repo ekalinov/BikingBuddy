@@ -151,13 +151,14 @@ public class EventServiceTest
 
         var eventToEdit = await eventService.GetEventViewModelByIdAsync(testEventId);
 
+        eventToEdit.EventId = testEventId;
         eventToEdit!.Title = "Edited Title";
         eventToEdit.Distance = 200;
         eventToEdit.Ascent = 250;
         eventToEdit.Description = "Edited testEventDescription description";
 
 
-        await eventService.EditEventAsync(eventToEdit, testEventId);
+        await eventService.EditEventAsync(eventToEdit);
 
 
         Event? editedEvent = await eventService.GetEventByIdAsync(testEventId);
