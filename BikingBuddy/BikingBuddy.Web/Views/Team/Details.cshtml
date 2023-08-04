@@ -82,33 +82,36 @@
                 <h3 style="text-align: center; margin-bottom: 1rem">Team Options</h3>
 
                 <div class="row">
-                    <a asp-controller="Team" asp-action="Edit" class="card-link ml-2 mr-2" asp-route-teamId="@Model.Id">Edit</a>
+                    <a asp-controller="Team" asp-action="Edit" class="btn btn-warning" asp-route-teamId="@Model.Id">Edit</a>
                     <form class="ml-2" method="post">
-                        <a asp-controller="Team" asp-action="Delete" asp-route-teamId="@Model.Id" class="card-link ml-2 mr-2">Delete</a>
+                        <button   asp-controller="Team" asp-action="Delete" asp-route-teamId="@Model.Id"   class=" btn btn-danger">Delete</button>
                     </form>
                 </div>
             }
 
-        </div>
+        </div> 
     </div>
     <div class="card col-8 ek-containers-margin">
         <div class="card-body">
             <h3 class="card-title text-center">@Model.Name</h3>
-            <p class="mb-0">
-                <span class="fw-bold">Description: </span>@Model.Description
-            </p>
-            <div class="row mt-4">
+            <div>
 
-                <div class="col-6">
+                @if (Model.GalleryPhotosModels.Any())
+                {
+                    <div class="float-right"
+                         style="
+                                    width: 500px;
+                                    margin: 10px 30px;">
 
-                    @await Html.PartialAsync("_GalleryPhotosPartial", Model.GalleryPhotosModels)
-                </div>
-                <div class="col-6">
-                    <h2> // TODO: Put Review section Here! </h2>
+                        @await Html.PartialAsync("_GalleryPhotosPartial", Model.GalleryPhotosModels)
+                    </div>
+                }
 
-                </div>
-
+                <p class="mt-1">
+                    <h5 class="fw-bold"> Team Description: </h5> <span> @Model.Description </span>
+                </p>
             </div>
+
 
             @if (User.Identity?.Name == Model.TeamManager || User.IsAdmin() || isMember)
             {
@@ -117,7 +120,7 @@
                 </div>
                 @if (User.Identity?.Name == Model.TeamManager || User.IsAdmin())
                 {
-                    <div  class="mt-2">
+                    <div class="mt-2">
                         @await Html.PartialAsync("_MembersRequestsPartial", Model.MembersRequests, dictionary)
                     </div>
                 }

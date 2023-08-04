@@ -1,13 +1,26 @@
-﻿@using BikingBuddy.Web.Infrastructure.Extensions
-@using BikingBuddy.Services.Contracts
+﻿@using BikingBuddy.Services.Contracts
 @model EventDetailsViewModel
 @inject IEventService eventService
 
 @{
-    var modelComments = @Model.EventComments;
+    bool isAdmin = false;
+    bool isOrganiser = false;
+    bool isParticipant = false;
+
     ViewBag.Title = "Event Details";
-    bool isOrganiser = await eventService.IsOrganiser(Model.Id, User.GetId());
-    bool isParticipant = await eventService.IsParticipating(User.GetId(), Model.Id);
+    @if (User.Identity.IsAuthenticated)
+    {
+        isOrganiser = await eventService.IsOrganiser(Model.Id, User.GetId());
+        isParticipant = await eventService.IsParticipating(User.GetId(), Model.Id);
+        isAdmin = User.IsAdmin();
+    }
+
+
+    ViewDataDictionary dictionary = new ViewDataDictionary(ViewData)
+    {
+        { "EventId", Model.Id },
+        { "UserPhoto", Model.EventImageUrl }
+    };
 }
 
 
@@ -46,90 +59,105 @@
                 <span class="fw-bold">Ascent: </span>@Model.Ascent
             </p>
 
-        </div>
-        <ul class="list-group list-group-flush">
+            <hr/>
 
-            <li class="list-group-item">
+            <ul class="list-group list-group-flush">
 
-                <div class="stats w3-left" text-align: -webkit-center>
-                    <div class="row w3l-stats-section stats-con">
-                        <div class=" stats_info team-stats_info  counter_grid">
-                            <i class="far fa-users team-stats_info" style="color: #afafaf;margin-top: 12px;"></i>
-                            <p class="counter">@Model.EventsParticipants.Count </p>
-                            <h3 class="" style="color: #afafaf">Joined Participants</h3>
-                        </div>
-
-                    </div>
-                </div>
-            </li>
-
-
-            @if (!isOrganiser)
-            {
                 <li class="list-group-item">
-                    @if (!isParticipant)
-                    {
-                        <a asp-controller="Event" asp-action="Join" class="btn btn-primary btn-white btn-style  " style="display: block" asp-route-eventId="@Model.Id">Join Event </a>
-                    }
-                    else
-                    {
-                        <a asp-controller="Event" asp-action="Leave" class="btn btn-primary btn-white btn-style  " style="display: block" asp-route-eventId="@Model.Id">Leave Event</a>
-                    }
+
+                    <div class="stats w3-left" text-align: -webkit-center>
+                        <div class="row w3l-stats-section stats-con">
+                            <div class=" stats_info team-stats_info  counter_grid">
+                                <i class="far fa-users team-stats_info" style="color: #afafaf;margin-top: 12px;"></i>
+                                <p class="counter">@Model.EventsParticipants.Count </p>
+                                <h3 class="" style="color: #afafaf">Joined Participants</h3>
+                            </div>
+
+                        </div>
+                    </div>
                 </li>
-            }
 
 
-            <li class="list-group-item" style=" ">
-                <a asp-controller="Event" asp-action="All" class="btn btn-primary btn-white btn-style  " style="display:block"> Back to All Events</a> 
-            </li>
+                @if (!isOrganiser)
+                {
+                    <li class="list-group-item">
+                        @if (!isParticipant)
+                        {
+                            <a asp-controller="Event" asp-action="Join" class="btn btn-primary btn-white btn-style  " style="display: block" asp-route-eventId="@Model.Id">Join Event </a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Event" asp-action="Leave" class="btn btn-primary btn-white btn-style  " style="display: block" asp-route-eventId="@Model.Id">Leave Event</a>
+                        }
+                    </li>
+                }
 
 
-        </ul>
-        <div class="card-body">
-            @if (isOrganiser || User.IsAdmin())
-            {
-                <h3 style="text-align: center; margin-bottom: 1rem">Event Options</h3>
+                <li class="list-group-item" style=" ">
+                    <a asp-controller="Event" asp-action="All" class="btn btn-primary btn-white btn-style  " style="display:block"> Back to All Events</a>
+                </li>
 
-                <div class="row">
-                    <a asp-controller="Event" asp-action="Edit" class="card-link ml-2 mr-2" asp-route-eventId="@Model.Id">Edit</a>
-                    <form class="ml-2" method="post">
-                        <a asp-controller="Event" asp-action="Delete" asp-route-eventId="@Model.Id" class="card-link ml-2 mr-2">Delete</a>
-                    </form>
-                </div>
-            }
 
+            </ul>
+
+
+            <div class="card-body">
+                @if (isOrganiser || isAdmin)
+                {
+                    <h3 style="text-align: center; margin-bottom: 1rem">Event Options</h3>
+
+                    <div class="row">
+                        <a asp-controller="Event" asp-action="Edit" class="card-link ml-2 mr-2" asp-route-eventId="@Model.Id">Edit</a>
+                        <form class="ml-2" method="post">
+                            <a asp-controller="Event" asp-action="Delete" asp-route-eventId="@Model.Id" class="card-link ml-2 mr-2">Delete</a>
+                        </form>
+                    </div>
+                }
+
+            </div>
         </div>
     </div>
     <div class="card col-8 ek-containers-margin">
         <div class="card-body">
             <h3 class="card-title text-center">@Model.Title</h3>
-            <p class="mb-0">
-                <span class="fw-bold">Description: </span>@Model.Description
-            </p>
-            <div class="row mt-4">
 
+            <div class="row mt-4">
+                <p class=" col-6 ">
+                    <span class="fw-bold">Description: </span>@Model.Description
+                </p>
                 <div class="col-6">
 
                     @* TODO: @await Html.PartialAsync("_GalleryPhotosPartial",  ) *@
                 </div>
-                <div class="col-6">
-                    <h2> // TODO: Put Review section Here! </h2>
 
-                </div>
 
             </div>
+            <div class ="col-10">
 
-            @if (isOrganiser || User.IsAdmin() || isParticipant)
-            {
-                <div class="mt-2">
-                    @await Html.PartialAsync("_EventParticipantsPartial", Model.EventsParticipants)
-                </div>
-            }
+                @await Html.PartialAsync("_AllCommentsPartial", Model.EventComments, dictionary)
+
+            </div>
 
 
         </div>
 
+        <section class="index-component p-3">
+            <div class="w3layouts-services-heading ">
+                <h2>Similar Events</h2>
+            </div>
+            @await Component.InvokeAsync("TopEvents", new { eventId = Model.Id })
 
+            <div class="row w3ls-text  justify-content-end">
+                <a class="btn btn-primary btn-white btn-style mt-lg-1 mt-4" asp-controller="Event" asp-action="All">Find More rides...</a>
+            </div>
+        </section>
+
+        @if (isOrganiser || User.IsAdmin() || isParticipant)
+        {
+            <div class="mt-2">
+                @await Html.PartialAsync("_EventParticipantsPartial", Model.EventsParticipants)
+            </div>
+        }
     </div>
 </div>
 
