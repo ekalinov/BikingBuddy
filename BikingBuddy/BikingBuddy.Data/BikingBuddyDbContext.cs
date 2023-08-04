@@ -25,6 +25,8 @@ namespace BikingBuddy.Data
         public DbSet<ActivityType> ActivityTypes { get; set; } = null!;
 
         public DbSet<Event> Events { get; set; } = null!;
+        
+        public DbSet<EventGalleryPhoto> EventGalleryPhotos { get; set; } = null!;
 
         public DbSet<Team> Teams { get; set; } = null!;
 

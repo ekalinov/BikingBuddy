@@ -44,7 +44,6 @@
         }
 
 
-
         public class Comment
         {
             public const int CommentMaxLength = 1500;
@@ -62,6 +61,7 @@
             public const int TitleMaxLength = 50;
             public const int TitleMinLength = 5;
 
+
             public const int DescriptionMaxLength = 8000;
             public const int DescriptionMinLength = 10;
         }
@@ -73,7 +73,6 @@
             public const int CodeLength = 2;
         }
 
-      
 
         public class Team
         {
@@ -87,11 +86,14 @@
 
         public class TeamGallery
         {
-            public const int TeamGalleryPhotoNameMaxLength = 50; 
-
-
-       
+            public const int TeamGalleryPhotoNameMaxLength = 50;
         }
+
+        public class EventGallery
+        {
+            public const int EventGalleryPhotoNameMaxLength = 50;
+        }
+
         public class Town
         {
             public const int TownNameMaxLength = 20;
