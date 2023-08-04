@@ -56,6 +56,9 @@ namespace BikingBuddy.Services.Contracts
         Task<Town> GetTownByNameAsync(string name);
 
         Task<IList<EventMiniViewModel>> GetNewestEventsAsync();
+        
+        Task<IList<EventMiniViewModel>> GetNewestEventsAsync(string? eventId);
+ 
 
         Task<AllEventsFilteredAndPagedServiceModel> AllAsync(AllEventsQueryModel queryModel);
         Task<int> GetActiveEventsCountAsync();

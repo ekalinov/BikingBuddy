@@ -204,13 +204,35 @@ namespace BikingBuddy.Services
                     Title = e.Title,
                     Date = e.Date.ToString(DateTimeFormats.DateTimeFormat),
                     Description = e.Description,
+                    ActivityType = e.ActivityType.Name,
                     EventImageUrl = e.EventImageUrl,
                 })
                 .Take(3)
                 .AsNoTracking()
                 .ToListAsync();
         }
-
+        public async Task<IList<EventMiniViewModel>> GetNewestEventsAsync(string? eventId)
+        {
+            return await dbContext.Events
+                .Where(e => e.IsDeleted == false 
+                                && e.Date > DateTime.Today
+                                && e.Id!=Guid.Parse(eventId ?? string.Empty))
+                .OrderByDescending(e => e.CreatedOn)
+                .Select(e => new EventMiniViewModel()
+                {
+                    Id = e.Id.ToString(),
+                    Title = e.Title,
+                    Date = e.Date.ToString(DateTimeFormats.DateTimeFormat),
+                    Description = e.Description,
+                    ActivityType = e.ActivityType.Name,
+                    EventImageUrl = e.EventImageUrl,
+                })
+                .Take(3)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+        
+        
         public async Task<AllEventsFilteredAndPagedServiceModel> AllAsync(AllEventsQueryModel queryModel)
         {
             IQueryable<Event> eventsQuery = dbContext.Events
