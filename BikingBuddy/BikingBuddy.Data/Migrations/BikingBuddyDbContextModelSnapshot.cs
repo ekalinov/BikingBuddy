@@ -1579,8 +1579,8 @@ namespace BikingBuddy.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(1500)
-                        .HasColumnType("nvarchar(1500)");
+                        .HasMaxLength(8000)
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Distance")
                         .HasColumnType("float");
@@ -1647,8 +1647,8 @@ namespace BikingBuddy.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(1500)
-                        .HasColumnType("nvarchar(1500)");
+                        .HasMaxLength(8000)
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("EstablishedOn")
                         .HasColumnType("datetime2");

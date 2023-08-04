@@ -1,5 +1,8 @@
 ﻿using System.Threading.Tasks;
 
+using static BikingBuddy.Common.ErrorMessages.CommentErrorMessages;
+using static BikingBuddy.Common.NotificationMessagesConstants;
+
 namespace BikingBuddy.Web.Controllers
 {
     using Services.Contracts;
@@ -19,6 +22,15 @@ namespace BikingBuddy.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(string commentBody, string eventId)
         {
+            if (commentBody == null)
+            {
+                
+                TempData[ErrorMessage] = CommentBoddyEmpty; 
+                return RedirectToAction("Details", "Event", new { eventId });
+                
+            }
+            
+            
             var userId = User.GetId();
 
             await commentService.AddComment(commentBody, userId, eventId);

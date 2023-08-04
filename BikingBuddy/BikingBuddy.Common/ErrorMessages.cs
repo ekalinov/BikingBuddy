@@ -69,8 +69,10 @@
 
         public static class CommentErrorMessages
         {
-            public const string CommentDoesNotExist = "Comment does not exist!";
-
+            public const string CommentDoesNotExist = "Comment does not exist!"; 
+            
+            public const string CommentBoddyEmpty = "Error: Can't publish emtpy comment!";
+            
             public const string NoCommentsForThisEventErrorMessage = "There is no comments, yet!";
 
 

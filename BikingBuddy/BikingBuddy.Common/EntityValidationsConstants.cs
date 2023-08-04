@@ -47,7 +47,7 @@
 
         public class Comment
         {
-            public const int CommentMaxLength = 500;
+            public const int CommentMaxLength = 1500;
             public const int CommentMinLength = 1;
         }
 
@@ -62,7 +62,7 @@
             public const int TitleMaxLength = 50;
             public const int TitleMinLength = 5;
 
-            public const int DescriptionMaxLength = 1500;
+            public const int DescriptionMaxLength = 8000;
             public const int DescriptionMinLength = 10;
         }
 
@@ -81,7 +81,7 @@
             public const int TeamNameMinLength = 2;
 
 
-            public const int TeamDescriptionMaxLength = 1500;
+            public const int TeamDescriptionMaxLength = 8000;
             public const int TeamDescriptionMinLength = 15;
         }
 
