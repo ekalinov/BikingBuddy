@@ -3,15 +3,13 @@
     using Comment;
     using User;
 
-    public class EventDetailsViewModel : AllEventsViewModel
+    public class EventDetailsViewModel : EventMiniViewModel
     {
         public EventDetailsViewModel()
         {
             EventsParticipants = new HashSet<UserViewModel>();
             EventComments = new HashSet<CommentViewModel>();
         }
-
-        public string Ascent { get; set; } = null!;
 
         public string OrganizerName { get; set; } = null!;
 

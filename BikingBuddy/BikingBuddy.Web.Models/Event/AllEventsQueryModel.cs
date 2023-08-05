@@ -9,7 +9,7 @@ public class AllEventsQueryModel
 {
     public AllEventsQueryModel()
     {
-        Events = new HashSet<AllEventsViewModel>();
+        Events = new HashSet<EventMiniViewModel>();
         ActivityTypes = new HashSet<ActivityTypeViewModel>();
 
         CurrentPage = DefaultPage;
@@ -30,5 +30,5 @@ public class AllEventsQueryModel
 
     public ICollection<ActivityTypeViewModel> ActivityTypes { get; set; }
 
-    public ICollection<AllEventsViewModel> Events { get; set; }
+    public ICollection<EventMiniViewModel> Events { get; set; }
 }

@@ -1,4 +1,6 @@
-﻿namespace BikingBuddy.Services
+﻿using BikingBuddy.Web.Models.Comment;
+
+namespace BikingBuddy.Services
 {
     using Microsoft.EntityFrameworkCore;
     using System.Globalization;
@@ -26,11 +28,11 @@
 
 
         //All
-        public async Task<ICollection<AllEventsViewModel>> GetAllEventsAsync()
+        public async Task<ICollection<EventMiniViewModel>> GetAllEventsAsync()
         {
             var allEvents = await dbContext.Events
                 .Where(e => e.IsDeleted == false)
-                .Select(e => new AllEventsViewModel()
+                .Select(e => new EventMiniViewModel()
                 {
                     Id = e.Id.ToString(),
                     Title = e.Title,
@@ -269,7 +271,7 @@
         }
 
 
-        public async Task<AllEventsFilteredAndPagedServiceModel> AllAsync(AllEventsQueryModel queryModel)
+        public async Task<AdminAllEventsFilteredAndPagedServiceModel> AdminAllEventAsync(AdminAllEventsQueryModel queryModel)
         {
             IQueryable<Event> eventsQuery = dbContext.Events
                 .Where(e => e.IsDeleted == false)
@@ -309,10 +311,104 @@
             };
 
 
-            ICollection<AllEventsViewModel> eventCollection = await eventsQuery
+            ICollection<EventDetailsViewModel> eventCollection = await eventsQuery
                 .Skip((queryModel.CurrentPage - 1) * queryModel.EventsPerPage)
                 .Take(queryModel.EventsPerPage)
-                .Select(e => new AllEventsViewModel()
+                .Select(e => new EventDetailsViewModel
+                {  
+                    Id = e.Id.ToString(),
+                    Title = e.Title,
+                    ActivityType = e.ActivityType.Name,
+                    Distance = $"{e.Distance} km",
+                    Date = e.Date.ToString(DateTimeFormats.DateTimeFormat),
+                    EventImageUrl = e.EventImageUrl,
+                    Description = e.Description,
+                    Town = e.Town.Name,
+                    Ascent = $"{e.Ascent} m",
+                    OrganizerUsername = e.Organizer.UserName, 
+                    OrganizerName = e.Organizer.Name,
+                    Country = e.Country.Name,
+                    GalleryPhotosModels = e.GalleryPhotos
+                        .Select(p => new GalleryPhotoModel
+                        {
+                            Id = p.Id.ToString(),
+                            Name = p.Name,
+                            URL = p.Url
+                        }).ToList(),
+                    EventComments = e.EventComments
+                        .Select(c => new CommentViewModel
+                        {
+                            Id = c.Id,
+                            CommentBody = c.CommentBody,
+                            CreatedOn = c.CommentedOn,
+                            UserName = c.User.Name,
+                            IsEdited = c.IsEdited,
+                            EditedOn = c.EditedOn
+                        }).ToList(),
+                    EventsParticipants = e.EventsParticipants
+                        .Select(ep=> new UserViewModel
+                        {
+                            Id = ep.ParticipantId.ToString(),
+                            Name = ep.Participant.Name,
+                            ProfileImageUrl = ep.Participant.ProfileImageUrl
+                        }).ToList(),
+                    
+                    
+                   
+                }).ToListAsync();
+
+            var model = new AdminAllEventsFilteredAndPagedServiceModel()
+            {
+                AllEvents = eventCollection,
+                TotalEventsCount = eventsQuery.Count()
+            };
+            return model;
+        }
+
+        public async Task<AllEventsFilteredAndPagedServiceModel> AllEventsAsync(AllEventsQueryModel queryModel)
+        {
+            IQueryable<Event> eventsQuery = dbContext.Events
+                .Where(e => e.IsDeleted == false)
+                .AsQueryable();
+
+            if (!String.IsNullOrWhiteSpace(queryModel.ActivityType))
+            {
+                eventsQuery = eventsQuery
+                    .Where(e => e.ActivityType.Name == queryModel.ActivityType);
+            }
+
+            if (!String.IsNullOrWhiteSpace(queryModel.SearchTerm))
+            {
+                string wildCard = $"%{queryModel.SearchTerm.ToLower()}%";
+                eventsQuery = eventsQuery
+                    .Where(e => EF.Functions.Like(e.ActivityType.Name, wildCard) ||
+                                EF.Functions.Like(e.Description, wildCard) ||
+                                EF.Functions.Like(e.Title, wildCard) ||
+                                EF.Functions.Like(e.Country.Name, wildCard) ||
+                                EF.Functions.Like(e.Town.Name, wildCard));
+            }
+
+            eventsQuery = queryModel.Sorting switch
+            {
+                EventSorting.Newest => eventsQuery
+                    .OrderByDescending(e => e.CreatedOn),
+                EventSorting.MostParticipants => eventsQuery
+                    .OrderByDescending(e => e.EventsParticipants.Count()),
+                EventSorting.ThisMonth => eventsQuery
+                    .Where(e => e.Date.Month == DateTime.Now.Month)
+                    .OrderByDescending(e => e.Date),
+                EventSorting.ThisWeek => eventsQuery
+                    .Where(e => (e.Date.Day - DateTime.Now.Day) <= 7)
+                    .OrderByDescending(e => e.Date),
+                _ => eventsQuery
+                    .OrderByDescending(e => e.Date)
+            };
+
+
+            ICollection<EventMiniViewModel> eventCollection = await eventsQuery
+                .Skip((queryModel.CurrentPage - 1) * queryModel.EventsPerPage)
+                .Take(queryModel.EventsPerPage)
+                .Select(e => new EventMiniViewModel()
                 {
                     Id = e.Id.ToString(),
                     Title = e.Title,
@@ -331,7 +427,10 @@
             };
             return model;
         }
-
+        
+        
+        
+        
         public async Task<int> GetActiveEventsCountAsync()
         {
             return await dbContext.Events
@@ -353,13 +452,13 @@
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<ICollection<AllEventsViewModel>> GetEventsByUserIdAsync(string userId)
+        public async Task<ICollection<EventMiniViewModel>> GetEventsByUserIdAsync(string userId)
         {
             return await dbContext.Events
                 .Where(e => e.EventsParticipants
                                 .Any(ep => ep.ParticipantId.ToString() == userId)
                             || e.OrganizerId.ToString() == userId)
-                .Select(e => new AllEventsViewModel()
+                .Select(e => new EventMiniViewModel()
                 {
                     Id = e.Id.ToString(),
                     Title = e.Title,
@@ -479,10 +578,10 @@
             };
 
 
-            ICollection<AllEventsViewModel> eventCollection = await eventsQuery
+            ICollection<EventMiniViewModel> eventCollection = await eventsQuery
                 .Skip((queryModel.CurrentPage - 1) * queryModel.EventsPerPage)
                 .Take(queryModel.EventsPerPage)
-                .Select(e => new AllEventsViewModel()
+                .Select(e => new EventMiniViewModel()
                 {
                     Id = e.Id.ToString(),
                     Title = e.Title,
@@ -508,6 +607,14 @@
                 .AnyAsync(ep => ep.EventId == Guid.Parse(eventId)
                                 && ep.ParticipantId == Guid.Parse(userId));
         }
+        
+        public async Task<bool> IsActive(string eventId)
+        {
+            return await dbContext.Events
+                .AnyAsync(ep => ep.Id == Guid.Parse(eventId)
+                                && ep.Date >= DateTime.UtcNow);
+        }
+        
 
         private async Task<EventParticipants?> GetEventParticipantByIdAsync(string eventId, string userId)
         {

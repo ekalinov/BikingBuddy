@@ -188,7 +188,7 @@ public class EventServiceTest
             Events = await eventService.GetAllEventsAsync()
         };
 
-        var result = await eventService.AllAsync(queryModel);
+        var result = await eventService.AllEventsAsync(queryModel);
 
         Assert.That(result.AllEvents, Is.Empty);
 
@@ -204,7 +204,7 @@ public class EventServiceTest
             Events = await eventService.GetAllEventsAsync()
         };
 
-        result = await eventService.AllAsync(queryModel1);
+        result = await eventService.AllEventsAsync(queryModel1);
 
         Assert.That(result.AllEvents, Has.Count.EqualTo(1));
 
@@ -220,7 +220,7 @@ public class EventServiceTest
             Events = await eventService.GetAllEventsAsync()
         };
 
-        result = await eventService.AllAsync(queryModel2);
+        result = await eventService.AllEventsAsync(queryModel2);
 
         Assert.That(result.AllEvents, Has.Count.EqualTo(1));
         var queryModel3= new AllEventsQueryModel
@@ -235,7 +235,7 @@ public class EventServiceTest
             Events = await eventService.GetAllEventsAsync()
         };
         
-        result = await eventService.AllAsync(queryModel3);
+        result = await eventService.AllEventsAsync(queryModel3);
         
         Assert.That(result.AllEvents, Has.Count.EqualTo(1));
         
@@ -251,7 +251,7 @@ public class EventServiceTest
             Events = await eventService.GetAllEventsAsync()
         };
         
-        result = await eventService.AllAsync(queryModel4);
+        result = await eventService.AllEventsAsync(queryModel4);
         
         Assert.That(result.AllEvents, Has.Count.EqualTo(0));
     }

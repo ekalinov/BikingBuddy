@@ -118,7 +118,7 @@
         [AllowAnonymous]
         public async Task<IActionResult> All([FromQuery] AllEventsQueryModel queryModel)
         {
-            AllEventsFilteredAndPagedServiceModel serviceModel = await service.AllAsync(queryModel);
+            AllEventsFilteredAndPagedServiceModel serviceModel = await service.AllEventsAsync(queryModel);
 
             queryModel.Events = serviceModel.AllEvents;
             queryModel.TotalEventsCount = serviceModel.TotalEventsCount;

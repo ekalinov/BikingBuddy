@@ -10,7 +10,7 @@ namespace BikingBuddy.Services.Contracts
     public interface IEventService
     {
         //All
-        Task<ICollection<AllEventsViewModel>> GetAllEventsAsync();
+        Task<ICollection<EventMiniViewModel>> GetAllEventsAsync();
 
         //Create
         Task AddEventAsync(AddEventViewModel model, string userId);
@@ -31,7 +31,7 @@ namespace BikingBuddy.Services.Contracts
         Task LeaveEventAsync(string userId, string eventId);
 
         //Get Events
-        Task<ICollection<AllEventsViewModel>> GetEventsByUserIdAsync(string userId);
+  
 
         Task<ICollection<EventViewModel>> GetUserEventsAsync(string userId);
 
@@ -58,10 +58,17 @@ namespace BikingBuddy.Services.Contracts
         Task<IList<EventMiniViewModel>> GetNewestEventsAsync(string? eventId);
  
 
-        Task<AllEventsFilteredAndPagedServiceModel> AllAsync(AllEventsQueryModel queryModel);
+        Task<AllEventsFilteredAndPagedServiceModel> AllEventsAsync(AllEventsQueryModel queryModel);
+
+        Task<AdminAllEventsFilteredAndPagedServiceModel> AdminAllEventAsync(AdminAllEventsQueryModel queryModel);
+        Task<AllEventsFilteredAndPagedServiceModel> MineAsync(AllEventsQueryModel queryModel, string userId);
+        
+        
         Task<int> GetActiveEventsCountAsync();
         Task<int> GetAllEventsCountAsync();
         Task<bool> IsOrganiser(string eventId, string userId);
-        Task<AllEventsFilteredAndPagedServiceModel> MineAsync(AllEventsQueryModel queryModel, string userId);
+
+        Task<bool> IsActive(string eventId);
+
     }
 }
