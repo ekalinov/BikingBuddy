@@ -1,0 +1,137 @@
+@using BikingBuddy.Services.Contracts
+@model IEnumerable<EventDetailsViewModel>
+@inject IEventService service
+@{
+    ViewBag.Title = "All Users";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr/>
+<table class="table table-bordered table-dark">
+    <thead>
+    <tr>
+        <th>
+            <label>ProfilePhoto</label>
+        </th>
+        <th>
+            <label>Title</label>
+        </th>
+        <th>
+            <label>Date</label>
+        </th>
+        <th>
+            <label>Location</label>
+        </th>
+        <th>
+            <label>Organizer</label>
+        </th>
+        <th>
+            <label>Distance/Acsent </label>
+        </th>
+        <th>
+            <label>Description</label>
+        </th>
+        <th>
+            <label>Participants</label>
+        </th>
+        <th>
+            <label>Coments</label>
+        </th>
+        <th>
+            <label>Active</label>
+        </th>
+
+        <th>
+            <label>Options</label>
+        </th>
+
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var curEvent in Model)
+    {
+        <tr>
+            <td>
+                <div class="d-flex align-items-center">
+                    <img src=@curEvent.EventImageUrl
+                         alt=""
+                         style="width: 50px; height: 50px"
+                         class="rounded-circle"/>
+                </div>
+            </td>
+            <td>
+                <label>@curEvent.Title</label>
+            </td>
+            <td>
+                <label>@curEvent.Date</label>
+            </td>
+            <td>
+                <label>@curEvent.Country, @curEvent.Town</label>
+            </td>
+
+            <td>
+                <label>@curEvent.OrganizerUsername</label>
+            </td>
+            <td>
+                <label> Dist:@curEvent.Distance m/Asc: @curEvent.Ascent</label>
+            </td>
+            <td>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+                    Description
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" style="color: black;" id="exampleModalLongTitle">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                @curEvent.Description
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <label>@curEvent.EventsParticipants!.Count</label>
+
+            </td>
+            <td>
+
+                <label>@curEvent.EventComments!.Count</label>
+
+            </td>
+            <td>
+                @if (await service.IsActive(curEvent.Id))
+                {
+                    <label>✔</label>
+                }
+                else
+                {
+                    <label class="text-center">❌</label>
+                }
+            </td>
+
+            <td> 
+                <div class="row">
+                    <a asp-area="" asp-controller="Event" asp-action="Edit" class="btn btn-warning" asp-route-eventId="@curEvent.Id">Edit</a>
+                    <form class="ml-2" method="get" asp-area="Administration">
+                        <button  asp-area="Administration"  asp-controller="Event" asp-action="Delete" asp-route-eventId="@curEvent.Id" class=" btn btn-danger">Delete</button>
+                    </form>
+                </div>
+
+                 </td>
+        </tr>
+    }
+    </tbody>
+</table>

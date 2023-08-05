@@ -83,7 +83,7 @@
 
                 <div class="row">
                     <a asp-controller="Team" asp-action="Edit" class="btn btn-warning" asp-route-teamId="@Model.Id">Edit</a>
-                    <form class="ml-2" method="post">
+                    <form class="ml-2" method="post" asp-area="">
                         <button asp-controller="Team" asp-action="Delete" asp-route-teamId="@Model.Id" class=" btn btn-danger">Delete</button>
                     </form>
                 </div>

@@ -1,3 +1,11 @@
-﻿@{
-    Layout = "_Layout";
+﻿@using BikingBuddy.Web.Infrastructure.Extensions
+@{
+    if (User.IsAdmin())
+    {
+        Layout = "~/Areas/Administration/Views/Shared/_AdminLayout.cshtml";
+    }
+    else
+    {
+        Layout = "_Layout";
+    }
 }

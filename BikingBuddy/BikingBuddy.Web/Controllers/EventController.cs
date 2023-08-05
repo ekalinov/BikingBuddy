@@ -211,31 +211,8 @@
         }
 
 
-        //Delete
-
-        [HttpPost]
-        public async Task<IActionResult> Delete(string eventId)
-        {
-            if (!await service.IsOrganiser(eventId, User.GetId()) && !User.IsAdmin())
-            {
-                TempData[ErrorMessage] = UnauthorizedForError;
-                return Unauthorized();
-            }
-
-            try
-            {
-                await service.DeleteEventAsync(eventId);
-
-                TempData[SuccessMessage] = EventDeletedSuccessfully;
-            }
-            catch (Exception)
-            {
-                TempData[ErrorMessage] = DeleteEventError;
-                return RedirectToAction("Details", "Event", new { eventId });
-            }
-
-            return RedirectToAction("All", "Event");
-        }
+        //Delete is in Administrator Area
+ 
 
         public async Task<IActionResult> Join(string eventId)
         {

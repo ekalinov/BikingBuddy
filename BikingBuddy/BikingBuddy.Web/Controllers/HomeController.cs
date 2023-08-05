@@ -32,7 +32,7 @@ namespace BikingBuddy.Web.Controllers
         {
             if (User.IsInRole(AdminRoleName))
             {
-                RedirectToAction("Index", "Home", new { Area = AdminAreaName });
+               return  RedirectToAction("Index", "Home", new { Area = AdminAreaName });
             }
 
 

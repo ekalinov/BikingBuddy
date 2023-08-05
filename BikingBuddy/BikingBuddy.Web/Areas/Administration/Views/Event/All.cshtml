@@ -1,0 +1,129 @@
+@model AdminAllEventsQueryModel 
+    ViewBag.Title = "All Available Events";
+}
+ 
+<hr/>
+<div class=" text-center ">
+    <h5 class="">@ViewBag.Title</h5>
+</div>
+
+<form  class="container" asp-area="Administration">
+    <div class="row mb-3 ">
+        <div class="col-2 sorting">
+            <label asp-for="ActivityType"></label>
+            <select asp-for="ActivityType" class="form-control sorting">
+                <option value="">All</option>
+                @foreach (var activityType in Model.ActivityTypes)
+                {
+                    <option value="@activityType.ActivityTypeName">@activityType.ActivityTypeName </option>
+                }
+            </select>
+        </div>
+
+        <div class="col-2 sorting">
+            <label asp-for="EventsPerPage"></label>
+            <select asp-for="EventsPerPage" class="form-control">
+                <option value="3">3</option>
+                <option value="6">6</option>
+                <option value="9">9</option>
+            </select>
+        </div>
+
+        <div class="col-2 sorting">
+            <label asp-for="SearchTerm"></label>
+            <input asp-for="SearchTerm" class="form-control" placeholder="...">
+        </div>
+
+        <div class="col-2 sorting">
+            <label asp-for="Sorting"></label>
+            <select asp-for="Sorting" class="form-control">
+                <option value="0">Newest</option>
+                <option value="1">This Week</option>
+                <option value="2">This Month</option>
+                <option value="3">Most Participants</option>
+            </select>
+        </div>
+
+
+        <div class="col-2" style="display: inline-block; padding-top: 32px">
+            <input type="submit" value="Sort" class="btn btn-primary"/>
+        </div>
+
+    </div>
+
+    <div class="rides">
+            <div>
+            @await Html.PartialAsync("_AdminAllEventsPartial", @Model.Events)
+        </div>
+
+        <nav aria-label="Page navigation example" class="pagination justify-content-center m-1 ">
+
+            @{
+                int previousPage = Model.CurrentPage - 1;
+                if (previousPage < 1)
+                {
+                    previousPage = 1;
+                }
+
+                int maxPage = (int)Math.Ceiling((double)Model.TotalEventsCount /
+                                                Model.EventsPerPage);
+            }
+
+
+            <ul class="pagination justify-content-center ">
+                @if (@Model.CurrentPage != 1)
+                {
+                    <li class="page-item m-1">
+                        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled mr-2 ml-2" : string.Empty)"
+                           asp-controller="Event"
+                           asp-action="All"
+                           asp-route-currentPage="@previousPage"
+                           asp-route-category="@Model.ActivityType"
+                           asp-route-searchTerm="@Model.SearchTerm"
+                           asp-route-sorting="@((int)Model.Sorting)">
+                            Previous
+                        </a>
+                    </li>
+                }
+
+
+                @for (int i = 1; i <= maxPage; i++)
+                {
+                    <li class="page-item m-1">
+                        <a class="btn btn-primary @(Model.CurrentPage == @i ? "disabled mr-2 ml-2" : string.Empty)"
+                           asp-controller="Event"
+                           asp-action="All"
+                           asp-route-currentPage="@i"
+                           asp-route-category="@Model.ActivityType"
+                           asp-route-searchTerm="@Model.SearchTerm"
+                           asp-route-sorting="@((int)Model.Sorting)">
+                            @i
+                        </a>
+                    </li>
+                }
+                @{
+                    bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage ||
+                                                    !Model.Events.Any();
+                }
+
+                @if (@Model.CurrentPage != maxPage)
+                {
+                    <li class="page-item m-1">
+                        <a class="btn btn-primary 
+                                                @(shouldNextPageBeDisabled ? "disabled mr-2 ml-2" : string.Empty)"
+                           asp-controller="Event"
+                           asp-action="All"
+                           asp-route-currentPage="@(Model.CurrentPage + 1)"
+                           asp-route-category="@Model.ActivityType"
+                           asp-route-searchTerm="@Model.SearchTerm"
+                           asp-route-sorting="@((int)Model.Sorting)">
+                            Next
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+
+    </div>
+
+</form>

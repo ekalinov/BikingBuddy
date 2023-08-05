@@ -12,6 +12,14 @@ Author URL: http://w3layouts.com
  */
 
 /*custom  appClasses*/
+
+
+.ek-adminArea-header-text{
+    font-style: italic;
+    font-size: unset;
+    font-family: 'Work Sans', sans-serif; 
+}
+
 .link-muted { color: #aaa; } .link-muted:hover { color: #1266f1; }
 
 .allEvents-banner {
@@ -168,6 +176,7 @@ Author URL: http://w3layouts.com
 }
 
 html {
+    height: 100%;
     font-family: sans-serif;
     line-height: 1.15;
     -webkit-text-size-adjust: 100%;
@@ -222,6 +231,7 @@ main {
 
 body {
     margin: 0;
+    height: 100%;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-size: 1rem;
     font-weight: 400;
@@ -6570,11 +6580,15 @@ a.close.disabled {
 }
 
 .modal-title {
+
+    color: #131010;
     margin-bottom: 0;
     line-height: 1.5;
 }
 
 .modal-body {
+
+    color: #575757;
     position: relative;
     flex: 1 1 auto;
     padding: 1rem;
@@ -18792,7 +18806,7 @@ nav ul li a:before {
     }
 
     .w3l-featureshny h5 {
-        font-size: 34px;
+        font-size: 34px;        
         line-height: 44px;
     }
 }

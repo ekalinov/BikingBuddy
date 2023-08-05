@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>BikingBuddy</title>
+    <!--/fonts-->
+    <link href="//fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap"
+          rel="stylesheet">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="~/css/style-starter.css">
+
+
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <script src="~/js/jquery-1.9.1.min.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.1/toastr.min.js" integrity="sha512-pi7w4/MYBJ/7/NFGQ1OCInentlT3CCVVKU2udjNRWhxIOY5K2vxSPKYEa6EKbEZvHkgyEB8SMlSU8E84Ig81Og==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.1/toastr.min.css" integrity="sha512-LEetX42b+K0TTmnfCNxYOrVTLlg36s06bJ8cutF3BpQT3VnpzdeqoYfn+FW2KBi/imYk2RpfQzlyzY7CrRW4CQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+
+<header id="site-header" class="fixed-top">
+
+    <partial name="_NotificationPartial"/>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg stroke px-0 pt-lg-0">
+            <h1>
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                    Biking<i class="fas fa-bicycle"></i>Buddy 
+                <span class="title-subhny ek-adminArea-header-text mb-2"> AdminArea</span>
+                </a>
+            </h1>
+
+            <button class="navbar-toggler  collapsed bg-gradient" type="button" data-toggle="collapse"
+                    data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
+                <span class="navbar-toggler-icon fa icon-close fa-times"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav mr-lg-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" asp-controller="Event" asp-action="All">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Team" asp-action="All">Teams</a>
+                    </li>
+                    @if (User.Identity!.IsAuthenticated)
+                    {
+                        <li class="navbar-item">
+                            <a class="nav-link " asp-area="" asp-controller="Event" asp-action="Mine">Events</a>
+                        </li>
+                    }
+
+
+                </ul>
+                @* <!--/search-right--> *@
+                @* <div class="search-right"> *@
+                @*     <div id="wrap"> *@
+                @*         <form action="" autocomplete="on"> *@
+                @*             <input id="search" name="search" type="text" placeholder="Search here..."> *@
+                @*             <input id="search_submit" *@
+                @*                    value="Rechercher" type="submit"> *@
+                @*         </form> *@
+                @*     </div> *@
+                @*     <!-- /search popup --> *@
+                @* </div> *@
+                @* <!--//search-right--> *@
+                @* <div class="top-quote mr-lg-3 mt-lg-0 mr-lg-4"> *@
+                @*     <a href="contact.html" class="btn btn-style btn-white btn-primary">Request a Quote</a> *@
+                @* </div> *@
+
+            </div>
+            <!-- //Login Partial -->
+            <div>
+                <partial name="_LoginPartial"/>
+            </div>
+            <!-- toggle switch for light and dark theme -->
+            <div class="mobile-position">
+                <nav class="navigation">
+                    <div class="theme-switch-wrapper">
+                        <label class="theme-switch" for="checkbox">
+                            <input type="checkbox" id="checkbox">
+                            <div class="mode-container">
+                                <i class="gg-sun"></i>
+                                <i class="gg-moon"></i>
+                            </div>
+                        </label>
+                    </div>
+                </nav>
+            </div>
+
+        </nav>
+    </div>
+</header>
+<body class="w3l-featureshny">
+<main>
+
+    @RenderBody()
+
+</main>
+
+<!-- footer17 -->
+<footer class="footer-17">
+
+    <div class="copyright text-center">
+        <div class="container">
+            <div class="container">
+                <p class="copy-footer-29">
+                    © 2021 Secttore. All rights reserved | Designed by
+                    <a href="https://w3layouts.com"
+                       target="_blank">
+                        W3layouts
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- move top -->
+    <button onclick="topFunction()" id="movetop" title="Go to top">
+        <i class="fas fa-long-arrow-alt-up"></i>
+    </button>
+    <script>
+      // When the user scrolls down 20px from the top of the document, show the button
+      window.onscroll = function () {
+        scrollFunction()
+      };
+
+      function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+          document.getElementById("movetop").style.display = "block";
+        } else {
+          document.getElementById("movetop").style.display = "none";
+        }
+      }
+
+      // When the user clicks on the button, scroll to the top of the document
+      function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }
+    </script>
+    <!-- /move top -->
+
+</footer>
+<!-- //footer17 -->
+<!-- Template JavaScript -->
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script src="~/js/theme-change.js"></script>
+
+<!--/MENU-JS-->
+<script>
+    $(window).on("scroll", function () {
+      var scroll = $(window).scrollTop();
+
+      if (scroll >= 80) {
+        $("#site-header").addClass("nav-fixed");
+      } else {
+        $("#site-header").removeClass("nav-fixed");
+      }
+    });
+
+    //Main navigation Active Class Add Remove
+    $(".navbar-toggler").on("click", function () {
+      $("header").toggleClass("active");
+    });
+    $(document).on("ready", function () {
+      if ($(window).width() > 991) {
+        $("header").removeClass("active");
+      }
+      $(window).on("resize", function () {
+        if ($(window).width() > 991) {
+          $("header").removeClass("active");
+        }
+      });
+    });
+  </script>
+<!--//MENU-JS-->
+
+<script src="~/js/bootstrap.min.js"></script>
+
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script src="~/js/jquery-1.9.1.min.js"></script>
+
+<script src="~/js/jquery.countup.js"></script>
+<script src="~/js/jquery.waypoints.min.js"></script>
+
+<script>
+    $('.counter').countUp();
+  </script>
+
+
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
