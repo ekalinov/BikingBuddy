@@ -88,6 +88,26 @@ namespace BikingBuddy.Services
                 await dbContext.SaveChangesAsync();
             }
         }
+        
+        public async Task DeleteUserAccountAsync(string userId)
+        {
+            AppUser? user = await GetUserByIdAsync(userId);
+            
+            if (user != null)
+            {
+                user.IsDeleted = true;
+
+                await dbContext.SaveChangesAsync();
+            }
+            
+        }
+
+        public async Task<bool> IsDeletedAsync(string userId)
+        {
+            return await dbContext.AppUsers
+                .AnyAsync(u => u.Id == Guid.Parse(userId) && u.IsDeleted == true);
+
+        }
 
          public async Task<int> GetUserSCountAsync()
          {

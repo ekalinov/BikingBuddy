@@ -16,5 +16,7 @@ namespace BikingBuddy.Services.Contracts
 
 
          Task<int> GetUserSCountAsync();
+         Task<bool> IsDeletedAsync(string userId);
+         Task DeleteUserAccountAsync(string userId);
     }
 }

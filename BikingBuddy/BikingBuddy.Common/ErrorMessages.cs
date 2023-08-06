@@ -66,6 +66,13 @@
             public const string UpdatingProfileError = "Something went wrong! Edit User Error!";
 
             public const string ProfileChangesSaved = "Profile changes saved!";
+            
+            public const string DeleteErrorUnauthorised = "Error: Only profile owners can delete their Profiles!";
+             
+            public const string UserAccountDeletedSuccessfully = "User Account is successfully deleted!";
+             
+            public const string DeleteProfileError = "Something went wrong! Delete User Account Error!";
+            
 
         }
 

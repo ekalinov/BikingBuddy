@@ -89,5 +89,36 @@
                 return View(model);
             }
         }
+
+        [HttpPost] 
+        public async Task<IActionResult> Delete(string userId)
+        {
+            if (User.GetId() != userId || !User.IsAdmin())
+            {
+                TempData[ErrorMessage] = DeleteErrorUnauthorised;
+                return Unauthorized();
+            }
+
+            if (await userService.IsDeletedAsync(userId))
+            {
+                TempData[ErrorMessage] = UserNotFound;
+                return RedirectToAction("index", "Home");
+            }
+            
+            try
+            {
+                await userService.DeleteUserAccountAsync(userId);
+
+                TempData[SuccessMessage] = UserAccountDeletedSuccessfully;
+            }
+            catch (Exception)
+            {
+                TempData[ErrorMessage] = DeleteProfileError; 
+                
+            }
+
+            return RedirectToAction("index", "Home");
+        }
+
     }
 }
