@@ -1,0 +1,143 @@
+@using BikingBuddy.Services.Contracts
+@model IEnumerable<TeamDetailsViewModel>
+@inject ITeamService service
+@{
+    ViewBag.Title = "All events";
+
+
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr/>
+<table class="table table-bordered table-dark">
+    <thead>
+    <tr>
+        <th>
+            <label>TeamPhoto</label>
+        </th>
+        <th>
+            <label>Name</label>
+        </th>
+        <th>
+            <label>Established Year</label>
+        </th>
+        <th>
+            <label>Address</label>
+        </th>
+        <th>
+            <label>Team Manager</label>
+        </th>
+
+        <th>
+            <label>Description</label>
+        </th>
+        <th>
+            <label>Team Members</label>
+        </th>
+        <th>
+            <label>Members Requests</label>
+        </th>
+        <th>
+            <label>IsDeleted</label>
+        </th>
+
+        <th>
+            <label>Options</label>
+        </th>
+
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var curTeam in Model)
+    {
+        <tr>
+            <td>
+                <div class="d-flex align-items-center">
+                    <img src=@curTeam.TeamImageUrl
+                         alt=""
+                         style="width: 50px; height: 50px"
+                         class="rounded-circle"/>
+                </div>
+            </td>
+            <td>
+                <label>@curTeam.Name</label>
+            </td>
+            <td>
+                <label>@curTeam.EstablishedOn</label>
+            </td>
+            <td>
+                <label>@curTeam.Country</label>,
+                <label>@curTeam.Town</label>
+            </td>
+
+            <td>
+                <label>@curTeam.TeamManager</label>
+            </td>
+            <td>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal_@curTeam.Id">
+                    Description
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="Modal_@curTeam.Id" tabindex="-1" role="dialog" aria-labelledby="Modal_@curTeam.Id" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" style="color: black;" id="Modal_@curTeam.Id">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                @curTeam.Description
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <label>@curTeam.TeamMembers.Count</label>
+
+            </td>
+            <td>
+
+                <label>@curTeam.MembersRequests.Count</label>
+
+            </td>
+            <td>
+                @if (await service.IsDeletedAsync(curTeam.Id))
+                {
+                    <label>✔</label>
+                }
+                else
+                {
+                    <label class="text-center">❌</label>
+                }
+            </td>
+
+            <td>
+
+                <div class="row" style="display: grid">
+                    @if (!await service.IsDeletedAsync(curTeam.Id))
+                    {
+                        <a asp-area="" asp-controller="Team" asp-action="Edit" class="btn btn-warning mb-2" asp-route-teamId="@curTeam.Id">Edit</a> 
+                        <form class="" method="post" asp-area="Administration">
+                            <button type="submit" asp-area="Administration" asp-controller="Team" asp-action="Delete" asp-route-teamId="@curTeam.Id" class=" btn btn-danger">Delete</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <label class="text-center">Deleted</label>
+                    }
+                </div>
+
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

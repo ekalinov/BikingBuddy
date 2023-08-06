@@ -1,30 +1,20 @@
-@model AdminAllEventsQueryModel 
+@model AdminAllTeamsQueryModel 
 @{
-    ViewBag.Title = "All events";
+    ViewBag.Title = "All Teams";
 }
 <div class=" text-center ">
     <h5 class="">@ViewBag.Title</h5>
 </div>
 
-<form class="container" method="get" asp-area="Administration">
+<form class="container" method="" asp-area="Administration">
     <div class="row mb-3 ">
-        <div class="col-2 sorting">
-            <label asp-for="ActivityType"></label>
-            <select asp-for="ActivityType" class="form-control sorting">
-                <option value="">All</option>
-                @foreach (var activityType in Model.ActivityTypes)
-                {
-                    <option value="@activityType.ActivityTypeName">@activityType.ActivityTypeName </option>
-                }
-            </select>
-        </div>
 
         <div class="col-2 sorting">
-            <label asp-for="EventsPerPage"></label>
-            <select asp-for="EventsPerPage" class="form-control">
-                <option value="3">3</option>
-                <option value="6">6</option>
-                <option value="9">9</option>
+            <label asp-for="TeamsPerPage"></label>
+            <select asp-for="TeamsPerPage" class="form-control">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="@Model.TotalTeamsCount">All</option>
             </select>
         </div>
 
@@ -32,24 +22,25 @@
             <label asp-for="SearchTerm"></label>
             <input asp-for="SearchTerm" class="form-control" placeholder="...">
         </div>
-        <div class="col-2 sorting">
-            <label asp-for="IsDeleted"></label>
-            <select asp-for="IsDeleted" class="form-control">
-                <option value="0">All</option>
-                <option value="1">Available</option>
-                <option value="2">Deleted</option>
-            </select>
-        </div>
+
         <div class="col-2 sorting">
             <label asp-for="Sorting"></label>
             <select asp-for="Sorting" class="form-control">
                 <option value="0">Newest</option>
-                <option value="1">This Week</option>
-                <option value="2">This Month</option>
-                <option value="3">Most Participants</option>
+                <option value="1">Most Members</option>
+                <option value="2">Least Members</option>
+                <option value="3">Available Teams</option>
+                <option value="4">Deleted Teams</option>
             </select>
         </div>
-
+        <div class="col-2 sorting">
+            <label asp-for="IsDeleted"></label>
+            <select asp-for="IsDeleted" class="form-control">
+                <option value="0">All</option> 
+                <option value="1">Available</option>
+                <option value="2">Deleted</option>
+            </select>
+        </div>
 
         <div class="col-2" style="display: inline-block; padding-top: 32px">
             <input type="submit" value="Sort" class="btn btn-primary"/>
@@ -59,7 +50,7 @@
 
     <div class="rides">
         <div>
-            @await Html.PartialAsync("_AdminAllEventsPartial", @Model.Events)
+            @await Html.PartialAsync("_AdminAllTeamsPartial", Model.Teams)
         </div>
 
         <nav aria-label="Page navigation example" class="pagination justify-content-center m-1 ">
@@ -71,8 +62,8 @@
                     previousPage = 1;
                 }
 
-                int maxPage = (int)Math.Ceiling((double)Model.TotalEventsCount /
-                                                Model.EventsPerPage);
+                int maxPage = (int)Math.Ceiling((double)Model.TotalTeamsCount /
+                                                Model.TeamsPerPage);
             }
 
 
@@ -81,10 +72,9 @@
                 {
                     <li class="page-item m-1">
                         <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled mr-2 ml-2" : string.Empty)"
-                           asp-controller="Event"
+                           asp-controller="Team"
                            asp-action="All"
                            asp-route-currentPage="@previousPage"
-                           asp-route-category="@Model.ActivityType"
                            asp-route-searchTerm="@Model.SearchTerm"
                            asp-route-sorting="@((int)Model.Sorting)">
                             Previous
@@ -97,10 +87,9 @@
                 {
                     <li class="page-item m-1">
                         <a class="btn btn-primary @(Model.CurrentPage == @i ? "disabled mr-2 ml-2" : string.Empty)"
-                           asp-controller="Event"
+                           asp-controller="Team"
                            asp-action="All"
                            asp-route-currentPage="@i"
-                           asp-route-category="@Model.ActivityType"
                            asp-route-searchTerm="@Model.SearchTerm"
                            asp-route-sorting="@((int)Model.Sorting)">
                             @i
@@ -109,7 +98,7 @@
                 }
                 @{
                     bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage ||
-                                                    !Model.Events.Any();
+                                                    !Model.Teams.Any();
                 }
 
                 @if (@Model.CurrentPage != maxPage)
@@ -117,10 +106,9 @@
                     <li class="page-item m-1">
                         <a class="btn btn-primary 
                                                 @(shouldNextPageBeDisabled ? "disabled mr-2 ml-2" : string.Empty)"
-                           asp-controller="Event"
+                           asp-controller="Team"
                            asp-action="All"
                            asp-route-currentPage="@(Model.CurrentPage + 1)"
-                           asp-route-category="@Model.ActivityType"
                            asp-route-searchTerm="@Model.SearchTerm"
                            asp-route-sorting="@((int)Model.Sorting)">
                             Next

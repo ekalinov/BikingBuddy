@@ -10,7 +10,7 @@ namespace BikingBuddy.Web.Models.User
         public UserDetailsViewModel()
         {
             UserEvents = new HashSet<EventViewModel>();
-            TeamRequests = new HashSet<TeamRequestViewModel>();
+            TeamRequests = new HashSet<AllTeamsViewModel>();
             UserBikes = new HashSet<BikeDetailsViewModel>();
         }
 
@@ -23,7 +23,7 @@ namespace BikingBuddy.Web.Models.User
 
         public virtual ICollection<EventViewModel> UserEvents { get; set; } = null!;
 
-        public virtual ICollection<TeamRequestViewModel> TeamRequests { get; set; } = null!;
+        public virtual ICollection<AllTeamsViewModel> TeamRequests { get; set; } = null!;
 
 
         public virtual ICollection<BikeDetailsViewModel> UserBikes { get; set; } = null!;

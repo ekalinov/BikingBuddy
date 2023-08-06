@@ -11,7 +11,7 @@
     <thead>
     <tr>
         <th>
-            <label>ProfilePhoto</label>
+            <label>Profile Photo</label>
         </th>
         <th>
             <label>Title</label>
@@ -35,10 +35,13 @@
             <label>Participants</label>
         </th>
         <th>
-            <label>Coments</label>
+            <label>Comments</label>
         </th>
         <th>
             <label>Active</label>
+        </th>
+        <th>
+            <label>IsDeleted</label>
         </th>
 
         <th>
@@ -62,12 +65,12 @@
             <td>
                 <label>@curEvent.Title</label>
             </td>
-            <td> 
+            <td>
                 <label>@curEvent.Date</label>
             </td>
             <td>
-                <label>@curEvent.Country</label>,  
-                <label>@curEvent.Town</label> 
+                <label>@curEvent.Country</label>,
+                <label>@curEvent.Town</label>
             </td>
 
             <td>
@@ -78,12 +81,12 @@
             </td>
             <td>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal_@curEvent.Id">
                     Description
                 </button>
 
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal fade" id="Modal_@curEvent.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -122,16 +125,33 @@
                     <label class="text-center">❌</label>
                 }
             </td>
+            <td>
+                @if (await service.IsDeleteAsync(curEvent.Id))
+                {
+                    <label>✔</label>
+                }
+                else
+                {
+                    <label class="text-center">❌</label>
+                }
+            </td>
 
-            <td> 
-                <div class="row" style="display: grid"> 
-                    <a asp-area="" asp-controller="Event" asp-action="Edit" class="btn btn-warning mb-2" asp-route-eventId="@curEvent.Id">Edit</a>
-                    <form class="" method="post" asp-area="Administration">
-                        <button  asp-area="Administration"  asp-controller="Event" asp-action="Delete" asp-route-eventId="@curEvent.Id" class=" btn btn-danger">Delete</button>
-                    </form>
-                </div>
+            <td>
+                @if (!await service.IsDeleteAsync(curEvent.Id))
+                {
+                    <div class="row" style="display: grid">
+                        <a asp-area="" asp-controller="Event" asp-action="Edit" class="btn btn-warning mb-2" asp-route-eventId="@curEvent.Id">Edit</a>
+                        <form class="" method="post" asp-area="Administration">
+                            <button asp-area="Administration" asp-controller="Event" asp-action="Delete" asp-route-eventId="@curEvent.Id" class=" btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                }
+                else
+                {
+                    <label class="text-center">Deleted</label>
+                }
 
-                 </td>
+            </td>
         </tr>
     }
     </tbody>

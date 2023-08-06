@@ -1,4 +1,10 @@
-﻿using BikingBuddy.Web.Models;
+﻿using BikingBuddy.Common;
+using BikingBuddy.Common.Enums;
+using BikingBuddy.Services.Data.Models.Events;
+using BikingBuddy.Web.Models;
+using BikingBuddy.Web.Models.Comment;
+using BikingBuddy.Web.Models.Event;
+using BikingBuddy.Web.Models.Event.Enums;
 
 namespace BikingBuddy.Services
 {
@@ -111,7 +117,7 @@ namespace BikingBuddy.Services
             };
 
             if (model.GalleryPhotosModels != null && model.GalleryPhotosModels.Any())
-            { 
+            {
                 foreach (var photo in model.GalleryPhotosModels)
                 {
                     teamToAdd.GalleryPhotos.Add(new TeamGalleryPhoto
@@ -119,7 +125,7 @@ namespace BikingBuddy.Services
                         Name = photo.Name,
                         Url = photo.URL,
                     });
-                } 
+                }
             }
 
             await dbContext.Teams.AddAsync(teamToAdd);
@@ -143,7 +149,7 @@ namespace BikingBuddy.Services
                 {
                     teamToEdit.EstablishedOn = model.EstablishedOn;
                 }
- 
+
                 if (model.GalleryPhotosModels != null && model.GalleryPhotosModels.Any())
                 {
                     ICollection<TeamGalleryPhoto> galleryPhotos = new HashSet<TeamGalleryPhoto>();
@@ -252,22 +258,116 @@ namespace BikingBuddy.Services
             }
         }
 
-        public async Task<ICollection<TeamRequestViewModel>> GetTeamRequestsByUserAsync(string userId)
+        public async Task<AdminAllTeamsFilteredAndPagedServiceModel> AdminAllTeamsAsync(AdminAllTeamsQueryModel queryModel)
+        {
+            IQueryable<Team> teamssQuery = dbContext.Teams
+                .AsQueryable();
+
+            if (!String.IsNullOrWhiteSpace(queryModel.SearchTerm))
+            {
+                string wildCard = $"%{queryModel.SearchTerm.ToLower()}%";
+                teamssQuery = teamssQuery
+                    .Where(e => EF.Functions.Like(e.TeamManager.Name, wildCard) ||
+                                EF.Functions.Like(e.Description, wildCard) ||
+                                EF.Functions.Like(e.Name, wildCard) ||
+                                EF.Functions.Like(e.Country.Name, wildCard) ||
+                                EF.Functions.Like(e.Town.Name, wildCard));
+            }
+            
+            teamssQuery = queryModel.IsDeleted switch
+            {
+                DeleteStatus.Available => teamssQuery
+                    .Where(t=> t.IsDeleted==false) ,
+                DeleteStatus.Deleted => teamssQuery
+                    .Where(t=> t.IsDeleted==true) ,  
+                DeleteStatus.All => teamssQuery ,
+                _ => teamssQuery
+                    .OrderBy(e => e.Name)
+            };
+
+            teamssQuery = queryModel.Sorting switch
+            {
+                TeamSorting.Newest => teamssQuery
+                    .OrderByDescending(e => e.EstablishedOn),
+                TeamSorting.MostMembers => teamssQuery
+                    .OrderByDescending(e => e.TeamMembers.Count),
+                TeamSorting.LeastMembers => teamssQuery
+                    .OrderBy(e => e.TeamMembers.Count),
+                TeamSorting.OnlyAvailable => teamssQuery
+                    .Where(t=> t.IsDeleted==false)
+                    .OrderBy(e => e.TeamMembers.Count),
+                TeamSorting.OnlyDeleted => teamssQuery
+                    .Where(t=> t.IsDeleted==true)
+                    .OrderBy(e => e.TeamMembers.Count),
+                _ => teamssQuery
+                    .OrderBy(e => e.IsDeleted)    
+                    .ThenBy(e => e.Name)
+            };
+            
+
+
+            ICollection<TeamDetailsViewModel> teamCollection = await teamssQuery
+                .Skip((queryModel.CurrentPage - 1) * queryModel.TeamsPerPage)
+                .Take(queryModel.TeamsPerPage)
+                .Select(t => new TeamDetailsViewModel
+                {
+                    Id = t.Id.ToString(),
+                    Name = t.Name,
+                    TeamImageUrl = t.TeamImageUrl!,
+                    Country = t.Country.Name,
+                    TeamMembersCount = t.TeamMembers.Count,
+                    Description = t.Description,
+                    EstablishedOn = t.EstablishedOn.ToString(DateTimeFormats.DateFormat),
+                    Town = t.Town.Name,
+                    TeamMembers = t.TeamMembers
+                        .Select(tm => new UserViewModel
+                        {
+                            Id = tm.Id.ToString(),
+                            Name = tm.Name,
+                            ProfileImageUrl = tm.ProfileImageUrl
+                        }).ToList(),
+                    MembersRequests = t.TeamRequests
+                        .Where(tr =>  tr.IsAccepted == false)
+                        .Select(tr => new UserViewModel
+                        {
+                            Id = tr.RequestFrom.Id.ToString(),
+                            Name = tr.RequestFrom.Name,
+                            ProfileImageUrl = tr.RequestFrom.ProfileImageUrl
+                        }).ToList(),
+                    GalleryPhotosModels  = t.GalleryPhotos
+                        .Select(p => new GalleryPhotoModel
+                        {
+                            Id = p.Id.ToString(),
+                            Name = p.Name,
+                            URL = p.Url
+                        }).ToList(),
+                    TeamManager = t.TeamManager.Name
+                }).ToListAsync();
+
+            var model = new AdminAllTeamsFilteredAndPagedServiceModel()
+            {
+                AllTeams = teamCollection,
+                TotalTeamsCount = teamssQuery.Count()
+            };
+            return model;
+        }
+
+        public async Task<ICollection<AllTeamsViewModel>> GetTeamRequestsByUserAsync(string userId)
         {
             var teamRequests = await dbContext.TeamsRequests
                 .Where(tr => tr.RequestFromId == Guid.Parse(userId))
-                .Select(tr => new TeamRequestViewModel
+                .Select(tr => new AllTeamsViewModel()
                 {
                     Id = tr.TeamId.ToString(),
                     Name = tr.Team.Name,
                     Country = tr.Team.Country.Name,
-                    TeamImageUrl = tr.Team.TeamImageUrl
+                    TeamImageUrl = tr.Team.TeamImageUrl!
                 }).ToListAsync();
 
 
             foreach (var team in teamRequests)
             {
-                team.MembersCount = await GetTeamMembersCountAsync(team.Id);
+                team.TeamMembersCount = await GetTeamMembersCountAsync(team.Id);
             }
 
             return teamRequests;
@@ -288,6 +388,12 @@ namespace BikingBuddy.Services
                             && t.IsDeleted == false
                             && t.TeamMembers.Any(tm => tm.Id == Guid.Parse(userId)))
                 .AnyAsync();
+        }
+
+        public async Task<bool> IsDeletedAsync(string teamId)
+        {
+            return  await dbContext.Teams 
+                .AnyAsync(t => t.Id == Guid.Parse(teamId) &&  t.IsDeleted==true);
         }
 
         public async Task RemoveRequestAsync(string userId, string teamId)

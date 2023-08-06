@@ -70,5 +70,6 @@ namespace BikingBuddy.Services.Contracts
 
         Task<bool> IsActive(string eventId);
 
+        Task<bool> IsDeleteAsync(string eventId);
     }
 }

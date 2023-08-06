@@ -17,6 +17,8 @@
             public const string EventDeletedSuccessfully = "Event is successfully deleted!";
 
             public const string DeleteEventError = "Something went wrong while Deleting Event!";
+             
+            public const string EventAlreadyDeleted = "Event is alredy deleted!";
 
 
 
@@ -100,7 +102,10 @@
             
             public const string TeamDeletedSuccessfully = "Team is successfully deleted!";
 
+
             public const string DeleteTeamError = "Something went wrong while Deleting Team!";
+            
+            public const string AlreadyDeleted = "Team is alredy deleted!";
 
             public const string AddTeamError = "Something went wrong while Adding Team!";
 

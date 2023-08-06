@@ -1,4 +1,5 @@
-﻿using BikingBuddy.Web.Models.Comment;
+﻿using BikingBuddy.Common.Enums;
+using BikingBuddy.Web.Models.Comment;
 
 namespace BikingBuddy.Services
 {
@@ -273,8 +274,7 @@ namespace BikingBuddy.Services
 
         public async Task<AdminAllEventsFilteredAndPagedServiceModel> AdminAllEventAsync(AdminAllEventsQueryModel queryModel)
         {
-            IQueryable<Event> eventsQuery = dbContext.Events
-                .Where(e => e.IsDeleted == false)
+            IQueryable<Event> eventsQuery = dbContext.Events 
                 .AsQueryable();
 
             if (!String.IsNullOrWhiteSpace(queryModel.ActivityType))
@@ -294,6 +294,17 @@ namespace BikingBuddy.Services
                                 EF.Functions.Like(e.Town.Name, wildCard));
             }
 
+            
+            eventsQuery = queryModel.IsDeleted switch
+            {
+                DeleteStatus.Available => eventsQuery
+                    .Where(t=> t.IsDeleted==false),  
+                DeleteStatus.Deleted => eventsQuery
+                    .Where(t=> t.IsDeleted==true) ,
+                DeleteStatus.All => eventsQuery ,
+                _ => eventsQuery
+                    .OrderBy(e => e.Title)
+            };
             eventsQuery = queryModel.Sorting switch
             {
                 EventSorting.Newest => eventsQuery
@@ -329,7 +340,7 @@ namespace BikingBuddy.Services
                     OrganizerName = e.Organizer.Name,
                     Country = e.Country.Name,
                     GalleryPhotosModels = e.GalleryPhotos
-                        .Select(p => new GalleryPhotoModel
+                    .Select(p => new GalleryPhotoModel
                         {
                             Id = p.Id.ToString(),
                             Name = p.Name,
@@ -614,7 +625,13 @@ namespace BikingBuddy.Services
                 .AnyAsync(ep => ep.Id == Guid.Parse(eventId)
                                 && ep.Date >= DateTime.UtcNow);
         }
-        
+
+        public async Task<bool> IsDeleteAsync(string eventId)
+        {
+            return  await dbContext.Events 
+                .AnyAsync(t => t.Id == Guid.Parse(eventId) &&  t.IsDeleted==true);
+        }
+
 
         private async Task<EventParticipants?> GetEventParticipantByIdAsync(string eventId, string userId)
         {

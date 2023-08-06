@@ -26,8 +26,10 @@ public class EventController : BaseAdminController
         commentService = _commentService;
         envWebRooth = _environment.WebRootPath;
     }
-    // GET
-     
+    
+    
+    
+    
     public async Task<IActionResult> All([FromQuery] AdminAllEventsQueryModel queryModel)
     {
         var serviceModel = await service.AdminAllEventAsync(queryModel);
@@ -52,6 +54,11 @@ public class EventController : BaseAdminController
             return Unauthorized();
         }
 
+        if (await service.IsDeleteAsync(eventId))
+        {
+            TempData[ErrorMessage] = EventAlreadyDeleted;
+            return RedirectToAction("All", "Team");
+        }
         try
         {
             await service.DeleteEventAsync(eventId);

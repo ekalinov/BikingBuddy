@@ -2,37 +2,35 @@
 using BikingBuddy.Common.Enums;
 using BikingBuddy.Web.Models.Activity;
 using BikingBuddy.Web.Models.Event.Enums;
+using BikingBuddy.Web.Models.Team;
 using static BikingBuddy.Common.GlobalConstants;
 
 namespace BikingBuddy.Web.Models.Event;
 
-public class AdminAllEventsQueryModel
+public class AdminAllTeamsQueryModel
 {
-    public AdminAllEventsQueryModel()
+    public AdminAllTeamsQueryModel()
     {
-        Events = new HashSet<EventDetailsViewModel>();
-        ActivityTypes = new HashSet<ActivityTypeViewModel>();
+        Teams = new HashSet<TeamDetailsViewModel>();
 
         CurrentPage = DefaultPage;
-        EventsPerPage = EntitiesPerPage;
+        TeamsPerPage = EntitiesPerPage;
     }
 
     [Display(Name = "Activity Type")] public string ActivityType { get; set; } = null!;
 
     [Display(Name = "Search...")] public string SearchTerm { get; set; } = null!;
-
-    public EventSorting Sorting { get; init; }
     
-    
+    [Display(Name = "Availability Status")]
     public DeleteStatus IsDeleted { get; init; }
+    public TeamSorting Sorting { get; init; }
 
     public int CurrentPage { get; set; }
 
-    public int EventsPerPage { get; set; }
+    public int TeamsPerPage { get; set; }
 
-    public int TotalEventsCount { get; set; }
+    public int TotalTeamsCount { get; set; }
 
-    public ICollection<ActivityTypeViewModel> ActivityTypes { get; set; }
 
-    public ICollection<EventDetailsViewModel> Events { get; set; }
+    public ICollection<TeamDetailsViewModel> Teams { get; set; }
 }

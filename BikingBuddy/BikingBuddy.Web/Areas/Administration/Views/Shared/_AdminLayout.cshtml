@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.1/toastr.min.css" integrity="sha512-LEetX42b+K0TTmnfCNxYOrVTLlg36s06bJ8cutF3BpQT3VnpzdeqoYfn+FW2KBi/imYk2RpfQzlyzY7CrRW4CQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 
-<header id="site-header" class="fixed-top" style="display: contents;">
+<header id="site-header" class="fixed-top" >
 
     <partial name="_NotificationPartial"/>
     <div class="container">
@@ -99,15 +99,15 @@
         </nav>
     </div>
 </header>
-<body class="w3l-featureshny">
-<main>
+<body class="w3l-featureshny" style="height: 100%;">
+<main style="margin: 7rem; ">
 
     @RenderBody()
 
 </main>
 
 <!-- footer17 -->
-<footer class="footer-17">
+<footer class="footer-17 fixed-bottom">
 
     <div class="copyright text-center">
         <div class="container">

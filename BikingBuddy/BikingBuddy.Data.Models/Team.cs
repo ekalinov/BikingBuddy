@@ -27,7 +27,7 @@
         [MaxLength(TeamDescriptionMaxLength)]
         public string Description { get; set; } = null!;
 
-        public DateTime? EstablishedOn { get; set; }
+        public DateTime EstablishedOn { get; set; }
 
         [Url]
         public string? TeamImageUrl { get; set; }

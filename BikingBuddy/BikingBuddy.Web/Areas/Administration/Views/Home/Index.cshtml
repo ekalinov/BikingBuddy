@@ -2,46 +2,28 @@
     ViewData["Title"] = "Home Page";
 }
 <div class="m-12 text-center" style="padding: 19rem;">
-    <h2 class="display-4">Hello, Admin!</h2>
+    <h2 class="display-4" style="color: var(--primary-color);">Hello, Admin!</h2>
     <p class="lead mb-1 mt-3">
-        This is your administrator area - you can <b>read</b>, <b>create</b>,
-        <b>delete</b> and <b>edit</b> houses.
+        This is your administrator area - you can manage all <b>Events</b>, <b>Teams</b>,
+        <b>Reviews</b> and <b>Users</b> here.
         <br/>You can <b>rent</b> and <b>leave</b> the free ones, too!
     </p>
-    <p class="lead mt-1">
-        You can also see <b>all users and agents</b> and <b>all rents</b> in the
-        system.
-    </p>
+    
     <hr class="my-4">
-    <a asp-area="" asp-controller="Event" asp-action="All"
-       class="btn btn-primary btn-lg">
-        All Events
-    </a>
-    <a asp-area="" asp-controller="Event" asp-action="Add"
-       class="btn btn-primary btn-lg">
-        Add Event
-    </a>
-    <span> | </span>
-    <a asp-area="" asp-controller="Team" asp-action="All"
-       class="btn btn-primary btn-lg">
-        All Teams
-    </a>
-    <a asp-area="" asp-controller="Team" asp-action="Add"
-       class="btn btn-primary btn-lg">
-        Add Team
-    </a>
-    <span> | </span>
+     
     <a asp-area="Administration" asp-controller="Event" asp-action="All"
        class="btn btn-primary btn-lg">
-        My Houses
+        Manage Events
     </a>
     <span> | </span>
     <a asp-area="Administration" asp-controller="Team" asp-action="All"
        class="btn btn-primary btn-lg">
-        All Rents
+        Manage Teams
     </a>
-    @* <a asp-area="Administration" asp-controller="User" asp-action="All" *@
-    @*    class="btn btn-primary btn-lg"> *@
-    @*     All Users *@
-    @* </a> *@
+    <span> | </span>
+        <a asp-area="Administration" asp-controller="User" asp-action="All"
+           class="btn btn-primary btn-lg">
+             Manage Users
+        </a>
+    
 </div>
