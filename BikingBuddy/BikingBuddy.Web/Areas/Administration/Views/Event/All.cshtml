@@ -1,13 +1,10 @@
 @model AdminAllEventsQueryModel 
-    ViewBag.Title = "All Available Events";
-}
  
-<hr/>
 <div class=" text-center ">
     <h5 class="">@ViewBag.Title</h5>
 </div>
 
-<form  class="container" asp-area="Administration">
+<form  class="container" method="get" asp-area="Administration">
     <div class="row mb-3 ">
         <div class="col-2 sorting">
             <label asp-for="ActivityType"></label>

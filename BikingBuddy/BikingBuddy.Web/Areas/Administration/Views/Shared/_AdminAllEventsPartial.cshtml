@@ -2,7 +2,7 @@
 @model IEnumerable<EventDetailsViewModel>
 @inject IEventService service
 @{
-    ViewBag.Title = "All Users";
+    ViewBag.Title = "All events";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
@@ -62,18 +62,19 @@
             <td>
                 <label>@curEvent.Title</label>
             </td>
-            <td>
+            <td> 
                 <label>@curEvent.Date</label>
             </td>
             <td>
-                <label>@curEvent.Country, @curEvent.Town</label>
+                <label>@curEvent.Country</label>,  
+                <label>@curEvent.Town</label> 
             </td>
 
             <td>
                 <label>@curEvent.OrganizerUsername</label>
             </td>
             <td>
-                <label> Dist:@curEvent.Distance m/Asc: @curEvent.Ascent</label>
+                <label> Dist:@curEvent.Distance</label> <label>Asc: @curEvent.Ascent</label>
             </td>
             <td>
                 <!-- Button trigger modal -->
@@ -123,9 +124,9 @@
             </td>
 
             <td> 
-                <div class="row">
-                    <a asp-area="" asp-controller="Event" asp-action="Edit" class="btn btn-warning" asp-route-eventId="@curEvent.Id">Edit</a>
-                    <form class="ml-2" method="get" asp-area="Administration">
+                <div class="row" style="display: grid"> 
+                    <a asp-area="" asp-controller="Event" asp-action="Edit" class="btn btn-warning mb-2" asp-route-eventId="@curEvent.Id">Edit</a>
+                    <form class="" method="post" asp-area="Administration">
                         <button  asp-area="Administration"  asp-controller="Event" asp-action="Delete" asp-route-eventId="@curEvent.Id" class=" btn btn-danger">Delete</button>
                     </form>
                 </div>
