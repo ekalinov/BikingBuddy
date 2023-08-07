@@ -13,8 +13,6 @@
 
         public string OrganizerName { get; set; } = null!;
 
-        public string Country { get; set; } = null!;
-
 
         public IList<GalleryPhotoModel> GalleryPhotosModels { get; set; }
 
