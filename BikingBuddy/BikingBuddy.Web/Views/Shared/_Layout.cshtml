@@ -23,9 +23,8 @@
 
 <header id="site-header" class="fixed-top">
 
-    <partial name="_NotificationPartial"/>
-    <div class="container">
-        <nav class="navbar navbar-expand-lg stroke px-0 pt-lg-0">
+    <partial name="_NotificationPartial"/> 
+        <nav class="navbar navbar-expand-lg stroke px-0 pt-lg-0  pl-5 pr-3">
             <h1>
                 <a class="navbar-brand" asp-controller="Home" asp-action="Index">
                     Biking<i class="fas fa-bicycle"></i>Buddy
@@ -53,7 +52,7 @@
                     @if (User.Identity!.IsAuthenticated)
                     {
                         <li class="navbar-item">
-                            <a class="nav-link " asp-area="" asp-controller="Event" asp-action="Mine">Events</a>
+                            <a class="nav-link " asp-area="" asp-controller="User" asp-action="MyProfile">MyProfile </a>
                         </li>
                     }
 
@@ -95,8 +94,7 @@
                 </nav>
             </div>
 
-        </nav>
-    </div>
+        </nav> 
 </header>
 <body>
 <main>

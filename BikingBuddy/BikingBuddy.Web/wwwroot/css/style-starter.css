@@ -2167,6 +2167,13 @@ pre code {
     border-top: 1px solid #dee2e6;
 }
 
+ 
+.table td {
+    font-size: 17px;
+}
+.table th {
+    font-size: 20px;
+}
 .table th:first-child{
     border-left: none;
     border-top: none;
@@ -4919,7 +4926,7 @@ input[type="button"].btn-block {
     padding-top: 0.3125rem;
     padding-bottom: 0.3125rem;
     margin-right: 1rem;
-    font-size: 1.25rem;
+    font-size: 60px;
     line-height: inherit;
     white-space: nowrap;
 }
@@ -17955,7 +17962,7 @@ header.nav-fixed {
 .navbar .navbar-brand {
     padding: 0px;
     color: #fff;
-    font-size: 36px;
+    font-size: 60px;
     padding: 0;
     margin-right: 2em;
     font-weight: 700;
@@ -17973,7 +17980,7 @@ header.nav-fixed {
     padding: 0px 10px;
     color: #fff;
     background: transparent;
-    font-size: 17px;
+    font-size: 25px;
     font-weight: 600;
     line-height: 28px;
     text-transform: capitalize;
