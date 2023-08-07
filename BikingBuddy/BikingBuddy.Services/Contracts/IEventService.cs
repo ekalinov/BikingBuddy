@@ -31,8 +31,9 @@ namespace BikingBuddy.Services.Contracts
         Task LeaveEventAsync(string userId, string eventId);
 
         //Get Events
-  
 
+        Task<ICollection<EventViewModel>> GetMyEventsAsync(string userId);
+        
         Task<ICollection<EventViewModel>> GetUserEventsAsync(string userId);
 
         Task<int?> GetCompletedEventsCountByUserAsync(string userId);
@@ -71,5 +72,7 @@ namespace BikingBuddy.Services.Contracts
         Task<bool> IsActive(string eventId);
 
         Task<bool> IsDeleteAsync(string eventId);
+        
+        Task CompleteEventAsync(string eventId, string userId);
     }
 }

@@ -9,7 +9,9 @@ namespace BikingBuddy.Web.Models.User
     {
         public UserDetailsViewModel()
         {
-            UserEvents = new HashSet<EventViewModel>();
+            UserUpcomingEvents = new HashSet<EventViewModel>();
+            UserCompletedEvents = new HashSet<EventViewModel>();
+            UserEvents =  new HashSet<EventViewModel>();
             TeamRequests = new HashSet<AllTeamsViewModel>();
             UserBikes = new HashSet<BikeDetailsViewModel>();
         }
@@ -21,11 +23,16 @@ namespace BikingBuddy.Web.Models.User
 
         public double TotalAscent { get; set; }
 
-        public virtual ICollection<EventViewModel> UserEvents { get; set; } = null!;
+        public virtual ICollection<EventViewModel> UserUpcomingEvents { get; set; } = null!;
+         
+        public virtual ICollection<EventViewModel> UserCompletedEvents { get; set; } = null!;
 
+        public virtual ICollection<EventViewModel> UserEvents { get; set; } = null!;
+        
         public virtual ICollection<AllTeamsViewModel> TeamRequests { get; set; } = null!;
 
 
         public virtual ICollection<BikeDetailsViewModel> UserBikes { get; set; } = null!;
+     
     }
 }

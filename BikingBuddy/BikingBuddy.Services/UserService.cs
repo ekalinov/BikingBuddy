@@ -33,11 +33,13 @@ namespace BikingBuddy.Services
 
             var userTotalAscent = await GetUserTotalAscentAsync(userId);
 
+            var myEvents = await eventService.GetMyEventsAsync(userId);
+             
             var userEvents = await eventService.GetUserEventsAsync(userId);
 
             var userBikes = await bikeService.GetUserBikesAsync(userId);
 
-
+ 
             UserDetailsViewModel? user = await dbContext.AppUsers.Where(u => u.Id == Guid.Parse(userId))
                 .Select(u => new UserDetailsViewModel
                 {
@@ -53,10 +55,18 @@ namespace BikingBuddy.Services
                     TotalDistance = userTotalDistance,
                     TotalAscent = userTotalAscent,
                     UserBikes = userBikes,
-                    UserEvents = userEvents
+                    UserEvents = myEvents,
+                    
                 }).FirstOrDefaultAsync();
 
-
+             user.UserUpcomingEvents = userEvents
+                .Where(e => e is { IsCompleted: false, IsDeleted: false })
+                .ToList();
+                
+            
+            user.UserCompletedEvents = userEvents
+                .Where(e => e.IsCompleted)
+                .ToList();
             return user;
         }
 
