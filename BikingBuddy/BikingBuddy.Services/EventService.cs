@@ -463,43 +463,45 @@ namespace BikingBuddy.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<ICollection<EventMiniViewModel>> GetEventsByUserIdAsync(string userId)
-        {
-            return await dbContext.Events
-                .Where(e => e.EventsParticipants
-                                .Any(ep => ep.ParticipantId.ToString() == userId)
-                            || e.OrganizerId.ToString() == userId)
-                .Select(e => new EventMiniViewModel()
-                {
-                    Id = e.Id.ToString(),
-                    Title = e.Title,
-                    Date = e.Date.ToString(DateTimeFormats.DateTimeFormat),
-                    Description = e.Description,
-                    OrganizerUsername = e.Organizer.UserName,
-                    Distance = e.Distance.ToString(CultureInfo.InvariantCulture),
-                    EventImageUrl = e.EventImageUrl!,
-                    ActivityType = e.ActivityType.Name,
-                    Town = e.Town.Name,
-                })
-                .AsNoTracking()
-                .ToArrayAsync();
-        }
+        
 
         //This DTO will be used in /User/Details
         //Get All events where user is participating (completed and not completed)
         public async Task<ICollection<EventViewModel>> GetUserEventsAsync(string userId)
         {
             return await dbContext.EventsParticipants
-                .Where(ep => ep.ParticipantId == Guid.Parse(userId))
+                .Where(ep => ep.ParticipantId == Guid.Parse(userId) )
                 .Select(ep => new EventViewModel
                 {
                     Id = ep.EventId.ToString(),
+                    Town = ep.Event.Town.Name,
+                    Country = ep.Event.Country.Name, 
                     Title = ep.Event.Title,
-                    Date = ep.Event.Date.ToString(DateTimeFormats.DateFormat),
-                    Distance = ep.Event.Distance,
+                    Date = ep.Event.Date.ToString(DateTimeFormats.DateTimeFormat),
+                    Distance = $"{ep.Event.Distance} km",
+                    Ascent = $"{ep.Event.Ascent} m", 
                     EventImageUrl = ep.Event.EventImageUrl,
-                    ParticipantsCount = ep.Event.EventsParticipants.Count(),
-                    IsCompleted = ep.IsCompleted
+                    ParticipantsCount = ep.Event.EventsParticipants.Count,
+                    IsCompleted = ep.IsCompleted,
+                    IsDeleted = ep.Event.IsDeleted
+                }).ToListAsync();
+        }
+        public async Task<ICollection<EventViewModel>> GetMyEventsAsync(string userId)
+        {
+            return await dbContext.Events
+                .Where(e => e.OrganizerId == Guid.Parse(userId))
+                .Select(e => new EventViewModel()
+                {
+                    Id = e.Id.ToString(),
+                    Title = e.Title,
+                    Date = e.Date.ToString(DateTimeFormats.DateTimeFormat),
+                    Town = e.Town.Name,
+                    Country = e.Country.Name,
+                    ActivityType = e.ActivityType.Name,
+                    Distance = $"{e.Distance} m",
+                    Ascent = $"{e.Ascent} m",
+                    Description = e.Description,
+                    EventImageUrl = e.EventImageUrl
                 }).ToListAsync();
         }
 
@@ -630,6 +632,22 @@ namespace BikingBuddy.Services
         {
             return  await dbContext.Events 
                 .AnyAsync(t => t.Id == Guid.Parse(eventId) &&  t.IsDeleted==true);
+        }
+
+        public async Task CompleteEventAsync(string eventId, string userId)
+        {  
+            
+            EventParticipants? eventToComplete = await dbContext.EventsParticipants
+                .FirstOrDefaultAsync(ep => ep.EventId == Guid.Parse(eventId)
+                                && ep.ParticipantId == Guid.Parse(userId));
+
+            if (eventToComplete != null)
+            {
+                eventToComplete.IsCompleted = true;
+
+                await dbContext.SaveChangesAsync();
+            }
+
         }
 
 

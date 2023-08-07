@@ -31,7 +31,11 @@
             public const string SuccessLeavingEvent = "You leave this event!";
 
             public const string LeaveEventError = "Something went wrong while leaving this event!";
+            
+            
+            public const string CompletedEventSuccess = "You marked this event as completed!";
 
+            public const string CompleteEventError = "Something went wrong while completeing event!";
 
 
             public const string UserNotParticipatingErrorMessage = "You are not participating in this event!";
