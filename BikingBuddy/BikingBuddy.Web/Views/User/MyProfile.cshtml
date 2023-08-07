@@ -140,7 +140,7 @@
             @if (Model.UserUpcomingEvents.Any())
             {
                 <div>
-                    @await Html.PartialAsync("_UserEventsPartial", Model.UserUpcomingEvents)
+                    @await Html.PartialAsync("_UserUpcomingPartial", Model.UserUpcomingEvents)
                 </div>
             }
             else
