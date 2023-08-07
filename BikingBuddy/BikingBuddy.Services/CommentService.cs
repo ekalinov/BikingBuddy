@@ -29,7 +29,7 @@ namespace BikingBuddy.Services
                     CommentBody = c.CommentBody,
                     CreatedOn = c.CommentedOn,
                     UserImageURL = c.User.ProfileImageUrl,
-                    UserName = c.User.UserName,
+                    UserName = c.User.Name,
                     EditedOn = c.EditedOn,
                     IsEdited = c.IsEdited
                 })
