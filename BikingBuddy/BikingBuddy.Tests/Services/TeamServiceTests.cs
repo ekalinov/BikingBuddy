@@ -99,7 +99,7 @@ public class TeamServiceTests
         {
             Assert.That(editedTeam.Name, Is.EqualTo("Edited Team Name"));
             Assert.That(editedTeam.Description, Is.EqualTo("Edited Team Description need more chars"));
-            Assert.That(editedTeam.EstablishedOn!.Value.Day, Is.EqualTo(DateTime.UtcNow.AddDays(10).Day));
+            Assert.That(editedTeam.EstablishedOn.Day, Is.EqualTo(DateTime.UtcNow.AddDays(10).Day));
         });
     }
 

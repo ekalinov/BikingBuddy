@@ -51,7 +51,7 @@ public class EventServiceTest
             Ascent = 220,
             Description = "testEventDescription description",
             EventImageUrl = "https://via.placeholder.com/150/0000FF/808080 ?Text=PAKAINFO.com",
-            ActivityTypes = testActivityTypesModels,
+            ActivityTypes = testActivityTypesModels!,
             ActivityTypeId = 1,
             CountriesCollection = await eventService.GetCountriesAsync(),
             CountryId = "BG",
@@ -151,8 +151,8 @@ public class EventServiceTest
 
         var eventToEdit = await eventService.GetEventViewModelByIdAsync(testEventId);
 
-        eventToEdit.EventId = testEventId;
-        eventToEdit!.Title = "Edited Title";
+        eventToEdit!.EventId = testEventId;
+        eventToEdit.Title = "Edited Title";
         eventToEdit.Distance = 200;
         eventToEdit.Ascent = 250;
         eventToEdit.Description = "Edited testEventDescription description";

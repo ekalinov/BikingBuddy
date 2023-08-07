@@ -29,7 +29,7 @@ public static class DbSeeder
 
     public static Team testTeam= null!;
 
-    public static ICollection<ActivityTypeViewModel> testActivityTypesModels;
+    public static ICollection<ActivityTypeViewModel>? testActivityTypesModels;
 
 
     public static async Task SeedDatabase(BikingBuddyDbContext dbContext)
