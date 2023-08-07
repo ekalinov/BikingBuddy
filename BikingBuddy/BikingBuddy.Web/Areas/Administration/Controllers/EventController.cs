@@ -43,35 +43,5 @@ public class EventController : BaseAdminController
     }
     
     
-    //Delete
-
-    [HttpPost]
-    public async Task<IActionResult> Delete(string eventId)
-    { 
-        if (!await service.IsOrganiser(eventId, User.GetId()) && !User.IsAdmin())
-        {
-            TempData[ErrorMessage] = UnauthorizedForError;
-            return Unauthorized();
-        }
-
-        if (await service.IsDeleteAsync(eventId))
-        {
-            TempData[ErrorMessage] = EventAlreadyDeleted;
-            return RedirectToAction("All", "Team");
-        }
-        try
-        {
-            await service.DeleteEventAsync(eventId);
-
-            TempData[SuccessMessage] = EventDeletedSuccessfully;
-        }
-        catch (Exception)
-        {
-            TempData[ErrorMessage] = DeleteEventError;
-            return RedirectToAction("Details", "Event", new { eventId });
-        }
-
-        return RedirectToAction("All", "Event");
-    }
-
+   
 }

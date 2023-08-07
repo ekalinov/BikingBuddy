@@ -32,34 +32,6 @@ namespace BikingBuddy.Web.Areas.Administration.Controllers
 
     
     
-        //Delete
-
-        [HttpPost]
-        public async Task<IActionResult> Delete(string teamId)
-        {
-            if (!await teamService.IsManagerAsync(teamId, User.GetId()) && !User.IsAdmin())
-            {
-                TempData[ErrorMessage] = UnauthorizedErrorMessage;
-                return Unauthorized();
-            }
-            if (await teamService.IsDeletedAsync(teamId))
-            {
-                TempData[ErrorMessage] = AlreadyDeleted;
-                return RedirectToAction("All", "Team");
-            }
-            try
-            {
-                await teamService.DeleteTeamAsync(teamId);
-
-                TempData[SuccessMessage] = TeamDeletedSuccessfully;
-            }
-            catch (Exception)
-            {
-                TempData[ErrorMessage] = DeleteTeamError;
-            }
-
-            return RedirectToAction("All", "Team");
-        }
 
     }
 }
