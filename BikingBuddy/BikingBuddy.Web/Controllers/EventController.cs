@@ -1,4 +1,7 @@
-﻿namespace BikingBuddy.Web.Controllers
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Http.Extensions;
+
+namespace BikingBuddy.Web.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -139,7 +142,7 @@
             if (!await service.IsOrganiser(eventId, User.GetId()) && !User.IsAdmin())
             {
                 TempData[ErrorMessage] = UnauthorizedForError;
-                return Unauthorized();
+                return RedirectToAction("Error", "Home", new {statusCode=401});
             }
 
 
@@ -193,7 +196,7 @@
             if (!await service.IsOrganiser(model.EventId, User.GetId()) && !User.IsAdmin())
             {
                 TempData[ErrorMessage] = UnauthorizedForError;
-                return Unauthorized();
+                return RedirectToAction("Error", "Home", new {statusCode=401});
             }
 
             try
@@ -209,10 +212,44 @@
                 return RedirectToAction("All", "Event");
             }
         }
-
-
-        //Delete is in Administrator Area
  
+        //Delete
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(string eventId,string? returnUrl)
+        { 
+            if (!await service.IsOrganiser(eventId, User.GetId()) && !User.IsAdmin())
+            {
+                TempData[ErrorMessage] = UnauthorizedForError;
+                return RedirectToAction("Error", "Home", new {statusCode=401});
+            }
+
+            if (await service.IsDeleteAsync(eventId))
+            {
+                TempData[ErrorMessage] = EventAlreadyDeleted; 
+
+                return LocalRedirect(returnUrl); 
+            }
+            try
+            {
+                await service.DeleteEventAsync(eventId);
+
+                TempData[SuccessMessage] = EventDeletedSuccessfully;
+            }
+            catch (Exception)
+            {
+                TempData[ErrorMessage] = DeleteEventError;   
+            }
+
+            if (!string.IsNullOrEmpty(returnUrl))
+            {
+                
+            return LocalRedirect(returnUrl);
+            }
+
+            return RedirectToAction("All", "Event");
+        }
+
 
         public async Task<IActionResult> Join(string eventId)
         {
@@ -274,5 +311,28 @@
         }
 
         //TODO: IMPORT GPX file track to event
+        public async Task<IActionResult> CompleteEvent(string eventId)
+        {
+            try
+            {
+                if (await service.IsParticipating(eventId, User.GetId()))
+                {
+                    await service.CompleteEventAsync( eventId,User.GetId());
+                    TempData[SuccessMessage] = CompletedEventSuccess;
+                }
+                else
+                {
+                    TempData[ErrorMessage] = UserNotParticipatingErrorMessage;
+                }
+            }
+            catch (Exception)
+            {
+                TempData[ErrorMessage] = CompleteEventError;
+                return RedirectToAction("MyProfile", "User");
+            }
+
+            return RedirectToAction("MyProfile", "User");
+
+        }
     }
 }

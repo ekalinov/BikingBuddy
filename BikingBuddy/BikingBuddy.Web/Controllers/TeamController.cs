@@ -149,7 +149,7 @@ namespace BikingBuddy.Web.Controllers
             if (!await teamService.IsManagerAsync(teamId, User.GetId()) && !User.IsAdmin())
             {
                 TempData[ErrorMessage] = UnauthorizedErrorMessage;
-                return Unauthorized();
+                return RedirectToAction("Error", "Home", new {statusCode=401});
             }
 
             try
@@ -178,7 +178,7 @@ namespace BikingBuddy.Web.Controllers
             if (!await teamService.IsManagerAsync(model.Id, User.GetId()) && !User.IsAdmin())
             {
                 TempData[ErrorMessage] = UnauthorizedErrorMessage;
-                return Unauthorized();
+                return RedirectToAction("Error", "Home", new {statusCode=401});
             }
 
             if (model.TeamImage is { Length: >= MaxPhotoSizeAllowed })
@@ -226,6 +226,47 @@ namespace BikingBuddy.Web.Controllers
             }
         }
 
+        
+        //Delete
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(string teamId, string returnUrl)
+        {
+            if (!await teamService.IsManagerAsync(teamId, User.GetId()) && !User.IsAdmin())
+            {
+                TempData[ErrorMessage] = UnauthorizedErrorMessage;
+                return RedirectToAction("Error", "Home", new {statusCode=401});
+            }
+            if (await teamService.IsDeletedAsync(teamId))
+            {
+                TempData[ErrorMessage] = AlreadyDeleted;  
+                
+                if (!string.IsNullOrEmpty(returnUrl))
+                { 
+                    return LocalRedirect(returnUrl);
+                }
+                
+                return RedirectToAction("All", "Team");
+            }
+            try
+            {
+                await teamService.DeleteTeamAsync(teamId);
+
+                TempData[SuccessMessage] = TeamDeletedSuccessfully;
+            }
+            catch (Exception)
+            {
+                TempData[ErrorMessage] = DeleteTeamError;
+            }
+            
+            if (!string.IsNullOrEmpty(returnUrl))
+            {
+                
+                return LocalRedirect(returnUrl);
+            }
+  
+            return RedirectToAction("All", "Team");
+        }
 
         public async Task<IActionResult> RequestToJoin(string teamId)
         {
@@ -297,7 +338,7 @@ namespace BikingBuddy.Web.Controllers
             if (!await teamService.IsManagerAsync(teamId, User.GetId()) && !User.IsAdmin())
             {
                 TempData[ErrorMessage] = UnauthorizedErrorMessage;
-                return Unauthorized();
+                return RedirectToAction("Error", "Home", new {statusCode=401});
             }
 
             try

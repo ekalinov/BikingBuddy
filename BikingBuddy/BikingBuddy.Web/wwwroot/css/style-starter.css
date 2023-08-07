@@ -23,6 +23,7 @@ Author URL: http://w3layouts.com
 .link-muted { color: #aaa; } .link-muted:hover { color: #1266f1; }
 
 .allEvents-banner {
+    height: 350px;
     background: url(../images/AllEventsBannerPhoto.jpg) no-repeat 0% 80%;
     background-size: cover;
     z-index: 0;
@@ -54,11 +55,14 @@ Author URL: http://w3layouts.com
 
 
 .allTeam-banner {
+    height: 350px;
     background: url(../images/Team_topBanner.jpg) no-repeat 46% 46%;
     z-index: 0;
     position: relative;
     display: grid;
     align-items: center;
+
+    background-size: cover;
 }
 
 .allTeam-banner::before {
@@ -73,6 +77,38 @@ Author URL: http://w3layouts.com
 }
 
 .allTeam-banner h5 {
+
+
+    font-size: 40px;
+    line-height: 44px;
+    font-weight: 700;
+    color: #fff;
+
+}
+
+.user-banner {
+    height: 350px;
+    background: url(../images/User_BBuddyTop.jpg) no-repeat 46% 46%;
+    z-index: 0;
+    position: relative;
+    display: grid;
+    align-items: center;
+
+    background-size: cover;
+}
+
+.user-banner::before {
+    content: "";
+    background: var(--bg-layer);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+}
+
+.user-banner h5 {
 
 
     font-size: 40px;
@@ -200,6 +236,48 @@ main {
     display: block;
 }
 
+.danger-error-ek {
+    font-size: x-large;
+    margin: 19rem;
+    background-color: #ff0000d9;
+    padding: 2rem;
+    color: black;
+    font-weight: 700;
+    border-radius: 50px;
+}
+
+ .danger-error-ek p {
+     font-size: 35px;
+     color: antiquewhite;
+ }
+
+
+.danger-error-ek h1 {
+    font-size: 90px;
+    margin-bottom: 30px;
+}
+ 
+.parallax_adminBody {
+    /* The image used */
+    background-image: linear-gradient(transparent, black), url("../images/Bbuddy.jpg");
+    height: auto;
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;  
+    display: grid; 
+}
+
+.parallax_adminBody::before {
+    content: ""; 
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;  
+}
+
 .parallax {
     /* The image used */
     background-image: url("../images/Bikebuddies2019_bearb-54-2-1.jpg");
@@ -214,6 +292,29 @@ main {
     background-size: cover;
 }
 
+.parallax-ErrorPage::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.25);
+}
+
+.parallax-ErrorPage{
+    /* The image used */
+    background-image: url("../images/Bikebuddies2019_bearb-54-2-1.jpg");
+
+    /* Full height */
+    height: 100%;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
 .w3layouts-services-heading {
     text-align: center;
@@ -232,8 +333,8 @@ main {
 body {
     margin: 0; 
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    font-size: 1rem;
-    font-weight: 400;
+ 
+    font-weight: 200;
     line-height: 1.5;
     color: #212529;
     text-align: left;
@@ -398,7 +499,7 @@ svg {
 }
 
 table {
-    border-collapse: collapse;
+    border-collapse: collapse;  
 }
 
 caption {
@@ -2052,6 +2153,8 @@ pre code {
 }
 
 .table {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
     width: 100%;
     margin-bottom: 1rem;
     color: #212529;
@@ -2064,10 +2167,22 @@ pre code {
     border-top: 1px solid #dee2e6;
 }
 
+.table th:first-child{
+    border-left: none;
+    border-top: none;
+}
+
+.table th:last-child{
+    border-right:  none;
+    border-top: none;
+}
+
 .table thead th {
     vertical-align: bottom;
     border-bottom: 2px solid #dee2e6;
 }
+
+ 
 
 .table tbody + tbody {
     border-top: 2px solid #dee2e6;
@@ -17365,6 +17480,7 @@ readers do not read off random characters that represent icons */
     --bg-grey: #181818;
     --card-bg: #888c96;
     --footer-bg: #0f1113;
+    --table-bg: #343a40;
 }
 
 .noscroll {
