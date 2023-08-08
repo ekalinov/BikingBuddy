@@ -21,11 +21,12 @@ namespace BikingBuddy.Web.Models.User
         public string Country { get; set; } = null!;
 
 
-        public string? Helmet { get; set; } = null!;
-
-        public string? Shoes { get; set; } = null!;
-
-        public string? Team { get; set; } = null!;
+        public string? Helmet { get; set; }
+        
+        public string? Shoes { get; set; }
+        
+        public string? Team { get; set; }
+        public string? TeamId { get; set; }
 
 
         [Url] public string? ProfileImageUrl { get; set; }

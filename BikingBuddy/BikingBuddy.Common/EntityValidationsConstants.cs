@@ -9,6 +9,10 @@
 
             public const int UsernameMaxLength = 10;
             public const int UsernameMinLength = 4;
+            
+            public const int HelmetNameMaxLength = 30;
+            public const int ShoesNameMaxLength = 30;
+
         }
 
         public class ActivityType

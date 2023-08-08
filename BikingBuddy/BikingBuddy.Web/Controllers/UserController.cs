@@ -120,5 +120,26 @@
             return RedirectToAction("index", "Home");
         }
 
+        
+        [HttpPost]
+        public async Task<IActionResult> Equipment(EquipmentViewModel model)
+        {
+            try
+            {
+                await userService.AddEditEquipment(model);
+
+                TempData[SuccessMessage] =  EquipmentSuccessfully; 
+
+                return RedirectToAction("MyProfile", "User");
+            }
+            catch (Exception)
+            {
+                
+                TempData[ErrorMessage] =  EditEquipmentError; 
+
+                return RedirectToAction("MyProfile", "User");
+            }
+        }
+        
     }
 }

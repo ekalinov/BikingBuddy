@@ -47,7 +47,8 @@ namespace BikingBuddy.Services
                     Name = u.Name,
                     Helmet = u.Helmet,
                     Shoes = u.Shoes,
-                    Team = u.Team!.Name,
+                    Team = u.Team!.Name ,
+                    TeamId =  u.Team.Id.ToString(),
                     Town = u.Town.Name,
                     Country = u.Country.Name,
                     ProfileImageUrl = u.ProfileImageUrl,
@@ -89,12 +90,16 @@ namespace BikingBuddy.Services
 
             if (user != null)
             {
-                user.ProfileImageUrl = model.ProfileImageUrl;
                 user.Shoes = model.Shoes;
                 user.Helmet = model.Helmet;
                 user.Town = await eventService.GetTownByNameAsync(model.Town);
                 user.CountryId = model.CountryId;
 
+                if (!string.IsNullOrEmpty(model.ProfileImageUrl))
+                { 
+                    user.ProfileImageUrl = model.ProfileImageUrl;
+                }
+                
                 await dbContext.SaveChangesAsync();
             }
         }
@@ -106,6 +111,26 @@ namespace BikingBuddy.Services
             if (user != null)
             {
                 user.IsDeleted = true;
+
+                await dbContext.SaveChangesAsync();
+            }
+            
+        }
+
+        public async Task AddEditEquipment(EquipmentViewModel model)
+        { 
+            AppUser? user = await GetUserByIdAsync(model.Id);
+
+            if (user !=null)
+            {
+                if (!string.IsNullOrEmpty(model.Helmet))
+                {
+                    user.Helmet = model.Helmet;
+                }
+                if (!string.IsNullOrEmpty(model.Shoes))
+                {
+                    user.Shoes = model.Shoes;
+                }
 
                 await dbContext.SaveChangesAsync();
             }

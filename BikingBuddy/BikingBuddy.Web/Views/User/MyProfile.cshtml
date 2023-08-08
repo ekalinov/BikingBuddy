@@ -2,218 +2,276 @@
 @model UserDetailsViewModel
 @inject IUserService UserService
 
-@{
-    ViewBag.Title = "Event Details";
-
-
-    ViewDataDictionary dictionary = new ViewDataDictionary(ViewData)
-    {
-        { "EventId", Model.Id },
-        { "UserPhoto", Model.ProfileImageUrl }
-    };
-
-
-}
-
-
 <div>
     @await Html.PartialAsync("_UserTopBannerPartial")
 </div>
 
 <hr/>
 <div class=" text-center ">
-    <h5 class="">@ViewBag.Title</h5>
-
+    <h3 class=""> Welcome, @Model.Name</h3>
 
 </div>
 <hr/>
 
 
 <div class="ek-row">
-    <div class="card col-3 ek-containers-margin" @*style="width: 18rem;"*@>
-        <img src=@Model.ProfileImageUrl class="card-img-top" alt="...">
-        <div class="card-body">
-            <h3 class="card-title text-center"> @Model.Name</h3>
+<div class="card col-3 ek-containers-margin" @*style="width: 18rem;"*@>
+    <div class="align-self-center">
 
-            <p class="mb-0">
-                <span class="fw-bold">Address: </span> @Model.Town , @Model.Country
-            </p>
-            @if (Model.Team != null)
-            {
-                <p class="mb-0">
-                    <span class="fw-bold">Team: </span>@Model.Team
-                </p>
-            }
-            else
-            {
-                <a asp-area="" asp-controller="Team" asp-action="All">Join Team </a>
-            }
-
-            <hr/>
-
-            <h3 class="card-title text-center">Equipment</h3>
-
-
-            <p class="mb-0">
-                @if (!string.IsNullOrEmpty(Model.Helmet))
-                {
-                    <span class="fw-bold">Helmet: </span>
-                    @Model.Helmet
-                }
-                else
-                {
-                    <a class="fw-bold">TODO: Add your Helmet here! </a>
-                }
-            </p>
-            <p class="mb-0">
-                @if (!string.IsNullOrEmpty(Model.Shoes))
-                {
-                    <span class="fw-bold">Shoes: </span>
-                    @Model.Helmet
-                }
-                else
-                {
-                    <a class="fw-bold">TODO: Add your Shoes here! </a>
-                }
-            </p>
-
-
-            <hr/>
-
-            <ul class="list-group list-group-flush">
-
-                <li class="list-group-item">
-
-                    <div class="stats w3-left" text-align: -webkit-center>
-                        <div class="row w3l-stats-section stats-con">
-                            <div class=" stats_info team-stats_info  counter_grid">
-                                <i class="far fa-map-signs  team-stats_info" style="color: #afafaf;margin-top: 12px;"></i>
-                                <p class="counter">@Model.TotalDistance </p>
-                                <h3 class="" style="color: #afafaf">Total Distance</h3>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="stats w3-left" text-align: -webkit-center>
-                        <div class="row w3l-stats-section stats-con">
-                            <div class=" stats_info team-stats_info  counter_grid">
-                                <i class="far fa-arrow-up team-stats_info" style="color: #afafaf;margin-top: 12px;"></i>
-                                <p class="counter">@Model.TotalAscent </p>
-                                <h3 class="" style="color: #afafaf">Total Ascent</h3>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="stats w3-left" text-align: -webkit-center>
-                        <div class="row w3l-stats-section stats-con">
-                            <div class=" stats_info team-stats_info  counter_grid">
-                                <i class="far  fa-flag-checkered team-stats_info" style="color: #afafaf;margin-top: 12px;"></i>
-                                <p class="counter">@Model.CompletedEvents </p>
-                                <h3 class="" style="color: #afafaf">Completed Events</h3>
-                            </div>
-
-                        </div>
-                    </div>
-                </li>
-
-
-            </ul>
-            <div class="card-body">
-                @if (User.GetId() == Model.Id || User.IsAdmin())
-                {
-                    <h3 style="text-align: center; margin-bottom: 1rem">Options</h3>
-
-                    <div class="row">
-                        <a asp-controller="User" asp-action="Edit" class="card-link ml-2 mr-2" asp-route-userId="@Model.Id">Edit</a>
-                        <form class="ml-2" method="post">
-                            <a asp-controller="user" asp-action="Delete" asp-route-userId="@Model.Id" class="card-link ml-2 mr-2">Delete</a>
-                        </form>
-                    </div>
-                }
-
-            </div>
-        </div>
+        <img src=@Model.ProfileImageUrl
+             alt=""
+             style="width: 250px; height: 250px"
+             class="rounded-circle"/>
     </div>
-    <div class="card col-8 ek-containers-margin">
-        <div class="card-body">
-            <h3 class="card-title text-center"> Upcoming Events </h3>
-            @if (Model.UserUpcomingEvents.Any())
+    <div class="card-body">
+        <h3 class="card-title text-center"> @Model.Name</h3>
+
+        <p class="mb-0">
+            <span class="fw-bold">Address: </span> @Model.Town , @Model.Country
+        </p>
+
+        <hr/>
+
+        <h3 class="card-title text-center">Team</h3>
+
+        @if (Model.Team != null)
+        {
+            <p class="mb-0">
+                <span class="fw-bold">Team: </span><a  asp-area=""  asp-controller="Team" asp-action="Details" asp-route-teamId="@Model.TeamId"> @Model.Team </a>
+            </p>
+        }
+        else
+        {
+            <span class="fw-bold">Team: You are not in a team? </span>
+            <br/>
+            <span class="fw-bold">Don't ride alone, find your Biking Buddy </span>
+            <a asp-area="" asp-controller="Team" asp-action="All"> here! </a>
+        }
+
+        <hr/>
+
+        <h3 class="card-title text-center">Equipment</h3>
+
+
+        <p class="mb-0">
+            @if (!string.IsNullOrEmpty(Model.Helmet))
             {
-                <div>
-                    @await Html.PartialAsync("_UserUpcomingPartial", Model.UserUpcomingEvents)
-                </div>
+                <span class="" >Helmet: </span>
+                <span class="font-weight-bolder font-italic" >@Model.Helmet</span>
+                 <!-- Button trigger modal -->
+                <a type="button" class="fw-bold" data-toggle="modal" data-target="#Modal_@Model.Id">
+                    Edit
+                </a>
             }
             else
             {
-                <h5 class="card-title text-center"> You don't have any planned event! </h5>
-                <a asp-controller="Event" asp-action="All" class="card-link ml-2 mr-2">Find your next journey here!</a>
+                <span class="font-weight-bolder font-italic">Shoes: </span>
+
+                <!-- Button trigger modal -->
+                <a type="button" class="fw-bold" data-toggle="modal" data-target="#Modal_@Model.Id">
+                    Add your equipment here!
+                </a>
             }
-        </div>
-
-        <div class="card-body">
-            <h3 class="card-title text-center"> Completed Events </h3>
-
-            @if (Model.UserCompletedEvents.Any())
+        </p>
+        <p class="mb-0">
+            @if (!string.IsNullOrEmpty(Model.Shoes))
             {
-                <div>
-                    @await Html.PartialAsync("_userCompletedEventsPartial", Model.UserCompletedEvents)
-                </div>
+                <span class="fw-bold">Shoes: </span>
+                <span class="font-weight-bolder font-italic" >@Model.Shoes</span> 
+                <a type="button" class="fw-bold" data-toggle="modal" data-target="#Modal_@Model.Id">
+                    Edit
+                </a>
             }
             else
             {
-                <h5 class="card-title text-center"> You don't have completed events yet! </h5>
-                <p >You can marked your first completed event, the day after it finish!</p>
-            }
+                <span class="fw-bold">Shoes: </span>
 
-        </div>
-        
-        <div class="card-body">
-                    <h3 class="card-title text-center"> My Events </h3>
-        
-                    @if (Model.UserEvents.Any())
-                    {
-                        <div>
-                            @await Html.PartialAsync("_UserEventsPartial", Model.UserEvents)
+                <!-- Button trigger modal -->
+                <a type="button" class="fw-bold" data-toggle="modal" data-target="#Modal_@Model.Id">
+                    Add your equipment here!
+                </a>
+
+                
+            }
+        </p>
+
+
+        <hr/>
+
+        <ul class="list-group list-group-flush">
+
+            <li class="list-group-item">
+
+                <div class="stats w3-left" text-align: -webkit-center>
+                    <div class="row w3l-stats-section stats-con">
+                        <div class=" stats_info team-stats_info  counter_grid">
+                            <i class="far fa-map-signs  team-stats_info" style="color: #afafaf;margin-top: 12px;"></i>
+                            <p class="counter">@Model.TotalDistance </p>
+                            <h3 class="" style="color: #afafaf">Total Distance</h3>
                         </div>
-                    }   
-                    else
-                    {
-                        <h5 class="card-title text-center"> You don't have completed events yet! </h5>
-                        <p >You can marked your first completed event, the day after it finish!</p>
-                    }
-        
+
+                    </div>
                 </div>
-        <div class="card-body">
-            <h3 class="card-title text-center"> Bike collection </h3>
+                <div class="stats w3-left" text-align: -webkit-center>
+                    <div class="row w3l-stats-section stats-con">
+                        <div class=" stats_info team-stats_info  counter_grid">
+                            <i class="far fa-arrow-up team-stats_info" style="color: #afafaf;margin-top: 12px;"></i>
+                            <p class="counter">@Model.TotalAscent </p>
+                            <h3 class="" style="color: #afafaf">Total Ascent</h3>
+                        </div>
 
-            <div>
-                TODO: Bike Collection
-            </div>
+                    </div>
+                </div>
+                <div class="stats w3-left" text-align: -webkit-center>
+                    <div class="row w3l-stats-section stats-con">
+                        <div class=" stats_info team-stats_info  counter_grid">
+                            <i class="far  fa-flag-checkered team-stats_info" style="color: #afafaf;margin-top: 12px;"></i>
+                            <p class="counter">@Model.CompletedEvents </p>
+                            <h3 class="" style="color: #afafaf">Completed Events</h3>
+                        </div>
+
+                    </div>
+                </div>
+            </li>
+
+
+        </ul>
+        <div class="card-body">
+            @if (User.GetId() == Model.Id || User.IsAdmin())
+            {
+                <h3 style="text-align: center; margin-bottom: 1rem">Options</h3>
+
+                <div class="row">
+                    <a asp-controller="User" asp-action="Edit" class="card-link ml-2 mr-2" asp-route-userId="@Model.Id">Edit</a>
+                    <form class="ml-2" method="post">
+                        <a asp-controller="user" asp-action="Delete" asp-route-userId="@Model.Id" class="card-link ml-2 mr-2">Delete</a>
+                    </form>
+                </div>
+            }
 
         </div>
-        <div class="card-body">
-            <h3 class="card-title text-center"> My Reviews </h3>
-
-            <div>
-                TODO: My Reviews
-            </div>
-
-        </div>
-
-        <section class="index-component p-3">
-            <div class="w3layouts-services-heading ">
-                <h2>Top Events</h2>
-            </div>
-            @await Component.InvokeAsync("TopEvents")
-
-            <div class="row w3ls-text  justify-content-end">
-                <a class="btn btn-primary btn-white btn-style mt-lg-1 mt-4" asp-controller="Event" asp-action="All">Find More rides...</a>
-            </div>
-        </section>
-
-
     </div>
 </div>
+<div class="card col-8 ek-containers-margin">
+    <div class="card-body">
+        <h3 class="card-title text-center"> Upcoming Events </h3>
+        @if (Model.UserUpcomingEvents.Any())
+        {
+            <div>
+                @await Html.PartialAsync("_UserUpcomingPartial", Model.UserUpcomingEvents)
+            </div>
+        }
+        else
+        {
+            <h5 class="card-title text-center"> You don't have any planned event! </h5>
+            <a asp-controller="Event" asp-action="All" class="card-link ml-2 mr-2">Find your next journey here!</a>
+        }
+    </div>
+
+    <div class="card-body">
+        <h3 class="card-title text-center"> Completed Events </h3>
+
+        @if (Model.UserCompletedEvents.Any())
+        {
+            <div>
+                @await Html.PartialAsync("_userCompletedEventsPartial", Model.UserCompletedEvents)
+            </div>
+        }
+        else
+        {
+            <h5 class="card-title text-center"> You don't have completed events yet! </h5>
+            <p >You can marked your first completed event, the day after it finish!</p>
+        }
+
+    </div>
+
+    <div class="card-body">
+        <h3 class="card-title text-center"> My Events </h3>
+
+        @if (Model.UserEvents.Any())
+        {
+            <div>
+                @await Html.PartialAsync("_UserEventsPartial", Model.UserEvents)
+            </div>
+        }
+        else
+        {
+            <h5 class="card-title text-center"> You don't have completed events yet! </h5>
+            <p >You can marked your first completed event, the day after it finish!</p>
+        }
+
+    </div>
+    <div class="card-body">
+        <h3 class="card-title text-center"> Bike collection </h3>
+
+        <div>
+            TODO: Bike Collection
+        </div>
+
+    </div>
+    <div class="card-body">
+        <h3 class="card-title text-center"> My Reviews </h3>
+
+        <div>
+            TODO: My Reviews
+        </div>
+
+    </div>
+
+    <section class="index-component p-3">
+        <div class="w3layouts-services-heading ">
+            <h2>Top Events</h2>
+        </div>
+        @await Component.InvokeAsync("TopEvents")
+
+        <div class="row w3ls-text  justify-content-end">
+            <a class="btn btn-primary btn-white btn-style mt-lg-1 mt-4" asp-controller="Event" asp-action="All">Find More rides...</a>
+        </div>
+    </section>
+
+    <!-- Modal -->
+                    <div class="modal fade" id="Modal_@Model.Id" tabindex="-1" role="dialog" aria-labelledby="Modal_@Model.Id" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" style="color: black;" id="Modal_@Model.Id">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+    
+    
+                                    <form asp-action="Equipment" method="post">
+    
+    
+                                        <div class="mb-3">
+                                            <label asp-for="@Model.Helmet" class="form-label-add-edit">Helmet</label>
+                                            <input asp-for="@Model.Helmet" class="form-control" aria-required="true" rows="5"/>
+                                            <span asp-validation-for="Helmet" class="text-danger"></span>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label asp-for="@Model.Shoes" class="form-label-add-edit">Shoes</label>
+                                            <input asp-for="@Model.Shoes" class="form-control" aria-required="true"/>
+                                            <span asp-validation-for="@Model.Shoes" class="text-danger"></span>
+                                        </div>
+                                        <input class="btn btn-primary"  asp-for="@Model.Id" type="hidden" />
+                                        <button class="btn btn-primary" type="submit">Save changes</button>
+                                    </form>
+    
+                                </div>
+    
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+</div>
+</div>
+
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial"/>

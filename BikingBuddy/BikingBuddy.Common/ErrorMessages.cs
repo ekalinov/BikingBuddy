@@ -77,6 +77,10 @@
              
             public const string DeleteProfileError = "Something went wrong! Delete User Account Error!";
             
+            public const string EquipmentSuccessfully  = "Your equipment is successfully updated!";
+            
+            public const string EditEquipmentError  = "Something went wrong while Editing this Team info!";
+            
 
         }
 
@@ -134,6 +138,8 @@
             public const string UserIsNotAMember = "The user is not a member of this team!";
 
             public const string UserAlreadyMember = "User is already a member of that team!";
+ 
+
 
 
             //Request Messages
