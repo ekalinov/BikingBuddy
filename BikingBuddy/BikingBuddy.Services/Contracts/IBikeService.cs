@@ -7,7 +7,6 @@
 
         Task<ICollection<BikeDetailsViewModel>> GetUserBikesAsync(string userId);
 
-        Task<ICollection<BikeTypeViewModel>> GetBikeTypesAsync();
 
 
         Task AddBikeToUserAsync(AddBikeViewModel model, string getId);

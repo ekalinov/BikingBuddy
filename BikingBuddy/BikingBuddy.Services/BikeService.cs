@@ -35,7 +35,7 @@ namespace BikingBuddy.Services
                     WheelBrand = b.WheelBrand,
                     Drivetrain = b.Drivetrain,
                     Fork = b.Fork,
-                    BikeType = b.BikeType.Name
+                    BikeType = b.BikeType
                 })
                 .ToListAsync();
 
@@ -73,17 +73,7 @@ namespace BikingBuddy.Services
 
         }
 
-        public async Task<ICollection<BikeTypeViewModel>> GetBikeTypesAsync()
-        {
-            return await dbContext.BikeTypes
-                .Select(a => new BikeTypeViewModel()
-                {
-                    Id = a.Id,
-                    BikeTypeName = a.Name
-                })
-                .AsNoTracking()
-                .ToListAsync();
-        }
+      
 
         public async Task AddBikeToUserAsync(AddBikeViewModel model, string userId)
         {
@@ -95,7 +85,7 @@ namespace BikingBuddy.Services
                 WheelBrand = model.WheelBrand,
                 Drivetrain = model.Drivetrain,
                 Fork = model.Fork,
-                BikeTypeId = model.BikeTypesId,
+                BikeType = model.BikeType,
                 AppUserId = Guid.Parse(userId)
             };
 
@@ -117,7 +107,7 @@ namespace BikingBuddy.Services
                 bikeToEdit.WheelBrand = viewModel.WheelBrand;
                 bikeToEdit.Drivetrain = viewModel.Drivetrain;
                 bikeToEdit.Fork = viewModel.Fork;
-                bikeToEdit.BikeTypeId = viewModel.BikeTypesId;
+                bikeToEdit.BikeType = viewModel.BikeType;
 
                 await dbContext.SaveChangesAsync();
             }

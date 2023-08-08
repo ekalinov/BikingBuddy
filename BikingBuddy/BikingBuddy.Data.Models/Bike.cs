@@ -1,4 +1,6 @@
-﻿namespace BikingBuddy.Data.Models
+﻿using BikingBuddy.Common.Enums;
+
+namespace BikingBuddy.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -35,10 +37,8 @@
         public bool IsDeleted { get; set; } = false;
 
         [Required]
-        [ForeignKey(nameof(BikeType))]
-        public int BikeTypeId { get; set; }
 
-        public virtual BikeType BikeType { get; set; } = null!;
+        public BikeTypes BikeType { get; set; } 
 
 
         [Required]

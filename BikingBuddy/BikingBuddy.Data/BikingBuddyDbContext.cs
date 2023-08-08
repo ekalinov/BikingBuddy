@@ -35,7 +35,6 @@ namespace BikingBuddy.Data
 
         public DbSet<Bike> Bikes { get; set; } = null!;
         
-        public DbSet<BikeType> BikeTypes { get; set; } = null!;
 
         public DbSet<Comment> Comments { get; set; } = null!;
 

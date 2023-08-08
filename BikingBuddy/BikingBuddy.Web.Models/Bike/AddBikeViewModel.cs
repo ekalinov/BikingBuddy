@@ -1,15 +1,15 @@
 ﻿using BikingBuddy.Web.Models.BikeType;
 using System.ComponentModel.DataAnnotations;
+using BikingBuddy.Common.Enums;
+using BikingBuddy.Data.Models; 
 using static BikingBuddy.Common.EntityValidationsConstants.Bike;
 
 namespace BikingBuddy.Web.Models.Bike
 {
     public class AddBikeViewModel
     {
-        public AddBikeViewModel()
-        {
-            BikeTypes = new HashSet<BikeTypeViewModel>();
-        }
+       
+        
 
         [StringLength(FrameBrandMaxLength, MinimumLength = FrameBrandMinLength)]
         public string? FrameBrand { get; set; }
@@ -29,8 +29,8 @@ namespace BikingBuddy.Web.Models.Bike
         public string? Fork { get; set; }
 
 
-        public virtual ICollection<BikeTypeViewModel> BikeTypes { get; set; }
-
-        [Required] public int BikeTypesId { get; set; }
+        public virtual BikeTypes BikeType { get; set; }
+  
+        public  string OwnerId { get; set; }
     }
 }
