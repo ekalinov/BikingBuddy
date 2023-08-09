@@ -4,53 +4,56 @@
     using Services.Contracts;
     using Infrastructure.Extensions;
     using Models.User;
+    using static Common.GlobalConstants;
+
     using static Common.ErrorMessages.UserErrorMessages;
-    using static Common.NotificationMessagesConstants;
+    using static Common.NotificationMessagesConstants; 
+    using static Services.Helpers.UploadPhotosHelper;
 
     public class UserController : BaseController
     {
         public readonly IEventService eventService;
 
         public readonly IUserService userService;
+        private readonly string envWebRooth;
+        
 
-        public UserController(IEventService _eventService, IUserService _userService)
+        public UserController(IEventService _eventService, 
+            IUserService _userService,
+            IWebHostEnvironment _environment)
         {
             eventService = _eventService;
             userService = _userService;
+            
+            envWebRooth = _environment.WebRootPath;
         }
 
 
-        public async Task<IActionResult> Details(string userId)
-        {
-            UserDetailsViewModel? model = await userService.GetUserDetails(userId);
-
-            if (model != null)
-            {
-                return View(model);
-            }
-            else
-            {
-                TempData[ErrorMessage] = UserNotFound;
-            }
-
-            //Todo: return to same page
-            return BadRequest();
-        }
+     
 
         public async Task<IActionResult> MyProfile()
         {
             var userDetails = await userService.GetUserDetails(User.GetId());
-
-
+            if (userDetails!=null)
+            {
+                
             return View(userDetails);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(string userId)
         {
+            if (User.GetId()!= userId && !User.IsAdmin())
+            {
+                TempData[ErrorMessage] = UnauthorizedErrorMessage;
+                return RedirectToAction("Error", "Home", new {statusCode=401});
+            }
+             
             EditUserViewModel? model = await userService.GetUserForEditAsync(userId);
-
-
+ 
             try
             {
                 if (model != null)
@@ -71,6 +74,30 @@
         [HttpPost]
         public async Task<IActionResult> Edit(EditUserViewModel model)
         {
+            if (User.GetId().ToUpper() !=model.Id && !User.IsAdmin())
+            {
+                TempData[ErrorMessage] = UnauthorizedErrorMessage;
+                return RedirectToAction("Error", "Home", new {statusCode=401});
+            }
+            
+            if (model.ProfileImage is { Length: >= MaxPhotoSizeAllowed })
+            {
+                ModelState.AddModelError((string)"EventImage", MaxPhotoSizeAllowedErrorMessage);
+            }
+            
+            
+            if (!ModelState.IsValid)
+            {
+                model.CountriesCollection = await eventService.GetCountriesAsync();
+                return View(model);
+            }
+            
+            if (model.ProfileImage != null)
+            {
+                model.ProfileImageUrl =
+                    await UploadPhotoToLocalStorageAsync(UserProfilePhotoDestinationPath, model.ProfileImage, envWebRooth);
+            }
+            
             try
             {
                 await userService.UpdateProfileInfo(model);

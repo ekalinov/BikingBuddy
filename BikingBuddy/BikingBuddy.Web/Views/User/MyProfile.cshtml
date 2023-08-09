@@ -16,7 +16,7 @@
 
 <div class="ek-row">
 <div class="card col-3 ek-containers-margin" @*style="width: 18rem;"*@>
-    <div class="align-self-center">
+    <div class="align-self-center mt-5">
 
         <img src=@Model.ProfileImageUrl
              alt=""
@@ -34,10 +34,10 @@
 
         <h3 class="card-title text-center">Team</h3>
 
-        @if (Model.Team != null)
+        @if (Model.TeamName != null)
         {
             <p class="mb-0">
-                <span class="fw-bold">Team: </span><a  asp-area=""  asp-controller="Team" asp-action="Details" asp-route-teamId="@Model.TeamId"> @Model.Team </a>
+                <span class="fw-bold">Team: </span><a asp-area="" asp-controller="Team" asp-action="Details" asp-route-teamId="@Model.TeamId"> @Model.TeamName </a>
             </p>
         }
         else
@@ -56,9 +56,9 @@
         <p class="mb-0">
             @if (!string.IsNullOrEmpty(Model.Helmet))
             {
-                <span class="" >Helmet: </span>
-                <span class="font-weight-bolder font-italic" >@Model.Helmet</span>
-                 <!-- Button trigger modal -->
+                <span class="">Helmet: </span>
+                <span class="font-weight-bolder font-italic">@Model.Helmet</span>
+                <!-- Button trigger modal -->
                 <a type="button" class="fw-bold" data-toggle="modal" data-target="#Modal_@Model.Id">
                     Edit
                 </a>
@@ -77,7 +77,7 @@
             @if (!string.IsNullOrEmpty(Model.Shoes))
             {
                 <span class="fw-bold">Shoes: </span>
-                <span class="font-weight-bolder font-italic" >@Model.Shoes</span> 
+                <span class="font-weight-bolder font-italic">@Model.Shoes</span>
                 <a type="button" class="fw-bold" data-toggle="modal" data-target="#Modal_@Model.Id">
                     Edit
                 </a>
@@ -90,56 +90,121 @@
                 <a type="button" class="fw-bold" data-toggle="modal" data-target="#Modal_@Model.Id">
                     Add your equipment here!
                 </a>
-
-                
             }
         </p>
-
-
+         <hr/>
+        
+                
+                <h3 class="card-title text-center">My Statistic</h3>
+                <ul class="list-group list-group-flush">
+        
+                    <li class="list-group-item">
+        
+                        <div class="stats w3-left" text-align: -webkit-center>
+                            <div class="row w3l-stats-section stats-con">
+                                <div class=" stats_info team-stats_info  counter_grid">
+                                    <i class="far fa-map-signs  team-stats_info" style="color: #afafaf;margin-top: 12px;"></i>
+                                    <p class="counter">@Model.TotalDistance </p>
+                                    <h3 class="" style="color: #afafaf">Total Distance</h3>
+                                </div>
+        
+                            </div>
+                        </div>
+                        <div class="stats w3-left" text-align: -webkit-center>
+                            <div class="row w3l-stats-section stats-con">
+                                <div class=" stats_info team-stats_info  counter_grid">
+                                    <i class="far fa-arrow-up team-stats_info" style="color: #afafaf;margin-top: 12px;"></i>
+                                    <p class="counter">@Model.TotalAscent </p>
+                                    <h3 class="" style="color: #afafaf">Total Ascent</h3>
+                                </div>
+        
+                            </div>
+                        </div>
+                        <div class="stats w3-left" text-align: -webkit-center>
+                            <div class="row w3l-stats-section stats-con">
+                                <div class=" stats_info team-stats_info  counter_grid">
+                                    <i class="far  fa-flag-checkered team-stats_info" style="color: #afafaf;margin-top: 12px;"></i>
+                                    <p class="counter">@Model.CompletedEvents </p>
+                                    <h3 class="" style="color: #afafaf">Completed Events</h3>
+                                </div>
+        
+                            </div>
+                        </div>
+                    </li>
+        
+        
+                </ul>
         <hr/>
+        
+        <h3 class="card-title text-center">My Bikes</h3>
 
-        <ul class="list-group list-group-flush">
+        @if (Model.UserBikes.Any())
+        {
+            <ul>
 
-            <li class="list-group-item">
+                @foreach (BikeDetailsViewModel bike in Model.UserBikes)
+                {
+                    <li>
+                        <h5 class="card-title text-center">@bike.FrameBrand, @bike.FrameSize</h5>
 
-                <div class="stats w3-left" text-align: -webkit-center>
-                    <div class="row w3l-stats-section stats-con">
-                        <div class=" stats_info team-stats_info  counter_grid">
-                            <i class="far fa-map-signs  team-stats_info" style="color: #afafaf;margin-top: 12px;"></i>
-                            <p class="counter">@Model.TotalDistance </p>
-                            <h3 class="" style="color: #afafaf">Total Distance</h3>
+                        <p class="font-weight-bolder font-italic">@bike.BikeType</p>
+
+                        <p class="fw-bold">Drivetrain: <span class="font-weight-bolder font-italic">@bike.Drivetrain</span></p>
+
+                        <p class="fw-bold">Fork: <span class="font-weight-bolder font-italic">@bike.Fork</span> </p>
+
+                        <p class="fw-bold">Wheels: <span class="font-weight-bolder font-italic">@bike.WheelBrand, @bike.WheelSize</span></p>
+                        
+                        
+                        <p style="text-align-last: end;" ><a type="button" class="text-right" data-toggle="modal" data-target="#EditBike_@bike.Id"> Edit</a></p>
+                        
+
+                        <hr/>
+                    </li>
+                    
+                    <!-- Edit Bike Modals  -->
+                    <div class="modal fade" id="EditBike_@bike.Id" tabindex="-1" role="dialog" aria-labelledby="EditBike_@bike.Id" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" style="color: black;" id="EditBike_@bike.Id">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+    
+    
+                                    <div>
+                                        @await Html.PartialAsync("_EditBikePartial", bike)
+                                    </div>
+    
+    
+                                </div>
+    
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
-                </div>
-                <div class="stats w3-left" text-align: -webkit-center>
-                    <div class="row w3l-stats-section stats-con">
-                        <div class=" stats_info team-stats_info  counter_grid">
-                            <i class="far fa-arrow-up team-stats_info" style="color: #afafaf;margin-top: 12px;"></i>
-                            <p class="counter">@Model.TotalAscent </p>
-                            <h3 class="" style="color: #afafaf">Total Ascent</h3>
-                        </div>
 
-                    </div>
-                </div>
-                <div class="stats w3-left" text-align: -webkit-center>
-                    <div class="row w3l-stats-section stats-con">
-                        <div class=" stats_info team-stats_info  counter_grid">
-                            <i class="far  fa-flag-checkered team-stats_info" style="color: #afafaf;margin-top: 12px;"></i>
-                            <p class="counter">@Model.CompletedEvents </p>
-                            <h3 class="" style="color: #afafaf">Completed Events</h3>
-                        </div>
+                }
+            </ul>
+        }
+        else
+        {
+            <h5 class="card-title text-center">Show us your special bike!</h5>
+            <br/>
+            <a type="button" class="fw-bold text-right" data-toggle="modal" data-target="#Addbike_@Model.Id"> Add your first bike here! </a>
+        }
+ <a type="button" class="fw-bold text-center" data-toggle="modal" data-target="#Addbike_@Model.Id"> Add another bike </a>
 
-                    </div>
-                </div>
-            </li>
-
-
-        </ul>
+       
         <div class="card-body">
             @if (User.GetId() == Model.Id || User.IsAdmin())
             {
-                <h3 style="text-align: center; margin-bottom: 1rem">Options</h3>
+                <h3 style="text-align: center; margin-bottom: 1rem"> Profile Options</h3>
 
                 <div class="row">
                     <a asp-controller="User" asp-action="Edit" class="card-link ml-2 mr-2" asp-route-userId="@Model.Id">Edit</a>
@@ -196,27 +261,12 @@
         }
         else
         {
-            <h5 class="card-title text-center"> You don't have completed events yet! </h5>
-            <p >You can marked your first completed event, the day after it finish!</p>
+            <h5 class="card-title text-center"> You don't have your events! </h5>
+            <a asp-controller="Event" asp-action="Add" class="card-link ml-2 mr-2">You can create your first event here!</a>
         }
 
     </div>
-    <div class="card-body">
-        <h3 class="card-title text-center"> Bike collection </h3>
-
-        <div>
-            TODO: Bike Collection
-        </div>
-
-    </div>
-    <div class="card-body">
-        <h3 class="card-title text-center"> My Reviews </h3>
-
-        <div>
-            TODO: My Reviews
-        </div>
-
-    </div>
+    
 
     <section class="index-component p-3">
         <div class="w3layouts-services-heading ">
@@ -229,48 +279,75 @@
         </div>
     </section>
 
-    <!-- Modal -->
-                    <div class="modal fade" id="Modal_@Model.Id" tabindex="-1" role="dialog" aria-labelledby="Modal_@Model.Id" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-scrollable" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" style="color: black;" id="Modal_@Model.Id">Modal title</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-    
-    
-                                    <form asp-action="Equipment" method="post">
-    
-    
-                                        <div class="mb-3">
-                                            <label asp-for="@Model.Helmet" class="form-label-add-edit">Helmet</label>
-                                            <input asp-for="@Model.Helmet" class="form-control" aria-required="true" rows="5"/>
-                                            <span asp-validation-for="Helmet" class="text-danger"></span>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label asp-for="@Model.Shoes" class="form-label-add-edit">Shoes</label>
-                                            <input asp-for="@Model.Shoes" class="form-control" aria-required="true"/>
-                                            <span asp-validation-for="@Model.Shoes" class="text-danger"></span>
-                                        </div>
-                                        <input class="btn btn-primary"  asp-for="@Model.Id" type="hidden" />
-                                        <button class="btn btn-primary" type="submit">Save changes</button>
-                                    </form>
-    
-                                </div>
-    
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
+    <!-- Add/Edit Equipment Modals  -->
+    <div class="modal fade" id="Modal_@Model.Id" tabindex="-1" role="dialog" aria-labelledby="Modal_@Model.Id" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color: black;" id="Modal_@Model.Id">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+                    <form asp-action="Equipment" method="post">
+
+
+                        <div class="mb-3">
+                            <label asp-for="@Model.Helmet" class="form-label-add-edit">Helmet</label>
+                            <input asp-for="@Model.Helmet" class="form-control" aria-required="true" rows="5"/>
+                            <span asp-validation-for="Helmet" class="text-danger"></span>
                         </div>
+                        <div class="mb-3">
+                            <label asp-for="@Model.Shoes" class="form-label-add-edit">Shoes</label>
+                            <input asp-for="@Model.Shoes" class="form-control" aria-required="true"/>
+                            <span asp-validation-for="@Model.Shoes" class="text-danger"></span>
+                        </div>
+                        <input class="btn btn-primary" asp-for="@Model.Id" type="hidden"/>
+                        <button class="btn btn-primary" type="submit">Save changes</button>
+                    </form>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Bike Modals  -->
+    <div class="modal fade" id="Addbike_@Model.Id" tabindex="-1" role="dialog" aria-labelledby="Addbike_@Model.Id" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color: black;" id="Addbike_@Model.Id">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+                    <div>
+                        @await Html.PartialAsync("_AddBikePartial", new AddBikeViewModel() { })
                     </div>
 
-</div>
-</div>
 
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+</div>
+</div>
 
 
 @section Scripts {

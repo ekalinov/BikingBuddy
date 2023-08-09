@@ -29,9 +29,9 @@ namespace BikingBuddy.Services
         {
             var completedEvents = await eventService.GetCompletedEventsCountByUserAsync(userId);
 
-            var userTotalDistance = await GetUserTotalDistanceAsync(userId);
+            var userTotalDistance = await eventService.GetUserTotalDistanceAsync(userId);
 
-            var userTotalAscent = await GetUserTotalAscentAsync(userId);
+            var userTotalAscent = await eventService.GetUserTotalAscentAsync(userId);
 
             var myEvents = await eventService.GetMyEventsAsync(userId);
              
@@ -47,7 +47,7 @@ namespace BikingBuddy.Services
                     Name = u.Name,
                     Helmet = u.Helmet,
                     Shoes = u.Shoes,
-                    Team = u.Team!.Name ,
+                    TeamName = u.Team!.Name ,
                     TeamId =  u.Team.Id.ToString(),
                     Town = u.Town.Name,
                     Country = u.Country.Name,
@@ -76,11 +76,13 @@ namespace BikingBuddy.Services
             return await dbContext.AppUsers.Where(u => u.Id == Guid.Parse(userId))
                 .Select(u => new EditUserViewModel
                 {
-                    Id = userId,
+                    Id = u.Id.ToString(),
+                    Name = u.Name,
                     Helmet = u.Helmet,
                     Shoes = u.Shoes,
                     Town = u.Town.Name,
-                    ProfileImageUrl = u.ProfileImageUrl,
+                    ProfileImageUrl = u.ProfileImageUrl,  
+                    CountryId = u.CountryId,  
                 }).FirstOrDefaultAsync();
         }
 
@@ -95,6 +97,11 @@ namespace BikingBuddy.Services
                 user.Town = await eventService.GetTownByNameAsync(model.Town);
                 user.CountryId = model.CountryId;
 
+                if (model.ProfileImageUrl != null)
+                {
+                    user.ProfileImageUrl = model.ProfileImageUrl;
+                }
+                
                 if (!string.IsNullOrEmpty(model.ProfileImageUrl))
                 { 
                     user.ProfileImageUrl = model.ProfileImageUrl;
@@ -130,8 +137,7 @@ namespace BikingBuddy.Services
                 if (!string.IsNullOrEmpty(model.Shoes))
                 {
                     user.Shoes = model.Shoes;
-                }
-
+                } 
                 await dbContext.SaveChangesAsync();
             }
             
@@ -140,10 +146,10 @@ namespace BikingBuddy.Services
         public async Task<bool> IsDeletedAsync(string userId)
         {
             return await dbContext.AppUsers
-                .AnyAsync(u => u.Id == Guid.Parse(userId) && u.IsDeleted == true);
-
+                .AnyAsync(u => u.Id == Guid.Parse(userId) && u.IsDeleted == true); 
         }
-
+     
+    
          public async Task<int> GetUserSCountAsync()
          {
              return await dbContext.AppUsers
@@ -157,18 +163,8 @@ namespace BikingBuddy.Services
                 .FirstOrDefaultAsync(u => u.Id == Guid.Parse(userId));
         }
 
-        private async Task<double> GetUserTotalDistanceAsync(string userId)
-        {
-            return await dbContext.EventsParticipants
-                .Where(ep => ep.ParticipantId == Guid.Parse(userId) && ep.IsCompleted == true)
-                .SumAsync(ep => ep.Event.Distance);
-        }
-
-        private async Task<double> GetUserTotalAscentAsync(string userId)
-        {
-            return await dbContext.EventsParticipants
-                .Where(ep => ep.ParticipantId == Guid.Parse(userId) && ep.IsCompleted == true)
-                .SumAsync(ep => ep.Event.Ascent);
-        }
+    
+        
+        
     }
 }

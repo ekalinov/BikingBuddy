@@ -17,25 +17,13 @@
             bikeService = _bikeService;
         }
 
-        //Create
-        [HttpGet]
-        public async Task<IActionResult> Add()
-        {
-            var addEventModel = new AddBikeViewModel()
-            {
-                BikeTypes = await bikeService.GetBikeTypesAsync()
-            };
-
-            return View(addEventModel);
-        }
-
+        
         [HttpPost]
         public async Task<IActionResult> Add(AddBikeViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                model.BikeTypes = await bikeService.GetBikeTypesAsync();
-                return View(model);
+               // return View(model);
             }
 
 
@@ -49,9 +37,8 @@
             {
                 TempData[ErrorMessage] = AddBikeError;
 
-                model.BikeTypes = await bikeService.GetBikeTypesAsync();
 
-                return View(model);
+              //  return View(model);
             }
 
             return RedirectToAction("MyProfile", "User");
@@ -68,8 +55,6 @@
             {
                 if (bikeModel != null)
                 {
-                    bikeModel.BikeTypes = await bikeService.GetBikeTypesAsync();
-
                     return View(bikeModel);
                 }
             }
@@ -86,8 +71,8 @@
         {
             if (!ModelState.IsValid)
             {
-                model.BikeTypes = await bikeService.GetBikeTypesAsync();
-
+                TempData[ErrorMessage] = EditBikeError;
+                model.OwnerId = User.GetId();
                 return View(model);
             }
 
@@ -95,18 +80,14 @@
             try
             {
                 await bikeService.EditBike(model, model.Id);
-                TempData[SuccessMessage] = BikeEditedSuccessfully;
-
-
-                return RedirectToAction("MyProfile", "User");
+                TempData[SuccessMessage] = BikeEditedSuccessfully; 
             }
             catch (Exception)
             {
-                TempData[ErrorMessage] = EditBikeError;
-                model.BikeTypes = await bikeService.GetBikeTypesAsync();
-
-                return View(model);
+                TempData[ErrorMessage] = EditBikeError; 
             }
+            
+            return RedirectToAction("MyProfile", "User");
         }
 
 

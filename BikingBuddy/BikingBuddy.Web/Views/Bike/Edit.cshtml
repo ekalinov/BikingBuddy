@@ -27,7 +27,7 @@
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.WheelSize" class="form-label">Wheel Size</label>
-                <input type="number" asp-for="@Model.WheelSize" class="form-control"/>
+                <input type="text" asp-for="@Model.WheelSize" class="form-control"/>
                 <span asp-validation-for="@Model.WheelSize" class="text-danger"></span>
             </div>
             <div class="mb-3">
@@ -42,16 +42,22 @@
             </div>
 
             <div class="mb-3">
-                <label asp-for="@Model.BikeTypesId" class="form-label-add-edit">Type of event</label>
-                <select asp-for="@Model.BikeTypesId" class="form-control" aria-required="true">
-                    @foreach (var type in Model.BikeTypes)
-                    {
-                        <option value="@type.Id">@type.BikeTypeName</option>
-                    }
+                <label asp-for="@Model.BikeType" class="form-label-add-edit">Type of event</label>
+                <select asp-for="@Model.BikeType" class="form-control" aria-required="true">
+                    <option value="0">Mountain Bike</option>
+                    <option value="1">Road Bike</option>
+                    <option value="2">Gravel Bike</option>
+                    <option value="3">Urban Bike</option>
+                    <option value="4">Downhill Bike</option>
+                    <option value="5">Trail Bike</option>
+                    <option value="6">Fat Bike</option>
+                    <option value="7">BMX</option>
+                    <option value="8">Otheр</option>
                 </select>
-                <span asp-validation-for="@Model.BikeTypes" class="text-danger"></span>
+                <span asp-validation-for="@Model.BikeType" class="text-danger"></span>
             </div>
 
+              <input type="hidden" asp-for="@Model.OwnerId" class="form-control" value="@User.GetId()"/>
             <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" asp-route-Id="@Model.Id" value="Edit"/>
 
         </form>

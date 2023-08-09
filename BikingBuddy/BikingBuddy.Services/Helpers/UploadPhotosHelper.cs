@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace BikingBuddy.Services.Helpers;
 
-public static class UploadPhotosHepler
+public static class UploadPhotosHelper
 {
     
     public static async Task<string> UploadPhotoToLocalStorageAsync(string destinationPath, IFormFile file, string envWebRoot)

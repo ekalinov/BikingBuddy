@@ -13,7 +13,7 @@ namespace BikingBuddy.Services.Contracts
         Task UpdateProfileInfo(EditUserViewModel userDetails);
 
         Task<AppUser?> GetUserByIdAsync(string userId);
-
+ 
 
          Task<int> GetUserSCountAsync();
          Task<bool> IsDeletedAsync(string userId);
