@@ -46,15 +46,28 @@ namespace BikingBuddy.Web.Controllers
             return RedirectToAction("Details", "Event", new { eventId });
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Edit(CommentViewModel model)
-        //{
-        //    var userId = User.GetId();
+        [HttpGet]
+        public async Task<IActionResult> Delete(int commentId, string eventId)
+        {
+            if (!User.IsAdmin())
+            {
+                TempData[ErrorMessage] = CommentDeleteError;
+                return RedirectToAction("Details", "Event", new { eventId });
 
-        //  // await commentService.AddComment(body, userId, eventId);
+            }
+            
+            
+            try
+            {
+                await commentService.DeleteComment(commentId);
+                TempData[SuccessMessage] = CommentDeleteSuccessfully;
+            }
+            catch (Exception e)
+            {
+                TempData[ErrorMessage] = CommentDeleteError;
+            }
 
-
-        //   // return RedirectToAction("Details", "Event", new { eventId });
-        //}
+            return RedirectToAction("Details", "Event", new { eventId });
+        }
     }
 }

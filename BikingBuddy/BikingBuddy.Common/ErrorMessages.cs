@@ -81,6 +81,10 @@
             
             public const string EditEquipmentError  = "Something went wrong while Editing this Team info!";
             
+            //UnAuthorize 
+            public const string UnauthorizedErrorMessage = "Error: Only account owners and admins can make changes!";
+
+            
 
         }
 
@@ -91,6 +95,13 @@
             public const string CommentBoddyEmpty = "Error: Can't publish emtpy comment!";
             
             public const string NoCommentsForThisEventErrorMessage = "There is no comments, yet!";
+            
+            
+            public const string CommentDeleteSuccessfully = "Comment Deleted!";
+            
+            public const string CommentDeleteError = "Error: Something went wrong deleting the comment!";
+
+            public const string UnauthorisedDelete = "Error: Only Admins can delete comments!";
 
 
         }

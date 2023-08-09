@@ -14,13 +14,19 @@ Author URL: http://w3layouts.com
 /*custom  appClasses*/
 
 
-.ek-adminArea-header-text{
+.ek-adminArea-header-text {
     font-style: italic;
     font-size: unset;
-    font-family: 'Work Sans', sans-serif; 
+    font-family: 'Work Sans', sans-serif;
 }
 
-.link-muted { color: #aaa; } .link-muted:hover { color: #1266f1; }
+.link-muted {
+    color: #aaa;
+}
+
+.link-muted:hover {
+    color: #1266f1;
+}
 
 .allEvents-banner {
     height: 350px;
@@ -105,6 +111,7 @@ Author URL: http://w3layouts.com
     bottom: 0;
     left: 0;
     right: 0;
+
     z-index: -1;
 }
 
@@ -117,13 +124,15 @@ Author URL: http://w3layouts.com
     color: #fff;
 
 }
-.ek-card-comment{
+
+.ek-card-comment {
 
     border-radius: 15px;
     border: 1px solid;
-    padding: 10px; 
+    padding: 10px;
 
 }
+
 .ek-card-comment:nth-child(odd) {
 
     flex-direction: row-reverse;
@@ -142,7 +151,6 @@ Author URL: http://w3layouts.com
     margin-left: -15px;
     align-items: stretch;
 }
-
 
 
 .heading-sec {
@@ -246,17 +254,17 @@ main {
     border-radius: 50px;
 }
 
- .danger-error-ek p {
-     font-size: 35px;
-     color: antiquewhite;
- }
+.danger-error-ek p {
+    font-size: 35px;
+    color: antiquewhite;
+}
 
 
 .danger-error-ek h1 {
     font-size: 90px;
     margin-bottom: 30px;
 }
- 
+
 .parallax_adminBody {
     /* The image used */
     background-image: linear-gradient(transparent, black), url("../images/Bbuddy.jpg");
@@ -265,17 +273,19 @@ main {
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;  
-    display: grid; 
+    background-size: cover;
+    display: grid;
+    z-index: 0;
 }
 
 .parallax_adminBody::before {
-    content: ""; 
+    content: "";
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
-    right: 0;  
+    right: 0;
+    z-index: -1;
 }
 
 .parallax {
@@ -299,10 +309,10 @@ main {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0,0,0,0.25);
+    background-color: rgba(0, 0, 0, 0.25);
 }
 
-.parallax-ErrorPage{
+.parallax-ErrorPage {
     /* The image used */
     background-image: url("../images/Bikebuddies2019_bearb-54-2-1.jpg");
 
@@ -331,9 +341,9 @@ main {
 }
 
 body {
-    margin: 0; 
+    margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
- 
+
     font-weight: 200;
     line-height: 1.5;
     color: #212529;
@@ -499,7 +509,7 @@ svg {
 }
 
 table {
-    border-collapse: collapse;  
+    border-collapse: collapse;
 }
 
 caption {
@@ -2167,20 +2177,22 @@ pre code {
     border-top: 1px solid #dee2e6;
 }
 
- 
+
 .table td {
     font-size: 17px;
 }
+
 .table th {
     font-size: 20px;
 }
-.table th:first-child{
+
+.table th:first-child {
     border-left: none;
     border-top: none;
 }
 
-.table th:last-child{
-    border-right:  none;
+.table th:last-child {
+    border-right: none;
     border-top: none;
 }
 
@@ -2189,7 +2201,6 @@ pre code {
     border-bottom: 2px solid #dee2e6;
 }
 
- 
 
 .table tbody + tbody {
     border-top: 2px solid #dee2e6;
@@ -5448,7 +5459,7 @@ input[type="button"].btn-block {
 .card-img-bottom {
     flex-shrink: 0;
     width: 100%;
-    
+
 }
 
 .card-img,
@@ -5459,6 +5470,7 @@ input[type="button"].btn-block {
 
 element.style {
 }
+
 .card-img, .card-img-top {
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
@@ -18928,7 +18940,7 @@ nav ul li a:before {
     }
 
     .w3l-featureshny h5 {
-        font-size: 34px;        
+        font-size: 34px;
         line-height: 44px;
     }
 }
