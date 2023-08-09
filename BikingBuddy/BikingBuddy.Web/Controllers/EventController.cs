@@ -45,8 +45,6 @@ namespace BikingBuddy.Web.Controllers
 
             return View(eventDetails);
 
-
-            //return RedirectToAction("All", "Event", new {eventId});
         }
 
         //Create

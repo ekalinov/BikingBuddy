@@ -138,24 +138,27 @@
                     <h5 class="fw-bold"> Event Description: </h5> <span> @Model.Description </span>
                 </p>
             </div>
-
-
-            <div class="col-10">
-
-                @await Html.PartialAsync("_AllCommentsPartial", Model.EventComments, dictionary)
-
-            </div>
-
-
         </div>
 
-        @if (isOrganiser || User.IsAdmin() || isParticipant)
-        {
-            <div class="mt-2">
-                @await Html.PartialAsync("_EventParticipantsPartial", Model.EventsParticipants)
+        <div>
+
+            <div class="row">
+
+                <div class="col-6">
+
+                    @await Html.PartialAsync("_AllCommentsPartial", Model.EventComments, dictionary)
+
+                </div>
+
+
+                @if (isOrganiser || User.IsAdmin() || isParticipant)
+                {
+                    <div class="col-6">
+                        @await Html.PartialAsync("_EventParticipantsPartial", Model.EventsParticipants)
+                    </div>
+                }
             </div>
-        }
-        
+        </div>
         <section class="index-component p-3">
             <div class="w3layouts-services-heading ">
                 <h2>Similar Events</h2>
