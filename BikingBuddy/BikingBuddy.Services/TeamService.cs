@@ -147,9 +147,14 @@ namespace BikingBuddy.Services
 
                 if (model.TeamImageUrl != null)
                 {
-                    teamToEdit.EstablishedOn = model.EstablishedOn;
+                    teamToEdit.TeamImageUrl = model.TeamImageUrl;
                 }
 
+                if (model.EstablishedOn != null)
+                {
+                    teamToEdit.EstablishedOn = model.EstablishedOn;
+                }
+                
                 if (model.GalleryPhotosModels != null && model.GalleryPhotosModels.Any())
                 {
                     ICollection<TeamGalleryPhoto> galleryPhotos = new HashSet<TeamGalleryPhoto>();

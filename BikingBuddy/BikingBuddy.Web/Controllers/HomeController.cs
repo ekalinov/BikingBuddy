@@ -51,7 +51,7 @@ namespace BikingBuddy.Web.Controllers
         {
             string envWebRooth = String.Empty;
             string destination = String.Empty;
-            string url = await UploadPhotosHepler.UploadPhotoToLocalStorageAsync(destination, photo, envWebRooth);
+            string url = await UploadPhotosHelper.UploadPhotoToLocalStorageAsync(destination, photo, envWebRooth);
 
 
             return Ok();

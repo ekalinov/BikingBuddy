@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using static BikingBuddy.Common.NotificationMessagesConstants;
 using static BikingBuddy.Common.ErrorMessages.TeamErrorMessages;
 using static BikingBuddy.Common.GlobalConstants;
-using static BikingBuddy.Services.Helpers.UploadPhotosHepler;
+using static BikingBuddy.Services.Helpers.UploadPhotosHelper;
 
 namespace BikingBuddy.Web.Controllers
 {

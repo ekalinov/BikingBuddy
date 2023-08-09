@@ -26,11 +26,13 @@ namespace BikingBuddy.Services
                 .Where(c => c.EventId == Guid.Parse(eventId))
                 .Select(c => new CommentViewModel()
                 {
+                    Id = c.Id,
                     CommentBody = c.CommentBody,
                     CreatedOn = c.CommentedOn,
                     UserImageURL = c.User.ProfileImageUrl,
-                    UserName = c.User.Name,
-                    EditedOn = c.EditedOn,
+                    UserName = c.User.Name, 
+                    EditedOn = c.EditedOn, 
+                    EventId = c.EventId.ToString(),
                     IsEdited = c.IsEdited
                 })
                 .OrderByDescending(c => c.CreatedOn)
@@ -88,7 +90,7 @@ namespace BikingBuddy.Services
 
             if (commentToDelete != null)
             {
-                dbContext.Remove(commentToDelete);
+                dbContext.Comments.Remove(commentToDelete);
                 await dbContext.SaveChangesAsync();
             }
 

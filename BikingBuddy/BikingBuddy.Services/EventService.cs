@@ -19,12 +19,12 @@ namespace BikingBuddy.Services
 
     public class EventService : IEventService
     {
-        private readonly BikingBuddyDbContext dbContext;
+        private readonly BikingBuddyDbContext dbContext; 
 
 
         public EventService(BikingBuddyDbContext _dbContext)
         {
-            dbContext = _dbContext;
+            dbContext = _dbContext; 
         }
 
 
@@ -88,13 +88,13 @@ namespace BikingBuddy.Services
         }
 
         //Read
-        public async Task<EventDetailsViewModel?> GetEventDetailsByIdAsync(string id)
+        public async Task<EventDetailsViewModel?> GetEventDetailsByIdAsync(string eventId)
         {
-            var eventParticipants = await GetEventParticipants(id);
+             var eventParticipants = await GetEventParticipants(eventId);
 
 
             var eventById = await dbContext.Events
-                .Where(e => e.Id.ToString() == id && e.IsDeleted == false)
+                .Where(e => e.Id.ToString() == eventId && e.IsDeleted == false)
                 .Select(e => new EventDetailsViewModel
                 {
                     Id = e.Id.ToString(),
@@ -124,6 +124,8 @@ namespace BikingBuddy.Services
             return eventById;
         }
 
+        
+        
         //Update
         public async Task EditEventAsync(EditEventViewModel model)
         {
@@ -505,6 +507,35 @@ namespace BikingBuddy.Services
                 }).ToListAsync();
         }
 
+        public async Task<ICollection<UserViewModel>> GetEventParticipants(string eventId)
+        {
+            var participants = await dbContext.Users
+                .Where(u => u.EventsParticipants
+                    .Any(e=>e.EventId==Guid.Parse(eventId)))
+                .Select(u => new UserViewModel
+                {
+                    Id = u.Id.ToString(),
+                    Name = u.Name,
+                    ProfileImageUrl =u.ProfileImageUrl, 
+                    Country = u.Country.Name,
+                    Town = u.Town.Name,
+                    Helmet = u.Helmet,
+                    Shoes = u.Shoes,
+                    TeamName = u.Team.Name,
+                    TeamId = u.TeamId.ToString(), 
+                })
+                .ToListAsync();
+
+            foreach (var user in participants)
+            {
+                user.TotalAscent = await GetUserTotalAscentAsync(user.Id);
+                user.TotalDistance = await GetUserTotalDistanceAsync(user.Id);
+                user.CompletedEvents = await  GetCompletedEventsCountByUserAsync(user.Id);
+            }
+
+            return participants;
+        }
+
         public async Task<List<ActivityTypeViewModel>> GetActivityTypesAsync()
         {
             var activityTypes = await dbContext.ActivityTypes
@@ -525,18 +556,7 @@ namespace BikingBuddy.Services
                 .CountAsync(ep => ep.ParticipantId == Guid.Parse(userId) && ep.IsCompleted == true);
         }
 
-        private async Task<ICollection<UserViewModel>> GetEventParticipants(string id)
-        {
-            return await dbContext.EventsParticipants
-                .Where(e => e.EventId == Guid.Parse(id))
-                .Select(ep => new UserViewModel
-                {
-                    Id = ep.ParticipantId.ToString(),
-                    Name = ep.Participant.Name,
-                    ProfileImageUrl = ep.Participant.ProfileImageUrl
-                })
-                .ToListAsync();
-        }
+      
 
         public async Task<bool> IsOrganiser(string eventId, string userId)
         {
@@ -616,9 +636,11 @@ namespace BikingBuddy.Services
 
         public async Task<bool> IsParticipating(string eventId, string userId)
         {
-            return await dbContext.EventsParticipants
+            var result =  await dbContext.EventsParticipants
                 .AnyAsync(ep => ep.EventId == Guid.Parse(eventId)
-                                && ep.ParticipantId == Guid.Parse(userId));
+                                && ep.ParticipantId == Guid.Parse(userId.ToLower()));
+
+            return result;
         }
         
         public async Task<bool> IsActive(string eventId)
@@ -659,9 +681,26 @@ namespace BikingBuddy.Services
                 .FirstOrDefaultAsync();
         }
 
+        public async Task<double> GetUserTotalDistanceAsync(string userId)
+        {
+            return await dbContext.EventsParticipants
+                .Where(ep => ep.ParticipantId == Guid.Parse(userId) && ep.IsCompleted == true)
+                .SumAsync(ep => ep.Event.Distance);
+        }
 
+        public async Task<double> GetUserTotalAscentAsync(string userId)
+        {
+            return await dbContext.EventsParticipants
+                .Where(ep => ep.ParticipantId == Guid.Parse(userId) && ep.IsCompleted == true)
+                .SumAsync(ep => ep.Event.Ascent);
+        }
+        
+        
+        
         //----------------------------------------------
 
+        
+        
         /// <summary>
         /// Method returns Town if there is such by given string,
         /// if the town doesn't exists in the Db the method creates new one 

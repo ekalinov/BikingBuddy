@@ -13,7 +13,7 @@ namespace BikingBuddy.Web.Controllers
     using static Common.ErrorMessages.EventErrorMessages;
     using static Common.NotificationMessagesConstants;
     using static Common.GlobalConstants;
-    using static Services.Helpers.UploadPhotosHepler;
+    using static Services.Helpers.UploadPhotosHelper;
 
     public class EventController : BaseController
     {

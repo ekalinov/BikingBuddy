@@ -43,14 +43,17 @@ namespace BikingBuddy.Services.Contracts
         Task<Event?> GetEventByIdAsync(string id);
 
 
-        Task<bool> IsParticipating(string userId, string eventId);
+        Task<bool> IsParticipating( string eventId,string userId);
 
         //ActivityTypes
         Task<List<ActivityTypeViewModel>> GetActivityTypesAsync();
 
         //Countries
         Task<List<CountryViewModel>> GetCountriesAsync();
-
+        
+        Task<double> GetUserTotalDistanceAsync(string userId);
+        Task<double> GetUserTotalAscentAsync(string userId);
+        
         //Towns
         Task<Town> GetTownByNameAsync(string name);
 

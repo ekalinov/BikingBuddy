@@ -11,7 +11,7 @@
     @if (User.Identity.IsAuthenticated)
     {
         isOrganiser = await eventService.IsOrganiser(Model.Id, User.GetId());
-        isParticipant = await eventService.IsParticipating(User.GetId(), Model.Id);
+        isParticipant = await eventService.IsParticipating(Model.Id,User.GetId());
         isAdmin = User.IsAdmin();
     }
 
@@ -149,6 +149,13 @@
 
         </div>
 
+        @if (isOrganiser || User.IsAdmin() || isParticipant)
+        {
+            <div class="mt-2">
+                @await Html.PartialAsync("_EventParticipantsPartial", Model.EventsParticipants)
+            </div>
+        }
+        
         <section class="index-component p-3">
             <div class="w3layouts-services-heading ">
                 <h2>Similar Events</h2>
@@ -160,12 +167,6 @@
             </div>
         </section>
 
-        @if (isOrganiser || User.IsAdmin() || isParticipant)
-        {
-            <div class="mt-2">
-                @await Html.PartialAsync("_EventParticipantsPartial", Model.EventsParticipants)
-            </div>
-        }
     </div>
 </div>
 
