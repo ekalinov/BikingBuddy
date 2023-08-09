@@ -65,6 +65,7 @@ app.UseAuthorization();
 
 if (app.Environment.IsDevelopment())
 {
+    app.SeedUserRole();
     app.SeedAdministrator(AdminRoleEmail);
 }
 

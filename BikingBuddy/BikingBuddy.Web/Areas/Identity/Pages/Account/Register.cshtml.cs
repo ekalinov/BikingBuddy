@@ -12,6 +12,7 @@ namespace BikingBuddy.Web.Areas.Identity.Pages.Account
     using System.Text;
     using System.Text.Encodings.Web;
     using static Common.EntityValidationsConstants.User;
+    using static Common.GlobalConstants;
 
     public class RegisterModel : PageModel
     {
@@ -102,6 +103,7 @@ namespace BikingBuddy.Web.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    await  _userManager.AddToRoleAsync(user, UserRoleName);
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);

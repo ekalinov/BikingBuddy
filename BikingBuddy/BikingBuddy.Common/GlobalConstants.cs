@@ -8,6 +8,8 @@
         public const int EntitiesPerPage = 3;
  
         
+        public const string UserRoleName = "User";
+        
         public const string AdminRoleName = "Administrator";
         public const string AdminRoleEmail = "admin@bbuddy.com";
 
@@ -27,6 +29,7 @@
 
         public const string EventGalleryPhotosDestinationPath = "FileStorage/EventPhotos/Gallery/";
 
+        public const string UserProfilePhotoDestinationPath = "FileStorage/UserPhotos/";
     }
 
     public static class DateTimeFormats

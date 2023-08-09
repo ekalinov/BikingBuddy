@@ -83,5 +83,35 @@ namespace BikingBuddy.Web.Infrastructure.Extensions
 
             return app;
         }
+        
+        
+        /// <summary>
+        /// This method seed User role if it does not exist. 
+        /// </summary> 
+        /// <returns></returns>
+        public static IApplicationBuilder SeedUserRole(this IApplicationBuilder app)
+        {
+            using IServiceScope scopedServices = app.ApplicationServices.CreateScope();
+
+            IServiceProvider serviceProvider = scopedServices.ServiceProvider;
+
+           
+            RoleManager<IdentityRole<Guid>> roleManager =
+                serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+
+            Task.Run(async () =>
+                {
+                    if (!await roleManager.RoleExistsAsync(UserRoleName))
+                    {
+                        IdentityRole<Guid> role = new IdentityRole<Guid>(UserRoleName);
+
+                        await roleManager.CreateAsync(role);
+                    }
+                })
+                .GetAwaiter()
+                .GetResult();
+
+            return app;
+        }
     }
 }
