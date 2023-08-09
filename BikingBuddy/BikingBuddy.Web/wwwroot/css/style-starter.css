@@ -29,7 +29,7 @@ Author URL: http://w3layouts.com
 }
 
 .allEvents-banner {
-    height: 350px;
+    min-height: 350px;
     background: url(../images/AllEventsBannerPhoto.jpg) no-repeat 0% 80%;
     background-size: cover;
     z-index: 0;
@@ -61,7 +61,7 @@ Author URL: http://w3layouts.com
 
 
 .allTeam-banner {
-    height: 350px;
+    min-height: 350px;
     background: url(../images/Team_topBanner.jpg) no-repeat 46% 46%;
     z-index: 0;
     position: relative;
@@ -18968,14 +18968,13 @@ nav ul li a:before {
 /*--//w3l-circles--*/
 /*--/features--*/
 .w3l-featureshny {
-    background: url(../images/Bbuddy.jpg) no-repeat center;
-    -ms-background-size: cover;
+    min-height: 350px;
+    background: url(../images/Bbuddy.jpg) no-repeat center; 
     background-size: cover;
     z-index: 0;
     position: relative;
     display: grid;
-    align-items: center;
-    background-size: cover;
+    align-items: center; 
 }
 
 .w3l-featureshny::before {

@@ -22,6 +22,7 @@ public class EventServiceTest
 {
     private BikingBuddyDbContext dbContext = null!;
     private IEventService eventService = null!;
+    private IUserService userService = null;
 
     [SetUp]
     public async Task Setup()

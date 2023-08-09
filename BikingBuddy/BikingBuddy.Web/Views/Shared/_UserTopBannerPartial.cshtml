@@ -1,17 +1,41 @@
 <section class="user-banner py-5  row" id="features">
-    <div class="col-lg-6 pr-lg-6 mb-lg-0 mb-6">
-        <div class="w3l-header-sec text-left mb-md-5 mb-4" style="margin-left: 60px;">
-            <h6 class="title-subhny mb-2">Upcoming events</h6>
-            <h5 class="" style="margin-top: 25px">Find your journey here</h5>
+    <div class="col-6">
+    <div class=" mb-lg-0 mb-6">
+        <div class="w3l-header-sec text-left mb-md-5 mb-4" style="padding-left: 50px;">
+            <h6 class="title-subhny mb-2">User profile</h6>
+            <h5  >Manage events and teams,  </h5>
+            
+            <h5  class="" style=" margin-left: 100px">store your bike collection and equipment  </h5>
         </div>
+    </div> 
     </div>
-    <div class="col-lg-6 pr-lg-6 mb-lg-0 mb-6 ">
-        <div class="w3l-header-sec  mb-md-5 mb-4" style=" text-align: end; margin-right:  60px;">
-            <h6 class="title-subhny mb-2" style=" margin-bottom: 10px;">Have something on your mind</h6>
+    <div class="col-6">
+        <div class="row" style="padding-top: 23px;">
+            
 
-            <div>
-                <a class="btn btn-primary btn-white btn-style mt-lg-1 mt-4" style=" margin-left: 195px; padding: 10px 20px;" asp-action="Add"> Add new event! </a>
+        <div class="col-lg-6 pr-lg-6 mb-lg-0 mb-6 ">
+
+            <div class="w3l-header-sec  mb-md-5 mb-4" style=" text-align: right; margin-right:  0;">
+                <h6 class="title-subhny mb-2" style=" margin-bottom: 10px;">Have something on your mind?</h6>
+
+                <div>
+                    <a class="btn btn-primary btn-white btn-style mt-lg-1 mt-4" style=" margin-left: 195px; padding: 10px 20px;"
+                       asp-controller="Event"
+                       asp-action="Add"> Add new event! </a>
+                </div>
             </div>
+        </div>
+        <div class="col-lg-6 pr-lg-6 mb-lg-0 mb-6 ">
+            <div class="w3l-header-sec  mb-md-5 mb-4" style=" text-align: right; padding-right: 50px">
+                <h6 class="title-subhny mb-2" style=" margin-bottom: 10px;">Be manager of your own Team!</h6>
+
+                <div>
+                    <a class="btn btn-primary btn-white btn-style mt-lg-1 mt-4" style=" margin-left: 195px; padding: 10px 20px;"
+                       asp-controller="Team"
+                       asp-action="Add"> Add new Team! </a>
+                </div>
+            </div>
+        </div>
         </div>
     </div>
 </section>

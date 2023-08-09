@@ -15,5 +15,6 @@
         public bool IsEdited { get; set; } = false;
 
         public DateTime? EditedOn { get; set; }
+        public string EventId { get; set; }
     }
 }

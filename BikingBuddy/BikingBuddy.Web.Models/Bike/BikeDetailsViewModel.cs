@@ -19,5 +19,7 @@ namespace BikingBuddy.Web.Models.Bike
         public string? Fork { get; set; }
 
         public BikeTypes BikeType { get; set; }
+
+        public string OwnerId { get; set; } = null!;
     }
 }
