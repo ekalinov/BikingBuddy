@@ -40,7 +40,6 @@
 
             public const string UserNotParticipatingErrorMessage = "You are not participating in this event!";
 
-            public const string UserDoesNotHaveEvents = "The user is not participating in any events!";
 
         }
         public static class BikeErrorMessages
@@ -85,16 +84,21 @@
             public const string UnauthorizedErrorMessage = "Error: Only account owners and admins can make changes!";
 
             
+            
+            
+            public const string MakeAdminSuccess  = "You added new Administrator successfully!";
+            
+            public const string MakeAdminError = "Error: Something went wrong while adding new Administrator!";
+
+            
 
         }
 
         public static class CommentErrorMessages
         {
-            public const string CommentDoesNotExist = "Comment does not exist!"; 
             
             public const string CommentBoddyEmpty = "Error: Can't publish emtpy comment!";
             
-            public const string NoCommentsForThisEventErrorMessage = "There is no comments, yet!";
             
             
             public const string CommentDeleteSuccessfully = "Comment Deleted!";

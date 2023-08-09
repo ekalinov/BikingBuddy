@@ -1,7 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Microsoft.AspNetCore.Http.Extensions;
-
-namespace BikingBuddy.Web.Controllers
+﻿namespace BikingBuddy.Web.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -44,7 +41,6 @@ namespace BikingBuddy.Web.Controllers
 
 
             return View(eventDetails);
-
         }
 
         //Create
@@ -140,7 +136,7 @@ namespace BikingBuddy.Web.Controllers
             if (!await service.IsOrganiser(eventId, User.GetId()) && !User.IsAdmin())
             {
                 TempData[ErrorMessage] = UnauthorizedForError;
-                return RedirectToAction("Error", "Home", new {statusCode=401});
+                return RedirectToAction("Error", "Home", new { statusCode = 401 });
             }
 
 
@@ -177,6 +173,7 @@ namespace BikingBuddy.Web.Controllers
                 model.EventImageUrl =
                     await UploadPhotoToLocalStorageAsync(EventPhotoDestinationPath, model.EventImage, envWebRooth);
             }
+
             if (model.GalleryPhotos != null && model.GalleryPhotos.Any())
             {
                 foreach (var photo in model.GalleryPhotos)
@@ -194,7 +191,7 @@ namespace BikingBuddy.Web.Controllers
             if (!await service.IsOrganiser(model.EventId, User.GetId()) && !User.IsAdmin())
             {
                 TempData[ErrorMessage] = UnauthorizedForError;
-                return RedirectToAction("Error", "Home", new {statusCode=401});
+                return RedirectToAction("Error", "Home", new { statusCode = 401 });
             }
 
             try
@@ -210,24 +207,25 @@ namespace BikingBuddy.Web.Controllers
                 return RedirectToAction("All", "Event");
             }
         }
- 
+
         //Delete
 
         [HttpPost]
-        public async Task<IActionResult> Delete(string eventId,string? returnUrl)
-        { 
+        public async Task<IActionResult> Delete(string eventId, string? returnUrl)
+        {
             if (!await service.IsOrganiser(eventId, User.GetId()) && !User.IsAdmin())
             {
                 TempData[ErrorMessage] = UnauthorizedForError;
-                return RedirectToAction("Error", "Home", new {statusCode=401});
+                return RedirectToAction("Error", "Home", new { statusCode = 401 });
             }
 
             if (await service.IsDeleteAsync(eventId))
             {
-                TempData[ErrorMessage] = EventAlreadyDeleted; 
+                TempData[ErrorMessage] = EventAlreadyDeleted;
 
-                return LocalRedirect(returnUrl); 
+                return LocalRedirect(returnUrl!);
             }
+
             try
             {
                 await service.DeleteEventAsync(eventId);
@@ -236,16 +234,15 @@ namespace BikingBuddy.Web.Controllers
             }
             catch (Exception)
             {
-                TempData[ErrorMessage] = DeleteEventError;   
+                TempData[ErrorMessage] = DeleteEventError;
             }
 
             if (!string.IsNullOrEmpty(returnUrl))
             {
-                
-            return LocalRedirect(returnUrl);
+                return LocalRedirect(returnUrl);
             }
 
-            return RedirectToAction("All", "Event");
+            return RedirectToAction("All", "Event", new { area = "Administration" });
         }
 
 
@@ -315,7 +312,7 @@ namespace BikingBuddy.Web.Controllers
             {
                 if (await service.IsParticipating(eventId, User.GetId()))
                 {
-                    await service.CompleteEventAsync( eventId,User.GetId());
+                    await service.CompleteEventAsync(eventId, User.GetId());
                     TempData[SuccessMessage] = CompletedEventSuccess;
                 }
                 else
@@ -330,7 +327,6 @@ namespace BikingBuddy.Web.Controllers
             }
 
             return RedirectToAction("MyProfile", "User");
-
         }
     }
 }

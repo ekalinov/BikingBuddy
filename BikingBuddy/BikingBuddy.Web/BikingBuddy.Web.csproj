@@ -27,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Comment\" />
     <Folder Include="wwwroot\FileStorage\CourseTracks\" />
     <Folder Include="wwwroot\FileStorage\EventPhotos\Gallery\" />
     <Folder Include="wwwroot\FileStorage\TeamPhotos\Gallery\" />

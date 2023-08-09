@@ -1,0 +1,106 @@
+@model IEnumerable<AdminUserDetailsViewModel> 
+<hr/>
+<table class="table table-bordered table-dark" style="
+                                                   margin-bottom: 13rem;">
+    <thead>
+    <tr>
+        <th>
+            <label>Photo</label>
+        </th>
+        <th>
+            <label>Name</label>
+        </th>
+        <th>
+            <label>Username</label>
+        </th>
+        <th>
+            <label>Email</label>
+        </th>
+
+        <th>
+            <label>Address</label>
+        </th>
+        <th>
+            <label>Role</label>
+        </th>
+        <th>
+            <label>IsDeleted</label>
+        </th>
+
+        <th>
+            <label>Options</label>
+        </th>
+
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var curUser in Model)
+    {
+        <tr>
+            <td>
+                <div class="d-flex align-items-center">
+                    <img src=@curUser.ProfileImageUrl
+                         alt=""
+                         style="width: 50px; height: 50px"
+                         class="rounded-circle"/>
+                </div>
+            </td>
+            <td>
+                <label>@curUser.Name</label>
+            </td>
+            <td>
+                <label>@curUser.Username</label>
+            </td>
+            <td>
+                <label>@curUser.Email</label>
+            </td>
+            <td>
+                <label>@curUser.Country</label>,
+                <label>@curUser.Town</label>
+            </td>
+
+            <td>
+                @if (curUser.IsAdmin)
+                {
+                    <label>Administrator</label>
+                }
+                else
+                {
+                    <label>User</label>
+                }
+            </td>
+
+            <td>
+                @if (curUser.IsDeleted)
+                {
+                    <label class="text-center">✔ </label>
+                }
+                else
+                {
+                    <label class="text-center">❌</label>
+                }
+            </td>
+
+            <td>
+
+                <div class="row" style="display: grid">
+
+                    <a asp-area="Administration" asp-controller="User" asp-action="MakeAdmin" class="btn btn-warning mb-2" asp-route-userId="@curUser.Id">Make Admin</a>
+
+                    <form class="" method="post" asp-area="">
+                        <button asp-area=""
+                                asp-controller="User"
+                                asp-action="Delete"
+                                asp-route-userId="@curUser.Id"
+                                class=" btn btn-danger">
+                            Delete
+                        </button>
+
+                    </form>
+                </div>
+
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -1,11 +1,10 @@
-﻿using static BikingBuddy.Common.ErrorMessages.CommentErrorMessages;
-using static BikingBuddy.Common.NotificationMessagesConstants;
-
-namespace BikingBuddy.Web.Controllers
+﻿namespace BikingBuddy.Web.Controllers
 {
-    using Services.Contracts;
-    using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Mvc;
+    using Infrastructure.Extensions;
+    using Services.Contracts;
+    using static Common.ErrorMessages.CommentErrorMessages;
+    using static Common.NotificationMessagesConstants;
 
     public class CommentController : BaseController
     {
@@ -19,7 +18,7 @@ namespace BikingBuddy.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(string commentBody, string eventId)
         {
-            if (commentBody == null)
+            if (string.IsNullOrEmpty(commentBody))
             {
                 TempData[ErrorMessage] = CommentBoddyEmpty;
                 return RedirectToAction("Details", "Event", new { eventId });
@@ -51,12 +50,11 @@ namespace BikingBuddy.Web.Controllers
         {
             if (!User.IsAdmin())
             {
-                TempData[ErrorMessage] = CommentDeleteError;
+                TempData[ErrorMessage] = UnauthorisedDelete;
                 return RedirectToAction("Details", "Event", new { eventId });
-
             }
-            
-            
+
+
             try
             {
                 await commentService.DeleteComment(commentId);
