@@ -39,6 +39,11 @@
 
 
             public const string UserNotParticipatingErrorMessage = "You are not participating in this event!";
+            
+            
+            public const string AddGalleryPhotosSuccess =  "Successfully added photos to your galery";
+
+            public const string AddGalleryPhotosError=  "Something went wrong while adding photos to your galery";
 
 
         }

@@ -60,7 +60,7 @@
                 await commentService.DeleteComment(commentId);
                 TempData[SuccessMessage] = CommentDeleteSuccessfully;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 TempData[ErrorMessage] = CommentDeleteError;
             }

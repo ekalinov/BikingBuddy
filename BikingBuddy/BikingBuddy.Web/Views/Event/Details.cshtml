@@ -9,10 +9,13 @@
 
     ViewBag.Title = "Event Details";
     @if (User.Identity.IsAuthenticated)
+
     {
-        isOrganiser = await eventService.IsOrganiser(Model.Id, User.GetId());
-        isParticipant = await eventService.IsParticipating(Model.Id,User.GetId());
-        isAdmin = User.IsAdmin();
+        if (!User.IsAdmin())
+        {
+            isOrganiser = await eventService.IsOrganiser(Model.Id, User.GetId());
+            isParticipant = await eventService.IsParticipating(Model.Id, User.GetId());
+        }
     }
 
 
@@ -60,7 +63,39 @@
             </p>
 
             <hr/>
+            <!-- Button trigger modal --> 
+            <a type="button" class="fw-bold" data-toggle="modal" data-target="#Modal_@Model.Id">
+                Add gallery photos here!
+            </a>
 
+            <!-- Edit Bike Modals  -->
+            <div class="modal fade" id="Modal_@Model.Id" tabindex="-1" role="dialog" aria-labelledby="Modal_@Model.Id" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" style="color: black;" id="Modal_@Model.Id">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+
+                            <div>
+                                @await Html.PartialAsync("_AddGalleryPhotosPartial", new AddGalleryPhotoModel { EventName = @Model.Title, EventId = @Model.Id })
+                            </div>
+
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr/>
             <ul class="list-group list-group-flush">
 
                 <li class="list-group-item">
@@ -78,7 +113,7 @@
                 </li>
 
 
-                @if (!isOrganiser)
+                @if (!User.IsAdmin() || !isOrganiser)
                 {
                     <li class="list-group-item">
                         @if (!isParticipant)
@@ -102,7 +137,7 @@
 
 
             <div class="card-body">
-                @if (isOrganiser || isAdmin)
+                @if (isOrganiser || User.IsAdmin())
                 {
                     <h3 style="text-align: center; margin-bottom: 1rem">Event Options</h3>
 

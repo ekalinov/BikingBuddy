@@ -23,7 +23,7 @@
         {
             if (!ModelState.IsValid)
             {
-               // return View(model);
+                return View(model);
             }
 
 
@@ -38,7 +38,7 @@
                 TempData[ErrorMessage] = AddBikeError;
 
 
-              //  return View(model);
+              return View(model);
             }
 
             return RedirectToAction("MyProfile", "User");

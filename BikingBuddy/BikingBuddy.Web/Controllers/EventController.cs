@@ -37,10 +37,12 @@
             if (eventDetails != null)
             {
                 eventDetails.EventComments = await commentService.GetAllComments(eventId);
+            return View(eventDetails);
             }
 
+            return RedirectToAction("All");
+            
 
-            return View(eventDetails);
         }
 
         //Create

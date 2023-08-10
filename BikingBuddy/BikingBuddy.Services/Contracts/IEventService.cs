@@ -77,5 +77,6 @@ namespace BikingBuddy.Services.Contracts
         Task<bool> IsDeleteAsync(string eventId);
         
         Task CompleteEventAsync(string eventId, string userId);
+        Task AddGalleryPhotos(AddGalleryPhotoModel model);
     }
 }

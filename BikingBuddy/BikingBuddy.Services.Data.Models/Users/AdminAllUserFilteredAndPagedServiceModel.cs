@@ -7,6 +7,7 @@ public class AdminAllUsersFilteredAndPagedServiceModel
     public AdminAllUsersFilteredAndPagedServiceModel()
     {
         AllUser = new HashSet<AdminUserDetailsViewModel>();
+        Admins = new HashSet<AdminUserDetailsViewModel>();
     }
 
 

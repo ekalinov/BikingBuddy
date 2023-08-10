@@ -1,6 +1,6 @@
-﻿@model EditBikeViewModel
+﻿@model AddBikeViewModel 
 @{
-    ViewBag.Title = "Edit Bike";
+    ViewBag.Title = "Add new Bike";
 }
 
 
@@ -9,7 +9,7 @@
 
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-        <form asp-action="Edit" method="post">
+        <form asp-action="Add" method="post">
             <div class="mb-3">
                 <label asp-for="@Model.FrameBrand" class="form-label-add-edit">Frame brand</label>
                 <input asp-for="@Model.FrameBrand" class="form-control" aria-required="true"/>
@@ -57,8 +57,7 @@
                 <span asp-validation-for="@Model.BikeType" class="text-danger"></span>
             </div>
 
-              <input type="hidden" asp-for="@Model.OwnerId" class="form-control" value="@User.GetId()"/>
-            <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" asp-route-Id="@Model.Id" value="Edit"/>
+              <input type="hidden" asp-for="@Model.OwnerId" class="form-control" value="@User.GetId()"/> 
 
         </form>
     </div>

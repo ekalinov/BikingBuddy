@@ -30,7 +30,7 @@ namespace BikingBuddy.Web.Models.Bike
 
 
         public virtual BikeTypes BikeType { get; set; }
-  
-        public  string OwnerId { get; set; }
+
+        public string OwnerId { get; set; } = null!;
     }
 }

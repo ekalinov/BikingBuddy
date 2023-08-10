@@ -1,7 +1,7 @@
 @using BikingBuddy.Services.Contracts
 @model IEnumerable<EventDetailsViewModel>
 @inject IEventService service
- 
+
 <hr/>
 <table class="table table-bordered table-dark" style="
     margin-bottom: 30rem;">
@@ -40,7 +40,9 @@
         <th>
             <label>IsDeleted</label>
         </th>
-
+        <th>
+            <label>EventPage</label>
+        </th>
         <th>
             <label>Options</label>
         </th>
@@ -134,12 +136,16 @@
             </td>
 
             <td>
+
+            <a asp-area="" asp-controller="Event" asp-action="Details" class="btn btn-warning mb-2" asp-route-eventId="@curEvent.Id">Details</a>
+            </td>
+            <td>
                 @if (!await service.IsDeleteAsync(curEvent.Id))
                 {
                     <div class="row" style="display: grid">
-                        <a asp-area="" asp-controller="Event" asp-action="Edit" class="btn btn-warning mb-2" asp-route-eventId="@curEvent.Id">Edit</a>
-                        <form class="" method="post" >
-                            <button  type="submit" asp-area="" asp-controller="Event" asp-action="Delete" asp-route-eventId="@curEvent.Id" class=" btn btn-danger">Delete</button>
+                        <a asp-area="" asp-controller="Event" asp-action="Edit" class="btn btn-warning mb-2" asp-route-eventId="@curEvent.Id.ToLower()">Edit</a>
+                        <form class="" method="post">
+                            <button type="submit" asp-area="" asp-controller="Event" asp-action="Delete" asp-route-eventId="@curEvent.Id" class=" btn btn-danger">Delete</button>
                         </form>
                     </div>
                 }
