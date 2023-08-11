@@ -36,6 +36,12 @@ namespace BikingBuddy.Web.Controllers
         {
             try
             {
+                if (await teamService.IsDeletedAsync(teamId))
+                {
+                    TempData[ErrorMessage] = AlreadyDeleted;
+                    return RedirectToAction("All", "Team");
+                }
+            
                 var teamDetails = await teamService.GetTeamDetailsAsync(teamId);
                 return View(teamDetails);
             }

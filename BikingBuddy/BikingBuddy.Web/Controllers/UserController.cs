@@ -29,13 +29,16 @@
 
         public async Task<IActionResult> MyProfile()
         {
-            var userDetails = await userService.GetUserDetails(User.GetId());
-            if (userDetails != null)
+            try
             {
+                var userDetails = await userService.GetUserDetails(User.GetId());
                 return View(userDetails);
             }
-
-            return RedirectToAction("Index", "Home");
+            catch (Exception)
+            {
+                TempData[ErrorMessage] = UserNotFound;
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         [HttpGet]

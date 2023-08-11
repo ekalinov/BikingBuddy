@@ -32,17 +32,27 @@
         [AllowAnonymous]
         public async Task<IActionResult> Details(string eventId)
         {
-            var eventDetails = await service.GetEventDetailsByIdAsync(eventId);
-
-            if (eventDetails != null)
+            try
             {
-                eventDetails.EventComments = await commentService.GetAllComments(eventId);
-            return View(eventDetails);
+                var eventDetails = await service.GetEventDetailsByIdAsync(eventId);
+                if (eventDetails is { IsDeleted: true })
+                {
+                    TempData[ErrorMessage] = EventAlreadyDeleted;
+                    return RedirectToAction("All", "Team");
+                }
+
+                if (eventDetails != null)
+                {
+                    eventDetails.EventComments = await commentService.GetAllComments(eventId);
+                }
+
+                return View(eventDetails);
             }
-
-            return RedirectToAction("All");
-            
-
+            catch (Exception)
+            {
+                TempData[ErrorMessage] = EventNotExistsMessage;
+                return RedirectToAction("All");
+            }
         }
 
         //Create

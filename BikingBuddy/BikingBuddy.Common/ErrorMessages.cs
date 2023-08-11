@@ -75,7 +75,7 @@
 
             public const string ProfileChangesSaved = "Profile changes saved!";
             
-            public const string DeleteErrorUnauthorised = "Error: Only profile owners can delete their Profiles!";
+            public const string DeleteErrorUnauthorised = "Error: Only profile owners and Admins can delete user accounts!";
              
             public const string UserAccountDeletedSuccessfully = "User Account is successfully deleted!";
              
