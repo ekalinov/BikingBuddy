@@ -192,7 +192,7 @@
             };
 
             ICollection<AdminUserDetailsViewModel> userCollection = await usersQuery
-                .Skip((queryModel.CurrentPage - 1) * queryModel.TotalUsersCount)
+                .Skip((queryModel.CurrentPage - 1) * queryModel.UsersPerPage)
                 .Take(queryModel.UsersPerPage)
                 .Select(u => new AdminUserDetailsViewModel
                 {

@@ -84,7 +84,9 @@
             <td>
 
                 <div class="row" style="display: grid">
-
+    @if (!curUser.IsDeleted)
+{
+    
                     <a asp-area="Administration" asp-controller="User" asp-action="MakeAdmin" class="btn btn-warning mb-2" asp-route-userId="@curUser.Id">Make Admin</a>
 
                     <form class="" method="post" asp-area="">
@@ -97,6 +99,12 @@
                         </button>
 
                     </form>
+}
+    else
+    {
+        
+        <label class="text-center font-italic ">Deleted</label>
+    }
                 </div>
 
             </td>
