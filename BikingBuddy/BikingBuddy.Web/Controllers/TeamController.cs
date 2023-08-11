@@ -90,6 +90,7 @@ namespace BikingBuddy.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(AddTeamViewModel model)
         {
             if (model.TeamImage is { Length: >= MaxPhotoSizeAllowed })
@@ -173,6 +174,7 @@ namespace BikingBuddy.Web.Controllers
        
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EditTeamViewModel model)
         {
             if (!await teamService.IsManagerAsync(model.Id, User.GetId()) && !User.IsAdmin())
@@ -230,6 +232,7 @@ namespace BikingBuddy.Web.Controllers
         //Delete
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string teamId, string returnUrl)
         {
             if (!await teamService.IsManagerAsync(teamId, User.GetId()) && !User.IsAdmin())

@@ -67,6 +67,7 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EditUserViewModel model)
         {
             if (User.GetId().ToUpper() != model.Id && !User.IsAdmin())
@@ -114,9 +115,10 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string userId)
         {
-            if (User.GetId() != userId || !User.IsAdmin())
+            if ( !User.IsAdmin() && User.GetId() != userId)
             {
                 TempData[ErrorMessage] = DeleteErrorUnauthorised;
                 return RedirectToAction("Error", "Home", new { statusCode = 401 });

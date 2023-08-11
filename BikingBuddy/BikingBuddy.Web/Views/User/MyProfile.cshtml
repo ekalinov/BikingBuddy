@@ -209,6 +209,7 @@
                 <div class="row">
                     <a asp-controller="User" asp-action="Edit" class="card-link ml-2 mr-2" asp-route-userId="@Model.Id">Edit</a>
                     <form class="ml-2" method="post">
+              @Html.AntiForgeryToken()
                         <a asp-controller="user" asp-action="Delete" asp-route-userId="@Model.Id" class="card-link ml-2 mr-2">Delete</a>
                     </form>
                 </div>

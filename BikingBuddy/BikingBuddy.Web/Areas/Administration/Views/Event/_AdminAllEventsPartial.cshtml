@@ -145,6 +145,7 @@
                     <div class="row" style="display: grid">
                         <a asp-area="" asp-controller="Event" asp-action="Edit" class="btn btn-warning mb-2" asp-route-eventId="@curEvent.Id.ToLower()">Edit</a>
                         <form class="" method="post">
+              @Html.AntiForgeryToken()
                             <button type="submit" asp-area="" asp-controller="Event" asp-action="Delete" asp-route-eventId="@curEvent.Id" class=" btn btn-danger">Delete</button>
                         </form>
                     </div>

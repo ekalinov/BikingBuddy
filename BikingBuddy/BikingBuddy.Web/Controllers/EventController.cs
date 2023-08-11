@@ -61,6 +61,7 @@
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(AddEventViewModel model)
         {
             if (model.EventImage is { Length: >= MaxPhotoSizeAllowed })
@@ -155,6 +156,7 @@
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EditEventViewModel model)
         {
             if (model.EventImage is { Length: >= MaxPhotoSizeAllowed })
@@ -213,6 +215,7 @@
         //Delete
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string eventId, string? returnUrl)
         {
             if (!await service.IsOrganiser(eventId, User.GetId()) && !User.IsAdmin())

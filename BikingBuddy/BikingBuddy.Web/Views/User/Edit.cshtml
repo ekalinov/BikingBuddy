@@ -12,6 +12,8 @@
             <section class="col-8">
                 <h1 class="text-left">@ViewData["Title"]</h1>
                 <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                    
+                     @Html.AntiForgeryToken()
 
                     <div class="mb-3">
                         <label asp-for="@Model.Name" class="form-label-add-edit text-white">Name</label>

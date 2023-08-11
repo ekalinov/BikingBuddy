@@ -144,6 +144,7 @@
                     <div class="row">
                         <a asp-controller="Event" asp-action="Edit" class="card-link ml-2 mr-2" asp-route-eventId="@Model.Id">Edit</a>
                         <form class="ml-2" method="post">
+                              @Html.AntiForgeryToken()
                             <a asp-controller="Event" asp-action="Delete" asp-route-eventId="@Model.Id" class="card-link ml-2 mr-2">Delete</a>
                         </form>
                     </div>

@@ -90,6 +90,7 @@
                     <a asp-area="Administration" asp-controller="User" asp-action="MakeAdmin" class="btn btn-warning mb-2" asp-route-userId="@curUser.Id">Make Admin</a>
 
                     <form class="" method="post" asp-area="">
+              @Html.AntiForgeryToken()
                         <button asp-area=""
                                 asp-controller="User"
                                 asp-action="Delete"

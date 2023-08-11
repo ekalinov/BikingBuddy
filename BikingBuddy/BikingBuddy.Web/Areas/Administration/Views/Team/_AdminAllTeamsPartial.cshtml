@@ -122,6 +122,7 @@
                     {
                         <a asp-area="" asp-controller="Team" asp-action="Edit" class="btn btn-warning mb-2" asp-route-teamId="@curTeam.Id">Edit</a> 
                         <form class="" method="post" asp-area="">
+              @Html.AntiForgeryToken()
                         <button asp-area="" 
                                 asp-controller="Team" 
                                 asp-action="Delete" 
