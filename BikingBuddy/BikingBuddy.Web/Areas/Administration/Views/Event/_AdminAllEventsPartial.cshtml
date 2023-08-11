@@ -137,7 +137,7 @@
 
             <td>
 
-            <a asp-area="" asp-controller="Event" asp-action="Details" class="btn btn-warning mb-2" asp-route-eventId="@curEvent.Id">Details</a>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">Extra large modal</button>
             </td>
             <td>
                 @if (!await service.IsDeleteAsync(curEvent.Id))
@@ -145,7 +145,7 @@
                     <div class="row" style="display: grid">
                         <a asp-area="" asp-controller="Event" asp-action="Edit" class="btn btn-warning mb-2" asp-route-eventId="@curEvent.Id.ToLower()">Edit</a>
                         <form class="" method="post">
-              @Html.AntiForgeryToken()
+                            @Html.AntiForgeryToken()
                             <button type="submit" asp-area="" asp-controller="Event" asp-action="Delete" asp-route-eventId="@curEvent.Id" class=" btn btn-danger">Delete</button>
                         </form>
                     </div>
@@ -157,6 +157,30 @@
 
             </td>
         </tr>
+
+
+        <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+                    <div class="modal-body m-3">
+
+                        @await Html.PartialAsync("_EventDetailsPartial", curEvent)
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     }
     </tbody>
 </table>

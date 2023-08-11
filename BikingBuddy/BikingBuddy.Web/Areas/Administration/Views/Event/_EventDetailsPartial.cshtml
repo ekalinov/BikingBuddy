@@ -1,0 +1,103 @@
+@model EventDetailsViewModel
+@{
+    ViewBag.Title = "Event Details";
+
+    ViewDataDictionary dictionary = new ViewDataDictionary(ViewData)
+    {
+        { "EventId", Model.Id },
+        { "UserPhoto", Model.EventImageUrl }
+    };
+
+}
+<div class="ek-row">
+    <div class="card col-3 ek-containers-margin" @*style="width: 18rem;"*@>
+        <img src=@Model.EventImageUrl class="card-img-top" alt="...">
+        <div class="card-body">
+            <h3 class="card-title text-center"> Date: @Model.Date</h3>
+
+            <p class="mb-0">
+                <span class="fw-bold">Location: </span> @Model.Town , @Model.Country
+            </p>
+            <p class="mb-0">
+                <span class="fw-bold">Event Type: </span>@Model.ActivityType
+            </p>
+            <p class="mb-0">
+                <span class="fw-bold">Event Organiser: </span>@Model.OrganizerName
+            </p>
+            <p class="mb-0">
+                <span class="fw-bold">Distance: </span>@Model.Distance
+            </p>
+            <p class="mb-0">
+                <span class="fw-bold">Ascent: </span>@Model.Ascent
+            </p>
+
+            <hr/>
+             
+
+
+            <hr/>
+            <ul class="list-group list-group-flush">
+
+                <li class="list-group-item">
+
+                    <div class="stats w3-left" text-align: -webkit-center>
+                        <div class="row w3l-stats-section stats-con">
+                            <div class=" stats_info team-stats_info  counter_grid">
+                                <i class="far fa-users team-stats_info" style="color: #afafaf;margin-top: 12px;"></i>
+                                <p class="counter">@Model.EventsParticipants.Count </p>
+                                <h3 class="" style="color: #afafaf">Joined Participants</h3>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+    <div class="card col-8 ek-containers-margin">
+        <div class="card-body">
+            <h3 class="card-title text-center">@Model.Title</h3>
+
+            <div>
+
+                @if (Model.GalleryPhotosModels.Any())
+                {
+                    <div class="float-right"
+                         style="
+                                      width: 500px;
+                                      margin: 10px 30px;">
+
+                        @await Html.PartialAsync("_GalleryPhotosPartial", Model.GalleryPhotosModels, null)
+                    </div>
+                }
+
+                <p class="mt-1">
+                    <h5 class="fw-bold"> Event Description: </h5> <span> @Model.Description </span>
+                </p>
+            </div>
+        </div>
+
+        <div>
+
+            <div class="row">
+
+                <div class="col-6">
+
+
+                    @await Html.PartialAsync("_AllCommentsPartial", Model.EventComments, dictionary)
+
+                </div>
+
+
+                <div class="col-6">
+                    @await Html.PartialAsync("_EventParticipantsPartial", Model.EventsParticipants, null)
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
