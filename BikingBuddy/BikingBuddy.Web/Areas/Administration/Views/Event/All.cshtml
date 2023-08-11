@@ -22,9 +22,9 @@
         <div class="col-2 sorting">
             <label asp-for="EventsPerPage"></label>
             <select asp-for="EventsPerPage" class="form-control">
-                <option value="3">3</option>
-                <option value="6">6</option>
-                <option value="9">9</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="@Model.TotalEventsCount">All</option>
             </select>
         </div>
 
@@ -125,10 +125,11 @@
             }
         </ul>
     </nav>
-
+ 
 
 </form>
 
-<div>
-    @await Html.PartialAsync("_AdminAllEventsPartial", @Model.Events)
-</div>
+    <div  class="container" >
+        @await Html.PartialAsync("_AdminAllEventsPartial", @Model.Events)
+    </div> 
+    
