@@ -112,11 +112,11 @@
         <div class="container">
             <div class="container">
                 <p class="copy-footer-29">
-                    © 2021 Secttore. All rights reserved | Designed by
-                    <a href="https://w3layouts.com"
-                       target="_blank">
-                        W3layouts
-                    </a>
+                     &copy; Biking Buddy Worldwide @ApplicationReleaseYear
+                             @if (DateTime.UtcNow.Year != ApplicationReleaseYear)
+                             {
+                                 @Html.Raw($" - {DateTime.UtcNow.Year}")
+                             }
                 </p>
             </div>
         </div>

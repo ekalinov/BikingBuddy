@@ -61,8 +61,11 @@
             <p class="mb-0">
                 <span class="fw-bold">Ascent: </span>@Model.Ascent
             </p>
-
+@if (User.IsAdmin() || isOrganiser)
+{
+    
             <hr/>
+            
             <!-- Button trigger modal --> 
             <a type="button" class="fw-bold" data-toggle="modal" data-target="#Modal_@Model.Id">
                 Add gallery photos here!
@@ -95,6 +98,7 @@
                 </div>
             </div>
 
+}
             <hr/>
             <ul class="list-group list-group-flush">
 

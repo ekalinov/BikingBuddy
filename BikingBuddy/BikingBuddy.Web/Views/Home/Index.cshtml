@@ -2,43 +2,58 @@
 
 
 <section class="w3l-featureshny py-5">
-        <div class="row" style="margin-top: 65px">
-            <div class="col-lg-5 pr-lg-5 mb-lg-0 mb-5">
-                <div class="w3l-header-sec text-left mb-md-5 mb-4" style="padding-left: 50px">
-                    <h6 class="title-subhny mb-2">Our Stats</h6>
-                    <h5 class="">
-                        Ride with friends
-                        Enjoy the Ride
-                    </h5>
-                </div>
+    <div class="row" style="margin-top: 65px">
+        <div class="col-lg-5 pr-lg-5 mb-lg-0 mb-5">
+            <div class="w3l-header-sec text-left mb-md-5 mb-4" style="padding-left: 50px">
+                <h6 class="title-subhny mb-2">Our Stats</h6>
+                <h5 class="">
+                    Ride with friends
+                    Enjoy the Ride
+                </h5>
             </div>
-            <div class="col-4"></div>
-            <div class="col-lg-3 statsw3-left pl-lg-5">
-                <div class="row w3l-stats-section stats-con">
-                    <div class="col-lg-4 col-6 stats_info counter_grid">
-                        <i class="far fa-trophy"></i>
-                        <p class="counter">@Model.ActiveEventsCount </p>
-                        <h3>Events</h3>
-                    </div>
-                    <div class="col-lg-4 col-6 stats_info counter_grid mt-md-0 mt-0">
-                        <i class="fas fa-smile"></i>
-                        <p class="counter">@Model.UsersCount</p>
-                        <h3>Users</h3>
-                    </div>
-                    <div class="col-lg-4 col-6 stats_info counter_grid2 mt-md-0 mt-4">
-                        <i class="fas fa-users"></i>
-                        <p class="counter">@Model.TeamsCount </p>
-                        <h3>Teams</h3>
-                    </div>
+        </div>
+        <div class="col-4"></div>
+        <div class="col-lg-3 statsw3-left pl-lg-5">
+            <div class="row w3l-stats-section stats-con">
+                <div class="col-lg-4 col-6 stats_info counter_grid">
+                    <i class="far fa-trophy"></i>
+                    <p class="counter">@Model.ActiveEventsCount </p>
+                    <h3>Events</h3>
+                </div>
+                <div class="col-lg-4 col-6 stats_info counter_grid mt-md-0 mt-0">
+                    <i class="fas fa-smile"></i>
+                    <p class="counter">@Model.UsersCount</p>
+                    <h3>Users</h3>
+                </div>
+                <div class="col-lg-4 col-6 stats_info counter_grid2 mt-md-0 mt-4">
+                    <i class="fas fa-users"></i>
+                    <p class="counter">@Model.TeamsCount </p>
+                    <h3>Teams</h3>
                 </div>
             </div>
         </div>
+    </div>
 </section>
 
 <!-- about-top -->
 <div class="agileits-about-top">
     <div class="container">
 
+        <div class="container py-md-5 py-2">
+            <!--/row-1-->
+            <div class="row mb-5 pb-lg-4">
+                <div class="col-lg-6 pr-lg-3">
+                    <div class="title-content text-left">
+                        <h6 class="title-subhny mb-2">About Us</h6>
+                        <h3 class="title-w3l">A place fof our two-wheeled hobby! </h3>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-lg-0 mt-md-5 mt-4 pl-lg-5">
+
+                    <p class="pr-lg-5">Welcome to our dedicated platform for hobby cyclists and mountain bike enthusiasts! Discover a vibrant community where you can form teams, organize events, and showcase your biking gear. Connect with fellow riders, share insights, and embark on thrilling adventures together. Elevate your biking experience with us today!</p>
+                </div>
+            </div>
+            
         <section class="index-component p-3">
             <div class="w3layouts-services-heading ">
                 <h2>Top Events</h2>
@@ -49,10 +64,67 @@
                 <a class="btn btn-primary btn-white btn-style mt-lg-1 mt-4" asp-controller="Event" asp-action="All">Find More rides...</a>
             </div>
         </section>
+            
+            
+            
+            
+            <!--//row-1-->
+            <div class="row pt-md-0 pt-5">
+                <div class="col-lg-4 col-md-6 mt-md-0 mt-sm-4 px-lg-0">
+                    <div class="grids3-info">
+                        <a href="#" class="d-block zoom">
+                            <img src="images/g1.jpg" alt="" class="img-fluid news-image">
+                        </a>
+                        <div class="w3-grids3-info">
+                            <h6>
+                                <a href="#" class="category d-block">Training</a>
+                            </h6>
+                            <h4>
+                                <a href="#">Keep your body and mind in shape</a>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mt-md-0 mt-4 px-lg-0 grids3-info2">
+                    <div class="grids3-info second">
+                        <a  class="d-block zoom">
+                            <img src="images/b1.jpg" alt="" class="img-fluid news-image">
+                        </a>
+                        <div class="w3-grids3-info second">
+                            <h6>
+                                <a href="#" class="category d-block">Exploring</a>
+                            </h6>
+                            <h4>
+                                <a href="#">Find yout new favourite spot</a>
+                            </h4>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mt-lg-0 mt-4 px-lg-0">
+                    <div class="grids3-info">
+                        <a href="#" class="d-block zoom">
+                            <img src="images/g9.jpg" alt="" class="img-fluid news-image">
+                        </a>
+                        <div class="w3-grids3-info">
+                            <h6>
+                                <a href="#" class="category d-block">Competing</a>
+                            </h6>
+                            <h4>
+                                <a href="#">Challenge yourself, race others</a>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <section class="  parallax">
             <div class="w3layouts-services-heading">
-                <h2>Why Biking Buddy?</h2>
+                <h2 style="
+                        color: white;
+                    ">Why Biking Buddy?</h2>
             </div>
             <div class="w3-services-grids" style="display: inline-flex">
                 <div class="col-md-3 w3l-services-grid ">
@@ -60,7 +132,9 @@
                         <i class="fa fa-male" aria-hidden="true"></i>
                     </div>
                     <div class="agileits-services-info">
-                        <h4 class="ek-h4">Personal Profile</h4>
+                        <h4 class="ek-h4" style="
+                                              color: white;
+                                          ">Personal Profile</h4>
                         <p class="ek-p">With our personalized profile feature, you can now embark on a thrilling journey to track your bike rides and biking events like never before. Whether you're a seasoned cyclist or just starting, this unique tool empowers you to record every pedal stroke and celebrate your biking milestones.</p>
                     </div>
                 </div>
@@ -69,7 +143,9 @@
                         <i class="fa fa-bicycle" aria-hidden="true"></i>
                     </div>
                     <div class="agileits-services-info">
-                        <h4 class="ek-h4">Bike Configuration</h4>
+                        <h4 class="ek-h4" style="
+                                              color: white;
+                                          ">Bike Configuration</h4>
                         <p class="ek-p">So, gear up and add your bike configuration to your profile today. Let the world see the bike that fuels your adventures, and be inspired by the incredible bikes others ride. Together, let's make our cycling community stronger, more vibrant, and pedal towards an unforgettable biking experience! </p>
                     </div>
                 </div>
@@ -78,7 +154,9 @@
                         <i class="fa fa-globe" aria-hidden="true"></i>
                     </div>
                     <div class="agileits-services-info">
-                        <h4 class="ek-h4">Worldwide events</h4>
+                        <h4 class="ek-h4" style="
+                                              color: white;
+                                          ">Worldwide events</h4>
                         <p class="ek-p">For those seeking new adventures, dive into our extensive collection of bike rides worldwide. From picturesque countryside trails to adrenaline-pumping downhill descents, there's a ride to suit every skill level and preference. </p>
                     </div>
                 </div>
@@ -87,7 +165,9 @@
                         <i class="fa fa-users" aria-hidden="true"></i>
                     </div>
                     <div class="agileits-services-info">
-                        <h4 class="ek-h4">Find your Team</h4>
+                        <h4 class="ek-h4" style="
+                                              color: white;
+                                          ">Find your Team</h4>
                         <p class="ek-p">Join or create the perfect cycling team in our app! Connect with friends to form your own squad for exciting rides, or send a request to join your favorite team and ride alongside like-minded cyclists. Unite, pedal, and experience the joy of cycling together!</p>
                     </div>
                 </div>
