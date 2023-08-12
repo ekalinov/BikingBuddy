@@ -1,4 +1,5 @@
 using BikingBuddy.Web.Models.Team;
+using Microsoft.AspNetCore.Identity;
 
 namespace BikingBuddy.Tests.Services;
 
@@ -19,6 +20,8 @@ public class TeamServiceTests
     private IBikeService bikeService = null!;
     private IEventService eventService = null!;
 
+    private UserManager<AppUser> userManager;
+
     [SetUp]
     public async Task Setup()
     {
@@ -34,7 +37,7 @@ public class TeamServiceTests
         await SeedDatabase(dbContext);
 
         eventService = new EventService(dbContext);
-        userService = new UserService(dbContext, eventService, bikeService);
+        userService = new UserService(dbContext, eventService, bikeService,userManager);
 
         teamService = new TeamService(eventService, dbContext, userService);
     }
