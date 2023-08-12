@@ -1,5 +1,6 @@
 ﻿using BikingBuddy.Common.Enums;
 using BikingBuddy.Web.Models.Comment;
+using Microsoft.Extensions.Logging;
 
 namespace BikingBuddy.Services
 {
@@ -117,7 +118,7 @@ namespace BikingBuddy.Services
                             Id = p.Id.ToString(),
                             Name = p.Name,
                             URL = p.Url
-                        }).ToList() 
+                        }).ToList()
                 })
                 .FirstOrDefaultAsync();
 
@@ -276,9 +277,11 @@ namespace BikingBuddy.Services
         public async Task<AdminAllEventsFilteredAndPagedServiceModel> AdminAllEventAsync(
             AdminAllEventsQueryModel queryModel)
         {
-            IQueryable<Event> eventsQuery = dbContext.Events
-                .AsQueryable();
+            IQueryable<Event> eventsQuery = dbContext.Events 
+                .AsQueryable()
+                .OrderBy(e=>e.IsDeleted);
 
+            
             if (!String.IsNullOrWhiteSpace(queryModel.ActivityType))
             {
                 eventsQuery = eventsQuery
@@ -303,30 +306,27 @@ namespace BikingBuddy.Services
                     .Where(t => t.IsDeleted == false),
                 DeleteStatus.Deleted => eventsQuery
                     .Where(t => t.IsDeleted == true),
-                DeleteStatus.All => eventsQuery
-                    .OrderByDescending(e=>e.IsDeleted),
+                DeleteStatus.All => eventsQuery ,
                 _ => eventsQuery
-                    .OrderBy(e => e.Title)
             };
             eventsQuery = queryModel.Sorting switch
             {
                 EventSorting.Newest => eventsQuery
-                    .OrderByDescending(e => e.CreatedOn),
+                    .OrderBy(e=>e.IsDeleted)
+                    .ThenByDescending(e => e.CreatedOn),
                 EventSorting.MostParticipants => eventsQuery
-                    .OrderByDescending(e => e.EventsParticipants.Count()),
+                    .OrderBy(e=>e.IsDeleted)
+                    .ThenByDescending(e => e.EventsParticipants.Count()),
                 EventSorting.ThisMonth => eventsQuery
-                    .Where(e => e.Date.Month == DateTime.Now.Month)
-                    .OrderByDescending(e => e.Date),
+                    .Where(e => e.Date.Month == DateTime.Now.Month),
                 EventSorting.ThisWeek => eventsQuery
-                    .Where(e => (e.Date.Day - DateTime.Now.Day) <= 7)
-                    .OrderByDescending(e => e.Date),
+                    .Where(e => (e.Date.Day - DateTime.Now.Day) <= 7),
                 _ => eventsQuery
-                    .OrderByDescending(e => e.Date)
             };
+            
 
 
-            ICollection<EventDetailsViewModel> eventCollection = await eventsQuery
-                .OrderBy(e=>e.IsDeleted)
+            ICollection<EventDetailsViewModel> eventCollection = await eventsQuery 
                 .Skip((queryModel.CurrentPage - 1) * queryModel.EventsPerPage)
                 .Take(queryModel.EventsPerPage)
                 .Select(e => new EventDetailsViewModel
@@ -367,7 +367,8 @@ namespace BikingBuddy.Services
                             Name = ep.Participant.Name,
                             ProfileImageUrl = ep.Participant.ProfileImageUrl
                         }).ToList(),
-                }).ToListAsync();
+                })
+                .ToListAsync();
 
             var model = new AdminAllEventsFilteredAndPagedServiceModel()
             {
@@ -671,7 +672,7 @@ namespace BikingBuddy.Services
             if (model.GalleryPhotosModels != null && model.GalleryPhotosModels.Any())
             {
                 Event? eventToAddPhotos = await GetEventByIdAsync(model.EventId);
-                
+
                 if (eventToAddPhotos != null)
                 {
                     ICollection<EventGalleryPhoto> galleryPhotos = new HashSet<EventGalleryPhoto>();

@@ -35,10 +35,16 @@
             try
             {
                 var eventDetails = await service.GetEventDetailsByIdAsync(eventId);
+
+                if (eventDetails is null)
+                {
+                    TempData[ErrorMessage] = EventNotExistsMessage;
+                    return RedirectToAction("All","Event");
+                }
                 if (eventDetails is { IsDeleted: true })
                 {
                     TempData[ErrorMessage] = EventAlreadyDeleted;
-                    return RedirectToAction("All", "Team");
+                    return RedirectToAction("All", "Event");
                 }
 
                 if (eventDetails != null)
@@ -51,7 +57,7 @@
             catch (Exception)
             {
                 TempData[ErrorMessage] = EventNotExistsMessage;
-                return RedirectToAction("All");
+                return RedirectToAction("All","Event");
             }
         }
 
@@ -156,7 +162,7 @@
             if (editAddEvent == null)
             {
                 TempData[ErrorMessage] = EventNotExistsMessage;
-                return RedirectToAction("All");
+                return RedirectToAction("All","Event");
             }
 
             editAddEvent.ActivityTypes = await service.GetActivityTypesAsync();
