@@ -23,8 +23,8 @@ namespace BikingBuddy.Services
         public async Task<ICollection<CommentViewModel>> GetAllComments(string eventId)
         {
             return await dbContext.Comments
-                .Where(c => c.EventId == Guid.Parse(eventId))
-                .Select(c => new CommentViewModel()
+                .Where(c => c.EventId == Guid.Parse(eventId) && !c.IsDeleted)
+                .Select(c => new CommentViewModel
                 {
                     Id = c.Id,
                     CommentBody = c.CommentBody,

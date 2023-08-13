@@ -1,11 +1,14 @@
 @model ICollection<UserViewModel>
 <h5>Team Members:</h5>
 
-<table class="table align-middle mt-2    mb-5 bg-white">
-    <thead class="bg-light">
+<table class="table align-middle mt-2    mb-5 table-dark">
+    <thead  >
     <tr>
         <th> Photo</th>
+
         <th> Name</th>
+        <th> Details</th>
+        
         <th>Options</th>
     </tr>
     </thead>
@@ -25,67 +28,64 @@
                 <p class="fw-bold mb-1">@member.Name</p>
 
             </td>
-
-
-            <td>
-                  <!-- Button trigger modal -->
-                                    <a type="button" class="btn-primary" data-toggle="modal" data-target="#Modal_@member.Id">
-                                        Edit
-                                    </a>
-                
-                                    @*
-                                    <!-- Participant info Modals  -->
-                                    <div class="modal fade" id="Modal_@member.Id" tabindex="-1" role="dialog" aria-labelledby="Modal_@member.Id" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-scrollable" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" style="color: black;" id="Modal_@member.Id">Modal title</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                
-                
-                                                <div class="align-self-center">
-                
-                                                    <img src=@member.ProfileImageUrl
-                                                         alt=""
-                                                         style="width: 250px; height: 250px"
-                                                         class="rounded-circle"/>
-                                                </div>
-                                                <div class="card-body">
-                                                    <h3 class="card-title text-center"> @member.Name</h3>
-                
-                                                    <p class="mb-0">
-                                                        <span class="fw-bold">Address: </span> @member.Town , @member.Country
-                                                    </p>
-                
-                                                    <hr/>
-                                                    @if (member.TeamName != null)
-                                                    {
-                                                        <p class="mb-0">
-                                                            <span class="fw-bold">Team: </span><a asp-area="" asp-controller="Team" asp-action="Details" asp-route-teamId="@member.TeamId"> @member.TeamName </a>
-                                                        </p>
-                                                        <hr/>
-                                                    }
-                                                    <h3 class="card-title text-center">User Statistics</h3>
-                                                    
-                                                    <p class="fw-bold">Completed Events : <span class="font-weight-bolder font-italic">@member.CompletedEvents</span></p>
-                
-                                                    <p class="fw-bold">Total Distance: <span class="font-weight-bolder font-italic">@member.TotalDistance</span> </p>
-                
-                                                    <p class="fw-bold">Total Ascent: <span class="font-weight-bolder font-italic">@member.TotalAscent</span> </p>
+            <td>  <!-- Button trigger modal -->
+                                     <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal_@member.Id">
+                                  View Profile
+                                     </a>
                  
-                                                </div>
-                
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </div>*@
+                                     <!-- Participant info Modals  -->
+                                     <div class="modal fade" id="Modal_@member.Id" tabindex="-1" role="dialog" aria-labelledby="Modal_@member.Id" aria-hidden="true">
+                                     <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                         <div class="modal-content">
+                                             <div class="modal-header">
+                                                 <h5 class="modal-title" style="color: black;" id="Modal_@member.Id">Modal title</h5>
+                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                     <span aria-hidden="true">&times;</span>
+                                                 </button>
+                                             </div>
+                                             <div class="modal-body">
+                                                 <div class="text-center">
+                 
+                                                     <img src=@member.ProfileImageUrl
+                                                          alt=""
+                                                          style="width: 250px; height: 250px"
+                                                          class="rounded-circle"/>
+                                                 </div>
+                                                 <div class="card-body">
+                                                     <h3 class="card-title text-center"> @member.Name</h3>
+                 
+                                                     <p class="mb-0">
+                                                         <span class="fw-bold">Address: </span> @member.Town , @member.Country
+                                                     </p>
+                 
+                                                     <hr/>
+                                                     @if (member.TeamName != null)
+                                                     {
+                                                         <p class="mb-0">
+                                                             <span class="fw-bold">Team: </span><a asp-area="" asp-controller="Team" asp-action="Details" asp-route-teamId="@member.TeamId"> @member.TeamName </a>
+                                                         </p>
+                                                         <hr/>
+                                                     }
+                                                     <h3 class="card-title text-center">User Statistics</h3> 
+                                                     
+                                                     <p class="fw-bold">Completed Events : <span class="font-weight-bolder font-italic">@member.CompletedEvents</span></p>
+                 
+                                                     <p class="fw-bold">Total Distance: <span class="font-weight-bolder font-italic">@member.TotalDistance</span> </p>
+                 
+                                                     <p class="fw-bold">Total Ascent: <span class="font-weight-bolder font-italic">@member.TotalAscent</span> </p>
+                  
+                                                 </div>
+                 
+                                                 <div class="modal-footer">
+                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>
+                                     </div>
+</td>
+
+            <td> 
                 <a asp-controller="Team" asp-action="RemoveMember" asp-route-memberId="@member.Id" asp-route-teamId="@ViewData["teamId"]" class="btn btn-info btn-rounded">Remove Member</a>
             </td>
         </tr>

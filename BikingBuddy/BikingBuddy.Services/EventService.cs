@@ -401,17 +401,26 @@ namespace BikingBuddy.Services
                                 EF.Functions.Like(e.Town.Name, wildCard));
             }
 
+            int currentMonth = DateTime.Now.Month;
+            int currentYear = DateTime.Now.Year;
+            DateTime currentDate = DateTime.Now.Date;
+            int daysUntilMonday = (int)currentDate.DayOfWeek - (int)DayOfWeek.Monday;
+            DateTime startOfWeek = currentDate.AddDays(-daysUntilMonday);
+            DateTime endOfWeek = startOfWeek.AddDays(6);
+
+          
+            
             eventsQuery = queryModel.Sorting switch
             {
                 EventSorting.Newest => eventsQuery
                     .OrderByDescending(e => e.CreatedOn),
                 EventSorting.MostParticipants => eventsQuery
-                    .OrderByDescending(e => e.EventsParticipants.Count()),
+                    .OrderByDescending(e => e.EventsParticipants.Count),
                 EventSorting.ThisMonth => eventsQuery
-                    .Where(e => e.Date.Month == DateTime.Now.Month)
+                    .Where(e => e.Date.Month== currentMonth && e.Date.Year == currentYear)
                     .OrderByDescending(e => e.Date),
                 EventSorting.ThisWeek => eventsQuery
-                    .Where(e => (e.Date.Day - DateTime.Now.Day) <= 7)
+                    .Where(e => e.Date >= startOfWeek && e.Date <= endOfWeek)
                     .OrderByDescending(e => e.Date),
                 _ => eventsQuery
                     .OrderByDescending(e => e.Date)

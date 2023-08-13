@@ -117,7 +117,7 @@
                 </li>
 
 
-                @if (!User.IsAdmin() || !isOrganiser)
+                @if (!User.IsAdmin() && !isOrganiser)
                 {
                     <li class="list-group-item">
                         @if (!isParticipant)

@@ -9,8 +9,14 @@
                 <div class="card mb-4 event-card">
                     <img src=@e.EventImageUrl class="card-img-top event-card-img" alt="...">
                     <div class="card-body">
+                        @if (DateTime.Parse(e.Date) < DateTime.Today)
+                        {
+                            <h3 class="card-title text-center text-danger font-weight-bold">[Past Event]</h3>
+                        }
+
                         <h5 class="card-title">@e.Title</h5>
-                        <p class="card-text">Town: @e.Town</p> 
+
+                        <p class="card-text">Town: @e.Town</p>
                         <p class="card-text">Date: @e.Date</p>
                         <p class="card-text"> Activity Type: @e.ActivityType</p>
                     </div>

@@ -150,7 +150,7 @@ namespace BikingBuddy.Services
                     teamToEdit.TeamImageUrl = model.TeamImageUrl;
                 }
 
-                if (model.EstablishedOn != null)
+                if (model.EstablishedOn != model.EstablishedOn)
                 {
                     teamToEdit.EstablishedOn = model.EstablishedOn;
                 }
