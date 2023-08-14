@@ -1,16 +1,19 @@
-﻿using BikingBuddy.Services.Contracts;
-using BikingBuddy.Web.Infrastructure.Extensions;
-using BikingBuddy.Web.Models;
-using BikingBuddy.Web.Models.Team;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using static BikingBuddy.Common.NotificationMessagesConstants;
-using static BikingBuddy.Common.ErrorMessages.TeamErrorMessages;
-using static BikingBuddy.Common.GlobalConstants;
-using static BikingBuddy.Services.Helpers.UploadPhotosHelper;
-
-namespace BikingBuddy.Web.Controllers
+﻿namespace BikingBuddy.Web.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    
+    using Models;
+    using Models.Team;
+    using Services.Contracts;
+    using Infrastructure.Extensions;
+    
+    using static Common.NotificationMessagesConstants;
+    using static Common.ErrorMessages.TeamErrorMessages;
+    using static Common.GlobalConstants;
+    using static Services.Helpers.UploadPhotosHelper;
+    
+    
     public class TeamController : BaseController
     {
         private readonly ITeamService teamService;
@@ -125,7 +128,7 @@ namespace BikingBuddy.Web.Controllers
                         Name = photo.Name,
                         URL = await UploadPhotoToLocalStorageAsync(TeamGalleryPhotosDestinationPath, photo, envWebRooth)
                     };
-                    model.GalleryPhotosModels.Add(galleryPhotoModel);
+                    model.GalleryPhotosModels!.Add(galleryPhotoModel);
                 }
             }
 
@@ -215,7 +218,7 @@ namespace BikingBuddy.Web.Controllers
                         Name = photo.Name,
                         URL = await UploadPhotoToLocalStorageAsync(TeamGalleryPhotosDestinationPath, photo, envWebRooth)
                     };
-                    model.GalleryPhotosModels.Add(galleryPhotoModel);
+                    model.GalleryPhotosModels!.Add(galleryPhotoModel);
                 }
             }
 

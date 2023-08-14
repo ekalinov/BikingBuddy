@@ -290,7 +290,7 @@ main {
 
 .parallax {
     /* The image used */
-    background-image: url("../images/Bikebuddies2019_bearb-54-2-1.jpg");
+    background-image: url("../images/Team_topBanner.jpg");
 
     /* Full height */
     height: 100%;
@@ -2458,13 +2458,13 @@ pre code {
 
 .table-dark {
     color: #fff;
-    background-color: #343a40;
+    background-color: #86868675;
 }
 
 .table-dark th,
 .table-dark td,
 .table-dark thead th {
-    border-color: #454d55;
+    border-color: #858586;
 }
 
 .table-dark.table-bordered {
@@ -5366,6 +5366,7 @@ input[type="button"].btn-block {
 }
 
 .card {
+    background-color: #322f2b9e;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -11309,11 +11310,13 @@ a.text-dark:focus {
     .table td,
     .table th {
         background-color: #fff !important;
+        text-align: center
     }
 
     .table-bordered th,
     .table-bordered td {
         border: 1px solid #dee2e6 !important;
+        text-align: center
     }
 
     .table-dark {
@@ -11325,6 +11328,7 @@ a.text-dark:focus {
     .table-dark thead th,
     .table-dark tbody + tbody {
         border-color: #dee2e6;
+        text-align: center
     }
 
     .table .thead-dark th {
@@ -18981,12 +18985,12 @@ nav ul li a:before {
 /*--/features--*/
 .w3l-featureshny {
     min-height: 350px;
-    background: url(../images/Bbuddy.jpg) no-repeat center; 
+    background: url(../images/Bbuddy.jpg) no-repeat center;
     background-size: cover;
     z-index: 0;
     position: relative;
     display: grid;
-    align-items: center; 
+    align-items: center;
 }
 
 .w3l-featureshny::before {

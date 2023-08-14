@@ -3,14 +3,12 @@
 @inject IEventService eventService
 
 @{
-    bool isAdmin = false;
     bool isOrganiser = false;
     bool isParticipant = false;
 
     ViewBag.Title = "Event Details";
-    @if (User.Identity.IsAuthenticated)
-
-    {
+    @if  (User.Identity!.IsAuthenticated) 
+    { 
         if (!User.IsAdmin())
         {
             isOrganiser = await eventService.IsOrganiser(Model.Id, User.GetId());

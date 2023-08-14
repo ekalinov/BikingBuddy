@@ -10,11 +10,11 @@
 
         public string UserName { get; set; } = null!;
 
-        public string? UserImageURL { get; set; } = null!;
+        public string? UserImageURL { get; set; }
 
-        public bool IsEdited { get; set; } = false;
+        public bool IsEdited { get; set; }  
 
         public DateTime? EditedOn { get; set; }
-        public string EventId { get; set; }
+        public string EventId { get; set; } = null!;
     }
 }
