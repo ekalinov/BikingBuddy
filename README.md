@@ -31,7 +31,7 @@ With Biking Buddy, your cycling adventures are amplified. Join us on a ride to r
 <!-- Table of Contents -->
 # :notebook_with_decorative_cover: Table of Contents
 
-- [About the Project](#about-the-project)
+- [About the Project](#Star2_about-the-project)
   * [Tech Stack](#space_invader-tech-stack)
   * [Features](#dart-features)
   * [Screenshots](#camera-screenshots)
@@ -49,7 +49,7 @@ With Biking Buddy, your cycling adventures are amplified. Join us on a ride to r
 - [Acknowledgements](#gem-acknowledgements)
 
 <!-- About the Project -->
-## About the Project
+## 🌟:About the Project
  Biking buddy is a platform for hobby cyclists and mountain bike enthusiasts! Discover a vibrant community where you can form teams, organize events, and showcase your biking gear.
   Connect with fellow riders, share insights, and embark on thrilling adventures together. Elevate your biking experience with us today!
 
@@ -164,7 +164,6 @@ There is an Administration Area in the project and Common Layer for Authenticate
  
   ![localhost_7194_Login](https://github.com/ekalinov/BikingBuddy/assets/106105805/57a662d7-f88b-4661-be00-ef20532bad0d)
 
-
 <h3>Home Page</h3>
    
  ![localhost_7194_](https://github.com/ekalinov/BikingBuddy/assets/106105805/efa35e05-1ba0-4b53-acca-2d1eff981c37)
@@ -172,6 +171,10 @@ There is an Administration Area in the project and Common Layer for Authenticate
 <h3>User Profile Page</h3>
  
  ![localhost_7194_User_MyProfile (1)](https://github.com/ekalinov/BikingBuddy/assets/106105805/491340f7-9d65-4375-b89a-4183a73007da)
+
+ <h3>Edit User Page</h3>
+
+ ![localhost_7194_User_Edit](https://github.com/ekalinov/BikingBuddy/assets/106105805/c9aef5d4-839b-4256-aed5-0eedd1f01085)
 
 <h3>All Events Page</h3> 
 
@@ -206,9 +209,6 @@ There is an Administration Area in the project and Common Layer for Authenticate
 ![localhost_7194_Administration_users_All](https://github.com/ekalinov/BikingBuddy/assets/106105805/3bc4efc1-26af-4934-a4b9-25eedf49f3df)
 
 
-<h3>Edit User Page (For Manager)</h3>
-
- ![localhost_7194_User_Edit](https://github.com/ekalinov/BikingBuddy/assets/106105805/c9aef5d4-839b-4256-aed5-0eedd1f01085)
 
 <hr />
 
