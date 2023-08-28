@@ -1,33 +1,4 @@
-# BikingBuddy
 
-Warning: 
-Use App to register user with this email who will became  first Administrator 
-email: admin@bbuddy.com  
-
-NB: The IDE used for the project is JetBrainsRider 2023.1.2
-
-TODO: 
-Front End Finalizations 
-Test Coverage 
-
- C# Web Module @SoftUni FinalProject
-.
-
-# BikingBuddy
-
-Warning: 
-Use App to register user with this email who will became  first Administrator 
-email: admin@bbuddy.com  
-
-NB: The IDE used for the project is JetBrainsRider 2023.1.2
-![userDefautIcon](https://github.com/ekalinov/BikingBuddy/assets/106105805/fdcc348d-fd96-4e2c-8f07-c7c949b96000)
-
-TODO: 
-Front End Finalizations 
-Test Coverage 
-
- C# Web Module @SoftUni FinalProject
-------------------------------------------
 <!--
 Hey, thanks for using the awesome-readme-template template.  
 If you have any enhancements, then fork this project and create a pull request 
@@ -39,11 +10,9 @@ Maybe you can mention me or this repo in the acknowledgements too
 <div align="center">  
   <img src="https://github.com/ekalinov/BikingBuddy/assets/106105805/6bca2fad-2115-482c-856e-eb87c08dcfcb" alt="logo" width="500" height="auto" />
   <h1>BikingBuddy Worldwide</h1>
-  
-  <p>
-    Fuel your passion for fitness!
-  </p>
-# Biking Buddy: Your Ultimate Destination for Cycling Adventures and Connections!
+ 
+ Your Ultimate Destination for Cycling Adventures and Connections!
+</div>
 
 Biking Buddy isn't just a web application; it's your all-in-one companion for organizing, discovering, and creating a universe of biking events. Picture a world where every pedal stroke takes you closer to thrilling routes, exciting challenges, and a community of fellow riders who share your passion.
 
@@ -59,18 +28,10 @@ Biking Buddy isn't just a web application; it's your all-in-one companion for or
 
 With Biking Buddy, your cycling adventures are amplified. Join us on a ride to remember, where every twist and turn brings you closer to the excitement of biking events and the bonds of a true cycling community. Biking Buddy is not just an app; it's your biking partner, your inspiration, and your window into a world of two-wheeled adventures. Welcome to Biking Buddy - where every ride is an opportunity to discover, connect, and thrive.
 
-  <p>
-    For further info review <strong>[Environment Variables]</strong> and <strong>[Getting Started]</strong> in Table of Contents.
-  </p>
-  
-
-
-<br />
-
 <!-- Table of Contents -->
-# 📔 Table of Contents
+# :notebook_with_decorative_cover: Table of Contents
 
-- [About the Project](#star2-about-the-project)
+- [About the Project](#about-the-project)
   * [Tech Stack](#space_invader-tech-stack)
   * [Features](#dart-features)
   * [Screenshots](#camera-screenshots)
@@ -88,12 +49,13 @@ With Biking Buddy, your cycling adventures are amplified. Join us on a ride to r
 - [Acknowledgements](#gem-acknowledgements)
 
 <!-- About the Project -->
-## 🌟 About the Project
+## About the Project
  Biking buddy is a platform for hobby cyclists and mountain bike enthusiasts! Discover a vibrant community where you can form teams, organize events, and showcase your biking gear.
   Connect with fellow riders, share insights, and embark on thrilling adventures together. Elevate your biking experience with us today!
 
+
 <!-- TechStack -->
-### 👾 Tech Stack
+## :space_invader: Tech Stack
 <details>
   <summary>Server</summary>
   <ul>
@@ -121,7 +83,7 @@ With Biking Buddy, your cycling adventures are amplified. Join us on a ride to r
  
 
 <!-- Features -->
-### 🎯 Features
+### :dart: Features
 There is an Administration Area in the project and Common Layer for Authenticated Users.
 <details>
   <summary>Custom Authentication Flow</summary>
@@ -191,117 +153,68 @@ There is an Administration Area in the project and Common Layer for Authenticate
 
 <h2>Database</h2>
 
-![MyGymWorld-Database_lwgzpk](https://github.com/GeorgiKostadinovPro/MyGymWorld/assets/72508846/6817ce80-510b-44f4-b4f1-249f37ca1343)
+ ![BikeBuddyDb](https://github.com/ekalinov/BikingBuddy/assets/106105805/478feb8d-28b3-45a0-b4a8-c6760d898c29)
 
 <h2>Authentication flow</h2>
 <h3>Register Page</h3>
  
+![localhost_7194_Register](https://github.com/ekalinov/BikingBuddy/assets/106105805/c71ece72-16aa-4fdd-8057-35f8850eed98)
 
 <h3>Login Page</h3>
  
-  
+  ![localhost_7194_Login](https://github.com/ekalinov/BikingBuddy/assets/106105805/57a662d7-f88b-4661-be00-ef20532bad0d)
 
-<h3>Home Page Top Part (Not Authenticated User)</h3>
+
+<h3>Home Page</h3>
    
- 
+ ![localhost_7194_](https://github.com/ekalinov/BikingBuddy/assets/106105805/efa35e05-1ba0-4b53-acca-2d1eff981c37)
 
 <h3>User Profile Page</h3>
  
- 
+ ![localhost_7194_User_MyProfile (1)](https://github.com/ekalinov/BikingBuddy/assets/106105805/491340f7-9d65-4375-b89a-4183a73007da)
 
-<h3>Edit User Profile Page</h3> 
- 
+<h3>All Events Page</h3> 
 
-<h3>Admin Dashboard</h3>
- 
+ ![localhost_7194_Event_All_currentPage=2 sorting=0 (1)](https://github.com/ekalinov/BikingBuddy/assets/106105805/76b0c70f-8806-4e2a-8780-0ffaf76f5a76)
 
-<h3>Manager Request Details Page (For Admin)</h3> 
+<h3>Event Details Page (For Admin)</h3> 
 
-<h3>Manager Roles Page (For Admin)</h3>
- 
+![localhost_7194_Event_Details_eventId=2C84A868-7FC4-44A6-9226-F8BE5A270BCA](https://github.com/ekalinov/BikingBuddy/assets/106105805/6b48653b-096f-47dd-a08d-7e9c900f1905)
 
-<h3>Manage Users Page (For Admin)</h3> 
-<h3>Manage Gyms Page (For Admin)</h3>
- 
+<h3>Team details Page</h3> 
 
-<h3>All Gyms Filter Page</h3> 
+![localhost_7194_Team_Details_teamId=58F28049-75A5-48E7-818C-2723AEABFA68](https://github.com/ekalinov/BikingBuddy/assets/106105805/f4e4e9f6-c91a-4a52-9aa2-7ff4d6969de9)
 
-<h3>Gym Details Page (Not Joined)</h3> 
+<h3>Admin Index Page</h3>
 
-<h3>Gym Details Page (Joined)</h3>
- 
- 
+ ![localhost_7194_Administration (2)](https://github.com/ekalinov/BikingBuddy/assets/106105805/8386c95f-a76f-4640-9c9c-02c786b20602)
 
-<h3>Gym Details Page (For Manager)</h3>
- 
-<h3>Comments Page</h3>
- 
+<h3>Admin Events Page</h3>
 
-<h3>User Joined Gyms Page</h3> 
+![localhost_7194_Administration_Events_all](https://github.com/ekalinov/BikingBuddy/assets/106105805/d44ef708-32c5-45e6-8777-a71736597af0)
 
-<h3>Gym Events Page</h3>
- 
-<h3>Event Details Page (Not Participated)</h3>
- 
+<h3>Admin Event Preview Modal Page</h3>
 
-<h3>Gym Event Details Page (Participated)</h3>
- 
+![localhost_7194_Administration_Event_Preview_modal](https://github.com/ekalinov/BikingBuddy/assets/106105805/f77d23be-88d4-4d30-91ab-1f8175521b1f)
 
-<h3>Gym Event Details Page (For Manager)</h3>
- 
+<h3>Admin Teams Page</h3>
 
-<h3>User Joined Events Page</h3>
- 
-<h3>Gym Articles Page (Not Subscribed)</h3> 
+![localhost_7194_Administration_Team_All_TeamsPerPage=15 SearchTerm= Sorting=0 IsDeleted=0 (1)](https://github.com/ekalinov/BikingBuddy/assets/106105805/56cd46de-b2fe-4df5-ab9e-c4125e298e10)
 
-<h3>Gym Articles Page (Subscribed)</h3> 
+<h3>Admin Users/Admins Page</h3>
 
-<h3>Gym Article Details Page</h3> 
+![localhost_7194_Administration_users_All](https://github.com/ekalinov/BikingBuddy/assets/106105805/3bc4efc1-26af-4934-a4b9-25eedf49f3df)
 
-<h3>Gym Articles Details Page (For Manager)</h3>
- 
-<h3>Gym Memberships Page</h3>
- 
 
-<h3>Gym Memberships Details Page</h3>
- 
+<h3>Edit User Page (For Manager)</h3>
 
-<h3>Gym Membership Details After Successful Payment</h3>
-  
- 
-<h3>Create Gym Page (For Manager)</h3>  
-<h3>Edit Gym Page (For Manager)</h3>
- 
-
-<h3>Manage Gyms Page (For Manager)</h3>
- 
-
-<h3>Create Event Page (For Manager)</h3>
- 
-
-<h3>Edit Event Page (For Manager)</h3>
- 
-
-<h3>Create Article Page (For Manager)</h3>
- 
-
-<h3>Edit Article Page (For Manager)</h3>
- 
-
-<h3>Create Membership Page (For Manager)</h3>
- 
-
-<h3>Edit Membership Page (For Manager)</h3>
- 
-
-<h3>Manage Gym Payments Page (For Manager)</h3>
- 
+ ![localhost_7194_User_Edit](https://github.com/ekalinov/BikingBuddy/assets/106105805/c9aef5d4-839b-4256-aed5-0eedd1f01085)
 
 <hr />
 
 <!-- Seeding -->
 ### Seeding
-<p>You can review the seeded data <a href="https://github.com/GeorgiKostadinovPro/MyGymWorld/tree/master/MyGymWorld.Data/Seeding">here</a>.</p>
+<p>You can review the seeded data <a href="https://github.com/ekalinov/BikingBuddy/tree/main/BikingBuddy/BikingBuddy.Data/Configurations/Seeders">here</a>.</p>
 
 <strong>Seeded Data</strong>
 <details>
@@ -322,20 +235,16 @@ There is an Administration Area in the project and Common Layer for Authenticate
   <li><a href="https://www.nuget.org/packages/Moq">Moq</a></li>
   <li><a href="https://learn.microsoft.com/en-us/ef/core/providers/in-memory/?tabs=dotnet-core-cli">InMemory Database</a></li>
 </ul>
-<p>The business layer of the application <a href="https://github.com/GeorgiKostadinovPro/MyGymWorld/tree/master/MyGymWorld.Core">MyGymWorld.Core</a> is covered at 70%.</p>
 
-![image](https://github.com/GeorgiKostadinovPro/MyGymWorld/assets/72508846/3c48ce04-bac6-400f-9796-4aecc3fae673)
+<!--
+<p>The business layer of the application <a href=""></a> is covered at 70%.</p>
+-->
 
-![image](https://github.com/GeorgiKostadinovPro/MyGymWorld/assets/72508846/e69b51f1-ecdd-489e-8eda-d380228bc8d0)
 
-<p>You can check all unit tests by going to <a href="https://github.com/GeorgiKostadinovPro/MyGymWorld/tree/master/MyGymWorld.Core.Tests">MyGymWorld.Core.Tests</a>.</p>
-
+<p>You can check all unit tests by going to <a href="https://github.com/ekalinov/BikingBuddy/tree/main/BikingBuddy/BikingBuddy.Tests">Tests</a>.</p>
 <hr />
+ 
 
-<hr />
-
-<!-- Getting Started -->
-## 	🧰 Getting Started
 
 <!-- Run Locally -->
 ### 🏃 Run Locally
@@ -343,13 +252,18 @@ There is an Administration Area in the project and Common Layer for Authenticate
 
 <ol>
   <li>Download the project ZIP folder.</li>
-  <li>Replace the data with your own. (SqlServer connection, API keys and secrets, ApplicationUrl)</li>
+  <li>Replace the data with your own. (SqlServer connection)</li>
   <li>Ensure that you entered correct data.</li>
   <li>Start the project. (The app will automatically apply all migrations and seed data)</li>
 </ol>
 
 
 <hr />
+<!-- Getting Started -->
+## 	🧰 Getting Started
+
+Use App to register user with this email who will became  first Administrator 
+email: admin@bbuddy.com 
 
 
 <!-- Roadmap -->
@@ -393,7 +307,7 @@ There is an Administration Area in the project and Common Layer for Authenticate
 <!-- Contact -->
 ## 🤝 Contact
 
-Your Name - [LinkedIn](https://www.linkedin.com/in/emilian-kalinov-2241b1230/) 
+Emilian Kalinov - [LinkedIn](https://www.linkedin.com/in/emilian-kalinov-2241b1230/) 
 
 Project Link: [MyGymWorld](https://github.com/ekalinov/BikingBuddy)
 
