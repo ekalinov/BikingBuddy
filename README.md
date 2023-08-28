@@ -37,12 +37,10 @@ With Biking Buddy, your cycling adventures are amplified. Join us on a ride to r
   * [Screenshots](#camera-screenshots)
   * [Seeding](#seeding)
   * [Unit Tests](#unit-tests)
-  * [Color Reference](#art-color-reference)
-  * [Environment Variables](#key-environment-variables)
 - [Getting Started](#toolbox-getting-started)
   * [Run Locally](#running-run-locally)
 - [Usage](#eyes-usage)
-- [Roadmap](#compass-roadmap)
+- [ToDo](#compass-todo-list)
 - [License](#warning-license)
 - [Certificate](#certificate)
 - [Contact](#handshake-contact)
@@ -269,37 +267,17 @@ email: admin@bbuddy.com
 <!-- Roadmap -->
 ## 🧭 TODO List:
 
-* [x] Built a Solid Project Architecture.
-* [x] Write a Scheme for the Database.
-* [x] Create the Database.
-* [x] Create extension methods for IServiceCollection and ClaimsPrinciple.
-* [x] Create the Areas - Admin and Manager.
-* [x] Start building the app.
-* [x] Add SendGrid, Cloudinary, Stripe and QRCoder Services.
-* [x] Create Notifications functionality. (Receive, Read, Delete, Pagination)
-* [x] Create Authentication Flow. (UserService, AccountService, UserController, AccountController, Views)
-* [x] Create User Profile. (Info, Edit, Upload Profile picture, Delete profile picture)
-* [x] Create Become Manager functionality.
-* [x] Create Approve and Reject Manager Request. (In Admin Area)
-* [x] Create CRUD for Users, Roles and Gyms. (In Admin Area)
-* [x] Create CRUD for Manager Gyms. (In Manager Area)
-* [x] Create Join Gym functionality.
-* [x] Create pagination, filtering, sorting and searching functionality for Gyms and Joined Gyms.
-* [x] Create Likes and Dislikes functionality.
-* [x] Create Comments and Reply Comments functionality.
-* [x] Create CRUD for Gym Events. (In Manager Area)
-* [x] Create Join and Leave Events functionality.
-* [x] Create pagination, filtering, sorting and searching functionality for Gym Events and Joined Events.
-* [x] Create CRUD for Gym Articles. (In Manager Area)
-* [x] Create Read, Subscribe and Unsubscribe for Articles functionality.
-* [x] Create pagination, filtering, sorting and searching functionality for Gym Articles.
-* [x] Create CRUD for Gym Memberships. (In Admin Area)
-* [x] Create Buy Memberships for Gym functionality.
-* [x] Create paging, filtering, sorting and searching functionality for Gym Memberships and Bought Memberships.
-* [x] Finish the Payment Flow.
-* [x] Cover the project business layer with Unit Tests.
-* [ ] Create Chat In Gym funationality. (In Admin Area)
-* [ ] Create Chat for Joined Gym Users functionality.
+* [ ] Don't allow user to Join/Leave past events.
+* [ ] Team Maneger cannot leave his own team.
+* [ ] When Delete user to delete all his events and teams.
+* [ ] Delete users are not allowed to login.
+* [ ] Events can be free and paid
+* [ ] Event organizer to add .gpx file for the event, if want
+* [ ] Participants to be able to download .gpx file of the event if there is such
+* [ ] Visualize .gpx track on the event details page
+* [ ] Show forcast for the event location in details
+
+      
 
 <hr />
 
