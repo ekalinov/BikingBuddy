@@ -147,7 +147,7 @@ There is an Administration Area in the project and Common Layer for Authenticate
 </details>
 
 <!-- Screenshots -->
-### 📷 Screenshots
+### :camera: Screenshots
 
 <h2>Database</h2>
 
