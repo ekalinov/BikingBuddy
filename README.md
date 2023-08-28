@@ -256,14 +256,15 @@ There is an Administration Area in the project and Common Layer for Authenticate
 
 <hr />
 <!-- Getting Started -->
-## :toolbox: Getting Started
+
+## :toolbox: Getting started:
 
 Use App to register user with this email who will became  first Administrator 
 email: admin@bbuddy.com 
 
-
 <!-- Roadmap -->
-## :compass: TODO List:
+<hr />
+ :compass: TODO List:
 
 * [ ] Don't allow user to Join/Leave past events.
 * [ ] Team Maneger cannot leave his own team.
