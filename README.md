@@ -41,8 +41,6 @@ With Biking Buddy, your cycling adventures are amplified. Join us on a ride to r
   * [Run Locally](#running-run-locally)
 - [Usage](#eyes-usage)
 - [ToDo](#compass-todo-list)
-- [License](#warning-license)
-- [Certificate](#certificate)
 - [Contact](#handshake-contact)
 - [Acknowledgements](#gem-acknowledgements)
 
@@ -245,7 +243,7 @@ There is an Administration Area in the project and Common Layer for Authenticate
 
 
 <!-- Run Locally -->
-### 🏃 Run Locally
+### :running: Run Locally
 <p>Very simple and easy</p>
 
 <ol>
@@ -258,19 +256,21 @@ There is an Administration Area in the project and Common Layer for Authenticate
 
 <hr />
 <!-- Getting Started -->
-## 	🧰 Getting Started
+## 	:toolbox: Getting Started
 
 Use App to register user with this email who will became  first Administrator 
 email: admin@bbuddy.com 
 
 
 <!-- Roadmap -->
-## 🧭 TODO List:
+## :compass: TODO List:
 
 * [ ] Don't allow user to Join/Leave past events.
 * [ ] Team Maneger cannot leave his own team.
 * [ ] When Delete user to delete all his events and teams.
 * [ ] Delete users are not allowed to login.
+* [ ] Add Location on map 
+* [ ] Add info container on All Teams/Events pages
 * [ ] Events can be free and paid
 * [ ] Event organizer to add .gpx file for the event, if want
 * [ ] Participants to be able to download .gpx file of the event if there is such
@@ -283,7 +283,7 @@ email: admin@bbuddy.com
 
 
 <!-- Contact -->
-## 🤝 Contact
+## :handshake: Contact
 
 Emilian Kalinov - [LinkedIn](https://www.linkedin.com/in/emilian-kalinov-2241b1230/) 
 
@@ -292,7 +292,7 @@ Project Link: [MyGymWorld](https://github.com/ekalinov/BikingBuddy)
 <hr />
 
 <!-- Acknowledgments -->
-## 💎 Acknowledgements
+## :gem: Acknowledgements
 
 My useful resources and libraries that I used to create this readme file.
 
