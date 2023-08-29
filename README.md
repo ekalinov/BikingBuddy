@@ -266,6 +266,7 @@ email: admin@bbuddy.com
 <hr />
  :compass: TODO List:
 
+* [ ] Move default user/event/team photo to wwwroot and make migrations for the default values with new path.
 * [ ] Don't allow user to Join/Leave past events.
 * [ ] Team Maneger cannot leave his own team.
 * [ ] When Delete user to delete all his events and teams.
