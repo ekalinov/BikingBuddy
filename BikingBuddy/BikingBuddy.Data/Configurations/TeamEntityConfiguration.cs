@@ -18,7 +18,7 @@ namespace BikingBuddy.Data.Configurations
 
             
             builder.Property(e => e.TeamImageUrl)
-                .HasDefaultValue("/FileStorage/TeamPhotos/default_team_image.jpg");
+                .HasDefaultValue("/images/default_team_image.jpg");
         }
     }
 }

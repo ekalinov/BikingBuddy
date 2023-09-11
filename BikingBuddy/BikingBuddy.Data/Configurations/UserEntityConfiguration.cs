@@ -32,7 +32,7 @@
                 .IsRequired(false);
             
             builder.Property(u => u.ProfileImageUrl)
-                .HasDefaultValue("/FileStorage/UserPhotos/default_user_icon.jpg");
+                .HasDefaultValue("/images/default_user_icon.jpg");
         }
     }
 }

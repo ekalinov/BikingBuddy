@@ -21,7 +21,7 @@
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(e => e.EventImageUrl)
-                .HasDefaultValue("/FileStorage/EventPhotos/default_event_image.jpg");
+                .HasDefaultValue("/images/default_event_image.jpg");
         }
     }
 }
