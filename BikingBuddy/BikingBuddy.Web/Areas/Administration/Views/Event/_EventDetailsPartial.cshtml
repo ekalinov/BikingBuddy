@@ -9,25 +9,25 @@
     };
 
 }
-<div class="ek-row">
+<div class="ek-row text-white">
     <div class="card col-3 ek-containers-margin" @*style="width: 18rem;"*@>
         <img src=@Model.EventImageUrl class="card-img-top" alt="...">
-        <div class="card-body">
+        <div class="card-body text-white">
             <h3 class="card-title text-center"> Date: @Model.Date</h3>
 
-            <p class="mb-0">
-                <span class="fw-bold">Location: </span> @Model.Town , @Model.Country
+            <p class="mb-0  text-white">
+                <div class="fw-bold ">Location: </div> @Model.Town , @Model.Country
             </p>
-            <p class="mb-0">
+            <p class="mb-0  text-white">
                 <span class="fw-bold">Event Type: </span>@Model.ActivityType
             </p>
-            <p class="mb-0">
+            <p class="mb-0  text-white">
                 <span class="fw-bold">Event Organiser: </span>@Model.OrganizerName
             </p>
-            <p class="mb-0">
+            <p class="mb-0  text-white">
                 <span class="fw-bold">Distance: </span>@Model.Distance
             </p>
-            <p class="mb-0">
+            <p class="mb-0  text-white">
                 <span class="fw-bold">Ascent: </span>@Model.Ascent
             </p>
 
@@ -66,7 +66,7 @@
                 {
                     <div class="float-right"
                          style="
-                                      width: 500px;
+                                      width: 250px;
                                       margin: 10px 30px;">
 
                         @await Html.PartialAsync("_GalleryPhotosPartial", Model.GalleryPhotosModels, null)
@@ -74,7 +74,7 @@
                 }
 
                 <p class="mt-1">
-                    <h5 class="fw-bold"> Event Description: </h5> <span> @Model.Description </span>
+                    <h5 class="fw-bold"> Event Description: </h5> <div class="text-justify"> @Model.Description </div>
                 </p>
             </div>
         </div>

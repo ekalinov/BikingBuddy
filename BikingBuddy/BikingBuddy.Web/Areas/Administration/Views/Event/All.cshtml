@@ -2,14 +2,14 @@
 @{
     ViewBag.Title = "All events";
 }
-<div class=" text-center ">
-    <h5 class="">@ViewBag.Title</h5>
+<div class=" text-center text-white ">
+    <h5 class="text-white">@ViewBag.Title</h5>
 </div>
 
-<form class="container" method="get" asp-area="Administration">
+<form class="container text-white" method="get" asp-area="Administration">
     <div class="row mb-3 ">
         <div class="col-2 sorting">
-            <label asp-for="ActivityType"></label>
+            <label   asp-for="ActivityType"></label>
             <select asp-for="ActivityType" class="form-control sorting">
                 <option value="">All</option>
                 @foreach (var activityType in Model.ActivityTypes)

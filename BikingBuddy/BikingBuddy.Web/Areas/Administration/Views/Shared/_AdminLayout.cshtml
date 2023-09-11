@@ -45,7 +45,7 @@
     margin-top: 30px;">
             <ul class="navbar-nav mr-lg-auto">
 
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" asp-area="Administration" asp-controller="Event" asp-action="All">Events</a>
                 </li>
                 <li class="nav-item">
@@ -85,18 +85,19 @@
 
 </main>
 
+
 <!-- footer17 -->
-<footer class="footer-17 fixed-bottom">
+<footer class="footer-17">
 
     <div class="copyright text-center">
         <div class="container">
             <div class="container">
                 <p class="copy-footer-29">
-                    © 2021 Secttore. All rights reserved | Designed by
-                    <a href="https://w3layouts.com"
-                       target="_blank">
-                        W3layouts
-                    </a>
+                     &copy; Biking Buddy Worldwide @ApplicationReleaseYear
+                             @if (DateTime.UtcNow.Year != ApplicationReleaseYear)
+                             {
+                                 @Html.Raw($" - {DateTime.UtcNow.Year}")
+                             }
                 </p>
             </div>
         </div>
