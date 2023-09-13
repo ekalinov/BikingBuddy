@@ -267,10 +267,10 @@ email: admin@bbuddy.com
  :compass: TODO List:
 
 * [x] Move default user/event/team photo to wwwroot and make migrations for the default values with new path.
-* [ ] Don't allow user to Join/Leave past events.
-* [ ] Team Maneger cannot leave his own team.
+* [x] Don't allow user to Join/Leave past events. 
 * [ ] When Delete user to delete all his events and teams.
-* [ ] Delete users are not allowed to login.
+* [ ] User can participate in only one club.
+* [x] Delete users are not allowed to login.
 * [ ] Add Location on map 
 * [ ] Add info container on All Teams/Events pages
 * [ ] Events can be free and paid
