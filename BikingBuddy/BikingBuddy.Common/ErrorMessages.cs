@@ -71,7 +71,8 @@
 
         public static class UserErrorMessages
         {
-
+            public const string DeletedUsersCantLogin = "This user is deleted and can't login in this acount!";
+            
             public const string UserNotFound = "User not found!";
 
             public const string UpdatingProfileError = "Something went wrong! Edit User Error!";

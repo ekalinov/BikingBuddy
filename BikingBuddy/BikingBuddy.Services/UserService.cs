@@ -237,6 +237,12 @@
             }
         }
 
+        public async Task<bool> IsDeletedByUsernameAsync(string username)
+        { 
+            return  await dbContext.AppUsers
+                .AnyAsync(u => String.Equals(username,u.UserName) && u.IsDeleted);
+        }
+
         public async Task<bool> IsDeletedAsync(string userId)
         {
             return await dbContext.AppUsers

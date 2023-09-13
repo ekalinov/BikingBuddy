@@ -23,6 +23,9 @@
         Task AddEditEquipment(EquipmentViewModel model);
 
         Task<AdminAllUsersFilteredAndPagedServiceModel> AdminAllUsersAsync(AdminAllUsersQueryModel queryModel);
+        
         Task MakeUserAdminAsync(string userId);
+
+        Task<bool> IsDeletedByUsernameAsync(string username);
     }
 }
