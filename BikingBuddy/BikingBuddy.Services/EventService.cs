@@ -575,6 +575,12 @@ namespace BikingBuddy.Services
             return false;
         }
 
+        public async Task<bool> IsCompleted(string eventId, string userId)
+        {
+            return await dbContext.EventsParticipants
+                .AnyAsync(ep => ep.ParticipantId == Guid.Parse(userId) && ep.IsCompleted == true);
+        }
+
         public async Task<AllEventsFilteredAndPagedServiceModel> MineAsync(AllEventsQueryModel queryModel,
             string userId)
         {
@@ -661,6 +667,7 @@ namespace BikingBuddy.Services
             return await dbContext.Events
                 .AnyAsync(t => t.Id == Guid.Parse(eventId) && t.IsDeleted == true);
         }
+ 
 
         public async Task CompleteEventAsync(string eventId, string userId)
         {

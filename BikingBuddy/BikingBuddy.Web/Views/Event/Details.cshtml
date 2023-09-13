@@ -5,14 +5,18 @@
 @{
     bool isOrganiser = false;
     bool isParticipant = false;
+    bool isCompleted = false;
+
+    bool isActive = await eventService.IsActive(Model.Id);
 
     ViewBag.Title = "Event Details";
-    @if  (User.Identity!.IsAuthenticated) 
-    { 
+    @if (User.Identity!.IsAuthenticated)
+    {
         if (!User.IsAdmin())
         {
             isOrganiser = await eventService.IsOrganiser(Model.Id, User.GetId());
             isParticipant = await eventService.IsParticipating(Model.Id, User.GetId());
+            isCompleted = await eventService.IsCompleted(Model.Id, User.GetId());
         }
     }
 
@@ -42,6 +46,10 @@
     <div class="card col-3 ek-containers-margin" @*style="width: 18rem;"*@>
         <img src=@Model.EventImageUrl class="card-img-top" alt="...">
         <div class="card-body">
+            @if (isCompleted)
+            {
+                <h3 class="card-title text-center text-success font-italic font-weight-bold">[Completed]</h3>
+            }
             <h3 class="card-title text-center"> Date: @Model.Date</h3>
 
             <p class="mb-0">
@@ -59,44 +67,42 @@
             <p class="mb-0">
                 <span class="fw-bold">Ascent: </span>@Model.Ascent
             </p>
-@if (User.IsAdmin() || isOrganiser)
-{
-    
-            <hr/>
-            
-            <!-- Button trigger modal --> 
-            <a type="button" class="fw-bold" data-toggle="modal" data-target="#Modal_@Model.Id">
-                Add gallery photos here!
-            </a>
+            @if (User.IsAdmin() || isOrganiser)
+            {
+                <hr/>
 
-            <!-- Edit Bike Modals  -->
-            <div class="modal fade" id="Modal_@Model.Id" tabindex="-1" role="dialog" aria-labelledby="Modal_@Model.Id" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" style="color: black;" id="Modal_@Model.Id">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
+                <!-- Button trigger modal -->
+                <a type="button" class="fw-bold" data-toggle="modal" data-target="#Modal_@Model.Id">
+                    Add gallery photos here!
+                </a>
+
+                <!-- Edit Bike Modals  -->
+                <div class="modal fade" id="Modal_@Model.Id" tabindex="-1" role="dialog" aria-labelledby="Modal_@Model.Id" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" style="color: black;" id="Modal_@Model.Id">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
 
 
-                            <div>
-                                @await Html.PartialAsync("_AddGalleryPhotosPartial", new AddGalleryPhotoModel { EventName = @Model.Title, EventId = @Model.Id })
+                                <div>
+                                    @await Html.PartialAsync("_AddGalleryPhotosPartial", new AddGalleryPhotoModel { EventName = @Model.Title, EventId = @Model.Id })
+                                </div>
+
+
                             </div>
 
-
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-}
+            }
             <hr/>
             <ul class="list-group list-group-flush">
 
@@ -115,7 +121,7 @@
                 </li>
 
 
-                @if (!User.IsAdmin() && !isOrganiser)
+                @if (!User.IsAdmin() && !isOrganiser && isActive)
                 {
                     <li class="list-group-item">
                         @if (!isParticipant)
@@ -134,7 +140,6 @@
                     <a asp-controller="Event" asp-action="All" class="btn btn-primary btn-white btn-style  " style="display:block"> Back to All Events</a>
                 </li>
 
-
             </ul>
 
 
@@ -146,7 +151,7 @@
                     <div class="row">
                         <a asp-controller="Event" asp-action="Edit" class="card-link ml-2 mr-2" asp-route-eventId="@Model.Id">Edit</a>
                         <form class="ml-2" method="post">
-                              @Html.AntiForgeryToken()
+                            @Html.AntiForgeryToken()
                             <a asp-controller="Event" asp-action="Delete" asp-route-eventId="@Model.Id" class="card-link ml-2 mr-2">Delete</a>
                         </form>
                     </div>

@@ -1,12 +1,20 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:Int64 x:Key="/Default/Dpa/Thresholds/=SqlRecordCount/@EntryIndexedValue">241</s:Int64>
-	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\OMEN\AppData\Local\Temp\JetBrains\Rider\vAny\CoverageData\_BikingBuddy.472521751\Snapshot\snapshot.utdcvr</s:String>
 	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e8c3c4ce_002D3ca8_002D4cc9_002Dbbe6_002Df6208faca14b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="AddMemberAsync_ValidEntry" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2f0f58ae_002D9627_002D4e24_002D80c9_002Ddc5f5caffb37/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;And&gt;&#xD;
+    &lt;Namespace&gt;BikingBuddy.Tests.Controllers&lt;/Namespace&gt;&#xD;
+    &lt;Project Location="D:\Emo\SU_repos\BikingBuddy\BikingBuddy\BikingBuddy.Tests" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;BikingBuddy.Tests&amp;gt;" /&gt;&#xD;
+  &lt;/And&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3e5220e9_002D0115_002D47fb_002Dba0d_002D3e02f07b7053/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="EventControllerTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::0C7A0D81-A277-4658-83BA-641701C632C2::net6.0::BikingBuddy.Tests.Services.TeamServiceTests.AddMemberAsync_ValidEntry&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::0C7A0D81-A277-4658-83BA-641701C632C2::net6.0::BikingBuddy.Tests.Controllers.EventControllerTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	
+	
+	
 	
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Organiser/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Rooth/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

@@ -26,12 +26,15 @@
 
             public const string UserAlreadyParticipatingErrorMessage = "You already joined this event!";
 
-            public const string JoinEventError = "Something went wrong while joining this event!";
+            public const string JoinEventError = "Something went wrong while joining this event!"; 
+            
+            public const string JoinPastEventError = "You can't join past events!";
 
             public const string SuccessLeavingEvent = "You leave this event!";
 
             public const string LeaveEventError = "Something went wrong while leaving this event!";
-            
+ 
+            public const string LeavePastEventError = "You can't leave past events!";
             
             public const string CompletedEventSuccess = "You marked this event as completed!";
 

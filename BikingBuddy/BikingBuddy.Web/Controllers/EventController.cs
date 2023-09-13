@@ -39,8 +39,9 @@
                 if (eventDetails is null)
                 {
                     TempData[ErrorMessage] = EventNotExistsMessage;
-                    return RedirectToAction("All","Event");
+                    return RedirectToAction("All", "Event");
                 }
+
                 if (eventDetails is { IsDeleted: true })
                 {
                     TempData[ErrorMessage] = EventAlreadyDeleted;
@@ -57,7 +58,7 @@
             catch (Exception)
             {
                 TempData[ErrorMessage] = EventNotExistsMessage;
-                return RedirectToAction("All","Event");
+                return RedirectToAction("All", "Event");
             }
         }
 
@@ -162,7 +163,7 @@
             if (editAddEvent == null)
             {
                 TempData[ErrorMessage] = EventNotExistsMessage;
-                return RedirectToAction("All","Event");
+                return RedirectToAction("All", "Event");
             }
 
             editAddEvent.ActivityTypes = await service.GetActivityTypesAsync();
@@ -269,17 +270,23 @@
 
         public async Task<IActionResult> Join(string eventId)
         {
+            if (await service.IsParticipating(eventId, User.GetId()))
+            {
+                TempData[ErrorMessage] = UserAlreadyParticipatingErrorMessage;
+                return RedirectToAction("Details", "Event", new { eventId });
+            }
+
+            if (!await service.IsActive(eventId))
+            {
+                TempData[ErrorMessage] = JoinPastEventError;
+                return RedirectToAction("Details", "Event", new { eventId });
+            }
+
+
             try
             {
-                if (!await service.IsParticipating(eventId, User.GetId()))
-                {
-                    await service.JoinEventAsync(User.GetId(), eventId);
-                    TempData[SuccessMessage] = SuccessJoiningEvent;
-                }
-                else
-                {
-                    TempData[ErrorMessage] = UserAlreadyParticipatingErrorMessage;
-                }
+                await service.JoinEventAsync(User.GetId(), eventId);
+                TempData[SuccessMessage] = SuccessJoiningEvent;
             }
             catch (Exception)
             {
@@ -292,17 +299,21 @@
 
         public async Task<IActionResult> Leave(string eventId)
         {
+            if (!await service.IsParticipating(eventId, User.GetId()))
+            {
+                TempData[ErrorMessage] = UserNotParticipatingErrorMessage;
+            }
+
+            if (!await service.IsActive(eventId))
+            {
+                TempData[ErrorMessage] = LeavePastEventError;
+                return RedirectToAction("Details", "Event", new { eventId });
+            }
+
             try
             {
-                if (await service.IsParticipating(eventId, User.GetId()))
-                {
-                    await service.LeaveEventAsync(User.GetId(), eventId);
-                    TempData[SuccessMessage] = SuccessLeavingEvent;
-                }
-                else
-                {
-                    TempData[ErrorMessage] = UserNotParticipatingErrorMessage;
-                }
+                await service.LeaveEventAsync(User.GetId(), eventId);
+                TempData[SuccessMessage] = SuccessLeavingEvent;
             }
             catch (Exception)
             {

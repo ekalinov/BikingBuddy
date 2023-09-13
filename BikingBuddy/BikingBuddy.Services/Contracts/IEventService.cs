@@ -31,7 +31,6 @@ namespace BikingBuddy.Services.Contracts
         Task LeaveEventAsync(string userId, string eventId);
 
         //Get Events
-
         Task<ICollection<EventViewModel>> GetMyEventsAsync(string userId);
         
         Task<ICollection<EventViewModel>> GetUserEventsAsync(string userId);
@@ -61,22 +60,27 @@ namespace BikingBuddy.Services.Contracts
         
         Task<IList<EventMiniViewModel>> GetNewestEventsAsync(string? eventId);
  
-
         Task<AllEventsFilteredAndPagedServiceModel> AllEventsAsync(AllEventsQueryModel queryModel);
 
         Task<AdminAllEventsFilteredAndPagedServiceModel> AdminAllEventAsync(AdminAllEventsQueryModel queryModel);
+        
         Task<AllEventsFilteredAndPagedServiceModel> MineAsync(AllEventsQueryModel queryModel, string userId);
         
-        
         Task<int> GetActiveEventsCountAsync();
+        
         Task<int> GetAllEventsCountAsync();
+        
         Task<bool> IsOrganiser(string eventId, string userId);
+
+        Task<bool> IsCompleted(string eventId, string userId);
 
         Task<bool> IsActive(string eventId);
 
         Task<bool> IsDeleteAsync(string eventId);
-        
+          
         Task CompleteEventAsync(string eventId, string userId);
+        
         Task AddGalleryPhotos(AddGalleryPhotoModel model);
+        
     }
 }
