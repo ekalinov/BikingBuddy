@@ -31,27 +31,29 @@ With Biking Buddy, your cycling adventures are amplified. Join us on a ride to r
 <!-- Table of Contents -->
 # :notebook_with_decorative_cover: Table of Contents
 
-- [About the Project](#Star2_about-the-project)
-  * [Tech Stack](#space_invader-tech-stack)
-  * [Features](#dart-features)
-  * [Screenshots](#camera-screenshots)
+- [About the Project](#about-the-project)
+  * [Tech Stack](#tech-stack)
+  * [Features](#features)
+  * [Screenshots](#screenshots)
   * [Seeding](#seeding)
   * [Unit Tests](#unit-tests)
-- [Getting Started](#toolbox-getting-started)
-  * [Run Locally](#running-run-locally)
-- [Usage](#eyes-usage)
-- [ToDo](#compass-todo-list)
+- [Getting Started](#getting-started)
+  * [Run Locally](#run-locally) 
+- [ToDo List](#todo-list)
 - [Contact](#handshake-contact)
 - [Acknowledgements](#gem-acknowledgements)
 
+<hr />
+
 <!-- About the Project -->
-## 🌟:About the Project
+## About the Project
  Biking buddy is a platform for hobby cyclists and mountain bike enthusiasts! Discover a vibrant community where you can form teams, organize events, and showcase your biking gear.
   Connect with fellow riders, share insights, and embark on thrilling adventures together. Elevate your biking experience with us today!
 
+<hr />
 
 <!-- TechStack -->
-## :space_invader: Tech Stack
+### Tech Stack
 <details>
   <summary>Server</summary>
   <ul>
@@ -76,10 +78,11 @@ With Biking Buddy, your cycling adventures are amplified. Join us on a ride to r
     <li><a href="https://sqldbm.com/Home/">SqlDBM (SQL Database Modeler)</a></li>
   </ul>
 </details>
- 
+
+ <hr />
 
 <!-- Features -->
-### :dart: Features
+###  Features
 There is an Administration Area in the project and Common Layer for Authenticated Users.
 <details>
   <summary>Custom Authentication Flow</summary>
@@ -144,8 +147,10 @@ There is an Administration Area in the project and Common Layer for Authenticate
   </ul>
 </details>
 
+<hr />
+
 <!-- Screenshots -->
-### :camera: Screenshots
+### Screenshots
 
 <h2>Database</h2>
 
@@ -243,7 +248,7 @@ There is an Administration Area in the project and Common Layer for Authenticate
 
 
 <!-- Run Locally -->
-### :running: Run Locally
+###  Run Locally
 <p>Very simple and easy</p>
 
 <ol>
@@ -257,27 +262,29 @@ There is an Administration Area in the project and Common Layer for Authenticate
 <hr />
 <!-- Getting Started -->
 
-## :toolbox: Getting started:
+##  Getting started:
 
 Use App to register user with this email who will became  first Administrator 
 email: admin@bbuddy.com 
 
 <!-- Roadmap -->
 <hr />
- :compass: TODO List:
+
+###  TODO List:
 
 * [x] Move default user/event/team photo to wwwroot and make migrations for the default values with new path.
 * [x] Don't allow user to Join/Leave past events. 
 * [ ] When Delete user to delete all his events and teams.
 * [ ] User can participate in only one club.
 * [x] Delete users are not allowed to login.
-* [ ] Add Location on map 
-* [ ] Add info container on All Teams/Events pages
-* [ ] Events can be free and paid
-* [ ] Event organizer to add .gpx file for the event, if want
-* [ ] Participants to be able to download .gpx file of the event if there is such
-* [ ] Visualize .gpx track on the event details page
-* [ ] Show forcast for the event location in details
+* [ ] Add caching to all events and teams. 
+* [ ] Add Location on map .
+* [ ] Add info container on All Teams/Events pages.
+* [ ] Events can be free and paid.
+* [ ] Event organizer to add .gpx file for the event, if want.
+* [ ] Participants to be able to download .gpx file of the event if there is such.
+* [ ] Visualize .gpx track on the event details page.
+* [ ] Show forecast for the event location in details.
 
       
 
