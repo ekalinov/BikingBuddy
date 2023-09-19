@@ -275,7 +275,7 @@ email: admin@bbuddy.com
 * [x] Move default user/event/team photo to wwwroot and make migrations for the default values with new path.
 * [x] Don't allow user to Join/Leave past events. 
 * [ ] When Delete user to delete all his events and teams.
-* [ ] User can participate in only one club.
+* [x] User can participate in only one club.
 * [x] Delete users are not allowed to login.
 * [ ] Add caching to all events and teams. 
 * [ ] Add Location on map .
