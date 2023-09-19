@@ -578,7 +578,7 @@ namespace BikingBuddy.Services
         public async Task<bool> IsCompleted(string eventId, string userId)
         {
             return await dbContext.EventsParticipants
-                .AnyAsync(ep => ep.ParticipantId == Guid.Parse(userId) && ep.IsCompleted == true);
+                .AnyAsync(ep => ep.ParticipantId == Guid.Parse(userId) && ep.EventId == Guid.Parse(eventId) && ep.IsCompleted == true);
         }
 
         public async Task<AllEventsFilteredAndPagedServiceModel> MineAsync(AllEventsQueryModel queryModel,
