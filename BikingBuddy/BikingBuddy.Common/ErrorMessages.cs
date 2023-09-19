@@ -161,6 +161,8 @@
             
             public const string UserIsNotAMember = "The user is not a member of this team!";
 
+            public const string UserIsMemberInAnotherTeam = "User is already a member of another team!";
+            
             public const string UserAlreadyMember = "User is already a member of that team!";
  
 

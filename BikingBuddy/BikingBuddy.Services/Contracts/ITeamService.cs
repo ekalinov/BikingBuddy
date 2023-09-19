@@ -37,6 +37,9 @@ namespace BikingBuddy.Services.Contracts
         Task<bool> IsRequestedAsync(string userId, string teamId);
 
         Task<bool> IsMemberAsync(string userId, string teamId);
+
+        Task<bool> HasTeamAsync(string userId);
+        
         Task<bool> IsDeletedAsync(string teamId);
         Task RemoveRequestAsync(string userId, string teamId);
         Task<int> GetTeamsCountAsync();

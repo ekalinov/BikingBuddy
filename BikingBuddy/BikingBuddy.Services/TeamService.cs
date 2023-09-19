@@ -394,6 +394,13 @@ namespace BikingBuddy.Services
                             && t.TeamMembers.Any(tm => tm.Id == Guid.Parse(userId)))
                 .AnyAsync();
         }
+        
+        public async Task<bool> HasTeamAsync(string userId)
+        {
+            return await dbContext.AppUsers
+                .Where(u=>u.Id == Guid.Parse(userId))
+                .AnyAsync(u=>u.TeamId.HasValue);
+        }
 
         public async Task<bool> IsDeletedAsync(string teamId)
         {
@@ -430,8 +437,7 @@ namespace BikingBuddy.Services
 
             return false;
         }
-
-
+ 
         private async Task<TeamRequest?> GetTeamRequestAsync(string userId, string teamId)
         {
             return await dbContext.TeamsRequests

@@ -180,8 +180,6 @@
         }
  
 
-       
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EditTeamViewModel model)
@@ -325,12 +323,16 @@
         {
             try
             {
-                if (!await teamService.IsMemberAsync(memberId, teamId))
+                if (await teamService.HasTeamAsync(memberId))
+                {
+                    TempData[ErrorMessage] = UserIsMemberInAnotherTeam;
+                }
+                else if (!await teamService.IsMemberAsync(memberId, teamId))
                 {
                     await teamService.AddMemberAsync(memberId, teamId);
                     TempData[SuccessMessage] = MemberAddedSuccessfully;
                 }
-                else
+               else
                 {
                     TempData[ErrorMessage] = UserAlreadyMember;
                 }
