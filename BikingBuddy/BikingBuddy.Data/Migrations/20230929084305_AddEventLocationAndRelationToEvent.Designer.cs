@@ -4,6 +4,7 @@ using BikingBuddy.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BikingBuddy.Data.Migrations
 {
     [DbContext(typeof(BikingBuddyDbContext))]
-    partial class BikingBuddyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230929084305_AddEventLocationAndRelationToEvent")]
+    partial class AddEventLocationAndRelationToEvent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1586,9 +1588,7 @@ namespace BikingBuddy.Data.Migrations
                         .HasDefaultValue(42.689999999999998);
 
                     b.Property<double>("Longitude")
-                     .ValueGeneratedOnAdd()
-                        .HasColumnType("float")
-                         .HasDefaultValue(42.689999999999998);
+                        .HasColumnType("float");
 
                     b.HasKey("EventId");
 

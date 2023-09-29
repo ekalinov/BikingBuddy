@@ -34,8 +34,7 @@ namespace BikingBuddy.Data
         public DbSet<TeamRequest> TeamsRequests { get; set; } = null!;
 
         public DbSet<Bike> Bikes { get; set; } = null!;
-        
-
+         
         public DbSet<Comment> Comments { get; set; } = null!;
 
         public DbSet<Country> Countries { get; set; } = null!;
@@ -43,6 +42,8 @@ namespace BikingBuddy.Data
         public DbSet<Town> Towns { get; set; } = null!;
         
         public DbSet<EventParticipants> EventsParticipants { get; set; } = null!;
+        
+        public DbSet<EventLocation> EventsLocations { get; set; } = null!;
         
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -69,6 +69,8 @@
         public virtual ICollection<Comment> EventComments { get; set; }
 
         public virtual ICollection<EventParticipants> EventsParticipants { get; set; }
+        
+        public virtual EventLocation? EventLocation  { get; set; }
 
     }
 }
