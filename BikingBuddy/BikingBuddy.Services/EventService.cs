@@ -71,6 +71,14 @@ namespace BikingBuddy.Services
                 Distance = model.Distance,
             };
 
+            if (model.Latitude != 0 && model.Longitude !=0)
+            {
+                newEvent.EventLocation = new EventLocation 
+                {
+                    Longitude = model.Longitude,
+                    Latitude = model.Latitude
+                };
+            }
 
             if (model.GalleryPhotosModels != null && model.GalleryPhotosModels.Any())
             {
@@ -141,6 +149,17 @@ namespace BikingBuddy.Services
                 eventToEdit.CountryId = model.CountryId;
                 eventToEdit.Town = await GetTownByNameAsync(model.TownName);
 
+                if (eventToEdit.EventLocation!=null && model.Latitude != eventToEdit.EventLocation.Latitude && model.Longitude !=eventToEdit.EventLocation.Longitude )  
+                {
+                    eventToEdit.EventLocation = new EventLocation
+                    {
+                        Longitude = model.Longitude,
+                        Latitude = model.Latitude
+                    };
+                }
+                
+                
+                
                 if (model.EventImageUrl != null)
                 {
                     eventToEdit.EventImageUrl = model.EventImageUrl;

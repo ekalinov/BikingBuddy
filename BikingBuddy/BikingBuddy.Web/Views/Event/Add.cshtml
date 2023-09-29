@@ -13,98 +13,161 @@
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
         <form asp-action="Add" enctype="multipart/form-data" method="post">
-              @Html.AntiForgeryToken()
-            <div class="mb-3">
-                <label asp-for="@Model.Title" class="form-label-add-edit">Name</label>
-                <input asp-for="@Model.Title" class="form-control" aria-required="true"/>
-                <span asp-validation-for="@Model.Title" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="@Model.Date" class="form-label-add-edit">Start</label>
-                <input type="text" asp-for="@Model.Date" class="form-control" aria-required="true" value="@DateTime.UtcNow.ToString("yyyy-MM-dd H:mm")"/>
-                <span asp-validation-for="@Model.Date" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="@Model.Description" class="form-label-add-edit">Description</label>
-                <textarea asp-for="@Model.Description" class="form-control" aria-required="true" rows="5"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="@Model.Distance" class="form-label">Distance</label>
-                <input type="text" asp-for="@Model.Distance" class="form-control"/>
-                <span asp-validation-for="@Model.Distance" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="@Model.Ascent" class="form-label">Ascent</label>
-                <input type="text" asp-for="@Model.Ascent" class="form-control"/>
-                <span asp-validation-for="@Model.Ascent" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="@Model.ActivityTypeId" class="form-label-add-edit">Type of event</label>
-                <select asp-for="@Model.ActivityTypeId" class="form-control" aria-required="true">
-                    @foreach (var type in Model.ActivityTypes)
-                    {
-                        <option value="@type.Id">@type.ActivityTypeName</option>
-                    }
-                </select>
-                <span asp-validation-for="@Model.ActivityTypes" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="@Model.CountriesCollection" class="form-label-add-edit">Country</label>
-                <select asp-for="@Model.CountryId" class="form-control" aria-required="true">
-                    @foreach (var type in Model.CountriesCollection)
-                    {
-                        <option value="@type.Id">@type.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="@Model.CountryId" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="@Model.TownName" class="form-label-add-edit">Town</label>
-                <input asp-for="@Model.TownName" class="form-control" aria-required="true"/>
-                <span asp-validation-for="@Model.TownName" class="text-danger"></span>
-            </div>
- <div id="map" style="width: 100%; height: 100vh"></div>
-             
-            <div class="mb-3">
+            @Html.AntiForgeryToken()
 
+            <div id="accordion">
+                <div class="card mb-3">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                <h2>Event Info</h2>
+                            </button>
+                        </h5>
+                    </div>
 
-                <label class="form-label-add-edit">Select File for event cover photo <span class="font-italic">(.jpg, .jpeg, .png)</span></label>
-                <div class="custom-file">
-                    <input asp-for="@Model.EventImage" class="custom-file-input" id="inputGroupFile02" aria-describedby="inputGroupFileAddon01"/>
-                    <label class="custom-file-label">Choose file</label>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label asp-for="@Model.Title" class="form-label-add-edit">Name</label>
+                                <input asp-for="@Model.Title" class="form-control" aria-required="true"/>
+                                <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="@Model.Date" class="form-label-add-edit">Start</label>
+                                <input type="text" asp-for="@Model.Date" class="form-control" aria-required="true" value="@DateTime.UtcNow.ToString("yyyy-MM-dd H:mm")"/>
+                                <span asp-validation-for="@Model.Date" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="@Model.Description" class="form-label-add-edit">Description</label>
+                                <textarea asp-for="@Model.Description" class="form-control" aria-required="true" rows="5"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                            <div class="row" style="margin-right:0px; margin-left:0px; justify-content: space-between">
+                                <div class="mb-3">
+                                    <label asp-for="@Model.Distance" class="form-label">Distance</label>
+                                    <input type="text" asp-for="@Model.Distance" class="form-control"/>
+                                    <span asp-validation-for="@Model.Distance" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="@Model.Ascent" class="form-label">Ascent</label>
+                                    <input type="text" asp-for="@Model.Ascent" class="form-control"/>
+                                    <span asp-validation-for="@Model.Ascent" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="@Model.ActivityTypeId" class="form-label-add-edit">Type of event</label>
+                                    <select asp-for="@Model.ActivityTypeId" class="form-control" aria-required="true">
+                                        @foreach (var type in Model.ActivityTypes)
+                                        {
+                                            <option value="@type.Id">@type.ActivityTypeName</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="@Model.ActivityTypes" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
-                <span asp-validation-for="@Model.EventImage" class="text-danger"></span>
-                <span asp-validation-for="@Model.FileName" class="text-danger"></span>
+                <div class="card mb-3">
+                    <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
+                            <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                <h2>Location</h2>
+                            </button>
+                        </h5>
+                    </div>
 
-                <script>
-                          $('#inputGroupFile02').on('change',function(){
-                              //get the file name
-                              var fileName = $(this).val();
-                              //replace the "Choose a file" label
-                              $(this).next('.custom-file-label').html(fileName);
-                          })
-                      </script>
-            </div>
-            <div class="mb-3">
+                    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="row" style="margin-right:0px; margin-left:0px; justify-content: space-between">
+                                <div class="mb-3">
+                                    <label asp-for="@Model.TownName" class="form-label-add-edit">Town</label>
+                                    <input asp-for="@Model.TownName" class="form-control" aria-required="true"/>
+                                    <span asp-validation-for="@Model.TownName" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="@Model.CountriesCollection" class="form-label-add-edit">Country</label>
+                                    <select asp-for="@Model.CountryId" class="form-control" aria-required="true">
+                                        @foreach (var type in Model.CountriesCollection)
+                                        {
+                                            <option value="@type.Id">@type.Name</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="@Model.CountryId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-right:0px; margin-left:0px; justify-content: space-between">
 
-                <label class="form-label-add-edit">Select Photos for your Event Gallery <span class="font-italic">(.jpg, .jpeg, .png)</span></label>
-                <div class="custom-file">
-                    <input asp-for="@Model.GalleryPhotos" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon01"/>
-                    <label class="custom-file-label">Choose files</label>
+                                <div class="mb-3">
+                                    <label asp-for="Latitude"></label>
+                                    <input asp-for="Latitude" class="form-control" id="latitude">
+                                    <span asp-validation-for="Latitude" class="small text-danger"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="Longitude"></label>
+                                    <input asp-for="Longitude" class="form-control" id="longitude">
+                                    <span asp-validation-for="Longitude" class="small text-danger"></span>
+                                </div>
+                            </div>
+                            <div id="map"></div>
+                            <footer class="blockquote-footer">
+                                Use the map below to set the meeting point of your event!
+                            </footer>
+                        </div>
+                    </div>
                 </div>
+                <div class="card mb-3">
+                    <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+                            <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                <h2>Event Photos</h2>
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label-add-edit">Select File for event cover photo <span class="font-italic">(.jpg, .jpeg, .png)</span></label>
+                                <div class="custom-file">
+                                    <input asp-for="@Model.EventImage" class="custom-file-input" id="inputGroupFile02" aria-describedby="inputGroupFileAddon01"/>
+                                    <label class="custom-file-label">Choose file</label>
+                                </div>
+                                <span asp-validation-for="@Model.EventImage" class="text-danger"></span>
+                                <span asp-validation-for="@Model.FileName" class="text-danger"></span>
+
+                                <script>
+                                                       $('#inputGroupFile02').on('change',function(){
+                                                           //get the file name
+                                                           var fileName = $(this).val();
+                                                           //replace the "Choose a file" label
+                                                           $(this).next('.custom-file-label').html(fileName);
+                                                       })
+                                             </script>
+                            </div>
+                            <div class="mb-3">
+
+                                <label class="form-label-add-edit">Select Photos for your Event Gallery <span class="font-italic">(.jpg, .jpeg, .png)</span></label>
+                                <div class="custom-file">
+                                    <input asp-for="@Model.GalleryPhotos" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon01"/>
+                                    <label class="custom-file-label">Choose files</label>
+                                </div>
 
 
-                <script>
-                           $('#inputGroupFile03').on('change',function(){
-                               //get the file name
-                               var fileName = $(this).val();
-                               //replace the "Choose a file" label
-                               $(this).next('.custom-file-label').html(fileName);
-                           })
-                </script>
+                                <script>
+                                                        $('#inputGroupFile03').on('change',function(){
+                                                            //get the file name
+                                                            var fileName = $(this).val();
+                                                            //replace the "Choose a file" label
+                                                            $(this).next('.custom-file-label').html(fileName);
+                                                        })
+                                             </script>
+                            </div> 
+                        </div>
+                    </div>
+                </div> 
             </div>
-
+ 
             <div class="mb-3">
                 <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" value="Add"/>
             </div>
@@ -114,5 +177,6 @@
 
 
 @section Scripts {
+    <script src="/js/LocationScripts.js"></script>
     <partial name="_ValidationScriptsPartial"/>
 }

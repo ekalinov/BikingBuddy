@@ -33,8 +33,7 @@
         public ICollection<ActivityTypeViewModel> ActivityTypes { get; set; }
 
         public int ActivityTypeId { get; set; }
-
-
+ 
         [Required] [Range(0, 1000)] public double Distance { get; set; }
 
         [Required] [Range(0, 1000)] public double Ascent { get; set; }
@@ -48,19 +47,22 @@
 
         [Display(Name = "Choose your Event Gallery photos")]
         public ICollection<GalleryPhotoModel>? GalleryPhotosModels { get; set; }
-
-
+  
         public IFormFileCollection? GalleryPhotos { get; set; }
-
-
+ 
         public ICollection<CountryViewModel> CountriesCollection { get; set; }
 
         public string CountryId { get; set; } = null!;
-
-
+ 
         [Required]
         [StringLength(TownNameMaxLength,
-            ErrorMessage = "Municipality must be between {2} and {1}", MinimumLength = TownNameMinLength)]
+            ErrorMessage = "Town must be between {2} and {1}", MinimumLength = TownNameMinLength)]
         public string TownName { get; set; } = null!;
+        
+        [Required]
+        public double Latitude { get; set; }
+        
+        [Required]
+        public double Longitude { get; set; }
     }
-}
+} 
