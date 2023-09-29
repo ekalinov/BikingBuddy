@@ -11,8 +11,13 @@ Author URL: http://w3layouts.com
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
-/*custom  appClasses*/
 
+/*custom  appClasses*/
+#map {
+    height: 400px;
+    width: 100%;
+    position: relative; 
+}
 
 .ek-adminArea-header-text {
     font-style: italic;
@@ -168,6 +173,7 @@ Author URL: http://w3layouts.com
     min-height: 220px;
 
 }
+
 
 .baner-right-button-line {
 
