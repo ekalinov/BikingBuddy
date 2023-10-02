@@ -1,10 +1,13 @@
-﻿namespace BikingBuddy.Web.Models.Event
+﻿using BikingBuddy.Common.Enums;
+
+namespace BikingBuddy.Web.Models.Event
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using Activity;
     using Microsoft.AspNetCore.Http;
-    using static BikingBuddy.Common.EntityValidationsConstants.Event;
+    using static BikingBuddy.Common.EntityValidationsConstants.Event; 
+
     using static Common.EntityValidationsConstants.Town;
     public class AddEventViewModel
     {
@@ -34,9 +37,9 @@
 
         public int ActivityTypeId { get; set; }
  
-        [Required] [Range(0, 1000)] public double Distance { get; set; }
+        [Required] [Range(0, 2000)] public double Distance { get; set; }
 
-        [Required] [Range(0, 1000)] public double Ascent { get; set; }
+        [Required] [Range(0, 5000)] public double Ascent { get; set; }
 
         [Display(Name = "Choose the cover photo of your event")]
         public IFormFile? EventImage { get; set; }
@@ -64,5 +67,11 @@
         
         [Required]
         public double Longitude { get; set; }
+        
+       
+        [Range(0, 5000)] public double Price { get; set; }
+        
+        public Currencies Currency { get; set; }
     }
+    
 } 
