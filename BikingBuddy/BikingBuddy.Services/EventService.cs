@@ -69,6 +69,8 @@ namespace BikingBuddy.Services
                 Town = await GetTownByNameAsync(model.TownName),
                 Ascent = model.Ascent,
                 Distance = model.Distance,
+                Currency = model.Currency,
+                Price = model.Price
             };
 
             if (model.Latitude != 0 && model.Longitude !=0)
@@ -148,6 +150,8 @@ namespace BikingBuddy.Services
                 eventToEdit.ActivityTypeId = model.ActivityTypeId;
                 eventToEdit.CountryId = model.CountryId;
                 eventToEdit.Town = await GetTownByNameAsync(model.TownName);
+                eventToEdit.Currency = model.Currency;
+                eventToEdit.Price = model.Price;
 
                 if (eventToEdit.EventLocation!=null && model.Latitude != eventToEdit.EventLocation.Latitude && model.Longitude !=eventToEdit.EventLocation.Longitude )  
                 {
@@ -157,7 +161,6 @@ namespace BikingBuddy.Services
                         Latitude = model.Latitude
                     };
                 }
-                
                 
                 
                 if (model.EventImageUrl != null)
