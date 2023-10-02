@@ -19,3 +19,10 @@ public enum BikeTypes
     BMX = 7,
     Other = 8,
 }
+
+public enum Currencies
+{
+    BGN=0,
+    EU = 1,
+    USD = 2,
+}
