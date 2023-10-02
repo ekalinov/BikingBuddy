@@ -34,7 +34,7 @@
                             </div>
                             <div class="mb-3">
                                 <label asp-for="@Model.Date" class="form-label-add-edit">Start</label>
-                                <input type="text" asp-for="@Model.Date" class="form-control" aria-required="true" value="@DateTime.UtcNow.ToString("yyyy-MM-dd H:mm")"/>
+                                <input type="datetime-local" asp-for="@Model.Date" class="form-control" aria-required="true"/>
                                 <span asp-validation-for="@Model.Date" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
@@ -68,6 +68,8 @@
                         </div>
                     </div>
                 </div>
+
+
                 <div class="card mb-3">
                     <div class="card-header" id="headingTwo">
                         <h5 class="mb-0">
@@ -124,7 +126,6 @@
                             </button>
                         </h5>
                     </div>
-
                     <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordion">
                         <div class="card-body">
                             <div class="mb-3">
@@ -135,39 +136,57 @@
                                 </div>
                                 <span asp-validation-for="@Model.EventImage" class="text-danger"></span>
                                 <span asp-validation-for="@Model.FileName" class="text-danger"></span>
-
-                                <script>
-                                                       $('#inputGroupFile02').on('change',function(){
-                                                           //get the file name
-                                                           var fileName = $(this).val();
-                                                           //replace the "Choose a file" label
-                                                           $(this).next('.custom-file-label').html(fileName);
-                                                       })
-                                             </script>
                             </div>
                             <div class="mb-3">
-
                                 <label class="form-label-add-edit">Select Photos for your Event Gallery <span class="font-italic">(.jpg, .jpeg, .png)</span></label>
                                 <div class="custom-file">
                                     <input asp-for="@Model.GalleryPhotos" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon01"/>
                                     <label class="custom-file-label">Choose files</label>
                                 </div>
-
-
-                                <script>
-                                                        $('#inputGroupFile03').on('change',function(){
-                                                            //get the file name
-                                                            var fileName = $(this).val();
-                                                            //replace the "Choose a file" label
-                                                            $(this).next('.custom-file-label').html(fileName);
-                                                        })
-                                             </script>
-                            </div> 
+                            </div>
                         </div>
                     </div>
-                </div> 
+                </div>
+                <div class="card mb-3">
+                    <div class="card-header" id="headingFour">
+                        <h5 class="mb-0">
+                            <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseThree">
+                                <h2>Organization Fee</h2>
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="collapseFour" class="collapse show" aria-labelledby="headingFour" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="mb-3">
+                                    <input type="checkbox" value="" id="isFreeEvent" style="-webkit-appearance: checkbox;" checked>
+                                    <label class="form-check-label" for="isFreeEvent">
+                                        Free Event
+                                    </label>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="@Model.Price" class="form-label">Organization Fee</label>
+                                    <input type="text" asp-for="@Model.Price" class="form-control" placeholder="Event Fee" id="priceInput"/>
+                                    <span asp-validation-for="@Model.Price" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="mb-3">
+                                        <label asp-for="@Model.Currency" class="form-label-add-edit">Currency</label>
+                                        <select asp-for="@Model.Currency" class="form-control" aria-required="true">
+                                            <option value="0">BGN</option>
+                                            <option value="1">Euro</option>
+                                            <option value="2">USD</option>
+                                        </select>
+                                        <span asp-validation-for="@Model.Currency" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
- 
+
             <div class="mb-3">
                 <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" value="Add"/>
             </div>
@@ -177,6 +196,44 @@
 
 
 @section Scripts {
+
+    <script>
+    
+  document.addEventListener('DOMContentLoaded', function () {
+        // Get the checkbox and input elements
+        var checkbox = document.getElementById('isFreeEvent');
+        var priceInput = document.getElementById('priceInput'); 
+
+        // Add a change event listener to the checkbox
+        checkbox.addEventListener('change', function () {
+            // Disable or enable the input based on the checkbox state
+            priceInput.disabled = checkbox.checked;
+            
+            if (!checkbox.checked) {
+                            priceInput.value = '';
+                        }
+        });
+
+        // Initialize the input state based on the checkbox state on page load
+        priceInput.disabled = checkbox.checked;
+    });
+  
+  
+   $('#inputGroupFile03').on('change',function(){
+                                                 //get the file name
+                                                 var fileName = $(this).val();
+                                                 //replace the "Choose a file" label
+                                                 $(this).next('.custom-file-label').html(fileName);
+                                                })
+                                             
+    $('#inputGroupFile02').on('change',function(){
+                                                   //get the file name
+                                                   var fileName = $(this).val();
+                                                   //replace the "Choose a file" label
+                                                   $(this).next('.custom-file-label').html(fileName);
+                                                  })
+                                             
+    </script>
     <script src="/js/LocationScripts.js"></script>
     <partial name="_ValidationScriptsPartial"/>
 }
