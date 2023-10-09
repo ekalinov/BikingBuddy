@@ -45,6 +45,8 @@ namespace BikingBuddy.Data
         
         public DbSet<EventLocation> EventsLocations { get; set; } = null!;
         
+        public DbSet<EventTrack> EventsTracks { get; set; } = null!;
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

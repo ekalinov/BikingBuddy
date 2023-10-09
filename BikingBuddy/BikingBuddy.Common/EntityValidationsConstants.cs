@@ -103,5 +103,11 @@
             public const int TownNameMaxLength = 20;
             public const int TownNameMinLength = 3;
         }
+        
+        public class EventTrack
+        {
+            public const int FileNameMaxLenght = 50;
+            public const int FileContentMaxLenght = 30000000;
+        }
     }
 }

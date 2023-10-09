@@ -1,15 +1,14 @@
-﻿using BikingBuddy.Common.Enums;
-
-namespace BikingBuddy.Data.Models
+﻿namespace BikingBuddy.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-
+    
+    using Common.Enums;
+    
     using static BikingBuddy.Common.EntityValidationsConstants.Event;
 
     public class Event
     {
-
         public Event()
         {
             Id = Guid.NewGuid();
@@ -26,7 +25,7 @@ namespace BikingBuddy.Data.Models
 
         [Required] public DateTime Date { get; set; }
 
-        [Required] public DateTime CreatedOn { get; set; } 
+        [Required] public DateTime CreatedOn { get; set; }
 
         [Required] public double Distance { get; set; }
 
@@ -42,24 +41,22 @@ namespace BikingBuddy.Data.Models
 
         [ForeignKey(nameof(ActivityTypeId))] public virtual ActivityType ActivityType { get; set; } = null!;
 
-
         [Required] public Guid OrganizerId { get; set; }
 
         [ForeignKey(nameof(OrganizerId))] public virtual AppUser Organizer { get; set; } = null!;
- 
+
         [ForeignKey(nameof(CountryId))] public virtual Country Country { get; set; } = null!;
 
         public string CountryId { get; set; } = null!;
- 
+
         [ForeignKey(nameof(TownId))] public virtual Town Town { get; set; } = null!;
 
-        [Required] public int TownId { get; set; } 
+        [Required] public int TownId { get; set; }
 
-        public bool IsDeleted { get; set; } = false; 
-         
-        
-        public Currencies  Currency { get; set; } 
-        
+        public bool IsDeleted { get; set; } = false;
+
+        public Currencies Currency { get; set; }
+
         [Required] public double Price { get; set; }
 
         public virtual ICollection<EventGalleryPhoto> GalleryPhotos { get; set; }
@@ -67,10 +64,9 @@ namespace BikingBuddy.Data.Models
         public virtual ICollection<Comment> EventComments { get; set; }
 
         public virtual ICollection<EventParticipants> EventsParticipants { get; set; }
-        
-        public virtual EventLocation? EventLocation  { get; set; }
 
+        public virtual EventLocation? EventLocation { get; set; }
+
+        public virtual ICollection<EventTrack>? Tracks { get; set; }
     }
 }
-
-   
