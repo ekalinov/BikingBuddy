@@ -14,12 +14,17 @@
         public const string AdminRoleEmail = "admin@bbuddy.com";
 
         public const string AdminAreaName = "Administration";
-
-
+     
+        
         public const long MaxPhotoSizeAllowed = 5242880;
         public const string MaxPhotoSizeAllowedErrorMessage =  "Error: Allowed photo size is up to 5Mb!";
+ 
+        
+        public const long MaxTrackSizeAllowed = 30000000; 
+        public const string MaxTrackFileSizeAllowedErrorMessage =  "Error: Allowed Track size is up to 30Mb!";
+        public const string NotAllowedTrackFileFormatErrorMessage =  "Error: Unsupported file extension! Please upload a valid GPX file.";
 
-
+        
         //Photo Storage paths
         public const string TeamPhotoDestinationPath = "FileStorage/TeamPhotos/";
 

@@ -73,9 +73,9 @@ namespace BikingBuddy.Services
                 Price = model.Price
             };
 
-            if (model.Latitude != 0 && model.Longitude !=0)
+            if (model.Latitude != 0 && model.Longitude != 0)
             {
-                newEvent.EventLocation = new EventLocation 
+                newEvent.EventLocation = new EventLocation
                 {
                     Longitude = model.Longitude,
                     Latitude = model.Latitude
@@ -91,6 +91,25 @@ namespace BikingBuddy.Services
                         Name = photo.Name,
                         Url = photo.URL,
                     });
+                }
+            }
+
+            if (model.EventTracks != null && model.EventTracks.Count > 0)
+            {
+                foreach (var track in model.EventTracks)
+                {
+                    using (var reader = new StreamReader(track.OpenReadStream()))
+                    {
+                        string gpxContent = reader.ReadToEnd();
+
+                        EventTrack eventTrack = new()
+                        {
+                            FileName = track.FileName,
+                            GPXContent = gpxContent,
+                        };
+
+                        newEvent.Tracks!.Add(eventTrack);
+                    }
                 }
             }
 
@@ -153,7 +172,8 @@ namespace BikingBuddy.Services
                 eventToEdit.Currency = model.Currency;
                 eventToEdit.Price = model.Price;
 
-                if (eventToEdit.EventLocation!=null && model.Latitude != eventToEdit.EventLocation.Latitude && model.Longitude !=eventToEdit.EventLocation.Longitude )  
+                if (eventToEdit.EventLocation != null && model.Latitude != eventToEdit.EventLocation.Latitude &&
+                    model.Longitude != eventToEdit.EventLocation.Longitude)
                 {
                     eventToEdit.EventLocation = new EventLocation
                     {
@@ -161,13 +181,11 @@ namespace BikingBuddy.Services
                         Latitude = model.Latitude
                     };
                 }
-                
-                
+
                 if (model.EventImageUrl != null)
                 {
                     eventToEdit.EventImageUrl = model.EventImageUrl;
                 }
-
 
                 if (model.GalleryPhotosModels != null && model.GalleryPhotosModels.Any())
                 {
@@ -186,7 +204,26 @@ namespace BikingBuddy.Services
                     await dbContext.EventGalleryPhotos.AddRangeAsync(galleryPhotos);
                 }
 
-                await dbContext.SaveChangesAsync();
+                if (model.EventTracks != null && model.EventTracks.Count > 0)
+                {
+                    foreach (var track in model.EventTracks)
+                    {
+                        using (var reader = new StreamReader(track.OpenReadStream()))
+                        {
+                            string gpxContent = reader.ReadToEnd();
+
+                            EventTrack eventTrack = new()
+                            {
+                                FileName = track.FileName,
+                                GPXContent = gpxContent,
+                            };
+
+                            eventToEdit.Tracks!.Add(eventTrack);
+                        }
+                    }
+
+                    await dbContext.SaveChangesAsync();
+                }
             }
         }
 
@@ -299,11 +336,11 @@ namespace BikingBuddy.Services
         public async Task<AdminAllEventsFilteredAndPagedServiceModel> AdminAllEventAsync(
             AdminAllEventsQueryModel queryModel)
         {
-            IQueryable<Event> eventsQuery = dbContext.Events 
+            IQueryable<Event> eventsQuery = dbContext.Events
                 .AsQueryable()
-                .OrderBy(e=>e.IsDeleted);
+                .OrderBy(e => e.IsDeleted);
 
-            
+
             if (!String.IsNullOrWhiteSpace(queryModel.ActivityType))
             {
                 eventsQuery = eventsQuery
@@ -328,16 +365,16 @@ namespace BikingBuddy.Services
                     .Where(t => t.IsDeleted == false),
                 DeleteStatus.Deleted => eventsQuery
                     .Where(t => t.IsDeleted == true),
-                DeleteStatus.All => eventsQuery ,
+                DeleteStatus.All => eventsQuery,
                 _ => eventsQuery
             };
             eventsQuery = queryModel.Sorting switch
             {
                 EventSorting.Newest => eventsQuery
-                    .OrderBy(e=>e.IsDeleted)
+                    .OrderBy(e => e.IsDeleted)
                     .ThenByDescending(e => e.CreatedOn),
                 EventSorting.MostParticipants => eventsQuery
-                    .OrderBy(e=>e.IsDeleted)
+                    .OrderBy(e => e.IsDeleted)
                     .ThenByDescending(e => e.EventsParticipants.Count()),
                 EventSorting.ThisMonth => eventsQuery
                     .Where(e => e.Date.Month == DateTime.Now.Month),
@@ -345,10 +382,9 @@ namespace BikingBuddy.Services
                     .Where(e => (e.Date.Day - DateTime.Now.Day) <= 7),
                 _ => eventsQuery
             };
-            
 
 
-            ICollection<EventDetailsViewModel> eventCollection = await eventsQuery 
+            ICollection<EventDetailsViewModel> eventCollection = await eventsQuery
                 .Skip((queryModel.CurrentPage - 1) * queryModel.EventsPerPage)
                 .Take(queryModel.EventsPerPage)
                 .Select(e => new EventDetailsViewModel
@@ -430,8 +466,7 @@ namespace BikingBuddy.Services
             DateTime startOfWeek = currentDate.AddDays(-daysUntilMonday);
             DateTime endOfWeek = startOfWeek.AddDays(6);
 
-          
-            
+
             eventsQuery = queryModel.Sorting switch
             {
                 EventSorting.Newest => eventsQuery
@@ -439,7 +474,7 @@ namespace BikingBuddy.Services
                 EventSorting.MostParticipants => eventsQuery
                     .OrderByDescending(e => e.EventsParticipants.Count),
                 EventSorting.ThisMonth => eventsQuery
-                    .Where(e => e.Date.Month== currentMonth && e.Date.Year == currentYear)
+                    .Where(e => e.Date.Month == currentMonth && e.Date.Year == currentYear)
                     .OrderByDescending(e => e.Date),
                 EventSorting.ThisWeek => eventsQuery
                     .Where(e => e.Date >= startOfWeek && e.Date <= endOfWeek)
@@ -600,7 +635,9 @@ namespace BikingBuddy.Services
         public async Task<bool> IsCompleted(string eventId, string userId)
         {
             return await dbContext.EventsParticipants
-                .AnyAsync(ep => ep.ParticipantId == Guid.Parse(userId) && ep.EventId == Guid.Parse(eventId) && ep.IsCompleted == true);
+                .AnyAsync(ep =>
+                    ep.ParticipantId == Guid.Parse(userId) && ep.EventId == Guid.Parse(eventId) &&
+                    ep.IsCompleted == true);
         }
 
         public async Task<AllEventsFilteredAndPagedServiceModel> MineAsync(AllEventsQueryModel queryModel,
@@ -689,7 +726,7 @@ namespace BikingBuddy.Services
             return await dbContext.Events
                 .AnyAsync(t => t.Id == Guid.Parse(eventId) && t.IsDeleted == true);
         }
- 
+
 
         public async Task CompleteEventAsync(string eventId, string userId)
         {

@@ -86,6 +86,23 @@
                 ModelState.AddModelError((string)"EventImage", MaxPhotoSizeAllowedErrorMessage);
             }
 
+            if (model.EventTracks != null && model.EventTracks.Count > 0)
+            {
+                foreach (var track in model.EventTracks)
+                {
+                    if (track.Length>MaxTrackSizeAllowed) 
+                    { 
+                        ModelState.AddModelError((string)"TrackSize", MaxTrackFileSizeAllowedErrorMessage);
+                    }
+                    
+                    if (Path.GetExtension(track.FileName).ToLower() != ".gpx")
+                    {
+                        ModelState.AddModelError((string)"EventTracks", NotAllowedTrackFileFormatErrorMessage);
+                    }
+                }
+            }
+
+            
             if (!ModelState.IsValid)
             {
                 model.ActivityTypes = await service.GetActivityTypesAsync();
@@ -114,6 +131,7 @@
                 }
             }
 
+          
             string userId = User.GetId();
 
             try

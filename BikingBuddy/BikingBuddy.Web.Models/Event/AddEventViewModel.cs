@@ -72,6 +72,9 @@ namespace BikingBuddy.Web.Models.Event
         [Range(0, 5000)] public double Price { get; set; }
         
         public Currencies Currency { get; set; }
+        
+        [Display(Name = "Upload one or more tracks for your event")]
+        public IFormFileCollection? EventTracks { get; set; }
     }
     
 } 

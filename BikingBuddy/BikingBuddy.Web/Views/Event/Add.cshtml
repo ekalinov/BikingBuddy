@@ -111,10 +111,16 @@
                                     <span asp-validation-for="Longitude" class="small text-danger"></span>
                                 </div>
                             </div>
-                            <div id="map"></div>
-                            <footer class="blockquote-footer">
-                                Use the map below to set the meeting point of your event!
-                            </footer>
+                            <div class="mb-3" id="map"></div>
+                            <div class="mb-3">
+                                <label class="form-label-add-edit">Upload tracks <span class="font-italic">(.gpx)</span></label>
+                                <div class="custom-file">
+                                    <input asp-for="@Model.EventTracks" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon01"/>
+                                    <label class="custom-file-label">Choose files</label>
+                                    <span asp-validation-for="EventTracks" class="text-danger"></span>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -218,6 +224,12 @@
         priceInput.disabled = checkbox.checked;
     });
   
+  $('#inputGroupFile04').on('change',function(){
+                                                   //get the file name
+                                                   var fileName = $(this).val();
+                                                   //replace the "Choose a file" label
+                                                   $(this).next('.custom-file-label').html(fileName);
+                                                  })
   
    $('#inputGroupFile03').on('change',function(){
                                                  //get the file name
