@@ -14,8 +14,9 @@
             Id = Guid.NewGuid();
 
             EventComments = new HashSet<Comment>();
-            EventsParticipants = new HashSet<EventParticipants>();
+            EventsParticipants = new HashSet<EventParticipants>(); 
             GalleryPhotos = new HashSet<EventGalleryPhoto>();
+            Tracks = new HashSet<EventTrack>();
         }
 
 
