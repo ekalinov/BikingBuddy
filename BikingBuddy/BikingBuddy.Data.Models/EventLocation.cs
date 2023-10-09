@@ -15,5 +15,5 @@ public class EventLocation
     [Required]
     public double Latitude { get; set; }
 
-    public virtual Event Event { get; set; } 
+    public virtual Event Event { get; set; } = null!;
 }
