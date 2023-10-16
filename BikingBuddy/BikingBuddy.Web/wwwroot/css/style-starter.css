@@ -19,6 +19,11 @@ Author URL: http://w3layouts.com
     position: relative; 
 }
 
+.elevationProfileContainer{
+    width: 100%;
+    height: 350px; 
+}
+
 .ek-adminArea-header-text {
     font-style: italic;
     font-size: unset;

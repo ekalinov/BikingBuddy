@@ -1,15 +1,16 @@
 
-
-var mapDiv = document.getElementById('map');
-var isDivVisible = true;
-document.addEventListener('keydown', function(event) {
-    // Check if the pressed key is the one you want to trigger the hiding
-    if (event.key === 'h') {
-        isDivVisible = !isDivVisible;
-
-        // Update the display property based on the visibility state
-        mapDiv.style.display = isDivVisible ? 'block' : 'none';
-    }});
+//
+// var mapDiv = document.getElementById('map');
+//
+// var isDivVisible = true;
+// document.addEventListener('keydown', function(event) {
+//     // Check if the pressed key is the one you want to trigger the hiding
+//     if (event.key === 'h') {
+//         isDivVisible = !isDivVisible;
+//
+//         // Update the display property based on the visibility state
+//         mapDiv.style.display = isDivVisible ? 'block' : 'none';
+//     }});
 
 var map = L.map('map').setView([42.69, 23.32], 13);
 
@@ -33,5 +34,14 @@ map.on('click', (event) => {
 
     document.getElementById('latitude').value = event.latlng.lat;
     document.getElementById('longitude').value = event.latlng.lng;
-});
     
+    
+});
+
+
+ 
+new L.GPX(gpxFile, {async: true}).on('loaded', function(e) {
+    map.fitBounds(e.target.getBounds());
+}).addTo(map);
+    
+
