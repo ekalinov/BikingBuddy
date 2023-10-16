@@ -151,6 +151,15 @@ namespace BikingBuddy.Services
                 })
                 .FirstOrDefaultAsync();
 
+
+            var eventTracks = dbContext.EventsTracks
+                .Where(et => et.EventId == Guid.Parse(eventId))
+                .ToList();
+            if (eventById!=null)
+            {
+            eventById.EventTracks = eventTracks;
+            }
+            
             return eventById;
         }
 
@@ -220,10 +229,9 @@ namespace BikingBuddy.Services
 
                             eventToEdit.Tracks!.Add(eventTrack);
                         }
-                    }
-
-                    await dbContext.SaveChangesAsync();
+                    } 
                 }
+                    await dbContext.SaveChangesAsync();
             }
         }
 
@@ -766,6 +774,29 @@ namespace BikingBuddy.Services
                     await dbContext.SaveChangesAsync();
                 }
             }
+        }
+
+        public async Task UploadGPXFiles(UploadGPXFileViewModel model)
+        {
+            var eventToEdit = await GetEventByIdAsync(model.EventId);
+ 
+            if (eventToEdit != null && model.EventTracks is { Count: > 0 })
+            {
+                foreach (var track in model.EventTracks)
+                {
+                    using var reader = new StreamReader(track.OpenReadStream());
+                    string gpxContent = await reader.ReadToEndAsync();
+
+                    EventTrack eventTrack = new()
+                    {
+                        FileName = track.FileName,
+                        GPXContent = gpxContent,
+                    };
+
+                    eventToEdit.Tracks!.Add(eventTrack);
+                } 
+            }
+            await dbContext.SaveChangesAsync();
         }
 
 

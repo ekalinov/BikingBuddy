@@ -81,6 +81,7 @@ namespace BikingBuddy.Services.Contracts
         Task CompleteEventAsync(string eventId, string userId);
         
         Task AddGalleryPhotos(AddGalleryPhotoModel model);
-        
+
+        Task UploadGPXFiles(UploadGPXFileViewModel model);
     }
 }
