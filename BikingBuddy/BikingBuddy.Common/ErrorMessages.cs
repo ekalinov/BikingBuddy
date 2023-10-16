@@ -38,7 +38,12 @@
             
             public const string CompletedEventSuccess = "You marked this event as completed!";
 
+
             public const string CompleteEventError = "Something went wrong while completeing event!";
+            
+            public const string UploadGpxFileError = "Something went wrong while uploadinf GPX track for this event!";    
+            public const string UploadGpxFileCompleted = "Successfully added Track for your event";
+
 
 
             public const string UserNotParticipatingErrorMessage = "You are not participating in this event!";

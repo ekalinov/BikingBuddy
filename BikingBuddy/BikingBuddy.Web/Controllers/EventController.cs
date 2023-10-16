@@ -1,4 +1,7 @@
-﻿namespace BikingBuddy.Web.Controllers
+﻿using System.Xml;
+using System.Xml.Serialization;
+
+namespace BikingBuddy.Web.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -36,6 +39,7 @@
             {
                 var eventDetails = await service.GetEventDetailsByIdAsync(eventId);
 
+
                 if (eventDetails is null)
                 {
                     TempData[ErrorMessage] = EventNotExistsMessage;
@@ -48,10 +52,7 @@
                     return RedirectToAction("All", "Event");
                 }
 
-                if (eventDetails != null)
-                {
-                    eventDetails.EventComments = await commentService.GetAllComments(eventId);
-                }
+                eventDetails.EventComments = await commentService.GetAllComments(eventId);
 
                 return View(eventDetails);
             }
@@ -90,11 +91,11 @@
             {
                 foreach (var track in model.EventTracks)
                 {
-                    if (track.Length>MaxTrackSizeAllowed) 
-                    { 
+                    if (track.Length > MaxTrackSizeAllowed)
+                    {
                         ModelState.AddModelError((string)"TrackSize", MaxTrackFileSizeAllowedErrorMessage);
                     }
-                    
+
                     if (Path.GetExtension(track.FileName).ToLower() != ".gpx")
                     {
                         ModelState.AddModelError((string)"EventTracks", NotAllowedTrackFileFormatErrorMessage);
@@ -102,7 +103,7 @@
                 }
             }
 
-            
+
             if (!ModelState.IsValid)
             {
                 model.ActivityTypes = await service.GetActivityTypesAsync();
@@ -131,7 +132,7 @@
                 }
             }
 
-          
+
             string userId = User.GetId();
 
             try
@@ -377,6 +378,40 @@
             }
 
             return RedirectToAction("MyProfile", "User");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UploadGPXFiles(UploadGPXFileViewModel model)
+        { 
+            
+            if (model.EventTracks is { Count: > 0 })
+            {
+                foreach (var track in model.EventTracks)
+                {
+                    if (track.Length > MaxTrackSizeAllowed)
+                    {
+                        ModelState.AddModelError((string)"TrackSize", MaxTrackFileSizeAllowedErrorMessage);
+                    }
+
+                    if (Path.GetExtension(track.FileName).ToLower() != ".gpx")
+                    {
+                        ModelState.AddModelError((string)"EventTracks", NotAllowedTrackFileFormatErrorMessage);
+                    }
+                }
+            }
+  
+            try
+            {
+                await service.UploadGPXFiles(model);
+                TempData[SuccessMessage] = UploadGpxFileCompleted;
+            }
+            catch (Exception)
+            {
+                TempData[ErrorMessage] = UploadGpxFileError;    
+            }
+
+            return RedirectToAction("Details",  new{model.EventId});
         }
     }
 }
