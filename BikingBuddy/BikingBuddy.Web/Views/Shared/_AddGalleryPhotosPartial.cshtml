@@ -3,7 +3,7 @@
 
 <form asp-action="Add" asp-controller="GalleryPhotos" enctype="multipart/form-data" method="post" asp-area="">
     <div class="mb-3">
-        <label asp-for="@Model.EventName" class="form-label-add-edit">Name</label>
+        <label asp-for="@Model.EventName" class="form-label-add-edit">@Model.EventName</label>
     </div>
     <div class="mb-3">
 
