@@ -1,4 +1,6 @@
 ﻿@using BikingBuddy.Services.Contracts
+@using Microsoft.CodeAnalysis.Scripting
+@using System.Security.Cryptography
 @model EventDetailsViewModel
 @inject IEventService eventService
 
@@ -41,8 +43,8 @@
 </div>
 <hr/>
 
-
 <div class="ek-row">
+
     <div class="card col-3 ek-containers-margin" @*style="width: 18rem;"*@>
         <img src=@Model.EventImageUrl class="card-img-top" alt="...">
         <div class="card-body">
@@ -76,12 +78,12 @@
                     Add gallery photos here!
                 </a>
 
-                <!-- Edit Bike Modals  -->
+                <!-- Upload gallery photos Modals  -->
                 <div class="modal fade" id="Modal_@Model.Id" tabindex="-1" role="dialog" aria-labelledby="Modal_@Model.Id" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" style="color: black;" id="Modal_@Model.Id">Modal title</h5>
+                                <h5 class="modal-title" style="color: black;" id="Modal_@Model.Id">Gallery Photos</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -161,10 +163,11 @@
         </div>
     </div>
     <div class="card col-8 ek-containers-margin">
+
         <div class="card-body">
             <h3 class="card-title text-center">@Model.Title</h3>
 
-            <div>
+            <div> 
 
                 @if (Model.GalleryPhotosModels.Any())
                 {
@@ -181,19 +184,66 @@
                     <h5 class="fw-bold"> Event Description: </h5> <span> @Model.Description </span>
                 </p>
             </div>
-        </div>
 
-        <div>
+            <hr/>
+            
+            <div class="">
+                <h5>Track info: </h5>
+                <br>
+                @if (!Model.EventTracks.Any())
+                {
+                    <p> No track info for this event, yet!  </p>
+                    if (isOrganiser)
+                    {
+                        <hr/>
 
-            <div class="row">
+                        <!-- Button trigger modal -->
+                        <a type="button" class="fw-bold" data-toggle="modal" data-target="#Modal_UploadGPX">
+                            Add GPX Track
+                        </a>
 
-                <div class="col-6">
+                        <!-- Upload Gpx track Modals  -->
+                        <div class="modal fade" id="Modal_UploadGPX" tabindex="-1" role="dialog" aria-labelledby="Modal_UploadGPX" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" style="color: black;" id="Modal_UploadGPX">Upload GPX file</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
 
-                    @await Html.PartialAsync("_AllCommentsPartial", Model.EventComments, dictionary)
 
-                </div>
+                                        <div> 
+                                            @await Html.PartialAsync("_UploadGPXPartial", new UploadGPXFileViewModel {  EventId = Model.Id })
+                                        </div>
 
 
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                        
+                }
+                else
+                { 
+                    @await Html.PartialAsync("_GPXTrackAndProfilePartial", Model.EventTracks.First())
+                } 
+            </div>
+            
+            <hr/>
+            
+            <div class="row"> 
+                <div class="col-6"> 
+                    @await Html.PartialAsync("_AllCommentsPartial", Model.EventComments, dictionary) 
+                </div> 
+                
                 @if (isOrganiser || User.IsAdmin() || isParticipant)
                 {
                     <div class="col-6">
@@ -217,5 +267,6 @@
 </div>
 
 @section Scripts {
+    <script src="/js/GpxTrackAndElevationProfileScripts.js" > </script> 
     <partial name="_ValidationScriptsPartial"/>
 }

@@ -94,4 +94,8 @@
     <Content Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\js\test.xml" />
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,33 @@
+﻿@model UploadGPXFileViewModel
+
+
+<form asp-action="UploadGPXFiles" asp-controller="Event" enctype="multipart/form-data" method="post" asp-area="">
+
+    <div class="mb-3">
+
+        <div class="mb-3">
+            <label class="form-label-add-edit">Upload tracks <span class="font-italic">(.gpx)</span></label>
+            <div class="custom-file">
+                <input asp-for="@Model.EventTracks" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon01"/>
+                <label class="custom-file-label">Choose files</label>
+                <span asp-validation-for="EventTracks" class="text-danger"></span>
+            </div>
+        </div>  
+    </div>
+
+    <input type="hidden" asp-for="@Model.EventId" class="form-control" value="@Model.EventId"/>
+
+    <div class="mb-3">
+        <input class="btn btn-warning mb-2 w-100 p-3 fw-bold"
+               type="submit"
+               value="Add"/>
+    </div>
+</form>
+<script>
+           $('#inputGroupFile04').on('change',function(){
+               //get the file name
+               var fileName = $(this).val();
+               //replace the "Choose a file" label
+               $(this).next('.custom-file-label').html(fileName);
+           })
+        </script>
