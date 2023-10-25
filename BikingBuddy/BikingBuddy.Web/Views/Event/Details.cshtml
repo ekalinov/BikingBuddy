@@ -45,38 +45,38 @@
 
 <div class="ek-row">
 
-    <div class="card col-3 ek-containers-margin" @*style="width: 18rem;"*@>
-        <img src=@Model.EventImageUrl class="card-img-top" alt="...">
-        <div class="card-body">
-            @if (isCompleted)
-            {
-                <h3 class="card-title text-center text-success font-italic font-weight-bold">[Completed]</h3>
-            }
-            <h3 class="card-title text-center"> Date: @Model.Date</h3>
+<div class="card col-3 ek-containers-margin" @*style="width: 18rem;"*@>
+    <img src=@Model.EventImageUrl class="card-img-top" alt="...">
+    <div class="card-body">
+        @if (isCompleted)
+        {
+            <h3 class="card-title text-center text-success font-italic font-weight-bold">[Completed]</h3>
+        }
+        <h3 class="card-title text-center"> Date: @Model.Date</h3>
 
-            <p class="mb-0">
-                <span class="fw-bold">Location: </span> @Model.Town , @Model.Country
-            </p>
-            <p class="mb-0">
-                <span class="fw-bold">Event Type: </span>@Model.ActivityType
-            </p>
-            <p class="mb-0">
-                <span class="fw-bold">Event Organiser: </span>@Model.OrganizerName
-            </p>
-            <p class="mb-0">
-                <span class="fw-bold">Distance: </span>@Model.Distance
-            </p>
-            <p class="mb-0">
-                <span class="fw-bold">Ascent: </span>@Model.Ascent
-            </p>
-            @if (User.IsAdmin() || isOrganiser)
-            {
-                <hr/>
+        <p class="mb-0">
+            <span class="fw-bold">Location: </span> @Model.Town , @Model.Country
+        </p>
+        <p class="mb-0">
+            <span class="fw-bold">Event Type: </span>@Model.ActivityType
+        </p>
+        <p class="mb-0">
+            <span class="fw-bold">Event Organiser: </span>@Model.OrganizerName
+        </p>
+        <p class="mb-0">
+            <span class="fw-bold">Distance: </span>@Model.Distance
+        </p>
+        <p class="mb-0">
+            <span class="fw-bold">Ascent: </span>@Model.Ascent
+        </p>
+        @if (User.IsAdmin() || isOrganiser)
+        {
+            <hr/>
 
-                <!-- Button trigger modal -->
-                <a type="button" class="fw-bold" data-toggle="modal" data-target="#Modal_@Model.Id">
-                    Add gallery photos here!
-                </a>
+            <!-- Button trigger modal -->
+            <a type="button" class="fw-bold" data-toggle="modal" data-target="#Modal_@Model.Id">
+                Add gallery photos here!
+            </a>
 
                 <!-- Upload gallery photos Modals  -->
                 <div class="modal fade" id="Modal_@Model.Id" tabindex="-1" role="dialog" aria-labelledby="Modal_@Model.Id" aria-hidden="true">
@@ -91,182 +91,206 @@
                             <div class="modal-body">
 
 
-                                <div>
-                                    @await Html.PartialAsync("_AddGalleryPhotosPartial", new AddGalleryPhotoModel { EventName = @Model.Title, EventId = @Model.Id })
-                                </div>
-
-
+                            <div>
+                                @await Html.PartialAsync("_AddGalleryPhotosPartial", new AddGalleryPhotoModel { EventName = @Model.Title, EventId = @Model.Id })
                             </div>
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
-            }
-            <hr/>
-            <ul class="list-group list-group-flush">
+            </div>
+        }
+        <hr/>
+        <ul class="list-group list-group-flush">
 
+            <li class="list-group-item">
+
+                <div class="stats w3-left" text-align: -webkit-center>
+                    <div class="row w3l-stats-section stats-con">
+                        <div class=" stats_info team-stats_info  counter_grid">
+                            <i class="far fa-users team-stats_info" style="color: #afafaf;margin-top: 12px;"></i>
+                            <p class="counter">@Model.EventsParticipants.Count </p>
+                            <h3 class="" style="color: #afafaf">Joined Participants</h3>
+                        </div>
+
+                    </div>
+                </div>
+            </li>
+
+
+            @if (!User.IsAdmin() && !isOrganiser && isActive)
+            {
                 <li class="list-group-item">
+                    @if (!isParticipant)
+                    {
+                        <a asp-controller="Event" asp-action="Join" class="btn btn-primary btn-white btn-style  " style="display: block" asp-route-eventId="@Model.Id">Join Event </a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Event" asp-action="Leave" class="btn btn-primary btn-white btn-style  " style="display: block" asp-route-eventId="@Model.Id">Leave Event</a>
+                    }
+                </li>
+            }
 
-                    <div class="stats w3-left" text-align: -webkit-center>
-                        <div class="row w3l-stats-section stats-con">
-                            <div class=" stats_info team-stats_info  counter_grid">
-                                <i class="far fa-users team-stats_info" style="color: #afafaf;margin-top: 12px;"></i>
-                                <p class="counter">@Model.EventsParticipants.Count </p>
-                                <h3 class="" style="color: #afafaf">Joined Participants</h3>
-                            </div>
-
+            <li class="list-group-item" style=" ">
+                <p class="d-none" id="meeting_point_lat"> @Model.MeetingPointLatitude</p>
+                <p class="d-none" id="meeting_point_long"> @Model.MeetingPointLongitude</p>
+            </li>
+            
+            <li class="list-group-item" style=" ">
+                <p class="mb-0">
+                    <span class="fw-bold text-center">Meeting point </span>
+                </p>
+                <div data-toggle="modal" data-target="#Modal_MeetingPoint" id="map_meetingPoint"></div>
+            </li>
+            <!-- Meeting Point Modals  -->
+            <div class="modal fade bd-example-modal-lg" id="Modal_MeetingPoint" tabindex="-1" role="dialog" aria-labelledby="Modal_MeetingPoint" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" style="color: black;" id="Modal_MeetingPoint">Meeting Point</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="map_meetingPoint_modal"></div></div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
-                </li>
-
-
-                @if (!User.IsAdmin() && !isOrganiser && isActive)
-                {
-                    <li class="list-group-item">
-                        @if (!isParticipant)
-                        {
-                            <a asp-controller="Event" asp-action="Join" class="btn btn-primary btn-white btn-style  " style="display: block" asp-route-eventId="@Model.Id">Join Event </a>
-                        }
-                        else
-                        {
-                            <a asp-controller="Event" asp-action="Leave" class="btn btn-primary btn-white btn-style  " style="display: block" asp-route-eventId="@Model.Id">Leave Event</a>
-                        }
-                    </li>
-                }
-
-
-                <li class="list-group-item" style=" ">
-                    <a asp-controller="Event" asp-action="All" class="btn btn-primary btn-white btn-style  " style="display:block"> Back to All Events</a>
-                </li>
-
-            </ul>
-
-
-            <div class="card-body">
-                @if (isOrganiser || User.IsAdmin())
-                {
-                    <h3 style="text-align: center; margin-bottom: 1rem">Event Options</h3>
-
-                    <div class="row">
-                        <a asp-controller="Event" asp-action="Edit" class="card-link ml-2 mr-2" asp-route-eventId="@Model.Id">Edit</a>
-                        <form class="ml-2" method="post">
-                            @Html.AntiForgeryToken()
-                            <a asp-controller="Event" asp-action="Delete" asp-route-eventId="@Model.Id" class="card-link ml-2 mr-2">Delete</a>
-                        </form>
-                    </div>
-                }
-
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="card col-8 ek-containers-margin">
+
+        </ul>
+
 
         <div class="card-body">
-            <h3 class="card-title text-center">@Model.Title</h3>
+            @if (isOrganiser || User.IsAdmin())
+            {
+                <h3 style="text-align: center; margin-bottom: 1rem">Event Options</h3>
 
-            <div> 
+                <div class="row">
+                    <a asp-controller="Event" asp-action="Edit" class="card-link ml-2 mr-2" asp-route-eventId="@Model.Id">Edit</a>
+                    <form class="ml-2" method="post">
+                        @Html.AntiForgeryToken()
+                        <a asp-controller="Event" asp-action="Delete" asp-route-eventId="@Model.Id" class="card-link ml-2 mr-2">Delete</a>
+                    </form>
+                </div>
+            }
 
-                @if (Model.GalleryPhotosModels.Any())
-                {
-                    <div class="float-right"
-                         style="
+        </div>
+    </div>
+</div>
+<div class="card col-8 ek-containers-margin">
+
+    <div class="card-body">
+        <h3 class="card-title text-center">@Model.Title</h3>
+
+        <div>
+
+            @if (Model.GalleryPhotosModels.Any())
+            {
+                <div class="float-right"
+                     style="
                                       width: 500px;
                                       margin: 10px 30px;">
 
-                        @await Html.PartialAsync("_GalleryPhotosPartial", Model.GalleryPhotosModels)
-                    </div>
-                }
+                    @await Html.PartialAsync("_GalleryPhotosPartial", Model.GalleryPhotosModels)
+                </div>
+            }
 
-                <p class="mt-1">
-                    <h5 class="fw-bold"> Event Description: </h5> <span> @Model.Description </span>
-                </p>
-            </div>
+            <p class="mt-1">
+                <h5 class="fw-bold"> Event Description: </h5> <span> @Model.Description </span>
+            </p>
+        </div>
 
-            <hr/>
-            
-            <div class="">
-                <h5>Track info: </h5>
-                <br>
-                @if (!Model.EventTracks.Any())
+        <hr/>
+
+        <div class="">
+            <h5>Track info: </h5>
+            <br>
+            @if (!Model.EventTracks.Any())
+            {
+                <p> No track info for this event, yet! </p>
+                if (isOrganiser)
                 {
-                    <p> No track info for this event, yet!  </p>
-                    if (isOrganiser)
-                    {
-                        <hr/>
+                    <hr/>
 
-                        <!-- Button trigger modal -->
-                        <a type="button" class="fw-bold" data-toggle="modal" data-target="#Modal_UploadGPX">
-                            Add GPX Track
-                        </a>
+                    <!-- Button trigger modal -->
+                    <a type="button" class="fw-bold" data-toggle="modal" data-target="#Modal_UploadGPX">
+                        Add GPX Track
+                    </a>
 
-                        <!-- Upload Gpx track Modals  -->
-                        <div class="modal fade" id="Modal_UploadGPX" tabindex="-1" role="dialog" aria-labelledby="Modal_UploadGPX" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-scrollable" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" style="color: black;" id="Modal_UploadGPX">Upload GPX file</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
+                    <!-- Upload Gpx track Modals  -->
+                    <div class="modal fade" id="Modal_UploadGPX" tabindex="-1" role="dialog" aria-labelledby="Modal_UploadGPX" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" style="color: black;" id="Modal_UploadGPX">Upload GPX file</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
 
 
-                                        <div> 
-                                            @await Html.PartialAsync("_UploadGPXPartial", new UploadGPXFileViewModel {  EventId = Model.Id })
-                                        </div>
-
-
+                                    <div>
+                                        @await Html.PartialAsync("_UploadGPXPartial", new UploadGPXFileViewModel { EventId = Model.Id })
                                     </div>
 
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    </div>
+
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>
-                    }
-                        
-                }
-                else
-                { 
-                    @await Html.PartialAsync("_GPXTrackAndProfilePartial", Model.EventTracks.First())
-                } 
-            </div>
-            
-            <hr/>
-            
-            <div class="row"> 
-                <div class="col-6"> 
-                    @await Html.PartialAsync("_AllCommentsPartial", Model.EventComments, dictionary) 
-                </div> 
-                
-                @if (isOrganiser || User.IsAdmin() || isParticipant)
-                {
-                    <div class="col-6">
-                        @await Html.PartialAsync("_EventParticipantsPartial", Model.EventsParticipants)
                     </div>
                 }
-            </div>
+            }
+            else
+            {
+                @await Html.PartialAsync("_GPXTrackAndProfilePartial", Model.EventTracks.First())
+            }
         </div>
-        <section class="index-component p-3">
-            <div class="w3layouts-services-heading ">
-                <h2>Similar Events</h2>
-            </div>
-            @await Component.InvokeAsync("TopEvents", new { eventId = Model.Id })
 
-            <div class="row w3ls-text  justify-content-end">
-                <a class="btn btn-primary btn-white btn-style mt-lg-1 mt-4" asp-controller="Event" asp-action="All">Find More rides...</a>
-            </div>
-        </section>
+        <hr/>
 
+        <div class="row">
+            <div class="col-6">
+                @await Html.PartialAsync("_AllCommentsPartial", Model.EventComments, dictionary)
+            </div>
+
+            @if (isOrganiser || User.IsAdmin() || isParticipant)
+            {
+                <div class="col-6">
+                    @await Html.PartialAsync("_EventParticipantsPartial", Model.EventsParticipants)
+                </div>
+            }
+        </div>
     </div>
+    <section class="index-component p-3">
+        <div class="w3layouts-services-heading ">
+            <h2>Similar Events</h2>
+        </div>
+        @await Component.InvokeAsync("TopEvents", new { eventId = Model.Id })
+
+        <div class="row w3ls-text  justify-content-end">
+            <a class="btn btn-primary btn-white btn-style mt-lg-1 mt-4" asp-controller="Event" asp-action="All">Find More rides...</a>
+        </div>
+    </section>
+
+</div>
 </div>
 
 @section Scripts {
-    <script src="/js/GpxTrackAndElevationProfileScripts.js" > </script> 
+    <script src="/js/GpxTrackAndElevationProfileScripts.js"> </script>
     <partial name="_ValidationScriptsPartial"/>
 }

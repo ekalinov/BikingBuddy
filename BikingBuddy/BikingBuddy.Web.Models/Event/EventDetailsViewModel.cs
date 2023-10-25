@@ -1,4 +1,5 @@
-﻿using BikingBuddy.Data.Models;
+﻿using System.Diagnostics.Contracts;
+using BikingBuddy.Data.Models;
 
 namespace BikingBuddy.Web.Models.Event
 {
@@ -18,8 +19,10 @@ namespace BikingBuddy.Web.Models.Event
         public string OrganizerName { get; set; } = null!;
         
         public bool IsDeleted { get; set; }
-
-
+ 
+        public double MeetingPointLatitude { get; set; }  
+        
+        public double MeetingPointLongitude { get; set; }  
         public IList<GalleryPhotoModel> GalleryPhotosModels { get; set; }
 
         public ICollection<CommentViewModel> EventComments { get; set; }

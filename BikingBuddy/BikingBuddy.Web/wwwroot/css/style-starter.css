@@ -16,7 +16,22 @@ Author URL: http://w3layouts.com
 #map {
     height: 400px;
     width: 100%;
-    position: relative; 
+    position: relative;
+    border-radius: 5px;
+}
+
+#map_meetingPoint {
+    height: 200px;
+    width: 100%;
+    position: relative;
+    border-radius: 5px;
+}
+
+#map_meetingPoint_modal {
+    height: 500px;
+    width: 100%;
+    position: relative;
+    border-radius: 5px;
 }
 
 .elevationProfileContainer{

@@ -140,6 +140,8 @@ namespace BikingBuddy.Services
                     Country = $"{e.Country.Name}, {e.CountryId}",
                     Town = e.Town.Name,
                     EventsParticipants = eventParticipants,
+                    MeetingPointLatitude = e.EventLocation!.Latitude,
+                    MeetingPointLongitude = e.EventLocation.Longitude,
                     EventComments = null,
                     GalleryPhotosModels = e.GalleryPhotos
                         .Select(p => new GalleryPhotoModel
@@ -148,9 +150,10 @@ namespace BikingBuddy.Services
                             Name = p.Name,
                             URL = p.Url
                         }).ToList()
-                })
+                }).AsNoTracking()
                 .FirstOrDefaultAsync();
 
+          
 
             var eventTracks = dbContext.EventsTracks
                 .Where(et => et.EventId == Guid.Parse(eventId))
