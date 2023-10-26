@@ -100,12 +100,12 @@ var mp_lat = parseFloat(document.getElementById('meeting_point_lat').innerText);
 var mp_long = parseFloat(document.getElementById('meeting_point_long').innerText);
 
 var mapOptions = {
-    center: [mp_lat,  mp_long],
+    center: [mp_lat, mp_long],
     zoom: 13,
     zoomControl: false
 }
 
-var map_meetingPoint = L.map('map_meetingPoint',mapOptions);
+var map_meetingPoint = L.map('map_meetingPoint', mapOptions);
 
 map_meetingPoint.scrollWheelZoom.disable();
 
@@ -124,24 +124,28 @@ marker = L.marker([mp_lat, mp_long]).addTo(map_meetingPoint);
 
 
 
-    var map_meetingPoint_modal = L.map('map_meetingPoint_modal').setView([mp_lat, mp_long], 13);
+var mapOptions_modal = {
+    center: [mp_lat, mp_long],
+    zoom: 13,
+    zoomControl: false
+}
+var map_meetingPoint_modal = L.map('map_meetingPoint_modal1',mapOptions_modal);
 
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map_meetingPoint_modal)
 
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map_meetingPoint_modal)
-
-    marker = L.marker([mp_lat, mp_long]).addTo(map_meetingPoint_modal);
-
-
-    marker.bindPopup("<b>Meeting point</b><br>Here! ").openPopup();
-
- 
 document.getElementById('map_meetingPoint').addEventListener("click", function () {
+marker = L.marker([mp_lat, mp_long]).addTo(map_meetingPoint_modal);
+
+
+marker.bindPopup("<b>Meeting point</b><br>Here! ").openPopup();
+
     document.getElementById('Modal_MeetingPoint').style.display = 'block';
     setTimeout(function () {
         map_meetingPoint_modal.invalidateSize();
     }, 100);
 });
+ 
 

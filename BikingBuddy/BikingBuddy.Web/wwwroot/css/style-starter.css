@@ -12,7 +12,18 @@ Author URL: http://w3layouts.com
  */
 
 
+
+
+
 /*custom  appClasses*/
+.map {
+    height: 400px;
+    width: 100%;
+    position: relative;
+    border-radius: 5px;
+}
+
+
 #map {
     height: 400px;
     width: 100%;
@@ -25,11 +36,11 @@ Author URL: http://w3layouts.com
     width: 100%;
     position: relative;
     border-radius: 5px;
-}
+}card col-3 ek-containers-margin
 
 #map_meetingPoint_modal {
     height: 500px;
-    width: 100%;
+    width: 100px;
     position: relative;
     border-radius: 5px;
 }
@@ -18000,7 +18011,7 @@ input:checked + .mode-container i.gg-moon {
 header {
     padding: 0px;
     transition: all 0.4s ease 0s;
-    height: 100px;
+    height: 50px;
     display: grid;
     align-items: center;
 }
@@ -18008,7 +18019,7 @@ header {
 header.nav-fixed {
     padding: 0px;
     background-color: var(--bg-color);
-    height: 90px;
+    height: 60px;
     border-bottom: none;
     box-shadow: 0 25px 98px 0 rgba(0, 0, 0, 0.03);
 }
@@ -18016,7 +18027,7 @@ header.nav-fixed {
 .navbar .navbar-brand {
     padding: 0px;
     color: #fff;
-    font-size: 60px;
+    font-size: 30px;
     padding: 0;
     margin-right: 2em;
     font-weight: 700;
@@ -18034,7 +18045,7 @@ header.nav-fixed {
     padding: 0px 10px;
     color: #fff;
     background: transparent;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: 600;
     line-height: 28px;
     text-transform: capitalize;
