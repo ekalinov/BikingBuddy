@@ -153,16 +153,15 @@ namespace BikingBuddy.Services
                 }).AsNoTracking()
                 .FirstOrDefaultAsync();
 
-          
 
             var eventTracks = dbContext.EventsTracks
                 .Where(et => et.EventId == Guid.Parse(eventId))
                 .ToList();
-            if (eventById!=null)
+            if (eventById != null)
             {
-            eventById.EventTracks = eventTracks;
+                eventById.EventTracks = eventTracks;
             }
-            
+
             return eventById;
         }
 
@@ -184,8 +183,9 @@ namespace BikingBuddy.Services
                 eventToEdit.Currency = model.Currency;
                 eventToEdit.Price = model.Price;
 
-                if (eventToEdit.EventLocation != null && model.Latitude != eventToEdit.EventLocation.Latitude &&
-                    model.Longitude != eventToEdit.EventLocation.Longitude)
+                if (eventToEdit.EventLocation != null 
+                    && model.Latitude != eventToEdit.EventLocation.Latitude
+                    && model.Longitude != eventToEdit.EventLocation.Longitude)
                 {
                     eventToEdit.EventLocation = new EventLocation
                     {
@@ -232,9 +232,10 @@ namespace BikingBuddy.Services
 
                             eventToEdit.Tracks!.Add(eventTrack);
                         }
-                    } 
+                    }
                 }
-                    await dbContext.SaveChangesAsync();
+
+                await dbContext.SaveChangesAsync();
             }
         }
 
@@ -782,7 +783,7 @@ namespace BikingBuddy.Services
         public async Task UploadGPXFiles(UploadGPXFileViewModel model)
         {
             var eventToEdit = await GetEventByIdAsync(model.EventId);
- 
+
             if (eventToEdit != null && model.EventTracks is { Count: > 0 })
             {
                 foreach (var track in model.EventTracks)
@@ -797,8 +798,9 @@ namespace BikingBuddy.Services
                     };
 
                     eventToEdit.Tracks!.Add(eventTrack);
-                } 
+                }
             }
+
             await dbContext.SaveChangesAsync();
         }
 
