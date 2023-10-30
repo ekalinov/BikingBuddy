@@ -1,7 +1,13 @@
 
 // Initialize map, on click autofills Long and Lat
+let latEl = document.getElementById('latitude');
+let longEl = document.getElementById('longitude');
 
-let map = L.map('map').setView([42.69, 23.32], 13);
+if (longEl.value== 0 && latEl.value==0){
+    longEl.value=23.32;
+    latEl.value=42.69;
+}
+let map = L.map('map').setView([latEl.value, longEl.value], 10);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
@@ -10,7 +16,15 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 L.control.locate().addTo(map);
 
+
+
+
 let marker = null;
+
+marker = L.marker([latEl.value, longEl.value]).addTo(map);
+
+marker.bindPopup("<b>Click to set meeting point</b>").openPopup();
+
 map.on('click', (event) => {
 
     if (marker !== null) {
@@ -21,9 +35,7 @@ map.on('click', (event) => {
 
     marker.bindPopup("<b>Meeting point</b><br>Here!").openPopup();
 
-    let latEl = document.getElementById('latitude');
-    let longEl = document.getElementById('longitude');
-
+    
 
     latEl.value = event.latlng.lat;
     longEl.value = event.latlng.lng;
@@ -89,7 +101,45 @@ $('#inputFile_EventImage').on('change',function(){
 })
 
 
+//
 
+var gpxContent = document.getElementById('gpxGpx').innerText;
+
+var trackLayer = new L.GPX(gpxContent, {async: true}).on('loaded', function (e) {
+    map.fitBounds(e.target.getBounds());
+}).addTo(map);
+
+let size =  (gpxContent.length/ Math.pow(1024, 2)).toFixed(3)
+let fileName = document.getElementById('gpxFileName').innerText;
+
+var infoElement = document.getElementById('trackName');
+infoElement.textContent ='Name: ' + fileName + " Size: ("+ size +")MB";
+
+var infoContainer = document.getElementById('infoContainer');
+infoContainer.style.display = 'block';
+
+
+var asc = document.getElementById('pos');
+var dist =  document.getElementById('dist');
+
+
+
+var delButton = document.getElementById('delTrack');
+delButton.addEventListener("click",  ()=>{
+    map.removeLayer(trackLayer);
+    map.setView([42.69, 23.32], 13);
+
+    infoContainer.style.display = 'none';
+
+    document.getElementById("inputFile_gpx").value = null;
+    document.getElementById('inputLabel').textContent = 'Choose file';
+    
+    dist.value =0;
+    asc.value =0;
+    dist.readOnly=false;
+    asc.readOnly=false;
+
+})
 
 // Upload GPX File listener 
 
@@ -111,11 +161,8 @@ fileInput.addEventListener('change', (event) => {
 
             var eleProfile = gpx.calculDistance(points);
             var track = gpx.calcElevation(points);
-
-            var dist =  document.getElementById('dist');
+ 
             dist.value = (eleProfile.total/1000).toFixed(3);
-
-            var asc = document.getElementById('pos');
             asc.value = Math.floor(track.pos);
 
             dist.readOnly=true;
@@ -125,27 +172,14 @@ fileInput.addEventListener('change', (event) => {
                 map.fitBounds(e.target.getBounds());
             }).addTo(map);
 
-            let size =  (selectedFile.size/ Math.pow(1024, 2)).toFixed(3)
+            let size =  (selectedFile.length/ Math.pow(1024, 2)).toFixed(3)
             var infoElement = document.getElementById('trackName');
             infoElement.textContent ='Name: ' + selectedFile.name+ " Size: ("+ size +")MB";
 
             var infoContainer = document.getElementById('infoContainer');
             infoContainer.style.display = 'block';
 
-            var delButton = document.getElementById('delTrack');
-            delButton.addEventListener("click",  ()=>{
-                map.removeLayer(trackLayer);
-                map.setView([42.69, 23.32], 13);
-
-                infoContainer.style.display = 'none';
-
-                document.getElementById("inputGroupFile04").value = null;
-                document.getElementById('inputLabel').textContent = 'Choose file';
-
-                dist.readOnly=false;
-                asc.readOnly=false;
-
-            })
+            
         };
         reader.readAsText(selectedFile);
 
