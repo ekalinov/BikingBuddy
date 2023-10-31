@@ -8,6 +8,6 @@ public class UploadGPXFileViewModel
     public string EventId { get; set; } = null!;
      
     [Display(Name = "Upload one or more tracks for your event")]
-    public IFormFileCollection? EventTracks { get; set; }
+    public IFormFile? EventTrackFile { get; set; }
     
 }

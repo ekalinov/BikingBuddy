@@ -15,8 +15,7 @@
 
             EventComments = new HashSet<Comment>();
             EventsParticipants = new HashSet<EventParticipants>(); 
-            GalleryPhotos = new HashSet<EventGalleryPhoto>();
-            Tracks = new HashSet<EventTrack>();
+            GalleryPhotos = new HashSet<EventGalleryPhoto>(); 
         }
 
 
@@ -68,6 +67,6 @@
 
         public virtual EventLocation? EventLocation { get; set; }
 
-        public virtual ICollection<EventTrack>? Tracks { get; set; }
+        public virtual EventTrack? EventTrack{ get; set; }
     }
 }

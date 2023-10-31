@@ -77,7 +77,6 @@ namespace BikingBuddy.Web.Controllers
             return View(addEventModel);
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(AddEventViewModel model)
@@ -87,20 +86,9 @@ namespace BikingBuddy.Web.Controllers
                 ModelState.AddModelError((string)"EventImage", MaxPhotoSizeAllowedErrorMessage);
             }
 
-            if (model.EventTracks != null && model.EventTracks.Count > 0)
+            if (model.EventTrackFile is { Length: >= MaxTrackSizeAllowed })
             {
-                foreach (var track in model.EventTracks)
-                {
-                    if (track.Length > MaxTrackSizeAllowed)
-                    {
-                        ModelState.AddModelError((string)"TrackSize", MaxTrackFileSizeAllowedErrorMessage);
-                    }
-
-                    if (Path.GetExtension(track.FileName).ToLower() != ".gpx")
-                    {
-                        ModelState.AddModelError((string)"EventTracks", NotAllowedTrackFileFormatErrorMessage);
-                    }
-                }
+                ModelState.AddModelError((string)"TrackSize", MaxTrackFileSizeAllowedErrorMessage);
             }
 
 
@@ -164,7 +152,6 @@ namespace BikingBuddy.Web.Controllers
             return View(queryModel);
         }
 
-
         //Update
 
         [HttpGet]
@@ -189,7 +176,6 @@ namespace BikingBuddy.Web.Controllers
             editAddEvent.CountriesCollection = await service.GetCountriesAsync();
             return View(editAddEvent);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -286,7 +272,6 @@ namespace BikingBuddy.Web.Controllers
             return RedirectToAction("All", "Event", new { area = "Administration" });
         }
 
-
         public async Task<IActionResult> Join(string eventId)
         {
             if (await service.IsParticipating(eventId, User.GetId()))
@@ -343,7 +328,6 @@ namespace BikingBuddy.Web.Controllers
             return RedirectToAction("All", "Event");
         }
 
-
         public async Task<IActionResult> Mine([FromQuery] AllEventsQueryModel queryModel)
         {
             AllEventsFilteredAndPagedServiceModel serviceModel = await service.MineAsync(queryModel, User.GetId());
@@ -383,24 +367,17 @@ namespace BikingBuddy.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UploadGPXFiles(UploadGPXFileViewModel model)
-        { 
-            
-            if (model.EventTracks is { Count: > 0 })
+        {
+            if (model.EventTrackFile is { Length: > MaxTrackSizeAllowed })
             {
-                foreach (var track in model.EventTracks)
+                ModelState.AddModelError((string)"TrackSize", MaxTrackFileSizeAllowedErrorMessage);
+ 
+                if (Path.GetExtension(model.EventTrackFile.FileName).ToLower() != ".gpx")
                 {
-                    if (track.Length > MaxTrackSizeAllowed)
-                    {
-                        ModelState.AddModelError((string)"TrackSize", MaxTrackFileSizeAllowedErrorMessage);
-                    }
-
-                    if (Path.GetExtension(track.FileName).ToLower() != ".gpx")
-                    {
-                        ModelState.AddModelError((string)"EventTracks", NotAllowedTrackFileFormatErrorMessage);
-                    }
+                    ModelState.AddModelError((string)"EventTracks", NotAllowedTrackFileFormatErrorMessage);
                 }
             }
-  
+
             try
             {
                 await service.UploadGPXFiles(model);
@@ -408,10 +385,10 @@ namespace BikingBuddy.Web.Controllers
             }
             catch (Exception)
             {
-                TempData[ErrorMessage] = UploadGpxFileError;    
+                TempData[ErrorMessage] = UploadGpxFileError;
             }
 
-            return RedirectToAction("Details",  new{model.EventId});
+            return RedirectToAction("Details", new { model.EventId });
         }
     }
 }

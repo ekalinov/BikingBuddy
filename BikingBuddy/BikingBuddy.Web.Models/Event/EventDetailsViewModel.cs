@@ -12,8 +12,7 @@ namespace BikingBuddy.Web.Models.Event
         {
             EventsParticipants = new HashSet<UserViewModel>();
             EventComments = new HashSet<CommentViewModel>();
-            GalleryPhotosModels = new List<GalleryPhotoModel>();
-            EventTracks = new List<EventTrack>();
+            GalleryPhotosModels = new List<GalleryPhotoModel>(); 
         }
 
         public string OrganizerName { get; set; } = null!;
@@ -28,8 +27,8 @@ namespace BikingBuddy.Web.Models.Event
         public ICollection<CommentViewModel> EventComments { get; set; }
 
         public ICollection<UserViewModel> EventsParticipants { get; set; }
-        
-        
-        public ICollection<EventTrack> EventTracks { get; set; }
+
+
+        public EventTrack? EventTrack { get; set; } 
     }
 }
