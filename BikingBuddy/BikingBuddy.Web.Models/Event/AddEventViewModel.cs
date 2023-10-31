@@ -1,4 +1,5 @@
 ﻿using BikingBuddy.Common.Enums;
+using BikingBuddy.Data.Models;
 
 namespace BikingBuddy.Web.Models.Event
 {
@@ -15,7 +16,7 @@ namespace BikingBuddy.Web.Models.Event
         {
             ActivityTypes = new HashSet<ActivityTypeViewModel>();
             CountriesCollection = new HashSet<CountryViewModel>();
-            GalleryPhotosModels = new List<GalleryPhotoModel>();
+            GalleryPhotosModels = new List<GalleryPhotoModel>(); 
         }
 
 
@@ -74,7 +75,10 @@ namespace BikingBuddy.Web.Models.Event
         public Currencies Currency { get; set; }
         
         [Display(Name = "Upload one or more tracks for your event")]
-        public IFormFileCollection? EventTracks { get; set; }
+        public IFormFile? EventTrackFile { get; set; }
+        
+        public EventTrack? EventTrack { get; set; }
+
     }
     
 } 

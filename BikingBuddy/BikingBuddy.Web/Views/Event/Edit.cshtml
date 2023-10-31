@@ -11,220 +11,222 @@
 <hr/>
 
 <div class="row">
-    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-        <form asp-action="Edit" enctype="multipart/form-data" method="post">
-              @Html.AntiForgeryToken()
-               <div id="accordion">
-                   <div class="card mb-3">
-                       <div class="card-header" id="headingOne">
-                           <h5 class="mb-0">
-                               <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                   <h2>Event Info</h2>
-                               </button>
-                           </h5>
-                       </div>
-           
-                       <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                           <div class="card-body">
-                               <div class="row">
-                                   <div class="col-6 mb-3">
-                                       <label asp-for="@Model.Title" class="form-label-add-edit">Name</label>
-                                       <input asp-for="@Model.Title" class="form-control" aria-required="true"/>
-                                       <span asp-validation-for="@Model.Title" class="text-danger"></span>
-                                   </div>
-                                   <div class="col-3 mb-3">
-                                       <label asp-for="@Model.Date" class="form-label-add-edit">Start</label>
-                                       <input type="datetime-local" asp-for="@Model.Date" class="form-control" aria-required="true"/>
-                                       <span asp-validation-for="@Model.Date" class="text-danger"></span>
-                                   </div>
-                                   <div class="col-3 mb-3">
-                                       <label asp-for="@Model.ActivityTypeId" class="form-label-add-edit">Type of event</label>
-                                       <select asp-for="@Model.ActivityTypeId" class="form-control" aria-required="true">
-                                           @foreach (var type in Model.ActivityTypes)
-                                           {
-                                               <option value="@type.Id">@type.ActivityTypeName</option>
-                                           }
-                                       </select>
-                                       <span asp-validation-for="@Model.ActivityTypes" class="text-danger"></span>
-                                   </div>
-                               </div>
-           
-                               <div class="mb-3">
-                                   <label asp-for="@Model.Description" class="form-label-add-edit">Description</label>
-                                   <textarea asp-for="@Model.Description" class="form-control" aria-required="true" rows="5"></textarea>
-                                   <span asp-validation-for="Description" class="text-danger"></span>
-                               </div>
-                               <div class="row" style="margin-right:0px; margin-left:0px; justify-content: space-between">
-           
-                               </div>
-           
-                           </div>
-                       </div>
-                   </div>
-           
-           
-                   <div class="card mb-3">
-                       <div class="card-header" id="headingTwo">
-                           <h5 class="mb-0">
-                               <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                                   <h2>Location</h2>
-                               </button>
-                           </h5>
-                       </div>
-           
-                       <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
-                           <div class="card-body">
-                               <div class="row" style="margin-right:0px; margin-left:0px; justify-content: space-between">
-                                   <div class="mb-3">
-                                       <label asp-for="@Model.TownName" class="form-label-add-edit">Town</label>
-                                       <input asp-for="@Model.TownName" class="form-control" aria-required="true"/>
-                                       <span asp-validation-for="@Model.TownName" class="text-danger"></span>
-                                   </div>
-                                   <div class="mb-3">
-                                       <label asp-for="@Model.CountriesCollection" class="form-label-add-edit">Country</label>
-                                       <select asp-for="@Model.CountryId" class="form-control" aria-required="true">
-                                           @foreach (var type in Model.CountriesCollection)
-                                           {
-                                               <option value="@type.Id">@type.Name</option>
-                                           }
-                                       </select>
-                                       <span asp-validation-for="@Model.CountryId" class="text-danger"></span>
-                                   </div>
-                               </div>
-                               <hr/>
-                               <div class="row" style="margin-right:0px; margin-left:0px; justify-content: space-between">
-                                   <div class="mb-3 pr-1">
-                                       <label asp-for="@Model.Distance" class="form-label">Distance</label>
-                                       <input type="text" asp-for="@Model.Distance" class="form-control" id="dist"/>
-                                       <span asp-validation-for="@Model.Distance" class="text-danger"></span>
-                                   </div>
-                                   <div class="mb-3 pr-1 pl-1">
-                                       <label asp-for="@Model.Ascent" class="form-label">Ascent</label>
-                                       <input type="text" asp-for="@Model.Ascent" class="form-control" id="pos"/>
-                                       <span asp-validation-for="@Model.Ascent" class="text-danger"></span>
-                                   </div>
-                                   <div class="mb-3">
-                                       <label asp-for="Latitude"></label>
-                                       <input asp-for="Latitude" class="form-control" id="latitude">
-                                       <span asp-validation-for="Latitude" class="small text-danger"></span>
-                                   </div>
-                                   <div class="mb-3">
-                                       <label asp-for="Longitude"></label>
-                                       <input asp-for="Longitude" class="form-control" id="longitude">
-                                       <span asp-validation-for="Longitude" class="small text-danger"></span>
-                                       
-                                       <p style="display:none ;" id="gpxFileName"> @Model.Tracks[0].FileName </p>
-                                       <p style="display:none ;" id="gpxGpx">@Model.Tracks[0].GPXContent </p>
-                                   </div>
-                               </div>
-                               
-                               <div class="mb-3" id="map"></div>
-           
-                               <div class="row">
-           
-                                   <div class="col-6 mb-3">
-                                       <label class="form-label-add-edit">Upload tracks <span class="font-italic">(.gpx)</span></label>
-                                       <div class="custom-file">
-                                           <input asp-for="@Model.EventTracks" class="custom-file-input" id="inputFile_gpx" aria-describedby="inputGroupFileAddon01" accept=".gpx"/>
-                                           <label class="custom-file-label" id="inputLabel">Choose files</label>
-                                           <span asp-validation-for="EventTracks" class="text-danger"></span>
-                                       </div>
-                                   </div>
-                                   <div class="col-6 mb-3" id="infoContainer" style="display: none">
-                                       <p> Info: </p>
-                                       <p id="trackName"></p>
-                                       <a class="text-danger font-italic" id="delTrack"> Delete</a>
-           
-                                   </div>
-           
-           
-                               </div>
-           
-                           </div>
-                       </div>
-                   </div>
-                   <div class="card mb-3">
-                       <div class="card-header" id="headingThree">
-                           <h5 class="mb-0">
-                               <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-                                   <h2>Event Photos</h2>
-                               </button>
-                           </h5>
-                       </div>
-                       <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordion">
-                           <div class="card-body">
-                               <div class="mb-3">
-                                   <label class="form-label-add-edit">Select File for event cover photo <span class="font-italic">(.jpg, .jpeg, .png)</span></label>
-                                   <div class="custom-file">
-                                       <input asp-for="@Model.EventImage" class="custom-file-input" id="inputFile_EventImage" aria-describedby="inputGroupFileAddon01"/>
-                                       <label class="custom-file-label">Choose file</label>
-                                   </div>
-                                   <span asp-validation-for="@Model.EventImage" class="text-danger"></span>
-                                   <span asp-validation-for="@Model.FileName" class="text-danger"></span>
-                               </div>
-                               <div class="mb-3">
-                                   <label class="form-label-add-edit">Select Photos for your Event Gallery <span class="font-italic">(.jpg, .jpeg, .png)</span></label>
-                                   <div class="custom-file">
-                                       <input asp-for="@Model.GalleryPhotos" class="custom-file-input" id="inputFile_GalleryPhotos" aria-describedby="inputGroupFileAddon01"/>
-                                       <label class="custom-file-label">Choose files</label>
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
-                   </div>
-                   <div class="card mb-3">
-                       <div class="card-header" id="headingFour">
-                           <h5 class="mb-0">
-                               <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseThree">
-                                   <h2>Organization Fee</h2>
-                               </button>
-                           </h5>
-                       </div>
-           
-                       <div id="collapseFour" class="collapse show" aria-labelledby="headingFour" data-parent="#accordion">
-                           <div class="card-body">
-                               <div class="row">
-                                   <div class="mb-3">
-                                       <input type="checkbox" value="" id="isFreeEvent" style="-webkit-appearance: checkbox;" checked>
-                                       <label class="form-check-label" for="isFreeEvent">
-                                           Free Event
-                                       </label>
-                                   </div>
-                                   <div class="mb-3">
-                                       <label asp-for="@Model.Price" class="form-label">Organization Fee</label>
-                                       <input type="text" asp-for="@Model.Price" class="form-control" placeholder="Event Fee" id="priceInput"/>
-                                       <span asp-validation-for="@Model.Price" class="text-danger"></span>
-                                   </div>
-                                   <div class="mb-3">
-                                       <div class="mb-3">
-                                           <label asp-for="@Model.Currency" class="form-label-add-edit">Currency</label>
-                                           <select asp-for="@Model.Currency" class="form-control" aria-required="true">
-                                               <option value="0">BGN</option>
-                                               <option value="1">Euro</option>
-                                               <option value="2">USD</option>
-                                           </select>
-                                           <span asp-validation-for="@Model.Currency" class="text-danger"></span>
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
-                   </div>
-               </div>
-            <div class="mb-3">
-                <input class="btn btn-warning mb-2 w-100 p-3 fw-bold"
-                       type="submit"
-                       asp-route-eventId="@Model.EventId"
-                       asp-route-OrganiserId="@Model.OrganiserId"
-                       value="Edit"/>
+<div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+<form asp-action="Edit" enctype="multipart/form-data" method="post">
+@Html.AntiForgeryToken()
+<div id="accordion">
+    <div class="card mb-3">
+        <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    <h2>Event Info</h2>
+                </button>
+            </h5>
+        </div>
+
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <label asp-for="@Model.Title" class="form-label-add-edit">Name</label>
+                        <input asp-for="@Model.Title" class="form-control" aria-required="true"/>
+                        <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                    </div>
+                    <div class="col-3 mb-3">
+                        <label asp-for="@Model.Date" class="form-label-add-edit">Start</label>
+                        <input type="datetime-local" asp-for="@Model.Date" class="form-control" aria-required="true"/>
+                        <span asp-validation-for="@Model.Date" class="text-danger"></span>
+                    </div>
+                    <div class="col-3 mb-3">
+                        <label asp-for="@Model.ActivityTypeId" class="form-label-add-edit">Type of event</label>
+                        <select asp-for="@Model.ActivityTypeId" class="form-control" aria-required="true">
+                            @foreach (var type in Model.ActivityTypes)
+                            {
+                                <option value="@type.Id">@type.ActivityTypeName</option>
+                            }
+                        </select>
+                        <span asp-validation-for="@Model.ActivityTypes" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="@Model.Description" class="form-label-add-edit">Description</label>
+                    <textarea asp-for="@Model.Description" class="form-control" aria-required="true" rows="5"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="row" style="margin-right:0px; margin-left:0px; justify-content: space-between">
+
+                </div>
+
             </div>
-        </form>
+        </div>
     </div>
+
+
+    <div class="card mb-3">
+        <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+                <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    <h2>Location</h2>
+                </button>
+            </h5>
+        </div>
+
+        <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+            <div class="card-body">
+                <div class="row" style="margin-right:0px; margin-left:0px; justify-content: space-between">
+                    <div class="mb-3">
+                        <label asp-for="@Model.TownName" class="form-label-add-edit">Town</label>
+                        <input asp-for="@Model.TownName" class="form-control" aria-required="true"/>
+                        <span asp-validation-for="@Model.TownName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="@Model.CountriesCollection" class="form-label-add-edit">Country</label>
+                        <select asp-for="@Model.CountryId" class="form-control" aria-required="true">
+                            @foreach (var type in Model.CountriesCollection)
+                            {
+                                <option value="@type.Id">@type.Name</option>
+                            }
+                        </select>
+                        <span asp-validation-for="@Model.CountryId" class="text-danger"></span>
+                    </div>
+                </div>
+                <hr/>
+                <div class="row" style="margin-right:0px; margin-left:0px; justify-content: space-between">
+                    <div class="mb-3 pr-1">
+                        <label asp-for="@Model.Distance" class="form-label">Distance</label>
+                        <input type="text" asp-for="@Model.Distance" class="form-control" id="dist"/>
+                        <span asp-validation-for="@Model.Distance" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 pr-1 pl-1">
+                        <label asp-for="@Model.Ascent" class="form-label">Ascent</label>
+                        <input type="text" asp-for="@Model.Ascent" class="form-control" id="pos"/>
+                        <span asp-validation-for="@Model.Ascent" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Latitude"></label>
+                        <input asp-for="Latitude" class="form-control" id="latitude">
+                        <span asp-validation-for="Latitude" class="small text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Longitude"></label>
+                        <input asp-for="Longitude" class="form-control" id="longitude">
+                        <span asp-validation-for="Longitude" class="small text-danger"></span>
+                        @if (Model.EventTrack != null)
+                        {
+                            <p style="display:none ;" id="gpxFileName"> @Model.EventTrack.FileName </p>
+                            <p style="display:none ;" id="gpxGpx">@Model.EventTrack.GPXContent </p>
+                        }
+                    </div>
+                </div>
+
+                <div class="mb-3" id="map"></div>
+
+                <div class="row">
+
+                    <div class="col-6 mb-3">
+                        <label class="form-label-add-edit">Upload tracks <span class="font-italic">(.gpx)</span></label>
+                        <div class="custom-file">
+                            <input asp-for="@Model.EventTrackFile" class="custom-file-input" id="inputFile_gpx" aria-describedby="inputGroupFileAddon01" accept=".gpx"/>
+                            <label class="custom-file-label" id="inputLabel">Choose files</label>
+                            <span asp-validation-for="EventTrackFile" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-3" id="infoContainer" style="display: none">
+                        <p> Info: </p>
+                        <p id="trackName"></p>
+                        <a class="text-danger font-italic" id="delTrack"> Delete</a>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="card mb-3">
+        <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+                <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                    <h2>Event Photos</h2>
+                </button>
+            </h5>
+        </div>
+        <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordion">
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label-add-edit">Select File for event cover photo <span class="font-italic">(.jpg, .jpeg, .png)</span></label>
+                    <div class="custom-file">
+                        <input asp-for="@Model.EventImage" class="custom-file-input" id="inputFile_EventImage" aria-describedby="inputGroupFileAddon01"/>
+                        <label class="custom-file-label">Choose file</label>
+                    </div>
+                    <span asp-validation-for="@Model.EventImage" class="text-danger"></span>
+                    <span asp-validation-for="@Model.FileName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label-add-edit">Select Photos for your Event Gallery <span class="font-italic">(.jpg, .jpeg, .png)</span></label>
+                    <div class="custom-file">
+                        <input asp-for="@Model.GalleryPhotos" class="custom-file-input" id="inputFile_GalleryPhotos" aria-describedby="inputGroupFileAddon01"/>
+                        <label class="custom-file-label">Choose files</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-3">
+        <div class="card-header" id="headingFour">
+            <h5 class="mb-0">
+                <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseThree">
+                    <h2>Organization Fee</h2>
+                </button>
+            </h5>
+        </div>
+
+        <div id="collapseFour" class="collapse show" aria-labelledby="headingFour" data-parent="#accordion">
+            <div class="card-body">
+                <div class="row">
+                    <div class="mb-3">
+                        <input type="checkbox" value="" id="isFreeEvent" style="-webkit-appearance: checkbox;" checked>
+                        <label class="form-check-label" for="isFreeEvent">
+                            Free Event
+                        </label>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="@Model.Price" class="form-label">Organization Fee</label>
+                        <input type="text" asp-for="@Model.Price" class="form-control" placeholder="Event Fee" id="priceInput"/>
+                        <span asp-validation-for="@Model.Price" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <div class="mb-3">
+                            <label asp-for="@Model.Currency" class="form-label-add-edit">Currency</label>
+                            <select asp-for="@Model.Currency" class="form-control" aria-required="true">
+                                <option value="0">BGN</option>
+                                <option value="1">Euro</option>
+                                <option value="2">USD</option>
+                            </select>
+                            <span asp-validation-for="@Model.Currency" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mb-3">
+    <input class="btn btn-warning mb-2 w-100 p-3 fw-bold"
+           type="submit"
+           asp-route-eventId="@Model.EventId"
+           asp-route-OrganiserId="@Model.OrganiserId"
+           value="Edit"/>
+</div>
+</form>
+</div>
 </div>
 
 
 @section Scripts {
-    
+
     <script src="/js/AddEditScripts.js"></script>
     <partial name="_ValidationScriptsPartial"/>
 }

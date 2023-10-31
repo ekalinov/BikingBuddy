@@ -101,8 +101,10 @@ $('#inputFile_EventImage').on('change',function(){
 })
 
 
-//
-
+// 
+if (document.getElementById('gpxGpx')!=null && document.getElementById('gpxFileName') ){
+    
+    
 var gpxContent = document.getElementById('gpxGpx').innerText;
 
 var trackLayer = new L.GPX(gpxContent, {async: true}).on('loaded', function (e) {
@@ -123,16 +125,25 @@ var asc = document.getElementById('pos');
 var dist =  document.getElementById('dist');
 
 
+}
 
 var delButton = document.getElementById('delTrack');
 delButton.addEventListener("click",  ()=>{
+    var trackLayer = new L.GPX(gpxContent, {async: true}).on('loaded', function (e) {
+        map.fitBounds(e.target.getBounds());
+    });
+    
     map.removeLayer(trackLayer);
     map.setView([42.69, 23.32], 13);
 
+    var infoContainer = document.getElementById('infoContainer');
     infoContainer.style.display = 'none';
 
     document.getElementById("inputFile_gpx").value = null;
     document.getElementById('inputLabel').textContent = 'Choose file';
+
+    var asc = document.getElementById('pos');
+    var dist =  document.getElementById('dist');
     
     dist.value =0;
     asc.value =0;
@@ -161,6 +172,10 @@ fileInput.addEventListener('change', (event) => {
 
             var eleProfile = gpx.calculDistance(points);
             var track = gpx.calcElevation(points);
+
+
+            var asc = document.getElementById('pos');
+            var dist =  document.getElementById('dist');
  
             dist.value = (eleProfile.total/1000).toFixed(3);
             asc.value = Math.floor(track.pos);
@@ -168,7 +183,7 @@ fileInput.addEventListener('change', (event) => {
             dist.readOnly=true;
             asc.readOnly=true;
 
-            var trackLayer = new L.GPX(fileContent, {async: true}).on('loaded', function (e) {
+             new L.GPX(fileContent, {async: true}).on('loaded', function (e) {
                 map.fitBounds(e.target.getBounds());
             }).addTo(map);
 

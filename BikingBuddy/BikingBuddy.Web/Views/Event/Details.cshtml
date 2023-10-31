@@ -193,31 +193,35 @@
     <div class="card-body">
         <h3 class="card-title text-center">@Model.Title</h3>
 
-        <div>
+
+        <h5 class="fw-bold"> Event Description: </h5>
+        <div class="mt-1">
+            <p>
+                @Model.Description
+            </p>
 
             @if (Model.GalleryPhotosModels.Any())
             {
                 <div class="float-right"
                      style="
-                                      width: 500px;
-                                      margin: 10px 30px;">
+                            width: 500px;
+                            margin: 10px 30px;">
 
                     @await Html.PartialAsync("_GalleryPhotosPartial", Model.GalleryPhotosModels)
                 </div>
             }
-
-            <p class="mt-1">
-                <h5 class="fw-bold"> Event Description: </h5> <span> @Model.Description </span>
-            </p>
         </div>
 
+        </div>
         <hr/>
+        
+        
+        
 
-
-        <div class="">
+<div class="card-body">
             <h5>Track info: </h5>
             <br>
-            @if (!Model.EventTracks.Any())
+            @if (Model.EventTrack == null)
             {
                 <p> No track info for this event, yet! </p>
                 if (isOrganiser)
@@ -259,12 +263,12 @@
             }
             else
             {
-                @await Html.PartialAsync("_GPXTrackAndProfilePartial", Model.EventTracks.First())
+                @await Html.PartialAsync("_GPXTrackAndProfilePartial", Model.EventTrack)
             }
         </div>
 
         <hr/>
-
+<div class="card-body">
         <div class="row">
             <div class="col-6">
                 @await Html.PartialAsync("_AllCommentsPartial", Model.EventComments, dictionary)

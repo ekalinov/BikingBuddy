@@ -8,9 +8,9 @@
         <div class="mb-3">
             <label class="form-label-add-edit">Upload tracks <span class="font-italic">(.gpx)</span></label>
             <div class="custom-file">
-                <input asp-for="@Model.EventTracks" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon01"/>
+                <input asp-for="@Model.EventTrackFile" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon01" accept=".gpx"/>
                 <label class="custom-file-label">Choose files</label>
-                <span asp-validation-for="EventTracks" class="text-danger"></span>
+                <span asp-validation-for="EventTrackFile" class="text-danger"></span>
             </div>
         </div>  
     </div>
