@@ -155,7 +155,7 @@ There is an Administration Area in the project and Common Layer for Authenticate
 
 <h2>Database</h2>
 
- ![BikeBuddyDb](https://github.com/ekalinov/BikingBuddy/assets/106105805/478feb8d-28b3-45a0-b4a8-c6760d898c29)
+![BikeBuddyDb](https://github.com/ekalinov/BikingBuddy/assets/106105805/b95c4069-6c55-438b-952e-d74183173483)
 
 <h2>Authentication flow</h2>
 <h3>Register Page</h3>
