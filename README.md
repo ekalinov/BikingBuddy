@@ -111,6 +111,7 @@ There is an Administration Area in the project and Common Layer for Authenticate
     <li>Can Join/Leave events.</li>
     <li>Can Create events.</li>
     <li>Can Edit or Delete their events.</li>
+    <li>Can upload .GPX File with track info for their events.</li>  
     <li>Can Cad add Gallery Photos.</li>
     <li>Can comment on events page.</li>
     <li>Can can see other participants in events where they also participate.</li>
@@ -177,13 +178,18 @@ There is an Administration Area in the project and Common Layer for Authenticate
 
  ![localhost_7194_User_Edit](https://github.com/ekalinov/BikingBuddy/assets/106105805/c9aef5d4-839b-4256-aed5-0eedd1f01085)
 
-<h3>All Events Page</h3> 
+<h3>All Events Page</h3>  with tabs for Track Info/Comments/Participants
 
- ![localhost_7194_Event_All_currentPage=2 sorting=0 (1)](https://github.com/ekalinov/BikingBuddy/assets/106105805/76b0c70f-8806-4e2a-8780-0ffaf76f5a76)
+![localhost_7194_Event_Details_eventId=5BA2C5B5-1DF9-4252-8F38-59AEA44C18DB (3)](https://github.com/ekalinov/BikingBuddy/assets/106105805/58dd1de6-55ff-4fb7-9fb1-04efd46fbd5c)
 
-<h3>Event Details Page (For Admin)</h3> 
+<h3>Modal </h3>  For meeting point detailed map
 
-![localhost_7194_Event_Details_eventId=2C84A868-7FC4-44A6-9226-F8BE5A270BCA](https://github.com/ekalinov/BikingBuddy/assets/106105805/6b48653b-096f-47dd-a08d-7e9c900f1905)
+![image](https://github.com/ekalinov/BikingBuddy/assets/106105805/99befb49-237a-49ce-9cde-27463048f416)
+
+<h3>Add/Edit Event Page </h3> 
+With colapsable elements, Leaflet map, autofill track info with JS
+
+![localhost_7194_Event_Edit_eventId=5BA2C5B5-1DF9-4252-8F38-59AEA44C18DB (1)](https://github.com/ekalinov/BikingBuddy/assets/106105805/50b90bf9-6c0f-46c7-a7a5-8480e8b3fae0)
 
 <h3>Team details Page</h3> 
 
@@ -278,12 +284,12 @@ email: admin@bbuddy.com
 * [x] User can participate in only one club.
 * [x] Delete users are not allowed to login.
 * [ ] Add caching to all events and teams. 
-* [ ] Add Location on map .
+* [x] Add Location on map .
 * [ ] Add info container on All Teams/Events pages.
-* [ ] Events can be free and paid.
-* [ ] Event organizer to add .gpx file for the event, if want.
+* [x] Events can be free and paid.
+* [x] Event organizer to add .gpx file for the event, if want.
 * [ ] Participants to be able to download .gpx file of the event if there is such.
-* [ ] Visualize .gpx track on the event details page.
+* [x] Visualize .gpx track on the event details page.
 * [ ] Show forecast for the event location in details.
 
       
