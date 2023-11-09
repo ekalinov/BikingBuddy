@@ -302,7 +302,7 @@ email: admin@bbuddy.com
 
 Emilian Kalinov - [LinkedIn](https://www.linkedin.com/in/emilian-kalinov-2241b1230/) 
 
-Project Link: [MyGymWorld](https://github.com/ekalinov/BikingBuddy)
+Project Link: [BikingBuddy](https://github.com/ekalinov/BikingBuddy)
 
 <hr />
 
